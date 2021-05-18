@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRow, IonImg, IonLabel, IonButton, IonFab, IonFabButton, IonIcon, IonList, IonText, IonAvatar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRow, IonImg, IonLabel, IonButton, IonInput, IonFab, IonFabButton, IonIcon, IonItem, IonList, IonText, IonAvatar } from '@ionic/react';
 import './ProfilePage.css';
 
 import React, { Component } from 'react';
@@ -12,7 +12,7 @@ const { Camera } = Plugins;
 //const windowHeight = Dimensions.get('window').height;
 
 const INITIAL_STATE = {
-  photo: '',
+  photo: 'http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png',
 };
 
 export class ProfilePage extends Component {
@@ -38,6 +38,8 @@ export class ProfilePage extends Component {
     })
   }
 
+
+
   async upgrade(){
       // send to upgrading page OR external website
   }
@@ -57,28 +59,48 @@ export class ProfilePage extends Component {
             </IonToolbar>
         </IonHeader>
 
-        <IonContent className="profilePage">
-            <IonAvatar></IonAvatar>
+        <IonContent className="profilePage">            
+            {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}             
             
-            {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}
-            <img style={{height: 150, width: 150, borderRadius: 30}} src={photo} ></img>
+            <IonList>
+              <IonItem lines="none">
+                <img style={{height: 150, width: 150, borderRadius: 30}} src={photo} ></img>
+              </IonItem>
+              <IonItem lines="none">
+                <IonButton color="light" size="small" onClick={() => this.takePicture()}>Change Profile Picture</IonButton>
+              </IonItem>
+              <IonItem>
+                <IonLabel>First Name</IonLabel>
+                <IonInput></IonInput>
+              </IonItem>
 
-            <IonButton color="light" size="small" onClick={() => this.takePicture()}>Change Picture</IonButton>
-                    
-            
-        
-            <IonAvatar></IonAvatar>
-            <text style={{left: 100}}>First Name</text>
-            <text> </text>
-            <text>Last Name</text>
+              <IonItem>
+                <IonLabel>Last Name</IonLabel>
+                <IonInput></IonInput>
+              </IonItem>
 
-            <IonText>
-                <h5>Your Accessbility Level: {level}</h5>
-            </IonText>
+              <IonItem>
+                <IonLabel>Birthday</IonLabel>
+                <IonInput></IonInput>
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Neighborhood</IonLabel>
+                <IonInput></IonInput>
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Accessbility Level: {level}</IonLabel>
+              </IonItem>
+            </IonList>
+           
             <IonButton color="light" size="small" onClick={() => this.upgrade()}>Press Here to Upgrade Your Accessbility</IonButton>
 
-
+            <IonAvatar></IonAvatar>
+            <IonAvatar></IonAvatar>
             
+            <IonButton color="primary" size="small">Submit</IonButton>
+            <IonButton color="danger" size="small">Cancel</IonButton> 
             
         </IonContent>
       </IonPage >
@@ -87,7 +109,6 @@ export class ProfilePage extends Component {
 }
 
 export default ProfilePage;
-
 
 // Source: https://enappd.com/blog/camera-and-gallery-in-ionic-react-app-using-capacitor/110/
 
