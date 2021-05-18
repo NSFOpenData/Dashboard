@@ -1,22 +1,25 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRow, IonImg, IonFab, IonFabButton, IonIcon } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
 
+import React, { Component } from 'react';
+
 const Tab2: React.FC = () => {
   return (
+    
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 2</IonTitle>
+          <IonRow>
+            <IonTitle></IonTitle>
+            <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+            <IonTitle></IonTitle>
+          </IonRow>
         </IonToolbar>
       </IonHeader>
+
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 2 page" />
+        <IonTitle>babo</IonTitle>
       </IonContent>
     </IonPage>
   );

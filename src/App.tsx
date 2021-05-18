@@ -9,13 +9,15 @@ import {
   IonTabs,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import { ellipse, ellipsisHorizontalCircleOutline, homeOutline, personCircleOutline, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
+
+import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 
 /* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';
@@ -32,6 +34,15 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+/* Sub Pages */
+import React from 'react';
+import TrafficDashboard from './pages/TrafficDashboard';
+import DeliveryDashboard from './pages/DeliveryDashboard';
+import LicenseDashboard from './pages/LicenseDashboard';
+import AnimalDashboard from './pages/AnimalDashboard';
+import ExtendedDateAndTime from './pages/subpages/ExtendedDateAndTime';
+import ProfilePage from './pages/ProfilePage'
 
 const App: React.FC = () => (
   <IonApp>
@@ -50,21 +61,48 @@ const App: React.FC = () => (
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
+          <Route path="/profilePage">
+            <ProfilePage />
+          </Route>
+
+          {/* Dashboard Pages */}
+          <Route path="/trafficDashboard">
+            <TrafficDashboard />
+          </Route>
+          <Route path="/licenseDashboard">
+            <LicenseDashboard />
+          </Route>
+          <Route path="/deliveryDashboard">
+            <DeliveryDashboard />
+          </Route>
+          <Route path="/animalDashboard">
+            <AnimalDashboard />
+          </Route>
+
+          {/* Advanced Time Setting Page */}
+          <Route path="/extendedDateAndTime">
+            <ExtendedDateAndTime />
+          </Route>
+
+
+          
         </IonRouterOutlet>
+
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
+            <IonIcon icon={homeOutline} />
+            <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
+          <IonTabButton tab="tab2" href="/profilePage">
+            <IonIcon icon={personCircleOutline} />
+            <IonLabel>Profile</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={square} />
-            <IonLabel>Tab 3</IonLabel>
+            <IonIcon icon={ellipsisHorizontalCircleOutline} />
+            <IonLabel>Setting</IonLabel>
           </IonTabButton>
         </IonTabBar>
+
       </IonTabs>
     </IonReactRouter>
   </IonApp>

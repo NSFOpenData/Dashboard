@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "Dashboard Design",
+  "appName": "com.dashboard-design.app",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
