@@ -1,17 +1,26 @@
 
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton } from '@ionic/react';
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './TrafficDashboard.css';
 import ExtendedDateAndTime from '../pages/subpages/ExtendedDateAndTime';
 
+
+/* Reactive Map */
+import { ReactiveBase, SingleList } from '@appbaseio/reactivesearch';
+import { ReactiveGoogleMap } from '@appbaseio/reactivemaps';
+
+
 /* Mobiscrall */
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { Datepicker, Input, Page, setOptions } from '@mobiscroll/react';
+import { render } from '@testing-library/react';
 setOptions({
   theme: 'ios',
   themeVariant: 'light'
 });
+
+
 
 /* Important Components */
 //import { DatePickerModule } from 'ionic-calendar-date-picker';
@@ -22,6 +31,7 @@ const TrafficDashboard: React.FC = () => {
   const [start, startRef] = React.useState<any>(null);
   const [end, endRef] = React.useState<any>(null);
 
+  
   return (
     <IonPage>
       <IonHeader>
@@ -55,8 +65,6 @@ const TrafficDashboard: React.FC = () => {
             <IonRow>
               <IonButton color="light" size="small" routerLink={"/extendedDateAndTime1"}>Click Here for Advanced Time Setting</IonButton>
             </IonRow>
-            
-
           </IonTitle>
 
           <IonTitle>
@@ -69,6 +77,43 @@ const TrafficDashboard: React.FC = () => {
             <IonText>
               <h5>Street:</h5>
             </IonText>
+
+            <ReactiveBase
+              app="earthquake"
+              credentials="OrXIHcgHn:d539c6e7-ed14-4407-8214-c227b0600d8e"
+              type="places"
+              mapKey="AIzaSyCgg0n0UKXaBeq7ve2VVK2qPF8SxcawIxU"
+            >
+              <div
+                style={{
+                  width: '100%', 
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between'
+                }}
+              >
+                {/*<SingleList
+                  title="Places"
+                  componentId="places"
+                  dataField="place.raw"
+                  size={50}
+                  showSearch={true}
+                />*/}
+
+                <ReactiveGoogleMap
+                  componentId="map"
+                  dataField="location"
+                  react={{
+                    and: "places"
+                  }}
+                  // for the earthquake magnitude value --> we can use this function to 
+                  // maybe display other sort of data (i.e. # of pets missing, auto-theft rate, etc.)
+                  renderData={(result: { mag: any; }) => ({
+                    label: result.mag
+                  })}
+                />
+              </div>
+            </ReactiveBase>
           </IonTitle>
          
             
