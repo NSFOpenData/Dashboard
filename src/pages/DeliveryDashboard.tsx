@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonLabel, IonSelect, IonSelectOption, IonItem } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -48,6 +48,18 @@ const DeliveryDashboard: React.FC = () => {
           <IonText>
             <h5>Type:</h5>
           </IonText>
+          <IonItem>
+            <IonText>
+              Please Choose Oonne: 
+            </IonText>
+            <IonSelect interface="popover">
+              <IonSelectOption value="usps">USPS (United States Postal Service)</IonSelectOption>
+              <IonSelectOption value="ups">UPS (United Postal Service)</IonSelectOption>
+              <IonSelectOption value="fedex">FedEx</IonSelectOption>
+              <IonSelectOption value="amazon">Amazon</IonSelectOption>
+           </IonSelect>
+          </IonItem>
+          
         </IonTitle>
 
         <IonTitle>
