@@ -6,9 +6,12 @@ import './TrafficDashboard.css';
 import ExtendedDateAndTime from '../pages/subpages/ExtendedDateAndTime';
 
 
-/* Reactive Map */
+/* Reactive Google Map */
 import { ReactiveBase, SingleList } from '@appbaseio/reactivesearch';
-import { ReactiveGoogleMap } from '@appbaseio/reactivemaps';
+import { ReactiveGoogleMap, ReactiveOpenStreetMap } from '@appbaseio/reactivemaps';
+
+/* Reactive Open Street Map */
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
 /* Mobiscrall */
@@ -30,6 +33,24 @@ const TrafficDashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>('2012-12-15T13:47:20.789');
   const [start, startRef] = React.useState<any>(null);
   const [end, endRef] = React.useState<any>(null);
+
+  const mapProps = {
+    dataField: "location",
+    defaultMapStyle: "Light Monochrome",
+    defaultZoom: 13,
+    react: {
+      and: "places"
+    },
+    showMapStyles: true,
+    
+    //onPopoverClick: (item: { place: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => <div>{item.place}</div>,
+    //renderData: (result: { magnitude: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => {
+    //  console.log(result);
+    //  return {
+    //    label: <div>{}</div>
+    //  };
+    //}
+  }; // for other properties: https://opensource.appbase.io/reactive-manual/map-components/reactivegooglemap.html
 
   
   return (
@@ -75,7 +96,7 @@ const TrafficDashboard: React.FC = () => {
 
           <IonTitle>
             <IonText>
-              <h5>Street:</h5>
+              <h5>Location:</h5>
             </IonText>
 
             <ReactiveBase
@@ -99,19 +120,13 @@ const TrafficDashboard: React.FC = () => {
                   size={50}
                   showSearch={true}
                 />*/}
+         
+                <ReactiveOpenStreetMap 
+                  componentID="openstreetMap"
+                  defaultCenter={{lat: 36.16, lng: 86.78}} // Nashville, TN
+                  {...mapProps}
+                />       
 
-                <ReactiveGoogleMap
-                  componentId="map"
-                  dataField="location"
-                  react={{
-                    and: "places"
-                  }}
-                  // for the earthquake magnitude value --> we can use this function to 
-                  // maybe display other sort of data (i.e. # of pets missing, auto-theft rate, etc.)
-                  renderData={(result: { mag: any; }) => ({
-                    label: result.mag
-                  })}
-                />
               </div>
             </ReactiveBase>
           </IonTitle>
