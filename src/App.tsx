@@ -80,8 +80,20 @@ const App: React.FC = () => (
           </Route>
 
           {/* Advanced Time Setting Page */}
-          <Route path="/extendedDateAndTime">
-            <ExtendedDateAndTime />
+          <Route path="/extendedDateAndTime1">
+            <ExtendedDateAndTime dashBoardNum = {1}/>
+          </Route>
+
+          <Route path="/extendedDateAndTime2">
+            <ExtendedDateAndTime dashBoardNum = {2}/>
+          </Route>
+
+          <Route path="/extendedDateAndTime3">
+            <ExtendedDateAndTime dashBoardNum = {3}/>
+          </Route>
+
+          <Route path="/extendedDateAndTime4">
+            <ExtendedDateAndTime dashBoardNum = {4}/>
           </Route>
 
 

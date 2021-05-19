@@ -1,7 +1,7 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRow, IonImg, IonLabel, IonButton, IonInput, IonFab, IonFabButton, IonIcon, IonItem, IonList, IonText, IonAvatar } from '@ionic/react';
+import { IonGrid, IonCol, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRow, IonImg, IonLabel, IonButton, IonInput, IonFab, IonFabButton, IonIcon, IonItem, IonList, IonText, IonAvatar } from '@ionic/react';
 import './ProfilePage.css';
 
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import { Plugins, CameraResultType } from '@capacitor/core';
 const { Camera } = Plugins;
 //import { Dimensions } from 'react-native';
@@ -15,12 +15,18 @@ const INITIAL_STATE = {
   photo: 'http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png',
 };
 
+//let firstNameInput = useRef<HTMLIonInputElement>(null);
+//let secondNameInput = useRef<HTMLIonImgElement>(null);
+//let birthdayInput = useRef<HTMLIonImgElement>(null);
+//let neighborHoodInput = useRef<HTMLIonImgElement>(null);
+
 export class ProfilePage extends Component {
   state: any = {};
   props: any = {};
   constructor(props: any) {
     super(props);
     this.state = { ...INITIAL_STATE };
+  
   }
 
   async takePicture() {
@@ -38,11 +44,15 @@ export class ProfilePage extends Component {
     })
   }
 
-
-
   async upgrade(){
       // send to upgrading page OR external website
   }
+
+  async resetInputs(){
+   /// firstNameInput.current!.value! = '';
+
+  }
+  
 
   render() {
     const { photo } = this.state;
@@ -63,12 +73,20 @@ export class ProfilePage extends Component {
             {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}             
             
             <IonList>
-              <IonItem lines="none">
-                <img style={{height: 150, width: 150, borderRadius: 30}} src={photo} ></img>
-              </IonItem>
-              <IonItem lines="none">
-                <IonButton color="light" size="small" onClick={() => this.takePicture()}>Change Profile Picture</IonButton>
-              </IonItem>
+              <IonGrid>
+                <IonCol>
+                  <IonItem lines="none">
+                    <img style={{height: 150, width: 150, borderRadius: 30}} src={photo} ></img>
+                  </IonItem>
+
+
+                  <IonItem lines="none">
+                    <IonButton color="light" size="small" onClick={() => this.takePicture()}>Change Profile Picture</IonButton>
+                  </IonItem>
+                </IonCol>
+              </IonGrid>
+
+
               <IonItem>
                 <IonLabel>First Name</IonLabel>
                 <IonInput></IonInput>
@@ -100,7 +118,7 @@ export class ProfilePage extends Component {
             <IonAvatar></IonAvatar>
             
             <IonButton color="primary" size="small">Submit</IonButton>
-            <IonButton color="danger" size="small">Cancel</IonButton> 
+            <IonButton color="danger" size="small">Reset</IonButton> 
             
         </IonContent>
       </IonPage >

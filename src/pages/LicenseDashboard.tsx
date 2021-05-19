@@ -1,5 +1,6 @@
 
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow } from '@ionic/react';
+import { Datepicker } from '@mobiscroll/react';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './LicenseDashboard.css';
@@ -22,15 +23,26 @@ const LicenseDashboard: React.FC = () => {
       <IonContent fullscreen>
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
         <IonTitle>
-          <IonText>
-            <h5>Date and Time:</h5>
-          </IonText>
-          <IonText>
-            <h6>
-              <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedDate} onIonChange={e => setSelectedDate(e.detail.value!) }></IonDatetime>
-            </h6>
-          </IonText>
-        </IonTitle>
+            <IonText>
+              <h5>Date and Time:</h5>
+            </IonText>
+            {/*<IonText>
+              <h6>
+                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedDate} onIonChange={e => setSelectedDate(e.detail.value!) }></IonDatetime>
+              </h6>
+            </IonText>*/}
+            <Datepicker
+                controls={['datetime']}
+                select="range"
+                display="inline"
+                touchUi={true}
+            />
+            <IonRow>
+              <IonButton color="light" size="small" routerLink={"/extendedDateAndTime2"}>Click Here for Advanced Time Setting</IonButton>
+            </IonRow>
+            
+
+          </IonTitle>
 
         <IonTitle>
           <IonText>

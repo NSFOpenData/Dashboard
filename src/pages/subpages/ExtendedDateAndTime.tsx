@@ -14,22 +14,22 @@ setOptions({
 /* Important Components */
 //import { DatePickerModule } from 'ionic-calendar-date-picker';
 
-const ExtendedDateAndTime: React.FC = (dashBoardNum) => {
+const ExtendedDateAndTime: React.FC<{dashBoardNum: number}> = props => {
   // for date and time ranges
   const [selectedDate, setSelectedDate] = useState<string>('2012-12-15T13:47:20.789');
   const [start, startRef] = React.useState<any>(null);
   const [end, endRef] = React.useState<any>(null);
 
-  {/*let routePageLink = ""
-  if(dashBoardNum == "1"){
+ let routePageLink = ""
+  if(props.dashBoardNum == 1){
     routePageLink = "/trafficDashboard"
-  } else if (dashBoardNum == "2"){
+  } else if (props.dashBoardNum == 2){
     routePageLink = "/licenseDashboard"
-  } else if (dashBoardNum == "3"){
+  } else if (props.dashBoardNum == 3){
     routePageLink = "/deliveryDashboard"
-  } else {
+  } else if (props.dashBoardNum == 4){
     routePageLink = "/animalDashboard"
-  }*/}
+  }
 
   return (
     <IonPage>
@@ -51,7 +51,7 @@ const ExtendedDateAndTime: React.FC = (dashBoardNum) => {
             touchUi={true}
         />
 
-      <IonButton color="light" routerLink={"/trafficDashboard"}>Go Back</IonButton>
+      <IonButton color="light" routerLink={routePageLink}>Go Back</IonButton>
   
       </IonContent>
 

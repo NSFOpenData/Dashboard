@@ -53,7 +53,7 @@ const TrafficDashboard: React.FC = () => {
                 touchUi={true}
             />
             <IonRow>
-              <IonButton color="light" size="small" routerLink={"/extendedDateAndTime"}>Click Here for Advanced Time Setting</IonButton>
+              <IonButton color="light" size="small" routerLink={"/extendedDateAndTime1"}>Click Here for Advanced Time Setting</IonButton>
             </IonRow>
             
 
