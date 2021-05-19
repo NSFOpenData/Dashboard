@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@appbaseio/reactivemaps": "^3.0.0-beta.11",
+    "@appbaseio/reactivesearch": "^3.18.0",
     "@capacitor/core": "2.4.7",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
