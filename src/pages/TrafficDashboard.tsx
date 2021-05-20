@@ -121,9 +121,9 @@ const TrafficDashboard: React.FC = () => {
                   showSearch={true}
                 />*/}
          
-                <ReactiveOpenStreetMap 
-                  componentID="openstreetMap"
-                  defaultCenter={{lat: 36.16, lng: 86.78}} // Nashville, TN
+                <ReactiveGoogleMap 
+                  componentID="map"
+                  defaultCenter={{lat: 36.15, lng: 86.78}} // Nashville, TN
                   {...mapProps}
                 />       
 
