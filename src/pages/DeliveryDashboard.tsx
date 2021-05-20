@@ -24,7 +24,7 @@ const DeliveryDashboard: React.FC = () => {
         <IonButton color="secondary" expand="full" disabled={true}>Delivery Dashboard</IonButton>
         <IonTitle>
             <IonText>
-              <h5>Date and Time:</h5>
+              <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
             </IonText>
             {/*<IonText>
               <h6>
@@ -46,11 +46,11 @@ const DeliveryDashboard: React.FC = () => {
 
         <IonTitle>
           <IonText>
-            <h5>Type:</h5>
+            <h5 style={{fontWeight: "bold"}}>Type:</h5>
           </IonText>
           <IonItem>
             <IonText>
-              Please Choose Oonne: 
+              Please Choose One: 
             </IonText>
             <IonSelect interface="popover">
               <IonSelectOption value="usps">USPS (United States Postal Service)</IonSelectOption>
@@ -64,7 +64,7 @@ const DeliveryDashboard: React.FC = () => {
 
         <IonTitle>
           <IonText>
-            <h5>Location:</h5>
+            <h5 style={{fontWeight: "bold"}}>Location:</h5>
           </IonText>
         </IonTitle>
       
