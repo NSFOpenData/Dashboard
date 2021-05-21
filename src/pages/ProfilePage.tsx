@@ -116,9 +116,18 @@ export class ProfilePage extends Component {
 
             <IonAvatar></IonAvatar>
             <IonAvatar></IonAvatar>
+
+            <IonCol>
+              <IonItem >
+                <IonButton color="primary" size="small" routerLink={'/authentication'}>Login</IonButton>
+              </IonItem>
+
+              <IonItem lines="none">
+                <IonButton color="primary" size="small">Submit</IonButton>
+                <IonButton color="danger" size="small">Reset</IonButton> 
+              </IonItem>
+            </IonCol>
             
-            <IonButton color="primary" size="small">Submit</IonButton>
-            <IonButton color="danger" size="small">Reset</IonButton> 
             
         </IonContent>
       </IonPage >

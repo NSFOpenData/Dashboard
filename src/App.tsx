@@ -43,12 +43,16 @@ import LicenseDashboard from './pages/LicenseDashboard';
 import AnimalDashboard from './pages/AnimalDashboard';
 import ExtendedDateAndTime from './pages/subpages/ExtendedDateAndTime';
 import ProfilePage from './pages/ProfilePage'
+import Authentication from './pages/Authentication'
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route path="/authentication">
+            <Authentication />
+          </Route>
           <Route exact path="/tab1">
             <Tab1 />
           </Route>
