@@ -7,6 +7,7 @@ import './AnimalDashboard.css';
 
 /* Axios for API Calls */
 import axios from 'axios';
+import { Console } from 'console';
 
 export class AnimalDashboard extends React.Component{
   API_KEY = '4a0ddacf9ee04f4c80df8836c06bcc3c';
@@ -22,7 +23,12 @@ export class AnimalDashboard extends React.Component{
     //   console.log(response);
     //   this.setState({ animals: response.data })
     // });
-    axios.get(this.API_URL).then(response => response.data)
+    axios.get(this.API_URL, {
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    }).then(response => response)
     .then((data) => {
       this.setState({ items: data })
      })
@@ -146,11 +152,15 @@ export class AnimalDashboard extends React.Component{
           </IonTitle>
           
           {this.state.animals.map((animal) => (
-            <IonTitle>
-                {animal}
-            </IonTitle>
-          
+            console.log(animal)
+            
+            // <IonTitle>
+            //     {animal}
+            // </IonTitle>
+            
           ))}
+
+          
           
         </IonContent>
       </IonPage>
