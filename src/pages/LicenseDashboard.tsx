@@ -14,15 +14,16 @@ import { ReactiveGoogleMap, ReactiveOpenStreetMap } from '@appbaseio/reactivemap
 /* Axios for API Calls */
 import axios from 'axios';
 
+/* PersonalInfo For Privilege Attribute */
+import PersonalInfo from './PersonalInfo'
+
 const { Camera } = Plugins;
 
 const INITIAL_STATE = {
   photo: 'http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png',
 };
 
-
 export class LicenseDashboard extends Component{
-
   API_URL = 'http://nsf-scc1.isis.vanderbilt.edu/vehicles';
   //API_URL = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${this.API_KEY}`
 
@@ -186,23 +187,23 @@ export class LicenseDashboard extends Component{
               </IonSelect>
             </IonItem>
 
-            </IonTitle>
+          </IonTitle>
 
-            {this.state.vehicles.map((vehicle: string) => (
-              <IonItem lines="none">
-                <IonCard button={false} color="light">
-                  <IonCardContent>
-                    <IonCardSubtitle>Car Information</IonCardSubtitle>
-                    <h5>Manufacturer: {JSON.parse(vehicle).make}</h5>
-                    <h5>Model: {JSON.parse(vehicle).model}</h5>
-                    <h5>Color: {JSON.parse(vehicle).color}</h5>
-                    <h5>Location: [ {JSON.parse(vehicle).location[0]} , {JSON.parse(vehicle).location[1]} ]</h5>
-                    <h5>Time: {JSON.parse(vehicle).time}</h5>     
-                    <h5>License Plate: {JSON.parse(vehicle).license} </h5>           
-                  </IonCardContent>
-                </IonCard>
-              </IonItem>
-            ))}
+          {this.state.vehicles.map((vehicle: string) => (
+            <IonItem lines="none">
+              <IonCard button={true} color="light">
+                <IonCardContent>
+                  <IonCardSubtitle>Car Information</IonCardSubtitle>
+                  <h5>Manufacturer: {JSON.parse(vehicle).make}</h5>
+                  <h5>Model: {JSON.parse(vehicle).model}</h5>
+                  <h5>Color: {JSON.parse(vehicle).color}</h5>
+                  <h5>Location: [ {JSON.parse(vehicle).location[0]} , {JSON.parse(vehicle).location[1]} ]</h5>
+                  <h5>Time: {JSON.parse(vehicle).time}</h5>     
+                  <h5>License Plate: { JSON.parse(vehicle).license} </h5>           
+                </IonCardContent>
+              </IonCard>
+            </IonItem>
+          ))}
           
           
 

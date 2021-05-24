@@ -1,8 +1,9 @@
 import { IonGrid, IonCol, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRow, IonImg, IonLabel, IonButton, IonInput, IonFab, IonFabButton, IonIcon, IonItem, IonList, IonText, IonAvatar } from '@ionic/react';
 import './ProfilePage.css';
 
-import React, { Component, useRef } from 'react';
+import React, { Component, useRef, useState } from 'react';
 import { Plugins, CameraResultType } from '@capacitor/core';
+
 const { Camera } = Plugins;
 //import { Dimensions } from 'react-native';
 /* Kind of have to figure out to use this later but it keeps throwing an error */
@@ -21,6 +22,9 @@ const INITIAL_STATE = {
 //let neighborHoodInput = useRef<HTMLIonImgElement>(null);
 
 export class ProfilePage extends Component {
+
+  
+  
   state: any = {};
   props: any = {};
   constructor(props: any) {
