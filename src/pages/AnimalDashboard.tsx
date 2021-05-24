@@ -7,14 +7,17 @@ import './AnimalDashboard.css';
 
 /* Axios for API Calls */
 import axios from 'axios';
+import { Console } from 'console';
+import { thumbsUpSharp } from 'ionicons/icons';
 
 export class AnimalDashboard extends React.Component{
   API_KEY = '4a0ddacf9ee04f4c80df8836c06bcc3c';
-  API_URL = 'http://129.59.104.62/animals';
+  API_URL = 'http://nsf-scc1.isis.vanderbilt.edu/animals';
   //API_URL = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${this.API_KEY}`
 
   state = {
     animals: [],
+    types: [],
   };
 
   componentDidMount() {
@@ -22,9 +25,32 @@ export class AnimalDashboard extends React.Component{
     //   console.log(response);
     //   this.setState({ animals: response.data })
     // });
-    axios.get(this.API_URL).then(response => response.data)
+    // {
+    //   headers:{
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //   }
+    // }
+    // fetch(this.API_URL).then(res => res.json())
+    // .then(
+    //   (result) => {
+    //     this.setState({animals: result});
+    //     console.log("hellOdddd")
+    //     console.log(result);
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // )
+
+    axios.get(this.API_URL)
     .then((data) => {
-      this.setState({ items: data })
+      this.setState({ animals: data.data })
+      // console.log(this.state.animals)
+      
+     })
+     .catch(function (error){
+       console.log(error)
      })
      // followed this tutorial: https://www.techiediaries.com/react-ionic-axios-tutorial/
   }
@@ -145,12 +171,39 @@ export class AnimalDashboard extends React.Component{
             </IonItem>
           </IonTitle>
           
+          <IonTitle>
+            <IonText>
+              <h5 style={{fontWeight: "bold"}}>Animal Info:</h5>
+            </IonText>
+
+
+          </IonTitle>
           {this.state.animals.map((animal) => (
-            <IonTitle>
-                {animal}
-            </IonTitle>
-          
+            // animal.time
+            // animal.locatoin
+            // animal.color
+            // animal.breed
+            // animal.type 
+            <IonItem lines="none">
+              <IonCard button={true} color="light">
+                <IonCardContent>
+                  <IonCardSubtitle>Individual Info</IonCardSubtitle>
+                  <h5>Type: {JSON.parse(animal).type}</h5>
+                  <h5>Breed: {JSON.parse(animal).breed}</h5>
+                  <h5>Color: {JSON.parse(animal).color}</h5>
+                  <h5>Location: {JSON.parse(animal).location}</h5>
+                  <h5>Time: {JSON.parse(animal).time}</h5>
+                </IonCardContent>
+              </IonCard>
+            </IonItem>
+            // <IonTitle>
+            //   {JSON.parse(animal)._id}    
+            
+            // </IonTitle>
           ))}
+          
+
+          
           
         </IonContent>
       </IonPage>
