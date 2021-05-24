@@ -191,19 +191,12 @@ export class AnimalDashboard extends React.Component{
                   <h5>Type: {JSON.parse(animal).type}</h5>
                   <h5>Breed: {JSON.parse(animal).breed}</h5>
                   <h5>Color: {JSON.parse(animal).color}</h5>
-                  <h5>Location: {JSON.parse(animal).location}</h5>
+                  <h5>Location: [ {JSON.parse(animal).location[0]} , {JSON.parse(animal).location[1]} ]</h5>
                   <h5>Time: {JSON.parse(animal).time}</h5>
                 </IonCardContent>
               </IonCard>
             </IonItem>
-            // <IonTitle>
-            //   {JSON.parse(animal)._id}    
-            
-            // </IonTitle>
           ))}
-          
-
-          
           
         </IonContent>
       </IonPage>
