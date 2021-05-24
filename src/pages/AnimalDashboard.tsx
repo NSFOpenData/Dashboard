@@ -17,31 +17,9 @@ export class AnimalDashboard extends React.Component{
 
   state = {
     animals: [],
-    types: [],
   };
 
   componentDidMount() {
-    // axios.get(this.API_URL).then(response => {
-    //   console.log(response);
-    //   this.setState({ animals: response.data })
-    // });
-    // {
-    //   headers:{
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //   }
-    // }
-    // fetch(this.API_URL).then(res => res.json())
-    // .then(
-    //   (result) => {
-    //     this.setState({animals: result});
-    //     console.log("hellOdddd")
-    //     console.log(result);
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // )
 
     axios.get(this.API_URL)
     .then((data) => {

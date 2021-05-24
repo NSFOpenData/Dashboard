@@ -11,26 +11,45 @@ import { Plugins, CameraResultType } from '@capacitor/core';
 import { ReactiveBase, SingleList } from '@appbaseio/reactivesearch';
 import { ReactiveGoogleMap, ReactiveOpenStreetMap } from '@appbaseio/reactivemaps';
 
+/* Axios for API Calls */
+import axios from 'axios';
+
 const { Camera } = Plugins;
 
 const INITIAL_STATE = {
   photo: 'http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png',
 };
 
-let carManufacturer = "Hyundai";
-let carModel = "Genesis GV80";
-let carType = "SUV";
-let carColor = "Black";
-let carReleaseDate = "October, 2020"
 
 export class LicenseDashboard extends Component{
-  
 
-  state: any = {};
+  API_URL = 'http://nsf-scc1.isis.vanderbilt.edu/vehicles';
+  //API_URL = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${this.API_KEY}`
+
+  state = {
+    vehicles: [],
+  };
+
+  photoState = {};
+
+  componentDidMount() {
+
+    axios.get(this.API_URL)
+    .then((data) => {
+      this.setState({ vehicles: data.data })
+      // console.log(this.state.vehicles) 
+      
+     })
+     .catch(function (error){
+       console.log(error)
+     })
+  }
+
+
   props: any = {};
   constructor(props: any) {
     super(props);
-    this.state = { ...INITIAL_STATE };
+    this.photoState = { ...INITIAL_STATE };
   
   }
 
@@ -50,7 +69,7 @@ export class LicenseDashboard extends Component{
   }
 
   render(){
-    const { photo } = this.state;
+    //const { photo } = this.photoState;
     
 
     const mapProps = {
@@ -166,20 +185,26 @@ export class LicenseDashboard extends Component{
                 <IonSelectOption value="08">BPD626</IonSelectOption>
               </IonSelect>
             </IonItem>
-            <IonItem lines="none">
-              <IonCard button={false} color="light">
-                <IonCardContent>
-                  <IonCardSubtitle>Car Information</IonCardSubtitle>
-                  <h5>Manufacturer: {carManufacturer}</h5>
-                  <h5>Model: {carModel}</h5>
-                  <h5>Type: {carType}</h5>
-                  <h5>Color: {carColor}</h5>
-                  <h5>Release Date: {carReleaseDate}</h5>
-                </IonCardContent>
-              </IonCard>
-            </IonItem>
+
+            </IonTitle>
+
+            {this.state.vehicles.map((vehicle: string) => (
+              <IonItem lines="none">
+                <IonCard button={false} color="light">
+                  <IonCardContent>
+                    <IonCardSubtitle>Car Information</IonCardSubtitle>
+                    <h5>Manufacturer: {JSON.parse(vehicle).make}</h5>
+                    <h5>Model: {JSON.parse(vehicle).model}</h5>
+                    <h5>Color: {JSON.parse(vehicle).color}</h5>
+                    <h5>Location: [ {JSON.parse(vehicle).location[0]} , {JSON.parse(vehicle).location[1]} ]</h5>
+                    <h5>Time: {JSON.parse(vehicle).time}</h5>     
+                    <h5>License Plate: {JSON.parse(vehicle).license} </h5>           
+                  </IonCardContent>
+                </IonCard>
+              </IonItem>
+            ))}
           
-          </IonTitle>
+          
 
           <IonAvatar></IonAvatar>
 
