@@ -1,4 +1,4 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar } from '@ionic/react';
 import React, { Component } from 'react';
 import './Authentication.css';
 import { Plugins } from '@capacitor/core';
@@ -22,7 +22,7 @@ class Authentication extends Component {
     console.info('result', result);
     if (result) {
       history.push({
-        pathname: '/home',
+        pathname: '/profilePage',
         state: { name: result.name || result.displayName, image: result.imageUrl, email: result.email }
       });
     }
@@ -41,9 +41,13 @@ class Authentication extends Component {
             </IonRow>
             </IonToolbar>
         </IonHeader>
+
+        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar>
         
         <IonContent className="ion-padding">
-
           <IonButton className="login-button" onClick={() => this.signIn()} expand="block" fill="solid" color="danger">
             Login with Google
         </IonButton>

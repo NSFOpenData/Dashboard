@@ -1,5 +1,7 @@
 import { IonGrid, IonCol, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRow, IonImg, IonLabel, IonButton, IonInput, IonFab, IonFabButton, IonIcon, IonItem, IonList, IonText, IonAvatar } from '@ionic/react';
 import './ProfilePage.css';
+import './Authentication.css';
+import "@codetrix-studio/capacitor-google-auth";
 
 import React, { Component, useRef } from 'react';
 import { Plugins, CameraResultType } from '@capacitor/core';
@@ -13,6 +15,8 @@ const { Camera } = Plugins;
 
 const INITIAL_STATE = {
   photo: 'http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png',
+  loggedIn: true,
+  user: {}
 };
 
 //let firstNameInput = useRef<HTMLIonInputElement>(null);
@@ -26,7 +30,6 @@ export class ProfilePage extends Component {
   constructor(props: any) {
     super(props);
     this.state = { ...INITIAL_STATE };
-  
   }
 
   async takePicture() {
@@ -50,7 +53,28 @@ export class ProfilePage extends Component {
 
   async resetInputs(){
    /// firstNameInput.current!.value! = '';
+  }
 
+  /* FOR AUTHENTICATION */
+
+  componentDidMount(){
+    this.getUserInfo();
+  }
+
+  async signOut(): Promise<void> {
+    const {history} = this.props;
+    await Plugins.GoogleAuth.signOut();
+    history.goBack();
+  }
+
+  async getUserInfo(){
+    this.setState({
+      user: {
+        name: this.props.location.state.name,
+        photo: this.props.location.state.image,
+        email: this.props.location.state.email
+      }
+    })
   }
   
 
@@ -71,46 +95,54 @@ export class ProfilePage extends Component {
 
         <IonContent className="profilePage">            
             {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}             
-            
-            <IonList>
-              <IonGrid>
-                <IonCol>
-                  <IonItem lines="none">
-                    <img style={{height: 150, width: 150, borderRadius: 30}} src={photo} ></img>
-                  </IonItem>
+            {this.state.user.name &&
+              <IonList>
+                <IonGrid>
+                  <IonCol>
+                    <IonItem lines="none">
+                      <img style={{height: 150, width: 150, borderRadius: 30}} src={photo} ></img>
+                    </IonItem>
 
 
-                  <IonItem lines="none">
-                    <IonButton color="light" size="small" onClick={() => this.takePicture()}>Change Profile Picture</IonButton>
-                  </IonItem>
-                </IonCol>
-              </IonGrid>
+                    <IonItem lines="none">
+                      <IonButton color="light" size="small" onClick={() => this.takePicture()}>Change Profile Picture</IonButton>
+                    </IonItem>
+                  </IonCol>
+                </IonGrid>
 
 
-              <IonItem>
-                <IonLabel>First Name</IonLabel>
-                <IonInput></IonInput>
-              </IonItem>
+                <IonItem>
+                  <IonLabel>First Name {this.state.user.name}</IonLabel>
+                  <IonInput></IonInput>
+                </IonItem>
 
-              <IonItem>
-                <IonLabel>Last Name</IonLabel>
-                <IonInput></IonInput>
-              </IonItem>
+                <IonItem>
+                  <IonLabel>Last Name</IonLabel>
+                  <IonInput></IonInput>
+                </IonItem>
 
-              <IonItem>
-                <IonLabel>Birthday</IonLabel>
-                <IonInput></IonInput>
-              </IonItem>
+                <IonItem>
+                  <IonLabel>Birthday</IonLabel>
+                  <IonInput></IonInput>
+                </IonItem>
 
-              <IonItem>
-                <IonLabel>Neighborhood</IonLabel>
-                <IonInput></IonInput>
-              </IonItem>
+                <IonItem>
+                  <IonLabel>Neighborhood</IonLabel>
+                  <IonInput></IonInput>
+                </IonItem>
 
-              <IonItem>
-                <IonLabel>Accessbility Level: {level}</IonLabel>
-              </IonItem>
-            </IonList>
+                <IonItem>
+                  <IonLabel>Accessbility Level: {level}</IonLabel>
+                </IonItem>
+
+                <IonItem>
+                  <IonButton className="login-button" onClick={() => this.signOut()} expand="full" fill="solid" color="danger">
+                    Logout from Google
+                  </IonButton>
+                </IonItem>
+              </IonList>
+
+            }
            
             <IonButton color="light" size="small" onClick={() => this.upgrade()}>Press Here to Upgrade Your Accessbility</IonButton>
 
