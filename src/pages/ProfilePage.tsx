@@ -29,6 +29,8 @@ export class ProfilePage extends Component {
   props: any = {};
   constructor(props: any) {
     super(props);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.getUserInfo = this.getUserInfo.bind(this);
     this.state = { ...INITIAL_STATE };
   }
 
@@ -95,7 +97,7 @@ export class ProfilePage extends Component {
 
         <IonContent className="profilePage">            
             {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}             
-            {this.state.user.name &&
+            {/* {this.state.user.name && */}
               <IonList>
                 <IonGrid>
                   <IonCol>
@@ -142,7 +144,7 @@ export class ProfilePage extends Component {
                 </IonItem>
               </IonList>
 
-            }
+            {/* } */}
            
             <IonButton color="light" size="small" onClick={() => this.upgrade()}>Press Here to Upgrade Your Accessbility</IonButton>
 

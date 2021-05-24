@@ -50,7 +50,11 @@ class Authentication extends Component {
         <IonContent className="ion-padding">
           <IonButton className="login-button" onClick={() => this.signIn()} expand="block" fill="solid" color="danger">
             Login with Google
-        </IonButton>
+          </IonButton>
+
+          <IonButton className="login-button" routerLink={"/profilePage"} expand="block" fill="solid" color="danger">
+            Go to Profile Page!
+          </IonButton>
         </IonContent>
       </IonPage>
     )
