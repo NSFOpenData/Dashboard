@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.3.19",
     "@appbaseio/reactivemaps": "^3.0.0-beta.11",
     "@appbaseio/reactivesearch": "^3.18.0",
     "@capacitor/core": "2.4.7",
@@ -76,6 +75,7 @@
     ]
   },
   "devDependencies": {
+    "@apollo/client": "^3.3.19",
     "@capacitor/cli": "2.4.7",
     "@types/apollo-upload-client": "^14.1.0",
     "@types/leaflet": "^1.7.0",

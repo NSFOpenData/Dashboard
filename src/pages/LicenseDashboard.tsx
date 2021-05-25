@@ -206,25 +206,22 @@ const LicenseDashboard: React.FC = () => {
 
         </IonTitle>
 
-        {!loading && data?.vehicles?.map((vehicle: string) =>{
-          console.log(vehicle)
-          // <IonItem lines="none">
-          //   <IonCard button={true} color="light">
-          //     <IonCardContent>
-          //       <IonCardSubtitle>Car Information</IonCardSubtitle>
-          //       <h5>Manufacturer: {JSON.parse(vehicle).make}</h5>
-          //       <h5>Model: {JSON.parse(vehicle).model}</h5>
-          //       <h5>Color: {JSON.parse(vehicle).color}</h5>
-          //       <h5>Location: [ {JSON.parse(vehicle).location[0]} , {JSON.parse(vehicle).location[1]} ]</h5>
-          //       <h5>Time: {JSON.parse(vehicle).time}</h5>     
-          //       <h5>License Plate: { JSON.parse(vehicle).license} </h5>           
-          //     </IonCardContent>
-          //   </IonCard>
-          // </IonItem>
-        })}
-        {/* {this.state.vehicles.map((vehicle: string) => (
-          
-        ))} */}
+        {!loading && data?.vehicles?.map((vehicle: any) => (
+          // console.log(vehicle.license)
+          <IonItem lines="none">
+            <IonCard button={true} color="light">
+              <IonCardContent>
+                <IonCardSubtitle>Car Information</IonCardSubtitle>
+                <h5>Manufacturer: {vehicle.make}</h5>
+                <h5>Model: {vehicle.model}</h5>
+                {/* <h5>Color: {JSON.parse(vehicle).color}</h5> */}
+                <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
+                {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
+                <h5>License Plate: { vehicle.license} </h5>           
+              </IonCardContent>
+            </IonCard>
+          </IonItem>
+        ))}
         
         
 
