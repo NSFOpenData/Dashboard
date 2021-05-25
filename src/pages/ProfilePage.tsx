@@ -25,6 +25,7 @@ const INITIAL_STATE = {
 //let neighborHoodInput = useRef<HTMLIonImgElement>(null);
 
 export class ProfilePage extends Component {
+
   state: any = {};
   props: any = {};
   constructor(props: any) {
