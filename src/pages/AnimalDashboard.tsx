@@ -13,42 +13,22 @@ import { thumbsUpSharp } from 'ionicons/icons';
 /* GraphQL for API Calls */
 import {gql, useQuery} from '@apollo/client';
 import { useHistory } from 'react-router';
-// API_KEY = '4a0ddacf9ee04f4c80df8836c06bcc3c';
-//   API_URL = 'http://nsf-scc1.isis.vanderbilt.edu/animals';
-//   //API_URL = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${this.API_KEY}`
 
-//   state = {
-//     animals: [],
-//   };
-
-//   componentDidMount() {
-
-//     axios.get(this.API_URL)
-//     .then((data) => {
-//       this.setState({ animals: data.data })
-//       // console.log(this.state.animals)
-      
-//      })
-//      .catch(function (error){
-//        console.log(error)
-//      })
-//      // followed this tutorial: https://www.techiediaries.com/react-ionic-axios-tutorial/
-//   }
 const AnimalDashboard: React.FC = () => {
   // const history = useHistory();
 
-  // const ANIMAL_POST_QUERY = gql`
-  //   query getAll{
-  //     vehicles {
-  //       location,
-  //       model,
-  //       make,
-  //       license
-  //     }
-  //   }
-  // `;
+  const ANIMAL_POST_QUERY = gql`
+    query getAll{
+      animals {
+        location,
+        color,
+        breed,
+        type,
+      }
+    }
+  `;
 
-  // const { loading, data, error } = useQuery(ANIMAL_POST_QUERY);
+  const { loading, data, error } = useQuery(ANIMAL_POST_QUERY);
 
   return (
     <IonPage>
@@ -174,21 +154,21 @@ const AnimalDashboard: React.FC = () => {
 
         </IonTitle>
 
-        {/* {!loading } */}
-        {/* {this.state.animals.map((animal) => (
+        {!loading && data?.animals?.map((animal: any) => (
+          // console.log(vehicle.license)
           <IonItem lines="none">
             <IonCard button={true} color="light">
               <IonCardContent>
-                <IonCardSubtitle>Individual Info</IonCardSubtitle>
-                <h5>Type: {JSON.parse(animal).type}</h5>
-                <h5>Breed: {JSON.parse(animal).breed}</h5>
-                <h5>Color: {JSON.parse(animal).color}</h5>
-                <h5>Location: [ {JSON.parse(animal).location[0]} , {JSON.parse(animal).location[1]} ]</h5>
-                <h5>Time: {JSON.parse(animal).time}</h5>
+                <IonCardSubtitle>Car Information</IonCardSubtitle>
+                <h5>Type: {animal.type}</h5>
+                <h5>Breed: {animal.breed}</h5>
+                <h5>Color: {animal.color}</h5>
+                <h5>Location: [ {animal.location[0]} , {animal.location[1]} ]</h5>
+                {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
               </IonCardContent>
             </IonCard>
           </IonItem>
-        ))} */}
+        ))}
         
       </IonContent>
     </IonPage>
