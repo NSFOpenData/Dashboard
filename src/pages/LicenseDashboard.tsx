@@ -1,7 +1,7 @@
 
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
-import React, {useState, Component} from 'react';
+import React, {useState, Component, useRef} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './LicenseDashboard.css';
 
@@ -10,9 +10,6 @@ import { Plugins, CameraResultType } from '@capacitor/core';
 /* Reactive Google Map */
 import { ReactiveBase, SingleList } from '@appbaseio/reactivesearch';
 import { ReactiveGoogleMap, ReactiveOpenStreetMap } from '@appbaseio/reactivemaps';
-
-/* Axios for API Calls */
-import axios from 'axios';
 
 /* PersonalInfo For Privilege Attribute */
 import PersonalInfo from './PersonalInfo'
@@ -23,57 +20,15 @@ import { useHistory } from 'react-router';
 
 const { Camera } = Plugins;
 
-const INITIAL_STATE = {
-  photo: 'http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png',
-};
-
-// API_URL = 'http://nsf-scc1.isis.vanderbilt.edu/vehicles';
-// //API_URL = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${this.API_KEY}`
-
-// state = {
-//   vehicles: [],
-// };
-
-// photoState = {};
-
-// componentDidMount() {
-
-//   axios.get(this.API_URL)
-//   .then((data) => {
-//     this.setState({ vehicles: data.data })
-//     // console.log(this.state.vehicles) 
-    
-//    })
-//    .catch(function (error){
-//      console.log(error)
-//    })
-// }
 
 
-// props: any = {};
-// constructor(props: any) {
-//   super(props);
-//   this.photoState = { ...INITIAL_STATE };
+interface InternalValues {
+  file: any;
+}
 
-// }
 
-// async takePicture() {
-//   // take phot with Camera - it's editable as well
-//   const image = await Camera.getPhoto({
-//     quality: 90,
-//     allowEditing: true,
-//     resultType: CameraResultType.Uri
-//   });
-
-//   var imageUrl = image.webPath;
-//   // Can be set to the src of an image now
-//   this.setState({
-//     photo: imageUrl
-//   })
-// }
 const LicenseDashboard: React.FC = () => {
-    //const { photo } = this.photoState;
-    const history = useHistory();
+  const [photo, setPhoto] = useState("")
 
   const VEHICLE_POST_QUERY = gql`
     query getAll{
@@ -99,6 +54,45 @@ const LicenseDashboard: React.FC = () => {
     showMapStyles: true,
   }; // for other properties: https://opensource.appbase.io/reactive-manual/map-components/reactivegooglemap.html
 
+
+
+  /* Uploading Files */
+  const values = useRef<InternalValues>({
+    file: false,
+  });
+
+  const onFileChange = (fileChangeEvent: any) => {
+    values.current.file = fileChangeEvent.target.files[0];
+    setPhoto("https://images-na.ssl-images-amazon.com/images/I/71eL6QqzLBL._AC_SL1500_.jpg");
+    // WORK FROM HERE: GET THE CHOSEN FILE LINK
+  };
+
+  const submitForm = async () => {
+    if (!values.current.file) {
+      return false;
+    }
+
+    let formData = new FormData();
+
+    formData.append("photo", values.current.file, values.current.file.name);
+
+    try {
+      const response = await fetch("http://localhost:8100/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   return (
     <IonPage>
       <IonHeader>
@@ -115,6 +109,27 @@ const LicenseDashboard: React.FC = () => {
         <IonLoading isOpen={loading} message="Loading.." />
 
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
+        
+        <IonTitle>
+            <IonText>
+              <h5 style={{fontWeight: "bold"}}>Upload/Retrieve Data:</h5>
+            </IonText>
+
+            <IonItem>
+              <input  type="file" onChange={(event) => onFileChange(event)}></input>
+            </IonItem>
+
+            <IonButton color="primary" expand="full" onClick={() => submitForm()}>
+              Upload
+            </IonButton>
+
+            <IonItem lines="none">
+              <img style={{height: 120, width: 295}} src={photo} ></img>
+            </IonItem>
+        </IonTitle>
+
+        <IonAvatar></IonAvatar>
+
         <IonTitle>
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
@@ -223,9 +238,7 @@ const LicenseDashboard: React.FC = () => {
             </IonCard>
           </IonItem>
         ))}
-        
-        
-
+      
         <IonAvatar></IonAvatar>
 
         <IonTitle>
