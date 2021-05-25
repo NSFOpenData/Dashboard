@@ -2,14 +2,17 @@ import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonT
 import React, { Component } from 'react';
 import './Authentication.css';
 import { Plugins } from '@capacitor/core';
-import "@codetrix-studio/capacitor-google-auth";
+// import "@codetrix-studio/capacitor-google-auth";
 
 const INITIAL_STATE = {
 
 };
 
-var passport = require('passport'),
-LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
+
+// var passport = require('passport'),
+// LocalStrategy = require('passport-local').Strategy;
 
 // passport.use(new LocalStrategy({
 //   usernameField: 'email',
@@ -38,25 +41,25 @@ LocalStrategy = require('passport-local').Strategy;
 class Authentication extends Component {
 
 
-  state: any = {};
-  props: any = {};
-  constructor(props: any) {
-    super(props);
-    this.state = { ...INITIAL_STATE };
-  }
+  // state: any = {};
+  // props: any = {};
+  // constructor(props: any) {
+  //   super(props);
+  //   this.state = { ...INITIAL_STATE };
+  // }
 
-  async signIn(): Promise<void> {
-    const { history } = this.props;
-    const result = await Plugins.GoogleAuth.signIn();
-    console.info('result', result);
-    if (result) {
-      history.push({
-        pathname: '/profilePage',
-        state: { name: result.name || result.displayName, image: result.imageUrl, email: result.email }
-      });
-    }
+  // async signIn(): Promise<void> {
+  //   const { history } = this.props;
+  //   const result = await Plugins.GoogleAuth.signIn();
+  //   console.info('result', result);
+  //   if (result) {
+  //     history.push({
+  //       pathname: '/profilePage',
+  //       state: { name: result.name || result.displayName, image: result.imageUrl, email: result.email }
+  //     });
+  //   }
 
-  }
+  // }
 
   render() {
     return (
@@ -77,9 +80,9 @@ class Authentication extends Component {
         <IonAvatar></IonAvatar>
         
         <IonContent className="ion-padding">
-          <IonButton className="login-button" onClick={() => this.signIn()} expand="block" fill="solid" color="danger">
+          {/* <IonButton className="login-button" onClick={() => this.signIn()} expand="block" fill="solid" color="danger">
             Login with Google
-          </IonButton>
+          </IonButton> */}
 
           <IonButton className="login-button" routerLink={"/profilePage"} expand="block" fill="solid" color="danger">
             Go to Profile Page!

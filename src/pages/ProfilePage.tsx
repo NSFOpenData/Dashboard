@@ -1,7 +1,7 @@
 import { IonGrid, IonCol, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRow, IonImg, IonLabel, IonButton, IonInput, IonFab, IonFabButton, IonIcon, IonItem, IonList, IonText, IonAvatar } from '@ionic/react';
 import './ProfilePage.css';
 import './Authentication.css';
-import "@codetrix-studio/capacitor-google-auth";
+// import "@codetrix-studio/capacitor-google-auth";
 
 import React, { Component, useRef } from 'react';
 import { Plugins, CameraResultType } from '@capacitor/core';
