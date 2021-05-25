@@ -81,6 +81,7 @@ const LicenseDashboard: React.FC = () => {
         location,
         model,
         make,
+        color,
         license
       }
     }
@@ -214,7 +215,7 @@ const LicenseDashboard: React.FC = () => {
                 <IonCardSubtitle>Car Information</IonCardSubtitle>
                 <h5>Manufacturer: {vehicle.make}</h5>
                 <h5>Model: {vehicle.model}</h5>
-                {/* <h5>Color: {JSON.parse(vehicle).color}</h5> */}
+                <h5>Color: {vehicle.color}</h5>
                 <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
                 {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
                 <h5>License Plate: { vehicle.license} </h5>           
