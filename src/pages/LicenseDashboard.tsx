@@ -111,7 +111,7 @@ const LicenseDashboard: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen>
-        <IonLoading isOpen={loading} message="Loading..." />
+        <IonLoading isOpen={loading} message="Loading.." />
 
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
         <IonTitle>
