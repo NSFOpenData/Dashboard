@@ -4,10 +4,23 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+import {ApolloClient, InMemoryCache, ApolloProvider} from "@apollo/client";
+import {createUploadLink} from "apollo-upload-client";
+
+// client set up to use GraphQL
+const client = new ApolloClient({
+  link : createUploadLink({
+    uri:"https://nsf-scc1.isis.vanderbilt.edu/graphql"
+  }),
+  cache: new InMemoryCache()
+});
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
