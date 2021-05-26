@@ -138,6 +138,9 @@ const LicenseDashboard: React.FC = () => {
             <IonButton color="primary" expand="full" onClick={() => getPicture()}>
               Upload
             </IonButton>
+            <IonButton color="secondary" expand="full" routerLink={"/multipleUpload"}>
+              Upload Multiple
+            </IonButton>
             <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
               Retrieve
             </IonButton>
