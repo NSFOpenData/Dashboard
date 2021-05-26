@@ -79,7 +79,8 @@
     "@capacitor/cli": "2.4.7",
     "@types/apollo-upload-client": "^14.1.0",
     "@types/leaflet": "^1.7.0",
-    "@types/react-native": "^0.64.5"
+    "@types/react-native": "^0.64.5",
+    "cors": "^2.8.5"
   },
   "description": "An Ionic project"
 }
