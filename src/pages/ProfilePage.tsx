@@ -42,6 +42,7 @@ export class ProfilePage extends Component {
     });
 
     var imageUrl = image.webPath;
+    console.log(imageUrl);
     // Can be set to the src of an image now
     this.setState({
       photo: imageUrl

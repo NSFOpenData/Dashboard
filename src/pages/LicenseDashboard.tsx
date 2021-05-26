@@ -20,12 +20,9 @@ import { useHistory } from 'react-router';
 
 const { Camera } = Plugins;
 
-
-
 interface InternalValues {
   file: any;
 }
-
 
 const LicenseDashboard: React.FC = () => {
   const [photo, setPhoto] = useState("")
@@ -54,19 +51,35 @@ const LicenseDashboard: React.FC = () => {
     showMapStyles: true,
   }; // for other properties: https://opensource.appbase.io/reactive-manual/map-components/reactivegooglemap.html
 
-
-
   /* Uploading Files */
   const values = useRef<InternalValues>({
     file: false,
   });
 
+  // if we are allowing files other than picture files, then uncomment "values.currentfile = ..." line 
+  // and the line below with "<input  type="file" onChange={(event)..."
   const onFileChange = (fileChangeEvent: any) => {
-    values.current.file = fileChangeEvent.target.files[0];
-    setPhoto("https://images-na.ssl-images-amazon.com/images/I/71eL6QqzLBL._AC_SL1500_.jpg");
-    // WORK FROM HERE: GET THE CHOSEN FILE LINK
+    // values.current.file = fileChangeEvent.target.files[0];
   };
 
+  const getPicture = async () => {
+    // take phot with Camera - it's editable as well
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+
+    var imageUrl = image.webPath;
+    console.log(imageUrl);
+    // Can be set to the src of an image now
+    setPhoto(imageUrl!);
+
+    // IMPORTANT: Uncomment the below once DB is set up
+    // submitForm();
+  }
+
+  /* Submitting to the Server */
   const submitForm = async () => {
     if (!values.current.file) {
       return false;
@@ -92,7 +105,6 @@ const LicenseDashboard: React.FC = () => {
     }
   };
 
-
   return (
     <IonPage>
       <IonHeader>
@@ -114,14 +126,19 @@ const LicenseDashboard: React.FC = () => {
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Upload/Retrieve Data:</h5>
             </IonText>
-
+            {/* 
             <IonItem>
-              <input  type="file" onChange={(event) => onFileChange(event)}></input>
-            </IonItem>
+              <input type="file" onChange={(event) => onFileChange(event)}></input>
+            </IonItem> */}
 
-            <IonButton color="primary" expand="full" onClick={() => submitForm()}>
+            
+            <IonButton color="primary" expand="full" onClick={() => getPicture()}>
               Upload
             </IonButton>
+            <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
+              Retrieve
+            </IonButton>
+            
 
             <IonItem lines="none">
               <img style={{height: 120, width: 295}} src={photo} ></img>
