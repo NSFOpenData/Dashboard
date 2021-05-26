@@ -27,7 +27,8 @@ interface InternalValues {
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
-  const [photo, setPhoto] = useState("")
+  const [photo, setPhoto] = useState("");
+  let individualCardPhotoSource = [];
 
   const VEHICLE_POST_QUERY = gql`
     query getAll{
@@ -46,7 +47,7 @@ const LicenseDashboard: React.FC = () => {
   const mapProps = {
     dataField: "location",
     defaultMapStyle: "Light Monochrome",
-    defaultZoom: 13,
+    defaultZoom: 13.1,
     react: {
       and: "places"
     },
@@ -248,6 +249,7 @@ const LicenseDashboard: React.FC = () => {
           // console.log(vehicle.license)
           <IonItem lines="none">
             <IonCard button={true} color="light">
+            <img style={{height: 120, width: 300}} src={photo} ></img>
               <IonCardContent>
                 <IonCardSubtitle>Car Information</IonCardSubtitle>
                 <h5>Manufacturer: {vehicle.make}</h5>
