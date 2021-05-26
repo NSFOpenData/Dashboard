@@ -15,7 +15,11 @@ import {gql, useQuery} from '@apollo/client';
 import { useHistory } from 'react-router';
 
 const AnimalDashboard: React.FC = () => {
+  const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
+  const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
+
   // const history = useHistory();
+  let individualCardPhotoSource = [];
 
   const ANIMAL_POST_QUERY = gql`
     query getAll{
@@ -49,20 +53,17 @@ const AnimalDashboard: React.FC = () => {
           <IonText>
             <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
           </IonText>
-          {/*<IonText>
-            <h6>
-              <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedDate} onIonChange={e => setSelectedDate(e.detail.value!) }></IonDatetime>
-            </h6>
-          </IonText>*/}
-          <Datepicker
-              controls={['datetime']}
-              select="range"
-              display="inline"
-              touchUi={true}
-          />
-          <IonRow>
-            <IonButton color="light" size="small" routerLink={"/extendedDateAndTime4"}>Click Here for Advanced Time Setting</IonButton>
-          </IonRow>
+          <IonText>
+              <h6>
+                | Start Date and Time:
+                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!) }></IonDatetime>
+              </h6>
+              <h6>
+                | End Date and Time:
+                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
+              </h6>
+          </IonText>
+        
         </IonTitle>
 
         <IonAvatar></IonAvatar>
@@ -158,8 +159,9 @@ const AnimalDashboard: React.FC = () => {
           // console.log(vehicle.license)
           <IonItem lines="none">
             <IonCard button={true} color="light">
+              <img style={{height: 120, width: 300}} src={""} ></img>
               <IonCardContent>
-                <IonCardSubtitle>Car Information</IonCardSubtitle>
+                <IonCardSubtitle>Animal Information</IonCardSubtitle>
                 <h5>Type: {animal.type}</h5>
                 <h5>Breed: {animal.breed}</h5>
                 <h5>Color: {animal.color}</h5>

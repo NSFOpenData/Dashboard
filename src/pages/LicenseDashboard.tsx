@@ -25,7 +25,10 @@ interface InternalValues {
 }
 
 const LicenseDashboard: React.FC = () => {
-  const [photo, setPhoto] = useState("")
+  const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
+  const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
+  const [photo, setPhoto] = useState("");
+  let individualCardPhotoSource = [];
 
   const VEHICLE_POST_QUERY = gql`
     query getAll{
@@ -44,7 +47,7 @@ const LicenseDashboard: React.FC = () => {
   const mapProps = {
     dataField: "location",
     defaultMapStyle: "Light Monochrome",
-    defaultZoom: 13,
+    defaultZoom: 13.1,
     react: {
       and: "places"
     },
@@ -163,22 +166,25 @@ const LicenseDashboard: React.FC = () => {
                 <IonLabel>Past 6 Hrs</IonLabel>
               </IonSegmentButton>
             </IonSegment>
-            {/*<IonText>
+            <IonText>
               <h6>
-                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedDate} onIonChange={e => setSelectedDate(e.detail.value!) }></IonDatetime>
+                | Start Date and Time:
+                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!) }></IonDatetime>
               </h6>
-            </IonText>*/}
-            <Datepicker
+              <h6>
+                | End Date and Time:
+                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
+              </h6>
+            </IonText>
+            {/* <Datepicker
                 controls={['datetime']}
                 select="range"
                 display="inline"
                 touchUi={true}
-            />
-            <IonRow>
+            /> */}
+            {/* <IonRow>
               <IonButton color="light" size="small" routerLink={"/extendedDateAndTime2"}>Click Here for Advanced Time Setting</IonButton>
-            </IonRow>
-            
-
+            </IonRow> */}
           </IonTitle>
         
         <IonAvatar></IonAvatar>
@@ -243,6 +249,7 @@ const LicenseDashboard: React.FC = () => {
           // console.log(vehicle.license)
           <IonItem lines="none">
             <IonCard button={true} color="light">
+            <img style={{height: 120, width: 300}} src={photo} ></img>
               <IonCardContent>
                 <IonCardSubtitle>Car Information</IonCardSubtitle>
                 <h5>Manufacturer: {vehicle.make}</h5>
