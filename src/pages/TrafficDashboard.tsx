@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton, IonAvatar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
 import React, { useState, Component } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './TrafficDashboard.css';
@@ -30,7 +30,8 @@ setOptions({
 
 const TrafficDashboard: React.FC = () => {
   // for date and time ranges
-  const [selectedDate, setSelectedDate] = useState<string>('2012-12-15T13:47:20.789');
+  const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
+  const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
   const [start, startRef] = React.useState<any>(null);
   const [end, endRef] = React.useState<any>(null);
 
@@ -72,21 +73,33 @@ const TrafficDashboard: React.FC = () => {
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
             </IonText>
-            {/*<IonText>
+
+            <IonSegment color="secondary" value="favorite">
+              <IonSegmentButton value="yesterday">
+                <IonLabel>Yesterday</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton value="sixhr">
+                <IonLabel>Past 12 Hrs</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton value="onehr">
+                <IonLabel>Past 6 Hrs</IonLabel>
+              </IonSegmentButton>
+            </IonSegment>
+           
+            <IonText>
               <h6>
-                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedDate} onIonChange={e => setSelectedDate(e.detail.value!) }></IonDatetime>
+                | Start Date and Time:
+                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!) }></IonDatetime>
               </h6>
-            </IonText>*/}
-            <Datepicker
-                controls={['datetime']}
-                select="range"
-                display="inline"
-                touchUi={true}
-            />
-            <IonRow>
-              <IonButton color="light" size="small" routerLink={"/extendedDateAndTime1"}>Click Here for Advanced Time Setting</IonButton>
-            </IonRow>
+              <h6>
+                | End Date and Time:
+                <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
+              </h6>
+            </IonText>
+           
           </IonTitle>
+
+          <IonAvatar></IonAvatar>
 
           <IonTitle>
             <IonText>
@@ -94,41 +107,24 @@ const TrafficDashboard: React.FC = () => {
             </IonText>
           </IonTitle>
 
+          <IonAvatar></IonAvatar>
+
           <IonTitle>
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Location:</h5>
             </IonText>
 
-            <ReactiveBase
-              app="earthquake"
-              credentials="OrXIHcgHn:d539c6e7-ed14-4407-8214-c227b0600d8e"
-              type="places"
-              mapKey="AIzaSyCgg0n0UKXaBeq7ve2VVK2qPF8SxcawIxU"
-            >
-              <div
-                style={{
-                  width: '100%', 
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between'
-                }}
-              >
-                {/*<SingleList
-                  title="Places"
-                  componentId="places"
-                  dataField="place.raw"
-                  size={50}
-                  showSearch={true}
-                />*/}
-         
-                <ReactiveGoogleMap 
-                  componentID="map"
-                  defaultCenter={{lat: 36.15, lng: 86.78}} // Nashville, TN
-                  {...mapProps}
-                />       
-
-              </div>
-            </ReactiveBase>
+            <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[36.1627, -86.7816]}>
+                <Popup>
+                  This is Nashville,
+                </Popup>
+              </Marker>
+            </MapContainer> 
           </IonTitle>
          
             
