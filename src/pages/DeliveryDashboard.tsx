@@ -6,6 +6,9 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import ExploreContainer from '../components/ExploreContainer';
 import './DeliveryDashboard.css';
 
+import 'leaflet/dist/leaflet.css';
+
+
 const DeliveryDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
@@ -85,16 +88,16 @@ const DeliveryDashboard: React.FC = () => {
           </IonText>
 
           <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={[36.1627, -86.7816]}>
-                <Popup>
-                  This is Nashville,
-                </Popup>
-              </Marker>
-            </MapContainer> 
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[36.1627, -86.7816]}>
+              <Popup>
+                This is Nashville,
+              </Popup>
+            </Marker>
+          </MapContainer> 
         </IonTitle>
       
       </IonContent>
