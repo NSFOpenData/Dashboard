@@ -269,7 +269,7 @@ const LicenseDashboard: React.FC = () => {
                 <h5>Color: {vehicle.color}</h5>
                 <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
                 {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
-                <h5>License Plate: { vehicle.license} </h5>           
+                <h5>License Plate: {vehicle.license} </h5>           
               </IonCardContent>
             </IonCard>
           </IonItem>
