@@ -1,4 +1,3 @@
-
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton, IonAvatar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
 import React, { useState, Component } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -11,13 +10,15 @@ import { ReactiveBase, SingleList } from '@appbaseio/reactivesearch';
 import { ReactiveGoogleMap, ReactiveOpenStreetMap } from '@appbaseio/reactivemaps';
 
 /* Reactive Open Street Map */
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, MapConsumer} from 'react-leaflet'
 
+import 'leaflet/dist/leaflet.css';
 
 /* Mobiscrall */
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { Datepicker, Input, Page, setOptions } from '@mobiscroll/react';
 import { render } from '@testing-library/react';
+import { flagOutline } from 'ionicons/icons';
 setOptions({
   theme: 'ios',
   themeVariant: 'light'
