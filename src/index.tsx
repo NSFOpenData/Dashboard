@@ -10,7 +10,11 @@ import {createUploadLink} from "apollo-upload-client";
 // client set up to use GraphQL
 const client = new ApolloClient({
   link : createUploadLink({
-    uri:"https://nsf-scc1.isis.vanderbilt.edu/graphql"
+    uri:"https://nsf-scc1.isis.vanderbilt.edu/graphql",
+    headers:{
+      authorization: "Bearer thisisaverysecurepassword",
+    }
+    
   }),
   cache: new InMemoryCache()
 });
