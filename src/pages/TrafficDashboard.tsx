@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton } from '@ionic/react';
+import { IonContent, IonIcon, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton } from '@ionic/react';
 import React, { useState, Component } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './TrafficDashboard.css';
@@ -11,13 +11,15 @@ import { ReactiveBase, SingleList } from '@appbaseio/reactivesearch';
 import { ReactiveGoogleMap, ReactiveOpenStreetMap } from '@appbaseio/reactivemaps';
 
 /* Reactive Open Street Map */
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, MapConsumer} from 'react-leaflet'
 
+import 'leaflet/dist/leaflet.css';
 
 /* Mobiscrall */
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { Datepicker, Input, Page, setOptions } from '@mobiscroll/react';
 import { render } from '@testing-library/react';
+import { flagOutline } from 'ionicons/icons';
 setOptions({
   theme: 'ios',
   themeVariant: 'light'
@@ -99,7 +101,19 @@ const TrafficDashboard: React.FC = () => {
               <h5>Location:</h5>
             </IonText>
 
-            <ReactiveBase
+            <MapContainer id="mapid" center={[36.163, -0.2]} zoom={13} scrollWheelZoom={false}>
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[36.1627, -86.7816]}>
+                <Popup>
+                  This is Nashville,
+                </Popup>
+              </Marker>
+            </MapContainer>
+
+            {/* <ReactiveBase
               app="earthquake"
               credentials="OrXIHcgHn:d539c6e7-ed14-4407-8214-c227b0600d8e"
               type="places"
@@ -113,22 +127,15 @@ const TrafficDashboard: React.FC = () => {
                   justifyContent: 'space-between'
                 }}
               >
-                {/*<SingleList
-                  title="Places"
-                  componentId="places"
-                  dataField="place.raw"
-                  size={50}
-                  showSearch={true}
-                />*/}
          
                 <ReactiveOpenStreetMap 
                   componentID="openstreetMap"
-                  defaultCenter={{lat: 36.16, lng: 86.78}} // Nashville, TN
+                  defaultCenter={{lat: 36.14, lng: 86.78}} // Nashville, TN
                   {...mapProps}
                 />       
 
               </div>
-            </ReactiveBase>
+            </ReactiveBase> */}
           </IonTitle>
          
             
