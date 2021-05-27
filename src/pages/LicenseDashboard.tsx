@@ -24,6 +24,8 @@ interface InternalValues {
   file: any;
 }
 
+let files: any[] = [];
+
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
@@ -56,13 +58,17 @@ const LicenseDashboard: React.FC = () => {
 
   /* Uploading Files */
   const values = useRef<InternalValues>({
-    file: false,
+      file: false,
   });
 
-  // if we are allowing files other than picture files, then uncomment "values.currentfile = ..." line 
-  // and the line below with "<input  type="file" onChange={(event)..."
   const onFileChange = (fileChangeEvent: any) => {
-    // values.current.file = fileChangeEvent.target.files[0];
+      files = Array.from(fileChangeEvent.target.files);
+      
+      {files.map((file: any) => (
+          // console.log(vehicle.license)
+          console.log(file)
+          
+      ))}
   };
 
   const getPicture = async () => {
@@ -136,11 +142,22 @@ const LicenseDashboard: React.FC = () => {
 
             
             <IonButton color="primary" expand="full" onClick={() => getPicture()}>
-              Upload
+              Upload A Single File
             </IonButton>
-            <IonButton color="secondary" expand="full" routerLink={"/multipleUpload"}>
+            {/* <IonButton color="secondary" expand="full" routerLink={"/multipleUpload"}>
               Upload Multiple
-            </IonButton>
+            </IonButton> */}
+            <IonRow>
+              <IonTitle><h6> Upload Multiple Files:</h6> </IonTitle>
+              <IonItem lines="none">
+                <input  type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+              </IonItem>
+              {/* <IonItem>
+                  {files.map((file: any) => (
+                      <h5>{file}</h5>
+                  ))}
+              </IonItem> */}
+            </IonRow>
             <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
               Retrieve
             </IonButton>

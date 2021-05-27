@@ -43,7 +43,6 @@ import LicenseDashboard from './pages/LicenseDashboard';
 import AnimalDashboard from './pages/AnimalDashboard';
 import ExtendedDateAndTime from './pages/subpages/ExtendedDateAndTime';
 import ProfilePage from './pages/ProfilePage'
-import MultipleUpload from './pages/MultipleUpload';
 
 const App: React.FC = () => (
   <IonApp>
@@ -96,13 +95,6 @@ const App: React.FC = () => (
           <Route path="/extendedDateAndTime4">
             <ExtendedDateAndTime dashBoardNum = {4}/>
           </Route>
-
-          {/* Multiple Upload Page */}
-          <Route path="/multipleUpload">
-            <MultipleUpload />
-          </Route>
-
-
           
         </IonRouterOutlet>
 
