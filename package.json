@@ -3,9 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@angular/core": "^12.0.2",
+    "@angular/platform-browser": "^12.0.2",
+    "@angular/router": "^12.0.2",
     "@appbaseio/reactivemaps": "^3.0.0-beta.11",
     "@appbaseio/reactivesearch": "^3.18.0",
     "@capacitor/core": "2.4.7",
+    "@ionic-native/camera": "^4.20.0",
+    "@ionic-native/image-picker": "^4.20.0",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
     "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.4.0.tgz",
@@ -23,7 +28,10 @@
     "@types/react-router-dom": "^5.1.7",
     
     "ajv": "^8.4.0",
+    "apollo-upload-client": "^15.0.0",
+    "axios": "^0.21.1",
     "babel-preset-es2015": "^6.24.1",
+    "graphql": "^15.5.0",
     "ionic-calendar-date-picker": "^0.1.2",
     "ionicons": "^5.4.0",
     "leaflet": "1.7.1",
@@ -70,10 +78,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@apollo/client": "^3.3.19",
     "@capacitor/cli": "2.4.7",
+    "@types/apollo-upload-client": "^14.1.0",
     "@types/leaflet": "^1.7.0",
     "@types/react-native": "^0.64.5",
+
     "typescript": "3.8.3"
+
   },
   "description": "An Ionic project"
 }

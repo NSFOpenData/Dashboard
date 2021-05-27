@@ -95,8 +95,6 @@ const App: React.FC = () => (
           <Route path="/extendedDateAndTime4">
             <ExtendedDateAndTime dashBoardNum = {4}/>
           </Route>
-
-
           
         </IonRouterOutlet>
 
