@@ -19,12 +19,12 @@ import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { Datepicker, Input, Page, setOptions } from '@mobiscroll/react';
 import { render } from '@testing-library/react';
 import { flagOutline } from 'ionicons/icons';
+
+
 setOptions({
   theme: 'ios',
   themeVariant: 'light'
 });
-
-
 
 /* Important Components */
 //import { DatePickerModule } from 'ionic-calendar-date-picker';
@@ -122,7 +122,12 @@ const TrafficDashboard: React.FC = () => {
               />
               <Marker position={[36.1627, -86.7816]}>
                 <Popup>
-                  This is Nashville,
+                  This is Nashville.
+                </Popup>
+              </Marker>
+              <Marker position={[36.1627, -86.796]}>
+                <Popup>
+                  This is close to Nashville.
                 </Popup>
               </Marker>
             </MapContainer> 
