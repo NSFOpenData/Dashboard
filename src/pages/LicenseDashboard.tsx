@@ -14,9 +14,12 @@ import { ReactiveGoogleMap, ReactiveOpenStreetMap } from '@appbaseio/reactivemap
 /* PersonalInfo For Privilege Attribute */
 import PersonalInfo from './PersonalInfo'
 
+import 'leaflet/dist/leaflet.css';
+
 /* GraphQL for API Calls */
 import {gql, useQuery} from '@apollo/client';
 import { useHistory } from 'react-router';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 const { Camera } = Plugins;
 
@@ -144,9 +147,7 @@ const LicenseDashboard: React.FC = () => {
             <IonButton color="primary" expand="full" onClick={() => getPicture()}>
               Upload A Single File
             </IonButton>
-            {/* <IonButton color="secondary" expand="full" routerLink={"/multipleUpload"}>
-              Upload Multiple
-            </IonButton> */}
+            
             <IonRow>
               <IonTitle><h6> Upload Multiple Files:</h6> </IonTitle>
               <IonItem lines="none">
@@ -196,15 +197,6 @@ const LicenseDashboard: React.FC = () => {
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
               </h6>
             </IonText>
-            {/* <Datepicker
-                controls={['datetime']}
-                select="range"
-                display="inline"
-                touchUi={true}
-            /> */}
-            {/* <IonRow>
-              <IonButton color="light" size="small" routerLink={"/extendedDateAndTime2"}>Click Here for Advanced Time Setting</IonButton>
-            </IonRow> */}
           </IonTitle>
         
         <IonAvatar></IonAvatar>
@@ -289,29 +281,18 @@ const LicenseDashboard: React.FC = () => {
           <IonText >
             <h5 style={{fontWeight: "bold"}}>Track:</h5>
           </IonText>
-
-          <ReactiveBase
-            app="earthquake"
-            credentials="OrXIHcgHn:d539c6e7-ed14-4407-8214-c227b0600d8e"
-            type="places"
-            mapKey="AIzaSyCgg0n0UKXaBeq7ve2VVK2qPF8SxcawIxU"
-          >
-            <div
-              style={{
-                width: '100%', 
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between'
-              }}
-            >
-                <ReactiveGoogleMap 
-                  componentId="map"
-                  defaultCenter={{lat: 36.15, lng: 86.68}} // Nashville, TN
-                  {...mapProps}
-                />       
-
-            </div>
-          </ReactiveBase>    
+          <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[36.1627, -86.7816]}>
+              <Popup>
+                This is Nashville,
+              </Popup>
+            </Marker>
+          </MapContainer>  
+            {/* https://stackoverflow.com/questions/67552020/how-to-fix-error-failed-to-compile-node-modules-react-leaflet-core-esm-pat  */}
 
         </IonTitle>
 

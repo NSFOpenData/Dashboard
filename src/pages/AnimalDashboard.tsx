@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime,IonRow, IonItem, IonLabel, IonSelect, IonSelectOption, IonAvatar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLoading } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime,IonRow, IonItem, IonLabel, IonSelect, IonSelectOption, IonAvatar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLoading, IonSegment, IonSegmentButton } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
 import React, {useState, Component} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -53,6 +53,19 @@ const AnimalDashboard: React.FC = () => {
           <IonText>
             <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
           </IonText>
+          
+          <IonSegment color="secondary" value="favorite">
+              <IonSegmentButton value="yesterday">
+                <IonLabel>Yesterday</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton value="sixhr">
+                <IonLabel>Past 12 Hrs</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton value="onehr">
+                <IonLabel>Past 6 Hrs</IonLabel>
+              </IonSegmentButton>
+            </IonSegment>
+
           <IonText>
               <h6>
                 | Start Date and Time:
