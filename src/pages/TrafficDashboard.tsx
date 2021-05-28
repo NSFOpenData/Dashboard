@@ -1,5 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton, IonAvatar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
-import React, { useState, Component } from 'react';
+import React, { useState, Component, useRef, useMemo, useCallback } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './TrafficDashboard.css';
 import ExtendedDateAndTime from '../pages/subpages/ExtendedDateAndTime';
@@ -28,6 +28,97 @@ setOptions({
 
 /* Important Components */
 //import { DatePickerModule } from 'ionic-calendar-date-picker';
+
+const center1 = {
+  lat: 36.1627, 
+  lng: -86.7816,
+}
+
+const center2 = {
+  lat: 36.1627, 
+  lng: -86.7616,
+}
+
+var marker1Pos: any = [];
+var marker2Pos: any = [];
+
+function DraggableMarker1() {
+  const [draggable, setDraggable] = useState(false)
+  const [position, setPosition] = useState(center1)
+  const markerRef = useRef(null)
+  const eventHandlers = useMemo(
+    () => ({
+      dragend() {
+        var marker: any = markerRef.current
+        if (marker != null) {
+          // console.log(marker._latlng)
+          
+          marker1Pos = marker._latlng
+          console.log("marker1: ", marker1Pos)
+          setPosition(marker1Pos)
+        }
+      },
+    }),
+    [],
+  )
+  const toggleDraggable = useCallback(() => {
+    setDraggable((d) => !d)
+  }, [])
+
+  return (
+    <Marker
+      draggable={draggable}
+      eventHandlers={eventHandlers}
+      position={position}
+      ref={markerRef}>
+      <Popup minWidth={90}>
+        <span onClick={toggleDraggable}>
+          {draggable
+            ? 'Marker is draggable'
+            : 'Click here to make marker draggable'}
+        </span>
+      </Popup>
+    </Marker>
+  )
+}
+
+function DraggableMarker2() {
+  const [draggable, setDraggable] = useState(false)
+  const [position, setPosition] = useState(center2)
+  const markerRef = useRef(null)
+  const eventHandlers = useMemo(
+    () => ({
+      dragend() {
+        var marker: any = markerRef.current
+        if (marker != null) {
+          marker2Pos = marker._latlng
+          console.log("marker2: ", marker2Pos)
+          setPosition(marker2Pos)
+        }
+      },
+    }),
+    [],
+  )
+  const toggleDraggable = useCallback(() => {
+    setDraggable((d) => !d)
+  }, [])
+
+  return (
+    <Marker
+      draggable={draggable}
+      eventHandlers={eventHandlers}
+      position={position}
+      ref={markerRef}>
+      <Popup minWidth={90}>
+        <span onClick={toggleDraggable}>
+          {draggable
+            ? 'Marker is draggable'
+            : 'Click here to make marker draggable'}
+        </span>
+      </Popup>
+    </Marker>
+  )
+}
 
 const TrafficDashboard: React.FC = () => {
   // for date and time ranges
@@ -120,7 +211,7 @@ const TrafficDashboard: React.FC = () => {
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={[36.1627, -86.7816]}>
+              {/* <Marker position={[36.1627, -86.7816]}>
                 <Popup>
                   This is Nashville.
                 </Popup>
@@ -129,7 +220,10 @@ const TrafficDashboard: React.FC = () => {
                 <Popup>
                   This is close to Nashville.
                 </Popup>
-              </Marker>
+              </Marker> */}
+
+              <DraggableMarker1 />
+              <DraggableMarker2 />
             </MapContainer> 
           </IonTitle>
          
