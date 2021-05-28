@@ -32,7 +32,7 @@ let files: any[] = [];
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState("https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
   let individualCardPhotoSource = [];
 
   const VEHICLE_POST_QUERY = gql`
@@ -162,11 +162,6 @@ const LicenseDashboard: React.FC = () => {
             <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
               Retrieve
             </IonButton>
-            
-
-            <IonItem lines="none">
-              <img style={{height: 120, width: 295}} src={photo} ></img>
-            </IonItem>
         </IonTitle>
 
         <IonAvatar></IonAvatar>
