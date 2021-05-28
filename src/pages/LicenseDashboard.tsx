@@ -258,19 +258,20 @@ const LicenseDashboard: React.FC = () => {
             // console.log(vehicle.license)
             <IonItem lines="none">
               <IonCard button={true} color="light">
-              <img style={{height: 120, width: 300}} src={photo} ></img>
-                <IonCardContent>
-                  <IonCardSubtitle>Car Information</IonCardSubtitle>
-                  <h5>Manufacturer: {vehicle.make}</h5>
-                  <h5>Model: {vehicle.model}</h5>
-                  <h5>Color: {vehicle.color}</h5>
-                  <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
-                  {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
-                  <h5>License Plate: {vehicle.license} </h5>           
-                </IonCardContent>
+                <img style={{height: 120, width: 300}} src={photo} ></img>
+                  <IonCardContent>
+                    <IonCardSubtitle>Car Information</IonCardSubtitle>
+                    <h5>Manufacturer: {vehicle.make}</h5>
+                    <h5>Model: {vehicle.model}</h5>
+                    <h5>Color: {vehicle.color}</h5>
+                    <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
+                    {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
+                    <h5>License Plate: {vehicle.license} </h5>           
+                  </IonCardContent>
               </IonCard>
             </IonItem>
           ))}
+          
 
         </IonContent>
       
