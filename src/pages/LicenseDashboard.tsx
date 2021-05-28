@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading, IonList } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
 import React, {useState, Component, useRef} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -252,23 +252,28 @@ const LicenseDashboard: React.FC = () => {
 
         </IonTitle>
 
-        {!loading && data?.vehicles?.map((vehicle: any) => (
-          // console.log(vehicle.license)
-          <IonItem lines="none">
-            <IonCard button={true} color="light">
-            <img style={{height: 120, width: 300}} src={photo} ></img>
-              <IonCardContent>
-                <IonCardSubtitle>Car Information</IonCardSubtitle>
-                <h5>Manufacturer: {vehicle.make}</h5>
-                <h5>Model: {vehicle.model}</h5>
-                <h5>Color: {vehicle.color}</h5>
-                <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
-                {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
-                <h5>License Plate: {vehicle.license} </h5>           
-              </IonCardContent>
-            </IonCard>
-          </IonItem>
-        ))}
+        <IonContent scrollX={true}>
+
+          {!loading && data?.vehicles?.map((vehicle: any) => (
+            // console.log(vehicle.license)
+            <IonItem lines="none">
+              <IonCard button={true} color="light">
+                <img style={{height: 120, width: 300}} src={photo} ></img>
+                  <IonCardContent>
+                    <IonCardSubtitle>Car Information</IonCardSubtitle>
+                    <h5>Manufacturer: {vehicle.make}</h5>
+                    <h5>Model: {vehicle.model}</h5>
+                    <h5>Color: {vehicle.color}</h5>
+                    <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
+                    {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
+                    <h5>License Plate: {vehicle.license} </h5>           
+                  </IonCardContent>
+              </IonCard>
+            </IonItem>
+          ))}
+          
+
+        </IonContent>
       
         <IonAvatar></IonAvatar>
 

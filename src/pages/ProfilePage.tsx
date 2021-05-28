@@ -12,123 +12,115 @@ const { Camera } = Plugins;
 //const windowWidth = Dimensions.get('window').width;
 //const windowHeight = Dimensions.get('window').height;
 
-const INITIAL_STATE = {
-  photo: 'http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png',
-};
 
-//let firstNameInput = useRef<HTMLIonInputElement>(null);
-//let secondNameInput = useRef<HTMLIonImgElement>(null);
-//let birthdayInput = useRef<HTMLIonImgElement>(null);
-//let neighborHoodInput = useRef<HTMLIonImgElement>(null);
+//http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png
 
-export class ProfilePage extends Component {
+const ProfilePage: React.FC = () => {
+  const [photo, setPhoto] = useState("https://k00228961.github.io/RWD/img/picon.png")
+  const [level, setLevel] = useState("Full");
 
-  
-  
-  state: any = {};
-  props: any = {};
-  constructor(props: any) {
-    super(props);
-    this.state = { ...INITIAL_STATE };
-  
-  }
-
-  async takePicture() {
+  async function takePicture() {
     // take phot with Camera - it's editable as well
     const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.Uri
-    });
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Uri
+      });
 
-    var imageUrl = image.webPath;
-    console.log(imageUrl);
-    // Can be set to the src of an image now
-    this.setState({
-      photo: imageUrl
-    })
-  }
+      var imageUrl = image.webPath;
+      console.log(imageUrl);
+      
+      // Can be set to the src of an image now
+      setPhoto(imageUrl!);
+    }
 
-  async upgrade(){
-      // send to upgrading page OR external website
-  }
+    function upgrade(){
+          // send to upgrading page OR external website
+    }
 
-  async resetInputs(){
-   /// firstNameInput.current!.value! = '';
+    function resetInputs(){
+      /// firstNameInput.current!.value! = '';
 
-  }
-  
+    }
 
-  render() {
-    const { photo } = this.state;
-    let level = "Full Access"
-    return (
-      <IonPage>
-        <IonHeader>
-            <IonToolbar>
-            <IonRow>
-                <IonTitle></IonTitle>
-                <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-                <IonTitle></IonTitle>
-            </IonRow>
-            </IonToolbar>
-        </IonHeader>
+  return (
+    <IonPage>
+      <IonHeader>
+          <IonToolbar>
+          <IonRow>
+              <IonTitle></IonTitle>
+              <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+              <IonTitle></IonTitle>
+          </IonRow>
+          </IonToolbar>
+      </IonHeader>
 
-        <IonContent className="profilePage">            
-            {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}             
-            
-            <IonList>
-              <IonGrid>
-                <IonCol>
-                  <IonItem lines="none">
+      <IonContent className="profilePage">            
+          {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}             
+          
+          <IonList>
+            <IonGrid>
+              <IonCol>
+                <div className="centerItem">
+                  <IonItem lines="none" className="profileImage">
                     <img style={{height: 150, width: 150, borderRadius: 30}} src={photo} ></img>
                   </IonItem>
+                </div>
+                
 
-
+                <div className="centerItem">
                   <IonItem lines="none">
-                    <IonButton color="light" size="small" onClick={() => this.takePicture()}>Change Profile Picture</IonButton>
+                    <IonButton color="light" size="small" onClick={() => takePicture()}>Change Profile Picture</IonButton>
                   </IonItem>
-                </IonCol>
-              </IonGrid>
+                </div>
+                
+                
+
+              </IonCol>
+            </IonGrid>
 
 
-              <IonItem>
-                <IonLabel>First Name</IonLabel>
-                <IonInput></IonInput>
-              </IonItem>
+            <IonItem>
+              <IonLabel>First Name</IonLabel>
+              <IonInput></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel>Last Name</IonLabel>
-                <IonInput></IonInput>
-              </IonItem>
+            <IonItem>
+              <IonLabel>Last Name</IonLabel>
+              <IonInput></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel>Birthday</IonLabel>
-                <IonInput></IonInput>
-              </IonItem>
+            <IonItem>
+              <IonLabel>Birthday</IonLabel>
+              <IonInput></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel>Neighborhood</IonLabel>
-                <IonInput></IonInput>
-              </IonItem>
+            <IonItem>
+              <IonLabel>Neighborhood</IonLabel>
+              <IonInput></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel>Accessbility Level: {level}</IonLabel>
-              </IonItem>
-            </IonList>
-           
-            <IonButton color="light" size="small" onClick={() => this.upgrade()}>Press Here to Upgrade Your Accessbility</IonButton>
+            <IonItem>
+              <IonLabel>Accessbility Level: {level}</IonLabel>
+            </IonItem>
+          </IonList>
 
-            <IonAvatar></IonAvatar>
-            <IonAvatar></IonAvatar>
-            
+          <div className="centerItem">
+            <IonButton color="light" size="small" onClick={() => upgrade()}>Press Here to Upgrade Your Accessbility</IonButton>
+                 
+          </div>
+
+          <IonAvatar></IonAvatar>
+          
+          <div className="centerItem">
             <IonButton color="primary" size="small">Submit</IonButton>
             <IonButton color="danger" size="small">Reset</IonButton> 
-            
-        </IonContent>
-      </IonPage >
-    );
-  };
+          </div>
+          
+      </IonContent>
+    </IonPage >
+  );
+
 }
 
 export default ProfilePage;
