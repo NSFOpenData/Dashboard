@@ -35,6 +35,12 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+/* Auth Pages */
+import AuthMain from './pages/authpages/AuthMain'
+import LoginPage from './pages/authpages/LoginPage'
+import RegisterPage from './pages/authpages/RegisterPage'
+
+
 /* Sub Pages */
 import React from 'react';
 import TrafficDashboard from './pages/TrafficDashboard';
@@ -43,16 +49,24 @@ import LicenseDashboard from './pages/LicenseDashboard';
 import AnimalDashboard from './pages/AnimalDashboard';
 import ExtendedDateAndTime from './pages/subpages/ExtendedDateAndTime';
 import ProfilePage from './pages/ProfilePage'
-import Authentication from './pages/Authentication'
+
+
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          {/* Auth Pages */}
           <Route path="/authentication">
-            <Authentication />
+            <AuthMain />
           </Route>
+          <Route path="/registerpage">
+            <RegisterPage />
+          </Route><Route path="/loginpage">
+            <LoginPage />
+          </Route>
+
           <Route exact path="/tab1">
             <Tab1 />
           </Route>

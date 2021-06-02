@@ -1,6 +1,6 @@
 import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar } from '@ionic/react';
 import React, { Component } from 'react';
-import './Authentication.css';
+import './AuthMain.css';
 import { Plugins } from '@capacitor/core';
 // import "@codetrix-studio/capacitor-google-auth";
 
@@ -8,58 +8,8 @@ const INITIAL_STATE = {
 
 };
 
-var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
 
-// var passport = require('passport'),
-// LocalStrategy = require('passport-local').Strategy;
-
-// passport.use(new LocalStrategy({
-//   usernameField: 'email',
-//   passwordField: 'passwd'
-// },
-// function(username, password, done) {
-//   // ...
-// }
-// ));
-
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//     User.findOne({ username: username }, function(err, user) {
-//       if (err) { return done(err); }
-//       if (!user) {
-//         return done(null, false, { message: 'Incorrect username.' });
-//       }
-//       if (!user.validPassword(password)) {
-//         return done(null, false, { message: 'Incorrect password.' });
-//       }
-//       return done(null, user);
-//     });
-//   }
-// ));
-
-class Authentication extends Component {
-
-
-  // state: any = {};
-  // props: any = {};
-  // constructor(props: any) {
-  //   super(props);
-  //   this.state = { ...INITIAL_STATE };
-  // }
-
-  // async signIn(): Promise<void> {
-  //   const { history } = this.props;
-  //   const result = await Plugins.GoogleAuth.signIn();
-  //   console.info('result', result);
-  //   if (result) {
-  //     history.push({
-  //       pathname: '/profilePage',
-  //       state: { name: result.name || result.displayName, image: result.imageUrl, email: result.email }
-  //     });
-  //   }
-
-  // }
+class AuthMain extends Component {
 
   render() {
     return (
@@ -84,8 +34,11 @@ class Authentication extends Component {
             Login with Google
           </IonButton> */}
 
-          <IonButton className="login-button" routerLink={"/profilePage"} expand="block" fill="solid" color="danger">
-            Go to Profile Page!
+          <IonButton className="login-button" routerLink={"/registerpage"} expand="block" fill="solid" color="primary">
+            Register
+          </IonButton>
+          <IonButton className="login-button" routerLink={"/loginpage"} expand="block" fill="solid" color="secondary">
+            Login
           </IonButton>
         </IonContent>
       </IonPage>
@@ -93,7 +46,7 @@ class Authentication extends Component {
   }
 }
 
-export default Authentication;
+export default AuthMain;
 
 
 
