@@ -39,9 +39,9 @@ const AnimalDashboard: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonRow>
-            <IonTitle></IonTitle>
-            <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-            <IonTitle></IonTitle>
+            <IonAvatar></IonAvatar>
+            <IonAvatar></IonAvatar>
+            <img style={{ alignContent: "center", height: 70, width: 180}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
           </IonRow>
         </IonToolbar>
       </IonHeader>
@@ -49,9 +49,8 @@ const AnimalDashboard: React.FC = () => {
       <IonContent fullscreen>
         {/* <IonLoading isOpen={loading} message="Loading..." /> */}
         <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton>
-        {/* <IonTitle> */}
           <IonText>
-            <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
+            <h5 style={{fontWeight: "bold"}}>[Date and Time]</h5>
           </IonText>
           
           <IonSegment color="secondary" value="favorite">
@@ -76,14 +75,10 @@ const AnimalDashboard: React.FC = () => {
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
               </h6>
           </IonText>
-        
-        {/* </IonTitle> */}
-
         <IonAvatar></IonAvatar>
 
-        {/* <IonTitle> */}
           <IonText>
-            <h5 style={{fontWeight: "bold"}}>Location:</h5>
+            <h5 style={{fontWeight: "bold"}}>[Location]</h5>
           </IonText>
 
           <IonItem>
@@ -105,13 +100,10 @@ const AnimalDashboard: React.FC = () => {
                 <IonSelectOption value="14">Crieve Hall</IonSelectOption>
               </IonSelect>
             </IonItem>
-        {/* </IonTitle> */}
-
         <IonAvatar></IonAvatar>
 
-        {/* <IonTitle> */}
           <IonText>
-            <h5 style={{fontWeight: "bold"}}>Type:</h5>
+            <h5 style={{fontWeight: "bold"}}>[Type]</h5>
           </IonText>
 
           <IonItem>
@@ -126,13 +118,11 @@ const AnimalDashboard: React.FC = () => {
                 <IonSelectOption value="06">Snake</IonSelectOption>
               </IonSelect>
             </IonItem>
-        {/* </IonTitle> */}
 
         <IonAvatar></IonAvatar>
 
-        {/* <IonTitle> */}
           <IonText>
-            <h5 style={{fontWeight: "bold"}}>Color:</h5>
+            <h5 style={{fontWeight: "bold"}}>[Color]</h5>
           </IonText>
 
           <IonItem>
@@ -158,16 +148,11 @@ const AnimalDashboard: React.FC = () => {
               differnt colors - do we allow people to choose multiple color */}
             </IonSelect>
           </IonItem>
-        {/* </IonTitle> */}
         
-        {/* <IonTitle> */}
           <IonText>
-            <h5 style={{fontWeight: "bold"}}>Animal Info:</h5>
+            <h5 style={{fontWeight: "bold"}}>[Animal Info]</h5>
           </IonText>
 
-
-        {/* </IonTitle> */}
-        
         <IonContent>
 
           {!loading && data?.animals?.map((animal: any) => (
