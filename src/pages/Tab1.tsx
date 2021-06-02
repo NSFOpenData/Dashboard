@@ -59,11 +59,6 @@ const Tab1: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
       
       </IonContent>
     </IonPage>

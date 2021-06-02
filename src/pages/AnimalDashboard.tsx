@@ -49,7 +49,7 @@ const AnimalDashboard: React.FC = () => {
       <IonContent fullscreen>
         {/* <IonLoading isOpen={loading} message="Loading..." /> */}
         <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton>
-        <IonTitle>
+        {/* <IonTitle> */}
           <IonText>
             <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
           </IonText>
@@ -77,11 +77,11 @@ const AnimalDashboard: React.FC = () => {
               </h6>
           </IonText>
         
-        </IonTitle>
+        {/* </IonTitle> */}
 
         <IonAvatar></IonAvatar>
 
-        <IonTitle>
+        {/* <IonTitle> */}
           <IonText>
             <h5 style={{fontWeight: "bold"}}>Location:</h5>
           </IonText>
@@ -105,11 +105,11 @@ const AnimalDashboard: React.FC = () => {
                 <IonSelectOption value="14">Crieve Hall</IonSelectOption>
               </IonSelect>
             </IonItem>
-        </IonTitle>
+        {/* </IonTitle> */}
 
         <IonAvatar></IonAvatar>
 
-        <IonTitle>
+        {/* <IonTitle> */}
           <IonText>
             <h5 style={{fontWeight: "bold"}}>Type:</h5>
           </IonText>
@@ -126,11 +126,11 @@ const AnimalDashboard: React.FC = () => {
                 <IonSelectOption value="06">Snake</IonSelectOption>
               </IonSelect>
             </IonItem>
-        </IonTitle>
+        {/* </IonTitle> */}
 
         <IonAvatar></IonAvatar>
 
-        <IonTitle>
+        {/* <IonTitle> */}
           <IonText>
             <h5 style={{fontWeight: "bold"}}>Color:</h5>
           </IonText>
@@ -158,15 +158,15 @@ const AnimalDashboard: React.FC = () => {
               differnt colors - do we allow people to choose multiple color */}
             </IonSelect>
           </IonItem>
-        </IonTitle>
+        {/* </IonTitle> */}
         
-        <IonTitle>
+        {/* <IonTitle> */}
           <IonText>
             <h5 style={{fontWeight: "bold"}}>Animal Info:</h5>
           </IonText>
 
 
-        </IonTitle>
+        {/* </IonTitle> */}
         
         <IonContent>
 
