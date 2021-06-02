@@ -12,7 +12,7 @@ const client = new ApolloClient({
   link : createUploadLink({
     uri:"https://nsf-scc1.isis.vanderbilt.edu/graphql",
     headers:{
-      authorization: "Bearer thisisaverysecurepassword",
+      Authorization: "Bearer thisisaeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6ImFwcHRlc3RAYXBwdGVzdC5jb20iLCJyb2xlIjoiVVNFUiJ9LCJpYXQiOjE2MjI2NDY2NDMsImV4cCI6MTYyMzI1MTQ0Mywic3ViIjoiNjBiNjU4MDRkYzI3NTQ5YTkwMDcyYjIyIn0.LbAW5PUMwJDsvQslFA60ZlDMSy4ttZ1cmBgA5ZiuD_cverysecurepassword",
     }
     
   }),
