@@ -161,7 +161,7 @@ const TrafficDashboard: React.FC = () => {
       <IonContent fullscreen>
 
           <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton>
-          <IonTitle>
+          {/* <IonTitle> */}
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
             </IonText>
@@ -189,19 +189,19 @@ const TrafficDashboard: React.FC = () => {
               </h6>
             </IonText>
            
-          </IonTitle>
+          {/* </IonTitle> */}
 
           <IonAvatar></IonAvatar>
 
-          <IonTitle>
+          {/* <IonTitle> */}
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Number of Cars:</h5>
             </IonText>
-          </IonTitle>
+          {/* </IonTitle> */}
 
           <IonAvatar></IonAvatar>
 
-          <IonTitle>
+          {/* <IonTitle> */}
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Location:</h5>
             </IonText>
@@ -225,7 +225,7 @@ const TrafficDashboard: React.FC = () => {
               <DraggableMarker1 />
               <DraggableMarker2 />
             </MapContainer> 
-          </IonTitle>
+          {/* </IonTitle> */}
          
             
          

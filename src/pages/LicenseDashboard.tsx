@@ -134,7 +134,7 @@ const LicenseDashboard: React.FC = () => {
 
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
         
-        <IonTitle>
+        {/* <IonTitle> */}
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Upload/Retrieve Data:</h5>
             </IonText>
@@ -162,11 +162,11 @@ const LicenseDashboard: React.FC = () => {
             <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
               Retrieve
             </IonButton>
-        </IonTitle>
+        {/* </IonTitle> */}
 
         <IonAvatar></IonAvatar>
 
-        <IonTitle>
+        {/* <IonTitle> */}
             <IonText>
               <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
             </IonText>
@@ -192,11 +192,11 @@ const LicenseDashboard: React.FC = () => {
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
               </h6>
             </IonText>
-          </IonTitle>
+          {/* </IonTitle> */}
         
         <IonAvatar></IonAvatar>
 
-        <IonTitle>
+        {/* <IonTitle> */}
           <IonText>
             <h5 style={{fontWeight: "bold"}}>Location:</h5>
           </IonText>
@@ -220,11 +220,11 @@ const LicenseDashboard: React.FC = () => {
               <IonSelectOption value="14">Crieve Hall</IonSelectOption>
             </IonSelect>
           </IonItem>
-        </IonTitle>
+        {/* </IonTitle> */}
 
         <IonAvatar></IonAvatar>
 
-        <IonTitle>
+        {/* <IonTitle> */}
           <IonText>
             <h5 style={{fontWeight: "bold"}}>License Plates:</h5>
           </IonText>
@@ -250,7 +250,7 @@ const LicenseDashboard: React.FC = () => {
             </IonSelect>
           </IonItem>
 
-        </IonTitle>
+        {/* </IonTitle> */}
 
         <IonContent scrollX={true}>
 
@@ -277,7 +277,7 @@ const LicenseDashboard: React.FC = () => {
       
         <IonAvatar></IonAvatar>
 
-        <IonTitle>
+        {/* <IonTitle> */}
           <IonText >
             <h5 style={{fontWeight: "bold"}}>Track:</h5>
           </IonText>
@@ -294,7 +294,7 @@ const LicenseDashboard: React.FC = () => {
           </MapContainer>  
             {/* https://stackoverflow.com/questions/67552020/how-to-fix-error-failed-to-compile-node-modules-react-leaflet-core-esm-pat  */}
 
-        </IonTitle>
+        {/* </IonTitle> */}
 
         
       </IonContent>
