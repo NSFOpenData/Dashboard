@@ -48,9 +48,10 @@ const ProfilePage: React.FC = () => {
       <IonHeader>
           <IonToolbar>
           <IonRow>
-              <IonTitle></IonTitle>
-              <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-              <IonTitle></IonTitle>
+              <IonAvatar></IonAvatar>
+              <IonAvatar></IonAvatar>
+
+              <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
           </IonRow>
           </IonToolbar>
       </IonHeader>

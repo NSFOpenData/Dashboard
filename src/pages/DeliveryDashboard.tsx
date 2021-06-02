@@ -19,9 +19,9 @@ const DeliveryDashboard: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonRow>
-            <IonTitle></IonTitle>
-            <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-            <IonTitle></IonTitle>
+            <IonAvatar></IonAvatar>
+            <IonAvatar></IonAvatar>
+            <img style={{ alignContent: "center", height: 70, width: 180}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
           </IonRow>
         </IonToolbar>
       </IonHeader>
@@ -30,7 +30,8 @@ const DeliveryDashboard: React.FC = () => {
         <IonButton color="secondary" expand="full" disabled={true}>Delivery Dashboard</IonButton>
         {/* <IonTitle> */}
             <IonText>
-              <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
+              
+              <h5 style={{fontWeight: "bold"}}>[Date and Time]</h5>
             </IonText>
             
             <IonSegment color="secondary" value="favorite">
@@ -63,7 +64,7 @@ const DeliveryDashboard: React.FC = () => {
         
         {/* <IonTitle> */}
           <IonText>
-            <h5 style={{fontWeight: "bold"}}>Type:</h5>
+            <h5 style={{fontWeight: "bold"}}>[Type]</h5>
           </IonText>
           <IonItem>
             <IonText>
@@ -84,7 +85,7 @@ const DeliveryDashboard: React.FC = () => {
 
         {/* <IonTitle> */}
           <IonText>
-            <h5 style={{fontWeight: "bold"}}>Location:</h5>
+            <h5 style={{fontWeight: "bold"}}>[Location]</h5>
           </IonText>
 
           <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>

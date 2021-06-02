@@ -151,19 +151,17 @@ const TrafficDashboard: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonRow>
-            <IonTitle></IonTitle>
-            <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-            <IonTitle></IonTitle>
+              <IonAvatar></IonAvatar>
+              <IonAvatar></IonAvatar>
+              <img style={{ alignContent: "center", height: 70, width: 180}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
           </IonRow>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
-
           <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton>
-          {/* <IonTitle> */}
-            <IonText>
-              <h5 style={{fontWeight: "bold"}}>Date and Time:</h5>
+              <IonText>
+              <h5 style={{fontWeight: "bold"}}>[Date and Time]</h5>
             </IonText>
 
             <IonSegment color="secondary" value="favorite">
@@ -189,21 +187,18 @@ const TrafficDashboard: React.FC = () => {
               </h6>
             </IonText>
            
-          {/* </IonTitle> */}
-
           <IonAvatar></IonAvatar>
 
-          {/* <IonTitle> */}
+
             <IonText>
-              <h5 style={{fontWeight: "bold"}}>Number of Cars:</h5>
+              <h5 style={{fontWeight: "bold"}}>[Number of Cars]</h5>
             </IonText>
-          {/* </IonTitle> */}
+
 
           <IonAvatar></IonAvatar>
 
-          {/* <IonTitle> */}
             <IonText>
-              <h5 style={{fontWeight: "bold"}}>Location:</h5>
+              <h5 style={{fontWeight: "bold"}}>[Location]</h5>
             </IonText>
 
             <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
@@ -224,12 +219,7 @@ const TrafficDashboard: React.FC = () => {
 
               <DraggableMarker1 />
               <DraggableMarker2 />
-            </MapContainer> 
-          {/* </IonTitle> */}
-         
-            
-         
-          
+            </MapContainer>          
   
       </IonContent>
 
