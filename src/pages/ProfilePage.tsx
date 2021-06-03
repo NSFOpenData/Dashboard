@@ -128,7 +128,7 @@ const ProfilePage: React.FC = () => {
           </div>
 
           <IonAvatar></IonAvatar>
-{/*           
+          {/*           
           <div className="centerItem">
             <IonButton color="primary" size="small">Submit</IonButton>
             <IonButton color="danger" size="small">Reset</IonButton> 

@@ -67,7 +67,6 @@ const LoginPage: React.FC = () => {
 
 
             {(formState.email.length > 0 && formState.password.length > 0) && 
-                
                 <IonButton size="default" onClick={() => login} routerLink={"/profilepage"}>LogIn To Go To Profile Page</IonButton>
             }
             
