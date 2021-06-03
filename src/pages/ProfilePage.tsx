@@ -93,14 +93,33 @@ const ProfilePage: React.FC = () => {
               </IonCol>
             </IonGrid>
 
-            {!loading && data?.me?.map((user: any) => (
+           
+            {!loading && 
+            <IonList>
+                <IonItem>
+                  <IonLabel>Name: {data?.me?.name}</IonLabel>
+                </IonItem>
+
+                <IonItem>
+                  <IonLabel>Email: {data?.me?.email}</IonLabel>
+                </IonItem>
+
+                <IonItem>
+                  <IonLabel>Role/Privilege Level: {data?.me?.role}</IonLabel>
+                </IonItem>
+
+            </IonList>
+                
+            }
+
+            {/* {!loading && data?.me?.map((user: any) => (
                 <IonItem>
                   <IonLabel>Name: {user.name}</IonLabel>
                   <IonLabel>Email: {user.email}</IonLabel>
                   <IonLabel>Role/Privilege Level: {user.role}</IonLabel>
                 </IonItem>
 
-            ))}
+            ))} */}
           </IonList>
 
           <div className="centerItem">

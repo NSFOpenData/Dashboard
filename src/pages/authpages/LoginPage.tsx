@@ -6,6 +6,7 @@ import './LoginPage.css';
 import {gql, useQuery, useMutation, ApolloProvider} from '@apollo/client';
 import { useHistory } from 'react-router';
 import { register } from '../../serviceWorkerRegistration';
+import { PassThrough } from 'stream';
 
 let AUTH_TOKEN = '';
 
@@ -30,12 +31,13 @@ const LoginPage: React.FC = () => {
 
   const [login] = useMutation(LOGIN_QUERY, {
     variables:{
-        email:formState.email,
-        password: formState.password
+        email: formState.email,
+        password: formState.password,
     },
     onCompleted: ({login}) => {
         // localStorage.setItem(AUTH_TOKEN, register.token);
-        AUTH_TOKEN = login.token;
+        // AUTH_TOKEN = login.token;
+        localStorage.setItem(AUTH_TOKEN, login.token);
         console.log("here", AUTH_TOKEN);
         history.push('/');
     }
@@ -63,9 +65,14 @@ const LoginPage: React.FC = () => {
                 <IonInput placeholder="Password" onIonChange={e => setFormState({...formState, password: e.detail.value!})}></IonInput>
             </IonItem>
 
+
             {(formState.email.length > 0 && formState.password.length > 0) && 
+                
                 <IonButton size="default" onClick={() => login} routerLink={"/profilepage"}>LogIn To Go To Profile Page</IonButton>
             }
+            
+            {console.log("here: ", formState.email, formState.password)}
+
         </IonContent>
       </IonPage >
     );

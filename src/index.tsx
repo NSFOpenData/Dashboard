@@ -9,12 +9,14 @@ import {createUploadLink} from "apollo-upload-client";
 
 import {AUTH_TOKEN} from "../src/pages/authpages/LoginPage";
 
+const token = localStorage.getItem(AUTH_TOKEN);
 // client set up to use GraphQL
 const client = new ApolloClient({
   link : createUploadLink({
     uri:"https://nsf-scc1.isis.vanderbilt.edu/graphql",
     headers:{
-      authorization: "Bearer " + {AUTH_TOKEN},
+      // authorization: "Bearer " + {AUTH_TOKEN},
+      authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6ImFwcHRlc3RAYXBwdGVzdC5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjI3NDczNDIsImV4cCI6MTYyMzM1MjE0Miwic3ViIjoiNjBiNjU4MDRkYzI3NTQ5YTkwMDcyYjIyIn0.89rdr_qyT2ntC5LOyu6CrWBnUhjiqNOeTDz1bWm6TOg"
     }
     
   }),
