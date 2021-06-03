@@ -4,7 +4,6 @@ import './ProfilePage.css';
 import React, { Component, useRef, useState } from 'react';
 import { Plugins, CameraResultType } from '@capacitor/core';
 
-
 /* GraphQL for API Calls */
 import {gql, useQuery} from '@apollo/client';
 
@@ -22,7 +21,6 @@ const { Camera } = Plugins;
 const ProfilePage: React.FC = () => {
   const [photo, setPhoto] = useState("https://k00228961.github.io/RWD/img/picon.png")
   const [level, setLevel] = useState("Full");
-
 
   const USER_QUERY = gql`
     query getAll{
@@ -91,18 +89,37 @@ const ProfilePage: React.FC = () => {
                     <IonButton color="light" size="small" onClick={() => takePicture()}>Change Profile Picture</IonButton>
                   </IonItem>
                 </div>
+                
               </IonCol>
             </IonGrid>
 
-            {!loading && data?.me?.map((user: any) => (
+           
+            {!loading && 
+            <IonList>
+                <IonItem>
+                  <IonLabel>Name: {data?.me?.name}</IonLabel>
+                </IonItem>
+
+                <IonItem>
+                  <IonLabel>Email: {data?.me?.email}</IonLabel>
+                </IonItem>
+
+                <IonItem>
+                  <IonLabel>Role/Privilege Level: {data?.me?.role}</IonLabel>
+                </IonItem>
+
+            </IonList>
+                
+            }
+
+            {/* {!loading && data?.me?.map((user: any) => (
                 <IonItem>
                   <IonLabel>Name: {user.name}</IonLabel>
                   <IonLabel>Email: {user.email}</IonLabel>
                   <IonLabel>Role/Privilege Level: {user.role}</IonLabel>
                 </IonItem>
 
-            ))}
-
+            ))} */}
           </IonList>
 
           <div className="centerItem">
@@ -111,12 +128,11 @@ const ProfilePage: React.FC = () => {
           </div>
 
           <IonAvatar></IonAvatar>
-{/*           
+          {/*           
           <div className="centerItem">
             <IonButton color="primary" size="small">Submit</IonButton>
             <IonButton color="danger" size="small">Reset</IonButton> 
           </div> */}
-
           
       </IonContent>
     </IonPage >

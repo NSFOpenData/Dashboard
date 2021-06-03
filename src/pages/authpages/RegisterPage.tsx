@@ -16,6 +16,7 @@ const RegisterPage: React.FC = () => {
         password: '',
     });
 
+    // https://github.com/howtographql/react-apollo/blob/master/src/components/Login.js
     const REGISTER_QUERY = gql`
         mutation RegiterMutation (
             $name: String!
@@ -36,7 +37,6 @@ const RegisterPage: React.FC = () => {
         password: formState.password
     },
     onCompleted: ({register}) => {
-        // localStorage.setItem(AUTH_TOKEN, register.token);
         history.push('/');
     }
   });
