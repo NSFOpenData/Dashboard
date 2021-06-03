@@ -8,6 +8,7 @@ import './AnimalDashboard.css';
 /* Axios for API Calls */
 import axios from 'axios';
 import { Console } from 'console';
+
 import { thumbsUpSharp } from 'ionicons/icons';
 
 /* GraphQL for API Calls */

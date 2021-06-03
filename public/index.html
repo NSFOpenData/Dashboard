@@ -44,6 +44,26 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
+
+    <!-- For Google Authorization -->
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <script>
+    window.onLoadCallback = function(){
+      gapi.auth2.init({
+          client_id: 'filler_text_for_client_id.apps.googleusercontent.com'
+        });
+    }
+    </script>
+
+    <!-- Web -->
+    <meta name="google-signin-client_id" content="695008288367-igrflh6evku66d84850h1iecn8d2f8c5.apps.googleusercontent.com">
+    <!-- iOS -->
+    <meta name="google-signin-client_id" content="695008288367-8q1ds47hs82g6tdbnokrc5dg4g18el7b.apps.googleusercontent.com">
+    <!-- Android -->
+    <!-- <meta name="google-signin-client_id" content="695008288367-igrflh6evku66d84850h1iecn8d2f8c5.apps.googleusercontent.com"> -->
+
+    
+
   </head>
 
   <body>

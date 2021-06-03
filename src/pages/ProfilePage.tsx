@@ -4,6 +4,10 @@ import './ProfilePage.css';
 import React, { Component, useRef, useState } from 'react';
 import { Plugins, CameraResultType } from '@capacitor/core';
 
+
+/* GraphQL for API Calls */
+import {gql, useQuery} from '@apollo/client';
+
 const { Camera } = Plugins;
 //import { Dimensions } from 'react-native';
 /* Kind of have to figure out to use this later but it keeps throwing an error */
@@ -18,6 +22,19 @@ const { Camera } = Plugins;
 const ProfilePage: React.FC = () => {
   const [photo, setPhoto] = useState("https://k00228961.github.io/RWD/img/picon.png")
   const [level, setLevel] = useState("Full");
+
+
+  const USER_QUERY = gql`
+    query getAll{
+      me{
+        name
+        email
+        role
+      }
+    }
+  `;
+
+  const { loading, data, error } = useQuery(USER_QUERY);
 
   async function takePicture() {
     // take phot with Camera - it's editable as well
@@ -74,36 +91,18 @@ const ProfilePage: React.FC = () => {
                     <IonButton color="light" size="small" onClick={() => takePicture()}>Change Profile Picture</IonButton>
                   </IonItem>
                 </div>
-                
-                
-
               </IonCol>
             </IonGrid>
 
+            {!loading && data?.me?.map((user: any) => (
+                <IonItem>
+                  <IonLabel>Name: {user.name}</IonLabel>
+                  <IonLabel>Email: {user.email}</IonLabel>
+                  <IonLabel>Role/Privilege Level: {user.role}</IonLabel>
+                </IonItem>
 
-            <IonItem>
-              <IonLabel>First Name</IonLabel>
-              <IonInput></IonInput>
-            </IonItem>
+            ))}
 
-            <IonItem>
-              <IonLabel>Last Name</IonLabel>
-              <IonInput></IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel>Birthday</IonLabel>
-              <IonInput></IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel>Neighborhood</IonLabel>
-              <IonInput></IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel>Accessbility Level: {level}</IonLabel>
-            </IonItem>
           </IonList>
 
           <div className="centerItem">
@@ -112,11 +111,12 @@ const ProfilePage: React.FC = () => {
           </div>
 
           <IonAvatar></IonAvatar>
-          
+{/*           
           <div className="centerItem">
             <IonButton color="primary" size="small">Submit</IonButton>
             <IonButton color="danger" size="small">Reset</IonButton> 
-          </div>
+          </div> */}
+
           
       </IonContent>
     </IonPage >
