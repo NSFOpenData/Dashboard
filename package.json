@@ -27,7 +27,6 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
-    
     "ajv": "^8.4.0",
     "apollo-upload-client": "^15.0.0",
     "axios": "^0.21.1",
@@ -85,9 +84,7 @@
     "@types/apollo-upload-client": "^14.1.0",
     "@types/leaflet": "^1.7.0",
     "@types/react-native": "^0.64.5",
-
     "typescript": "3.8.3"
-
   },
   "description": "An Ionic project"
 }
