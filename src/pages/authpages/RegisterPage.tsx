@@ -18,15 +18,15 @@ const RegisterPage: React.FC = () => {
 
     // https://github.com/howtographql/react-apollo/blob/master/src/components/Login.js
     const REGISTER_QUERY = gql`
-        mutation RegiterMutation (
+        mutation (
             $name: String!
             $email: String!
             $password: String!
         ){
             register (user: {name: $name, email: $email, password: $password}) {
+                email
                 name
                 role
-                email
             }
         }
   `;
@@ -37,6 +37,7 @@ const RegisterPage: React.FC = () => {
         password: formState.password
     },
     onCompleted: ({register}) => {
+        console.log(register);
         history.push('/');
     }
   });
@@ -67,7 +68,7 @@ const RegisterPage: React.FC = () => {
             </IonItem>
             
             {(formState.name.length > 0 && formState.email.length > 0 && formState.password.length > 0) && 
-                <IonButton size="default" onClick={() => register}>Submit</IonButton>
+                <IonButton size="default" onClick={() => register()}>Submit</IonButton>
             }
 
             <IonButton color="secondary" size="default" routerLink={"/loginpage"}>Log In</IonButton>

@@ -9,7 +9,7 @@ import { register } from '../../serviceWorkerRegistration';
 import { PassThrough } from 'stream';
 
 // const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6ImFwcHRlc3RAYXBwdGVzdC5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjI3NDczNDIsImV4cCI6MTYyMzM1MjE0Miwic3ViIjoiNjBiNjU4MDRkYzI3NTQ5YTkwMDcyYjIyIn0.89rdr_qyT2ntC5LOyu6CrWBnUhjiqNOeTDz1bWm6TOg';
-var AUTH_TOKEN = '';
+const AUTH_TOKEN = '';
 
 const LoginPage: React.FC = () => {
     const history = useHistory();
@@ -24,36 +24,24 @@ const LoginPage: React.FC = () => {
             $email: String!
             $password: String!
         ){
-            login(email: $email, password: $password){
-                token
-            }
+            login(email: $email, password: $password)
         }
     `; 
 
-    // const [login] = useMutation(LOGIN_MUTATION);
+    const [login] = useMutation(LOGIN_MUTATION, {
+        variables:{
+            email: formState.email,
+            password: formState.password,
+        },  
 
-    // login({
-    //     variables:{
-    //         email: formState.email,
-    //         password: formState.password,
-    //     }
-    // }).then(
-    //     res => console.log(res)
-    // );
-
-  const [login] = useMutation(LOGIN_MUTATION, {
-    variables:{
-        email: formState.email,
-        password: formState.password,
-    },
-    onCompleted: ({login}) => {
-        // localStorage.setItem(AUTH_TOKEN, register.token);
-        // AUTH_TOKEN = login.token;
-        console.log("login", login.token);
-        localStorage.setItem(AUTH_TOKEN, login.token);
-        history.push('/');
-    }
-  });
+        onCompleted: ({login}) => {
+            // localStorage.setItem(AUTH_TOKEN, register.token);
+            // AUTH_TOKEN = login.token;
+            console.log("login", login);
+            localStorage.setItem(AUTH_TOKEN, login);
+            history.push('/');
+        }
+    });
     
     return (
       <IonPage>
@@ -79,11 +67,10 @@ const LoginPage: React.FC = () => {
 
 
             {(formState.email.length > 0 && formState.password.length > 0) && 
-                <IonButton size="default" onClick={() => login} routerLink={"/profilepage"}>LogIn To Go To Profile Page</IonButton>
+                <IonButton size="default" onClick={() => login()} >Login First</IonButton>
+                // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
             }
-            
-            {console.log("here: ", formState.email, formState.password)}
-
+            <IonButton size="default" routerLink={'/profilePage'}>To Profile Page</IonButton>
         </IonContent>
       </IonPage >
     );
