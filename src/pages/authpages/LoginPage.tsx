@@ -8,7 +8,8 @@ import { useHistory } from 'react-router';
 import { register } from '../../serviceWorkerRegistration';
 import { PassThrough } from 'stream';
 
-let AUTH_TOKEN = '';
+// const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6ImFwcHRlc3RAYXBwdGVzdC5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjI3NDczNDIsImV4cCI6MTYyMzM1MjE0Miwic3ViIjoiNjBiNjU4MDRkYzI3NTQ5YTkwMDcyYjIyIn0.89rdr_qyT2ntC5LOyu6CrWBnUhjiqNOeTDz1bWm6TOg';
+var AUTH_TOKEN = '';
 
 const LoginPage: React.FC = () => {
     const history = useHistory();
@@ -18,8 +19,8 @@ const LoginPage: React.FC = () => {
          password: '',
      });
 
-    const LOGIN_QUERY = gql`
-        mutation LogInMutation (
+    const LOGIN_MUTATION = gql`
+        mutation (
             $email: String!
             $password: String!
         ){
@@ -27,9 +28,20 @@ const LoginPage: React.FC = () => {
                 token
             }
         }
-  `;
+    `; 
 
-  const [login] = useMutation(LOGIN_QUERY, {
+    // const [login] = useMutation(LOGIN_MUTATION);
+
+    // login({
+    //     variables:{
+    //         email: formState.email,
+    //         password: formState.password,
+    //     }
+    // }).then(
+    //     res => console.log(res)
+    // );
+
+  const [login] = useMutation(LOGIN_MUTATION, {
     variables:{
         email: formState.email,
         password: formState.password,
@@ -37,8 +49,8 @@ const LoginPage: React.FC = () => {
     onCompleted: ({login}) => {
         // localStorage.setItem(AUTH_TOKEN, register.token);
         // AUTH_TOKEN = login.token;
+        console.log("login", login.token);
         localStorage.setItem(AUTH_TOKEN, login.token);
-        console.log("here", AUTH_TOKEN);
         history.push('/');
     }
   });
