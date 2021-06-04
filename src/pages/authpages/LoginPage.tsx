@@ -25,11 +25,10 @@ const LoginPage: React.FC = () => {
             $password: String!
         ){
             login(email: $email, password: $password){
-            }{
                 token
             }
         }
-    `;
+    `; 
 
     // const [login] = useMutation(LOGIN_MUTATION);
 
