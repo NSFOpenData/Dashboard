@@ -1,10 +1,14 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput, IonLabel } from '@ionic/react';
 import React, { Component, useState } from 'react';
 import './RegisterPage.css';
 
 /* GraphQL for API Calls */
 import {gql, useQuery, useMutation, ApolloProvider} from '@apollo/client';
 import { useHistory } from 'react-router';
+
+// these have to be in the email in order to make sure email is valid
+const atChar = '@';
+const dotCom = ".com";
 
 const RegisterPage: React.FC = () => {
     const history = useHistory();
@@ -38,7 +42,6 @@ const RegisterPage: React.FC = () => {
     },
     onCompleted: ({register}) => {
         console.log(register);
-        history.push('/');
     }
   });
 
@@ -55,8 +58,8 @@ const RegisterPage: React.FC = () => {
             </IonToolbar>
         </IonHeader>
   
-        <IonContent className="profilePage">            
-            <h5>register</h5>
+        <IonContent className="profilePage">    
+            <IonAvatar></IonAvatar>        
             <IonItem>
                 <IonInput placeholder="Full Name" onIonChange={e => setFormState({...formState, name: e.detail.value!})}></IonInput>
             </IonItem>
@@ -64,14 +67,24 @@ const RegisterPage: React.FC = () => {
                 <IonInput placeholder="Email" onIonChange={e => setFormState({...formState, email: e.detail.value!})}></IonInput>
             </IonItem>
             <IonItem>
-                <IonInput placeholder="Password" onIonChange={e => setFormState({...formState, password: e.detail.value!})}></IonInput>
+                <IonInput placeholder="Password (at least 5 characters)" onIonChange={e => setFormState({...formState, password: e.detail.value!})}></IonInput>
             </IonItem>
             
-            {(formState.name.length > 0 && formState.email.length > 0 && formState.password.length > 0) && 
-                <IonButton size="default" onClick={() => register()}>Submit</IonButton>
+            {(formState.name.length > 0 && formState.email.length > 0 && 
+                formState.email.includes(atChar) && formState.email.includes(dotCom) &&
+                formState.password.length > 4) && 
+                <IonButton expand="full" onClick={() => register()}>Register</IonButton>
             }
 
-            <IonButton color="secondary" size="default" routerLink={"/loginpage"}>Log In</IonButton>
+            <div className="centerItem">
+                <p>After registering, please go back and Log In</p>
+            </div>
+
+            {/* {!formState.email.includes(atChar) && !formState.email.includes(dotCom) &&
+                <IonLabel>Wrong Email Format</IonLabel>
+            } */}
+
+            {/* <IonButton color="secondary" size="default" routerLink={"/loginpage"}>Log In</IonButton> */}
 
 
 
