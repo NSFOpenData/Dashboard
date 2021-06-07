@@ -1,4 +1,4 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput, IonRouterLink } from '@ionic/react';
 import React, { Component, useState } from 'react';
 import './LoginPage.css';
 
@@ -9,7 +9,11 @@ import { register } from '../../serviceWorkerRegistration';
 import { PassThrough } from 'stream';
 
 // const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6ImFwcHRlc3RAYXBwdGVzdC5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjI3NDczNDIsImV4cCI6MTYyMzM1MjE0Miwic3ViIjoiNjBiNjU4MDRkYzI3NTQ5YTkwMDcyYjIyIn0.89rdr_qyT2ntC5LOyu6CrWBnUhjiqNOeTDz1bWm6TOg';
-const AUTH_TOKEN = '';
+var AUTH_TOKEN = '';
+
+// these have to be in the email in order to make sure email is valid
+const atChar = '@';
+const dotCom = ".com";
 
 const LoginPage: React.FC = () => {
     const history = useHistory();
@@ -39,7 +43,7 @@ const LoginPage: React.FC = () => {
             // AUTH_TOKEN = login.token;
             console.log("login", login);
             localStorage.setItem(AUTH_TOKEN, login);
-            history.push('/');
+            //history.push('/');
         }
     });
     
@@ -57,7 +61,7 @@ const LoginPage: React.FC = () => {
         </IonHeader>
   
         <IonContent className="profilePage">            
-           <h5>login</h5>
+            <IonAvatar></IonAvatar>
             <IonItem>
                 <IonInput placeholder="Email" onIonChange={e => setFormState({...formState, email: e.detail.value!})}></IonInput>
             </IonItem>
@@ -65,12 +69,16 @@ const LoginPage: React.FC = () => {
                 <IonInput placeholder="Password" onIonChange={e => setFormState({...formState, password: e.detail.value!})}></IonInput>
             </IonItem>
 
-
-            {(formState.email.length > 0 && formState.password.length > 0) && 
-                <IonButton size="default" onClick={() => login()} >Login First</IonButton>
+            {(formState.email.length > 0 && formState.password.length > 0 && 
+                formState.email.includes(atChar) && formState.email.includes(dotCom) &&
+                formState.password.length > 4) && 
+                <IonButton expand="full" onClick={() => login()} routerLink={'/profilePage'} >Login</IonButton>
                 // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
             }
-            <IonButton size="default" routerLink={'/profilePage'}>To Profile Page</IonButton>
+{/* 
+            <div className="centerItem">
+                <IonButton routerLink={'/authentication'}>Go Back</IonButton>
+            </div> */}
         </IonContent>
       </IonPage >
     );

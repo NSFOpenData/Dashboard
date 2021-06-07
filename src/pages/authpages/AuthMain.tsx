@@ -1,4 +1,4 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonLabel } from '@ionic/react';
 import React, { Component } from 'react';
 import './AuthMain.css';
 import { Plugins } from '@capacitor/core';
@@ -39,6 +39,14 @@ class AuthMain extends Component {
           </IonButton>
           <IonButton className="login-button" routerLink={"/loginpage"} expand="block" fill="solid" color="secondary">
             Login
+          </IonButton>
+
+          <IonAvatar></IonAvatar>
+          <div className="centerItem">
+            <IonLabel>Already Logged In?</IonLabel>
+          </div>
+          <IonButton className="login-button" routerLink={"/profilePage"} expand="block" fill="solid" color="light">
+            Go To Profile page
           </IonButton>
         </IonContent>
       </IonPage>
