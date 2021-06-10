@@ -71,7 +71,7 @@ const LoginPage: React.FC = () => {
 
             {(formState.email.length > 0 && formState.password.length > 0 && 
                 formState.email.includes(atChar) && formState.email.includes(dotCom) &&
-                formState.password.length > 4) && 
+                formState.password.length >= 4) && 
                 <IonButton expand="full" onClick={() => login()} routerLink={'/profilePage'} >Login</IonButton>
                 // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
             }

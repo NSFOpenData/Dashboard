@@ -52,7 +52,7 @@ const RegisterPage: React.FC = () => {
             <IonRow>
                 <IonAvatar></IonAvatar>
                 <IonAvatar></IonAvatar>
-  
+                
                 <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
             </IonRow>
             </IonToolbar>
