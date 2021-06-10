@@ -145,7 +145,10 @@ const LicenseDashboard: React.FC = () => {
             <IonRow>
               <h6>| Upload Multiple Files:</h6>
               <IonItem lines="none">
-                <input  type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+                <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
+                  <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+                  <input type="submit" value="upload"></input>
+                </form>
               </IonItem>
             
             </IonRow>
