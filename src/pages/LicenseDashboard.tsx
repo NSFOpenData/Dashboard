@@ -138,12 +138,12 @@ const LicenseDashboard: React.FC = () => {
               <h5 style={{fontWeight: "bold"}}>[Upload/Retrieve Data]</h5>
             </IonText>
             
-            <IonButton color="primary" expand="full" onClick={() => getPicture()}>
+            {/* <IonButton color="primary" expand="full" onClick={() => getPicture()}>
               Upload A Single File
-            </IonButton>
+            </IonButton> */}
             
             <IonRow>
-              <h6>| Upload Multiple Files:</h6>
+              <h6>| Upload File/Files:</h6>
               <IonItem lines="none">
                 <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
                   <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
