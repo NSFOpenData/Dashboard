@@ -9,7 +9,7 @@ import {
   IonTabs,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, ellipsisHorizontalCircleOutline, homeOutline, personCircleOutline, square, triangle } from 'ionicons/icons';
+import { ellipse, ellipsisHorizontalCircleOutline, homeOutline, personCircleOutline, searchCircleOutline, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
@@ -48,7 +48,9 @@ import DeliveryDashboard from './pages/DeliveryDashboard';
 import LicenseDashboard from './pages/LicenseDashboard';
 import AnimalDashboard from './pages/AnimalDashboard';
 import ExtendedDateAndTime from './pages/subpages/ExtendedDateAndTime';
-import ProfilePage from './pages/ProfilePage'
+import ProfilePage from './pages/ProfilePage';
+import QueryPage from './pages/querypages/QueryPage';
+import QueryResultPage from './pages/querypages/QueryResultPage';
 
 
 
@@ -96,6 +98,12 @@ const App: React.FC = () => (
           <Route path="/animalDashboard">
             <AnimalDashboard />
           </Route>
+          <Route path="/queryPage">
+            <QueryPage />
+          </Route>
+          <Route path="/queryResultPage">
+            <QueryResultPage />
+          </Route>
 
           {/* Advanced Time Setting Page */}
           <Route path="/extendedDateAndTime1">
@@ -125,9 +133,9 @@ const App: React.FC = () => (
             <IonIcon icon={personCircleOutline} />
             <IonLabel>Profile</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={ellipsisHorizontalCircleOutline} />
-            <IonLabel>Setting</IonLabel>
+          <IonTabButton tab="tab3" href="/queryPage">
+            <IonIcon icon={searchCircleOutline} />
+            <IonLabel>Search</IonLabel>
           </IonTabButton>
         </IonTabBar>
 
