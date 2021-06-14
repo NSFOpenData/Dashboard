@@ -76,7 +76,7 @@ const QueryPage: React.FC = () => {
                         onIonChange={event => setVehicleLicense(event.detail.value!)}></IonInput>
                     </IonItem>
                     {
-                        vehicleColor && vehicleModel && vehicleColor && vehicleApproxLocation && vehicleLicense &&
+                        (vehicleCompany || vehicleColor || vehicleModel || vehicleColor || vehicleApproxLocation || vehicleLicense) &&
                         <IonButton color="primary" expand="block" routerLink={'/queryResultPage'}>Search</IonButton>
                     }      
                 </IonContent>         
@@ -103,7 +103,7 @@ const QueryPage: React.FC = () => {
                     onIonChange={event => setAnimalApproxLocation(event.detail.value!)}></IonInput>
                 </IonItem>     
                 {
-                    animalType && animalColor && animalApproxLocation &&
+                    (animalType || animalColor || animalApproxLocation) &&
                     <IonButton color="primary" expand="block" routerLink={'/queryResultPage'}>Search</IonButton>
                 }      
             </IonContent>         
