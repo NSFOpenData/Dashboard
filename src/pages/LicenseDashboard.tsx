@@ -32,7 +32,7 @@ let files: any[] = [];
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
-  const [photo, setPhoto] = useState("https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
+  const [photo, setPhoto] = useState("https://nsf-scc1.isis.vanderbilt.edu/file/vehicle/60ad6a891cf9295d5d661d00/B_71_5x.jpg")  // "https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
   let individualCardPhotoSource = [];
 
   const VEHICLE_POST_QUERY = gql`
