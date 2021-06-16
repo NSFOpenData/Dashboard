@@ -1,24 +1,85 @@
-
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading, IonList, IonItemDivider } from '@ionic/react';
 import React, {useState, Component, useRef} from 'react';
 import './QueryPage.css';
 
+import {gql, useMutation, useQuery} from '@apollo/client';
 
+// Vehicle Related OUTPUT Variables:
+// const [vMake, setVMake] = useState<string>();
+// const [vModel, setVModel] = useState<string>();
+// const [vColor, setVColor] = useState<string>();
+// const [vApproxLoc, setVApproxLoc] = useState<string>();
+// const [vLicense, setVLicense] = useState<string>();
+    
 const QueryPage: React.FC = () => {
+    // choose either vehicle or animal search
     const [querySubject, setQuerySubject] = useState<string>();
 
-    // Vehicle Related Variables:
+    // Vehicle Related USER INPUT Variables:
     const [vehicleCompany, setVehicleCompany] = useState<string>();
     const [vehicleModel, setVehicleModel] = useState<string>();
     const [vehicleColor, setVehicleColor] = useState<string>();
     const [vehicleApproxLocation, setVehicleApproxLocation] = useState<string>();
     const [vehicleLicense, setVehicleLicense] = useState<string>();
 
-    // Animal Related Variables:
+    // Animal Related USER INPUT Variables:
     const [animalType, setAnimalType] = useState<string>();
     const [animalColor, setAnimalColor] = useState<string>();
     const [animalApproxLocation, setAnimalApproxLocation] = useState<string>();
-    
+
+    const FIND_VEHICLE_QUERY = gql`
+        mutation (
+            $make: String!
+            $model: String!
+            $location: [String!]
+            $color: String!
+            $license: String!
+        ){
+            findVehicles(params: {make: $make, model: $model, location: $location, color: $color, license: $license}){
+                _id
+                make
+                model
+                location
+                files
+            }
+        }
+    `;
+
+  const [result] = useMutation(FIND_VEHICLE_QUERY, {
+    variables:{
+        make: vehicleCompany, 
+        model: vehicleModel,
+        // location: 
+        color: vehicleColor,
+        license: vehicleLicense,
+    },
+    onCompleted: ({result}) => {
+        console.log(result);
+    }
+  });
+
+//   const Result = () => {
+//       const { loading, data, error } = useQuery(FIND_VEHICLE_QUERY, {
+//             variables: {
+//                 make: vehicleCompany, 
+//                 model: vehicleModel,
+//                 // location: 
+//                 color: vehicleColor,
+//                 license: vehicleLicense,
+//             }
+//      }); 
+//      if(loading){
+//          return <p>Loading...</p>
+//      } else {
+//         {data?.findVehicles?.map((vehicle: any) => (
+//             // console.log(vehicle.license)
+//             <IonItem lines="none">
+//                 <h5>{vehicle.model}</h5>
+//             </IonItem>
+//         ))}
+//      }
+//   }
+
     return (
       <IonPage>
         <IonHeader>
@@ -77,8 +138,11 @@ const QueryPage: React.FC = () => {
                     </IonItem>
                     {
                         (vehicleCompany || vehicleColor || vehicleModel || vehicleColor || vehicleApproxLocation || vehicleLicense) &&
-                        <IonButton color="primary" expand="block" routerLink={'/queryResultPage'}>Search</IonButton>
+                        <IonButton color="primary" expand="block" onClick={() => result()}>Search</IonButton>
+                        //  routerLink={'/queryResultPage'}
                     }      
+
+                    
                 </IonContent>         
             }
 
@@ -113,5 +177,9 @@ const QueryPage: React.FC = () => {
     );
   
   }
-  
+
+  // vehicle related variables
+//   export {vMake, vModel, vColor, vApproxLoc, vLicense}
+  // animal related variables
+  export {}
   export default QueryPage;
