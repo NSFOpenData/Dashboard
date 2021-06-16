@@ -9,6 +9,7 @@
     "@apollo/client": "^3.3.19",
     "@appbaseio/reactivemaps": "^3.0.0-beta.11",
     "@appbaseio/reactivesearch": "^3.18.0",
+    "@capacitor/android": "^2.4.7",
     "@capacitor/core": "2.4.7",
     "@ionic-native/camera": "^4.20.0",
     "@ionic-native/image-picker": "^4.20.0",
