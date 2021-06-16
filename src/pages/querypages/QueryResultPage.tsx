@@ -3,6 +3,9 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton
 import React, {useState, Component, useRef} from 'react';
 import './QueryResultPage.css';
 
+// import {vMake, vModel, vColor, vApproxLoc, vLicense} from './QueryPage';
+import {} from './QueryPage';
+
 
 const QueryResultPage: React.FC = () => {
 
