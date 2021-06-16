@@ -28,7 +28,7 @@ const QueryPage: React.FC = () => {
     const [animalApproxLocation, setAnimalApproxLocation] = useState<string>();
 
     const FIND_VEHICLE_QUERY = gql`
-        mutation (
+        query (
             $make: String!
             $model: String!
             $location: [String!]
@@ -44,19 +44,6 @@ const QueryPage: React.FC = () => {
             }
         }
     `;
-
-  const [result] = useMutation(FIND_VEHICLE_QUERY, {
-    variables:{
-        make: vehicleCompany, 
-        model: vehicleModel,
-        // location: 
-        color: vehicleColor,
-        license: vehicleLicense,
-    },
-    onCompleted: ({result}) => {
-        console.log(result);
-    }
-  });
 
 //   const Result = () => {
 //       const { loading, data, error } = useQuery(FIND_VEHICLE_QUERY, {
@@ -79,6 +66,19 @@ const QueryPage: React.FC = () => {
 //         ))}
 //      }
 //   }
+
+    const { loading, data, error } = useQuery(FIND_VEHICLE_QUERY, {
+        variables: {
+            make: vehicleCompany, 
+            model: vehicleModel,
+            // location: 
+            color: vehicleColor,
+            license: vehicleLicense,
+        }
+    }); 
+
+    if (loading) console.log("loading");
+    if (error) console.log("error");
 
     return (
       <IonPage>
@@ -138,7 +138,12 @@ const QueryPage: React.FC = () => {
                     </IonItem>
                     {
                         (vehicleCompany || vehicleColor || vehicleModel || vehicleColor || vehicleApproxLocation || vehicleLicense) &&
-                        <IonButton color="primary" expand="block" onClick={() => result()}>Search</IonButton>
+                        <IonItem>
+                            <IonButton color="primary" expand="block">Search</IonButton>
+                            {!loading && data.findVehicles.map((vehicle: any) => (
+                                <h5>{vehicle.model}</h5>
+                            ))}
+                        </IonItem>
                         //  routerLink={'/queryResultPage'}
                     }      
 
