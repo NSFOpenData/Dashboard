@@ -54,6 +54,7 @@ import ProfilePage from './pages/ProfilePage';
 import QueryPage from './pages/querypages/QueryPage';
 import QueryResultPage from './pages/querypages/QueryResultPage';
 import VehicleQueryPage from './pages/querypages/VehicleQueryPage';
+import AnimalQueryPage from './pages/querypages/AnimalQueryPage';
 
 const App: React.FC = () => (
   <IonApp>
@@ -110,6 +111,9 @@ const App: React.FC = () => (
           <Route path='/vehicleQueryPage'>
             <VehicleQueryPage />
           </Route>
+          <Route path='/animalQueryPage'>
+            <AnimalQueryPage />
+          </Route>
 
           {/* Advanced Time Setting Page */}
           <Route path="/extendedDateAndTime1">
@@ -139,7 +143,7 @@ const App: React.FC = () => (
             <IonIcon icon={personCircleOutline} />
             <IonLabel>Profile</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/vehicleQueryPage">
+          <IonTabButton tab="tab3" href="/queryPage">
             <IonIcon icon={searchCircleOutline} />
             <IonLabel>Search</IonLabel>
           </IonTabButton>

@@ -4,11 +4,6 @@ import './VehicleQueryPage.css';
 
 import {gql, useMutation, useQuery} from '@apollo/client';
 
-
-function showResult(){
-    
-}
-
 const VehicleQueryPage: React.FC = () => {
     
     // trying without location for now
