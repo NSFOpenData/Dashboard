@@ -99,14 +99,22 @@ const VehicleQueryPage: React.FC = () => {
             </IonItem>
             {
                 (vehicleCompany || vehicleColor || vehicleModel || vehicleColor || vehicleApproxLocation || vehicleLicense) &&
-                <IonItem>
-                    <IonButton color="primary" expand="block">Search</IonButton>
+                <IonContent>
+                    {/* <IonButton color="primary" expand="block">Search</IonButton> */}
                     {!loading && data.findVehicles.map((vehicle: any) => (
-                       // console.log(vehicle)
-                         <h5>{vehicle.model + "__"}</h5>
+                        <IonCard button={false} color="light">
+                           <IonCardContent>
+                             <h5>Manufacturer: {vehicle.make}</h5>
+                             <h5>Model: {vehicle.model}</h5>
+                             <h5>Color: {vehicle.color}</h5>
+                             <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
+                             {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
+                             <h5>License Plate: {vehicle.license} </h5>           
+                           </IonCardContent>
+                       </IonCard>
                     ))}
                     
-                </IonItem>
+                </IonContent>
                 //  routerLink={'/queryResultPage'}
             }      
         </IonContent>
