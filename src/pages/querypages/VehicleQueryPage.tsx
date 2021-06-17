@@ -15,8 +15,9 @@ const VehicleQueryPage: React.FC = () => {
     const FIND_VEHICLE_QUERY = gql`
         query FindVehicles(
             $make: String!
+            $model: String!
         ){
-            findVehicles(params: {make: $make}){
+            findVehicles(params: {make: $make, model: $model}){
                 _id
                 make
                 model
@@ -27,16 +28,16 @@ const VehicleQueryPage: React.FC = () => {
     `;
 
     // Vehicle Related USER INPUT Variables:
-    const [vehicleCompany, setVehicleCompany] = useState<string>();
-    const [vehicleModel, setVehicleModel] = useState<string>();
-    const [vehicleColor, setVehicleColor] = useState<string>();
-    const [vehicleApproxLocation, setVehicleApproxLocation] = useState<string>();
-    const [vehicleLicense, setVehicleLicense] = useState<string>();
+    const [vehicleCompany, setVehicleCompany] = useState<string | null>();
+    const [vehicleModel, setVehicleModel] = useState<string | null>(null);
+    const [vehicleColor, setVehicleColor] = useState<string| null>(null);
+    const [vehicleApproxLocation, setVehicleApproxLocation] = useState<string| null>();
+    const [vehicleLicense, setVehicleLicense] = useState<string| null>();
 
     const { loading, data, error } = useQuery(FIND_VEHICLE_QUERY, {
         variables: {
             make: vehicleCompany, 
-            // model: vehicleModel,
+            model: vehicleModel,
             // location: 
             // color: vehicleColor,
             // license: vehicleLicense,
