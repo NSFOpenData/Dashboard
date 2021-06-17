@@ -1,0 +1,13 @@
+.centerItem {
+  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.title {
+  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 20px;
+  font-weight: 200;
+}

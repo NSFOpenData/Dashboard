@@ -12,14 +12,29 @@ const QueryPage: React.FC = () => {
             <IonRow>
                 <IonAvatar></IonAvatar>
                 <IonAvatar></IonAvatar>
-                <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+                <div className="logo">
+                    <img  src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+                </div>
             </IonRow>
             </IonToolbar>
         </IonHeader>
   
         <IonContent className="profilePage"> 
+        
+            <IonAvatar></IonAvatar>
+            <IonAvatar></IonAvatar>
+            <IonAvatar></IonAvatar>
+            <IonAvatar></IonAvatar>
+
+
+            <text className="title">Advanced Query Page</text>
+            
+            <IonAvatar></IonAvatar>
+
             <IonButton expand="block" routerLink={'/vehicleQueryPage'}>Vehicle Search</IonButton>
             <IonButton expand="block" color="secondary" routerLink={'/animalQueryPage'}>Animal Search</IonButton>
+            
+        
         </IonContent>
       </IonPage >
     );
