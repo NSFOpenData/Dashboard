@@ -98,8 +98,8 @@ const QueryPage: React.FC = () => {
             <IonItem>
                 <IonLabel>What are you searching for?</IonLabel>
                 <IonSelect value={querySubject} onIonChange={event => setQuerySubject(event.detail.value)}>
-                <IonSelectOption value="Vehicle">Vehicle</IonSelectOption>
-                <IonSelectOption value="Animal">Animal</IonSelectOption>
+                    <IonSelectOption value="Vehicle">Vehicle</IonSelectOption>
+                    <IonSelectOption value="Animal">Animal</IonSelectOption>
                 </IonSelect>
             </IonItem>
 

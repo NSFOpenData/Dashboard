@@ -49,10 +49,11 @@ import LicenseDashboard from './pages/LicenseDashboard';
 import AnimalDashboard from './pages/AnimalDashboard';
 import ExtendedDateAndTime from './pages/subpages/ExtendedDateAndTime';
 import ProfilePage from './pages/ProfilePage';
+
+/* Query Pages */
 import QueryPage from './pages/querypages/QueryPage';
 import QueryResultPage from './pages/querypages/QueryResultPage';
-
-
+import VehicleQueryPage from './pages/querypages/VehicleQueryPage';
 
 const App: React.FC = () => (
   <IonApp>
@@ -98,11 +99,16 @@ const App: React.FC = () => (
           <Route path="/animalDashboard">
             <AnimalDashboard />
           </Route>
+
+          {/* Query Pages */}
           <Route path="/queryPage">
             <QueryPage />
           </Route>
           <Route path="/queryResultPage">
             <QueryResultPage />
+          </Route>
+          <Route path='/vehicleQueryPage'>
+            <VehicleQueryPage />
           </Route>
 
           {/* Advanced Time Setting Page */}
@@ -133,7 +139,7 @@ const App: React.FC = () => (
             <IonIcon icon={personCircleOutline} />
             <IonLabel>Profile</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/queryPage">
+          <IonTabButton tab="tab3" href="/vehicleQueryPage">
             <IonIcon icon={searchCircleOutline} />
             <IonLabel>Search</IonLabel>
           </IonTabButton>
