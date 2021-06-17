@@ -57,8 +57,8 @@ const AnimalQueryPage: React.FC = () => {
         </IonHeader>
   
         <IonContent className="profilePage"> 
-            <IonButton expand="full" disabled={true}>
-                Vehicle Advanced Search Query
+            <IonButton expand="full" color="secondary" disabled={true}>
+                Animal Advanced Search Query
             </IonButton>
             
             <IonItem>
