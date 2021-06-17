@@ -14,8 +14,8 @@ const VehicleQueryPage: React.FC = () => {
     // trying without location for now
     const FIND_VEHICLE_QUERY = gql`
         query FindVehicles(
-            $make: String!
-            $model: String!
+            $make: String
+            $model: String
         ){
             findVehicles(params: {make: $make, model: $model}){
                 _id
@@ -23,14 +23,15 @@ const VehicleQueryPage: React.FC = () => {
                 model
                 location
                 files
+                color
             }
         }
     `;
 
     // Vehicle Related USER INPUT Variables:
     const [vehicleCompany, setVehicleCompany] = useState<string | null>();
-    const [vehicleModel, setVehicleModel] = useState<string | null>(null);
-    const [vehicleColor, setVehicleColor] = useState<string| null>(null);
+    const [vehicleModel, setVehicleModel] = useState<string | null>();
+    const [vehicleColor, setVehicleColor] = useState<string| null>();
     const [vehicleApproxLocation, setVehicleApproxLocation] = useState<string| null>();
     const [vehicleLicense, setVehicleLicense] = useState<string| null>();
 
@@ -98,7 +99,8 @@ const VehicleQueryPage: React.FC = () => {
                 <IonItem>
                     <IonButton color="primary" expand="block">Search</IonButton>
                     {!loading && data.findVehicles.map((vehicle: any) => (
-                        <h5>{vehicle.model + "__"}</h5>
+                       // console.log(vehicle)
+                         <h5>{vehicle.model + "__"}</h5>
                     ))}
                     
                 </IonItem>
