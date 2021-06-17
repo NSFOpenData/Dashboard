@@ -16,8 +16,11 @@ const VehicleQueryPage: React.FC = () => {
         query FindVehicles(
             $make: String
             $model: String
+            $location: [String!]
+            $color: String
+            $license: String
         ){
-            findVehicles(params: {make: $make, model: $model}){
+            findVehicles(params: {make: $make, model: $model, location: $location, color: $color, license: $license}){
                 _id
                 make
                 model
@@ -40,8 +43,8 @@ const VehicleQueryPage: React.FC = () => {
             make: vehicleCompany, 
             model: vehicleModel,
             // location: 
-            // color: vehicleColor,
-            // license: vehicleLicense,
+            color: vehicleColor,
+            license: vehicleLicense,
         }
     }); 
 
