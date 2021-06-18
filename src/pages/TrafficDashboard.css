@@ -6,3 +6,13 @@
 #mapid {
   height: 600px;
 }
+
+.centerItem {
+  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.startDateAndTime {
+  left: 10px;
+}

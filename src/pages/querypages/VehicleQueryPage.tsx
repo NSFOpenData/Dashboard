@@ -41,6 +41,7 @@ const VehicleQueryPage: React.FC = () => {
             color: vehicleColor,
             license: vehicleLicense,
         }, 
+        fetchPolicy: "network-only"
         // onCompleted: ({result}) => {
         //     console.log(result);
         // }

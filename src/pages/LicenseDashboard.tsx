@@ -134,33 +134,33 @@ const LicenseDashboard: React.FC = () => {
 
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
         
-            <IonText>
-              <h5 style={{fontWeight: "bold"}}>[Upload/Retrieve Data]</h5>
-            </IonText>
+            <h5 className="centerItem" style={{fontWeight: "bold"}}>Upload/Retrieve Data</h5>
+           
             
             {/* <IonButton color="primary" expand="full" onClick={() => getPicture()}>
               Upload A Single File
             </IonButton> */}
             
-            <IonRow>
-              <h6>| Upload File/Files:</h6>
-              <IonItem lines="none">
-                <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
-                  <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
-                  <input type="submit" value="upload"></input>
-                </form>
-              </IonItem>
+            <div className="centerItem">
+              <IonRow>
+                <h6>Upload File/Files:</h6>
+                <IonItem lines="none">
+                  <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
+                    <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+                    <input type="submit" value="upload"></input>
+                  </form>
+                </IonItem>
+              </IonRow>
+            </div>
             
-            </IonRow>
             <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
               Retrieve
             </IonButton>
 
         <IonAvatar></IonAvatar>
 
-            <IonText>
-              <h5 style={{fontWeight: "bold"}}>[Date and Time]</h5>
-            </IonText>
+            <h5 className="centerItem" style={{fontWeight: "bold"}}>Date and Time</h5>
+         
 
             <IonSegment color="secondary" value="favorite">
               <IonSegmentButton value="yesterday">
@@ -173,23 +173,23 @@ const LicenseDashboard: React.FC = () => {
                 <IonLabel>Past 6 Hrs</IonLabel>
               </IonSegmentButton>
             </IonSegment>
-            <IonText>
+            <div className="centerItem">
               <h6>
-                | Start Date and Time:
+                Start Date and Time:
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!) }></IonDatetime>
               </h6>
+              <IonAvatar></IonAvatar>
               <h6>
-                | End Date and Time:
+                End Date and Time:
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
               </h6>
-            </IonText>
+            </div>
 
         
         <IonAvatar></IonAvatar>
 
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[Location]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5>
+         
 
           <IonItem>
             <IonLabel>Choose Location:</IonLabel>
@@ -213,9 +213,7 @@ const LicenseDashboard: React.FC = () => {
 
         <IonAvatar></IonAvatar>
 
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[License Plates]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>License Plates</h5>
 
           {/* <IonItem lines="none">
             <IonButton color="light" size="small" onClick={() => this.takePicture()}>Upload A Picture</IonButton>
@@ -264,9 +262,8 @@ const LicenseDashboard: React.FC = () => {
       
         <IonAvatar></IonAvatar>
 
-          <IonText >
-            <h5 style={{fontWeight: "bold"}}>[Track]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Track</h5>
+          
           <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

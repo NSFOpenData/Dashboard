@@ -50,9 +50,8 @@ const AnimalDashboard: React.FC = () => {
       <IonContent fullscreen>
         {/* <IonLoading isOpen={loading} message="Loading..." /> */}
         <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton>
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[Date and Time]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Date and Time</h5>
+          
           
           <IonSegment color="secondary" value="favorite">
               <IonSegmentButton value="yesterday">
@@ -66,21 +65,21 @@ const AnimalDashboard: React.FC = () => {
               </IonSegmentButton>
             </IonSegment>
 
-          <IonText>
+            <div className="centerItem">
               <h6>
-                | Start Date and Time:
+                Start Date and Time:
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!) }></IonDatetime>
               </h6>
+              <IonAvatar></IonAvatar>
               <h6>
-                | End Date and Time:
+                End Date and Time:
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
               </h6>
-          </IonText>
+            </div>
         <IonAvatar></IonAvatar>
 
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[Location]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5>
+          
 
           <IonItem>
               <IonLabel>Choose Location:</IonLabel>
@@ -103,9 +102,8 @@ const AnimalDashboard: React.FC = () => {
             </IonItem>
         <IonAvatar></IonAvatar>
 
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[Type]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Type</h5>
+        
 
           <IonItem>
               <IonLabel>Choose Type:</IonLabel>
@@ -122,10 +120,8 @@ const AnimalDashboard: React.FC = () => {
 
         <IonAvatar></IonAvatar>
 
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[Color]</h5>
-          </IonText>
-
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Color</h5>
+         
           <IonItem>
             <IonLabel>Choose Color:</IonLabel>
             <IonSelect value="00">
@@ -149,10 +145,10 @@ const AnimalDashboard: React.FC = () => {
               differnt colors - do we allow people to choose multiple color */}
             </IonSelect>
           </IonItem>
+
+          <IonAvatar></IonAvatar>
         
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[Animal Info]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Animal Info</h5>
 
         <IonContent>
 

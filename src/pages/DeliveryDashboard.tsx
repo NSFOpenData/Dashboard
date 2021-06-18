@@ -28,11 +28,8 @@ const DeliveryDashboard: React.FC = () => {
 
       <IonContent fullscreen>
         <IonButton color="secondary" expand="full" disabled={true}>Delivery Dashboard</IonButton>
-        {/* <IonTitle> */}
-            <IonText>
-              
-              <h5 style={{fontWeight: "bold"}}>[Date and Time]</h5>
-            </IonText>
+        
+            <h5 className="centerItem" style={{fontWeight: "bold"}}>Date and Time</h5>
             
             <IonSegment color="secondary" value="favorite">
               <IonSegmentButton value="yesterday">
@@ -46,26 +43,22 @@ const DeliveryDashboard: React.FC = () => {
               </IonSegmentButton>
             </IonSegment>
 
-            <IonText>
+            <div className="centerItem">
               <h6>
-                | Start Date and Time:
+                Start Date and Time:
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!) }></IonDatetime>
               </h6>
+              <IonAvatar></IonAvatar>
               <h6>
-                | End Date and Time:
+                End Date and Time:
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
               </h6>
-            </IonText>
-            
-
-        {/* </IonTitle> */}
+            </div>
         
         <IonAvatar></IonAvatar>
         
-        {/* <IonTitle> */}
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[Type]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Type</h5>
+         
           <IonItem>
             <IonText>
               Please Choose One: 
@@ -77,16 +70,11 @@ const DeliveryDashboard: React.FC = () => {
               <IonSelectOption value="amazon">Amazon</IonSelectOption>
            </IonSelect>
           </IonItem>
-          
-        {/* </IonTitle> */}
 
         <IonAvatar></IonAvatar>
 
-
-        {/* <IonTitle> */}
-          <IonText>
-            <h5 style={{fontWeight: "bold"}}>[Location]</h5>
-          </IonText>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5>
+          
 
           <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
