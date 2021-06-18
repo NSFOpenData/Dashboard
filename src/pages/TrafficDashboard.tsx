@@ -160,9 +160,8 @@ const TrafficDashboard: React.FC = () => {
 
       <IonContent fullscreen>
           <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton>
-              <IonText>
-              <h5 style={{fontWeight: "bold"}}>[Date and Time]</h5>
-            </IonText>
+            <h5 className="centerItem" style={{fontWeight: "bold"}}>Date and Time</h5>
+            
 
             <IonSegment color="secondary" value="favorite">
               <IonSegmentButton value="yesterday">
@@ -176,30 +175,26 @@ const TrafficDashboard: React.FC = () => {
               </IonSegmentButton>
             </IonSegment>
            
-            <IonText>
+            <div className="centerItem">
               <h6>
-                | Start Date and Time:
+                Start Date and Time:
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!) }></IonDatetime>
               </h6>
+              <IonAvatar></IonAvatar>
               <h6>
-                | End Date and Time:
+                End Date and Time:
                 <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!) }></IonDatetime>
               </h6>
-            </IonText>
+            </div>
            
           <IonAvatar></IonAvatar>
 
-
-            <IonText>
-              <h5 style={{fontWeight: "bold"}}>[Number of Cars]</h5>
-            </IonText>
-
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Number of Cars</h5>
 
           <IonAvatar></IonAvatar>
 
-            <IonText>
-              <h5 style={{fontWeight: "bold"}}>[Location]</h5>
-            </IonText>
+            <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5>
+      
 
             <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
               <TileLayer

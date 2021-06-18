@@ -31,8 +31,9 @@ const QueryPage: React.FC = () => {
             
             <IonAvatar></IonAvatar>
 
-            <IonButton expand="block" routerLink={'/vehicleQueryPage'}>Vehicle Search</IonButton>
-            <IonButton expand="block" color="secondary" routerLink={'/animalQueryPage'}>Animal Search</IonButton>
+            <IonButton fill="solid" expand="block" routerLink={'/vehicleQueryPage'}>Vehicle Search</IonButton>
+            <IonButton className="login-button" expand="block" color="secondary" routerLink={'/animalQueryPage'}>Animal Search</IonButton>
+            
             
         
         </IonContent>

@@ -40,11 +40,18 @@ const VehicleQueryPage: React.FC = () => {
             // location: 
             color: vehicleColor,
             license: vehicleLicense,
-        }
+        }, 
+        fetchPolicy: "network-only"
+        // onCompleted: ({result}) => {
+        //     console.log(result);
+        // }
     }); 
 
     if (loading) console.log("loading");
     if (error) console.log("error");
+    if (!loading){
+        console.log(data.findVehicles)
+    }
 
     return (
       <IonPage>
@@ -97,6 +104,7 @@ const VehicleQueryPage: React.FC = () => {
                 <IonContent>
                     {/* <IonButton color="primary" expand="block">Search</IonButton> */}
                     {!loading && data.findVehicles.map((vehicle: any) => (
+                        // console.log(vehicle)
                         <IonCard button={false} color="light">
                            <IonCardContent>
                              <h5>Manufacturer: {vehicle.make}</h5>
