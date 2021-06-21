@@ -14,6 +14,9 @@ const DeliveryDashboard: React.FC = () => {
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedDate, setSelectedDate] = useState<string>('2012-12-15T13:47:20.789');
 
+
+  // For User's input from dropdown menus
+  const [deliveryType, setDeliveryType] = useState<string>("");
   
   // for date selection and readability
   let dateTime = new Date();
@@ -36,7 +39,11 @@ const DeliveryDashboard: React.FC = () => {
   var endDate = "";
 
   return (
+    
     <IonPage>
+      {/* {
+      console.log(deliveryType)
+      } */}
       <IonHeader>
         <IonToolbar>
           <IonRow>
@@ -87,10 +94,10 @@ const DeliveryDashboard: React.FC = () => {
           <h5 className="centerItem" style={{fontWeight: "bold"}}>Type</h5>
          
           <IonItem>
-            <IonText>
-              Please Choose One: 
-            </IonText>
-            <IonSelect interface="popover">
+            <IonLabel>
+              Choose Delivery Type:
+            </IonLabel>
+            <IonSelect value={deliveryType} placeholder="Select One" onIonChange={e => setDeliveryType(e.detail.value)}>
               <IonSelectOption value="usps">USPS (United States Postal Service)</IonSelectOption>
               <IonSelectOption value="ups">UPS (United Postal Service)</IonSelectOption>
               <IonSelectOption value="fedex">FedEx</IonSelectOption>

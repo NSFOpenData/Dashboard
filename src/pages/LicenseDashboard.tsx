@@ -33,7 +33,12 @@ const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
   const [photo, setPhoto] = useState("https://nsf-scc1.isis.vanderbilt.edu/file/vehicle/60ad6a891cf9295d5d661d00/B_71_5x.jpg")  // "https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
-  let individualCardPhotoSource = [];
+
+
+  // User inputs from dropdown menus
+  const [location, setLocation] = useState<string>("");
+  const [licensePlate, setLicensePlate] = useState<string>("");
+
 
    // for date selection and readability
    let dateTime = new Date();
@@ -94,51 +99,12 @@ const LicenseDashboard: React.FC = () => {
       ))}
   };
 
-  const getPicture = async () => {
-    // take phot with Camera - it's editable as well
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.Uri
-    });
-
-    var imageUrl = image.webPath;
-    console.log(imageUrl);
-    // Can be set to the src of an image now
-    setPhoto(imageUrl!);
-
-    // IMPORTANT: Uncomment the below once DB is set up
-    // submitForm();
-  }
-
-  /* Submitting to the Server */
-  const submitForm = async () => {
-    if (!values.current.file) {
-      return false;
-    }
-
-    let formData = new FormData();
-
-    formData.append("photo", values.current.file, values.current.file.name);
-
-    try {
-      const response = await fetch("http://localhost:8100/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <IonPage>
+      {/* {
+        console.log(licensePlate + location)
+      } */}
       <IonHeader>
         <IonToolbar>
           <IonRow>
@@ -213,46 +179,39 @@ const LicenseDashboard: React.FC = () => {
 
           <IonItem>
             <IonLabel>Choose Location:</IonLabel>
-            <IonSelect value="01">
-              <IonSelectOption value="01">None</IonSelectOption>
-              <IonSelectOption value="02">East Nashville</IonSelectOption>
-              <IonSelectOption value="03">Ingle Wood</IonSelectOption>
-              <IonSelectOption value="04">Madison</IonSelectOption>
-              <IonSelectOption value="05">Bordeaux</IonSelectOption>
-              <IonSelectOption value="06">Whites Creek</IonSelectOption>
-              <IonSelectOption value="07">Donelson</IonSelectOption>
-              <IonSelectOption value="08">Hermitage</IonSelectOption>
-              <IonSelectOption value="09">Berry Hill</IonSelectOption>
-              <IonSelectOption value="10">Green HIlls</IonSelectOption>
-              <IonSelectOption value="11">West Meade</IonSelectOption>
-              <IonSelectOption value="12">Belle Meade</IonSelectOption>
-              <IonSelectOption value="13">Oak Hill</IonSelectOption>
-              <IonSelectOption value="14">Crieve Hall</IonSelectOption>
+            <IonSelect value={location} placeholder="Select One" onIonChange={e => setLocation(e.detail.value)}>
+              <IonSelectOption value="eastnashville">East Nashville</IonSelectOption>
+              <IonSelectOption value="inglewood">Ingle Wood</IonSelectOption>
+              <IonSelectOption value="madison">Madison</IonSelectOption>
+              <IonSelectOption value="bordeaux">Bordeaux</IonSelectOption>
+              <IonSelectOption value="whitescreek">Whites Creek</IonSelectOption>
+              <IonSelectOption value="donelson">Donelson</IonSelectOption>
+              <IonSelectOption value="hermitage">Hermitage</IonSelectOption>
+              <IonSelectOption value="berryhill">Berry Hill</IonSelectOption>
+              <IonSelectOption value="greenhills">Green Hills</IonSelectOption>
+              <IonSelectOption value="westmeade">West Meade</IonSelectOption>
+              <IonSelectOption value="bellemeade">Belle Meade</IonSelectOption>
+              <IonSelectOption value="oakhill">Oak Hill</IonSelectOption>
+              <IonSelectOption value="crievehall">Crieve Hall</IonSelectOption>
             </IonSelect>
           </IonItem>
 
         <IonAvatar></IonAvatar>
 
           <h5 className="centerItem" style={{fontWeight: "bold"}}>License Plates</h5>
-
-          {/* <IonItem lines="none">
-            <IonButton color="light" size="small" onClick={() => this.takePicture()}>Upload A Picture</IonButton>
-          </IonItem> */}
-          {/* Now, the variable "photo" has the image source */}
           
           
           <IonItem>
             <IonLabel>Choose License Plate:</IonLabel>
-            <IonSelect value="00">
-              <IonSelectOption value="00">None</IonSelectOption>
-              <IonSelectOption value="01">8A59S5</IonSelectOption>
-              <IonSelectOption value="02">NBT410</IonSelectOption>
-              <IonSelectOption value="03">ATN684</IonSelectOption>
-              <IonSelectOption value="04">7L19V8</IonSelectOption>
-              <IonSelectOption value="05">280QVG</IonSelectOption>
-              <IonSelectOption value="06">BVH711</IonSelectOption>
-              <IonSelectOption value="07">DLG208</IonSelectOption>
-              <IonSelectOption value="08">BPD626</IonSelectOption>
+            <IonSelect value={licensePlate} placeholder="Select One" onIonChange={e => setLicensePlate(e.detail.value)}>
+              <IonSelectOption value="8A59S5">8A59S5</IonSelectOption>
+              <IonSelectOption value="NBT410">NBT410</IonSelectOption>
+              <IonSelectOption value="ATN684">ATN684</IonSelectOption>
+              <IonSelectOption value="7L19V8">7L19V8</IonSelectOption>
+              <IonSelectOption value="280QVG">280QVG</IonSelectOption>
+              <IonSelectOption value="BVH711">BVH711</IonSelectOption>
+              <IonSelectOption value="DLG208">DLG208</IonSelectOption>
+              <IonSelectOption value="BPD626">BPD626</IonSelectOption>
             </IonSelect>
           </IonItem>
 

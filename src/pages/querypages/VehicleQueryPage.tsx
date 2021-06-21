@@ -50,7 +50,7 @@ const VehicleQueryPage: React.FC = () => {
     
     useEffect(() => {
         getSearchResults();
-    });
+    }, [vehicleCompany, vehicleModel, vehicleColor, vehicleLicense]);
 
     if (loading) console.log("loading");
     if (error) console.log("error");
