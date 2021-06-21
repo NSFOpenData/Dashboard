@@ -35,6 +35,26 @@ const LicenseDashboard: React.FC = () => {
   const [photo, setPhoto] = useState("https://nsf-scc1.isis.vanderbilt.edu/file/vehicle/60ad6a891cf9295d5d661d00/B_71_5x.jpg")  // "https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
   let individualCardPhotoSource = [];
 
+   // for date selection and readability
+   let dateTime = new Date();
+   let myMap = new Map([
+     ["Jan", "01"],
+     ["Feb", "02"],
+     ["Mar", "03"],
+     ["Apr", "04"],
+     ["May", "05"],
+     ["Jun", "06"],
+     ["Jul", "07"],
+     ["Aug", "08"],
+     ["Sep", "09"],
+     ["Oct", "10"],
+     ["Nov", "11"],
+     ["Dec", "12"]
+   ]);
+   var quickTimePicker = "";
+   var startDate = "";
+   var endDate = "";
+
   const VEHICLE_POST_QUERY = gql`
     query getAll{
       vehicles {
@@ -130,32 +150,32 @@ const LicenseDashboard: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen>
+        {/* generalized date string formats! */}
+        {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
+        {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
+        {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
+          
+        
         <IonLoading isOpen={loading} message="Loading.." />
 
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
-        
-            <h5 className="centerItem" style={{fontWeight: "bold"}}>Upload/Retrieve Data</h5>
-           
-            
-            {/* <IonButton color="primary" expand="full" onClick={() => getPicture()}>
-              Upload A Single File
-            </IonButton> */}
-            
-            <div className="centerItem">
-              <IonRow>
-                <h6>Upload File/Files:</h6>
-                <IonItem lines="none">
-                  <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
-                    <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
-                    <input type="submit" value="upload"></input>
-                  </form>
-                </IonItem>
-              </IonRow>
-            </div>
-            
-            <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
-              Retrieve
-            </IonButton>
+          <h5 className="centerItem" style={{fontWeight: "bold"}}>Upload/Retrieve Data</h5>
+          
+          <div className="centerItem">
+            <IonRow>
+              <h6>Upload File/Files:</h6>
+              <IonItem lines="none">
+                <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
+                  <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+                  <input type="submit" value="upload"></input>
+                </form>
+              </IonItem>
+            </IonRow>
+          </div>
+          
+          <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
+            Retrieve
+          </IonButton>
 
         <IonAvatar></IonAvatar>
 
