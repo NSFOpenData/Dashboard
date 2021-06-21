@@ -52,7 +52,7 @@ const VehicleQueryPage: React.FC = () => {
         getSearchResults();
     }, [vehicleCompany, vehicleModel, vehicleColor, vehicleLicense]);
 
-    if (loading) console.log("loading");
+    // if (loading) console.log("loading");
     if (error) console.log("error");
 
     return (
@@ -67,7 +67,7 @@ const VehicleQueryPage: React.FC = () => {
             </IonToolbar>
         </IonHeader>
   
-        <IonContent className="profilePage"> 
+        <IonContent className="ion-padding"> 
             <IonButton expand="full" disabled={true}>
                 Vehicle Advanced Search Query
             </IonButton>
