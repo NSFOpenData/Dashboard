@@ -11,3 +11,11 @@
   font-size: 20px;
   font-weight: 200;
 }
+
+.logo {
+  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  height: 70px;
+  width: 180px;
+}

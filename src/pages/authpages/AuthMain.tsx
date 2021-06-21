@@ -17,9 +17,11 @@ class AuthMain extends Component {
         <IonHeader>
             <IonToolbar>
             <IonRow>
-                <IonTitle></IonTitle>
-                <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-                <IonTitle></IonTitle>
+                <IonAvatar></IonAvatar>
+                <IonAvatar></IonAvatar>
+                <div className="logo">
+                    <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+                </div>
             </IonRow>
             </IonToolbar>
         </IonHeader>
@@ -43,7 +45,7 @@ class AuthMain extends Component {
 
           <IonAvatar></IonAvatar>
           <div className="centerItem">
-            <IonLabel>Already Logged In?</IonLabel>
+            <h5>Already Logged In?</h5>
           </div>
           <IonButton className="login-button" routerLink={"/profilePage"} expand="block" fill="solid" color="light">
             Go To Profile page

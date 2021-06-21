@@ -126,6 +126,27 @@ const TrafficDashboard: React.FC = () => {
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
   const [start, startRef] = React.useState<any>(null);
   const [end, endRef] = React.useState<any>(null);
+  
+  // for date selection and readability
+  let dateTime = new Date();
+  let myMap = new Map([
+    ["Jan", "01"],
+    ["Feb", "02"],
+    ["Mar", "03"],
+    ["Apr", "04"],
+    ["May", "05"],
+    ["Jun", "06"],
+    ["Jul", "07"],
+    ["Aug", "08"],
+    ["Sep", "09"],
+    ["Oct", "10"],
+    ["Nov", "11"],
+    ["Dec", "12"]
+  ]);
+  var quickTimePicker = "";
+  var startDate = "";
+  var endDate = "";
+
 
   const mapProps = {
     dataField: "location",
@@ -159,17 +180,28 @@ const TrafficDashboard: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen>
+          {/* generalized date string formats! */}
+          {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
+          {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
+          {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
+          
+
           <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton>
             <h5 className="centerItem" style={{fontWeight: "bold"}}>Date and Time</h5>
             
 
             <IonSegment color="secondary" value="favorite">
+              {/* from the quickTimePicker value, go 24 hrs back */}
               <IonSegmentButton value="yesterday">
                 <IonLabel>Yesterday</IonLabel>
               </IonSegmentButton>
+
+              {/* from the quickTimePicker value, go 12 hrs back */}
               <IonSegmentButton value="sixhr">
                 <IonLabel>Past 12 Hrs</IonLabel>
               </IonSegmentButton>
+
+              {/* from the quickTimePicker value, go 6 hrs back */}
               <IonSegmentButton value="onehr">
                 <IonLabel>Past 6 Hrs</IonLabel>
               </IonSegmentButton>
