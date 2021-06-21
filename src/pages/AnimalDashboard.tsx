@@ -18,6 +18,11 @@ import { useHistory } from 'react-router';
 const AnimalDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
+  
+  // for USER input on dropdown menus
+  const [location, setLocation] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  const [color, setColor] = useState<string>("");
 
   
   // for date selection and readability
@@ -57,7 +62,11 @@ const AnimalDashboard: React.FC = () => {
   const { loading, data, error } = useQuery(ANIMAL_POST_QUERY);
 
   return (
+    
     <IonPage>
+      {
+      console.log(location + " " + type + " " + color)
+    }
       <IonHeader>
         <IonToolbar>
           <IonRow>
@@ -110,21 +119,20 @@ const AnimalDashboard: React.FC = () => {
 
           <IonItem>
               <IonLabel>Choose Location:</IonLabel>
-              <IonSelect value="01">
-                <IonSelectOption value="01">None</IonSelectOption>
-                <IonSelectOption value="02">East Nashville</IonSelectOption>
-                <IonSelectOption value="03">Ingle Wood</IonSelectOption>
-                <IonSelectOption value="04">Madison</IonSelectOption>
-                <IonSelectOption value="05">Bordeaux</IonSelectOption>
-                <IonSelectOption value="06">Whites Creek</IonSelectOption>
-                <IonSelectOption value="07">Donelson</IonSelectOption>
-                <IonSelectOption value="08">Hermitage</IonSelectOption>
-                <IonSelectOption value="09">Berry Hill</IonSelectOption>
-                <IonSelectOption value="10">Green HIlls</IonSelectOption>
-                <IonSelectOption value="11">West Meade</IonSelectOption>
-                <IonSelectOption value="12">Belle Meade</IonSelectOption>
-                <IonSelectOption value="13">Oak Hill</IonSelectOption>
-                <IonSelectOption value="14">Crieve Hall</IonSelectOption>
+              <IonSelect value={location} placeholder="Select One" onIonChange={e => setLocation(e.detail.value)}>
+              <IonSelectOption value="eastnashville">East Nashville</IonSelectOption>
+              <IonSelectOption value="inglewood">Ingle Wood</IonSelectOption>
+              <IonSelectOption value="madison">Madison</IonSelectOption>
+              <IonSelectOption value="bordeaux">Bordeaux</IonSelectOption>
+              <IonSelectOption value="whitescreek">Whites Creek</IonSelectOption>
+              <IonSelectOption value="donelson">Donelson</IonSelectOption>
+              <IonSelectOption value="hermitage">Hermitage</IonSelectOption>
+              <IonSelectOption value="berryhill">Berry Hill</IonSelectOption>
+              <IonSelectOption value="greenhills">Green Hills</IonSelectOption>
+              <IonSelectOption value="westmeade">West Meade</IonSelectOption>
+              <IonSelectOption value="bellemeade">Belle Meade</IonSelectOption>
+              <IonSelectOption value="oakhill">Oak Hill</IonSelectOption>
+              <IonSelectOption value="crievehall">Crieve Hall</IonSelectOption>
               </IonSelect>
             </IonItem>
         <IonAvatar></IonAvatar>
@@ -134,14 +142,13 @@ const AnimalDashboard: React.FC = () => {
 
           <IonItem>
               <IonLabel>Choose Type:</IonLabel>
-              <IonSelect value="00">
-                <IonSelectOption value="00">None</IonSelectOption>
-                <IonSelectOption value="01">Dog</IonSelectOption>
-                <IonSelectOption value="02">Cat</IonSelectOption>
-                <IonSelectOption value="03">Rabbit</IonSelectOption>
-                <IonSelectOption value="04">Bird</IonSelectOption>
-                <IonSelectOption value="05">Lizard</IonSelectOption>
-                <IonSelectOption value="06">Snake</IonSelectOption>
+              <IonSelect value={type} placeholder="Select One" onIonChange={e => setType(e.detail.value)}>
+                <IonSelectOption value="dog">Dog</IonSelectOption>
+                <IonSelectOption value="cat">Cat</IonSelectOption>
+                <IonSelectOption value="rabbit">Rabbit</IonSelectOption>
+                <IonSelectOption value="bird">Bird</IonSelectOption>
+                <IonSelectOption value="lizard">Lizard</IonSelectOption>
+                <IonSelectOption value="snake">Snake</IonSelectOption>
               </IonSelect>
             </IonItem>
 
@@ -151,23 +158,20 @@ const AnimalDashboard: React.FC = () => {
          
           <IonItem>
             <IonLabel>Choose Color:</IonLabel>
-            <IonSelect value="00">
-              <IonSelectOption value="00">None</IonSelectOption>
-              <IonSelectOption value="01">Black</IonSelectOption>
-              <IonSelectOption value="02">Brown</IonSelectOption>
-              <IonSelectOption value="03">White</IonSelectOption>
-              <IonSelectOption value="04">Cream</IonSelectOption>
-              <IonSelectOption value="05">Gold</IonSelectOption>
-              <IonSelectOption value="06">Grey</IonSelectOption>
-              <IonSelectOption value="07">Red</IonSelectOption>
-              <IonSelectOption value="08">Orange</IonSelectOption>
-
-              <IonSelectOption value="09">Yellow</IonSelectOption>
-              <IonSelectOption value="10">Green</IonSelectOption>
-              <IonSelectOption value="11">Mint</IonSelectOption>
-
-              <IonSelectOption value="12">Blue</IonSelectOption>
-              <IonSelectOption value="13">Purple</IonSelectOption>
+            <IonSelect value={color} placeholder="Select One" onIonChange={e => setColor(e.detail.value)}>
+              <IonSelectOption value="black">Black</IonSelectOption>
+              <IonSelectOption value="brown">Brown</IonSelectOption>
+              <IonSelectOption value="white">White</IonSelectOption>
+              <IonSelectOption value="cream">Cream</IonSelectOption>
+              <IonSelectOption value="gold">Gold</IonSelectOption>
+              <IonSelectOption value="grey">Grey</IonSelectOption>
+              <IonSelectOption value="red">Red</IonSelectOption>
+              <IonSelectOption value="orange">Orange</IonSelectOption>
+              <IonSelectOption value="yellow">Yellow</IonSelectOption>
+              <IonSelectOption value="green">Green</IonSelectOption>
+              <IonSelectOption value="mint">Mint</IonSelectOption>
+              <IonSelectOption value="blue">Blue</IonSelectOption>
+              <IonSelectOption value="purple">Purple</IonSelectOption>
               {/* I have no idea how to set colors for snake as they have 
               differnt colors - do we allow people to choose multiple color */}
             </IonSelect>
