@@ -126,6 +126,24 @@ const TrafficDashboard: React.FC = () => {
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
   const [start, startRef] = React.useState<any>(null);
   const [end, endRef] = React.useState<any>(null);
+  
+  // for date selection and readability
+  let dateTime = new Date();
+  let myMap = new Map([
+    ["Jan", "01"],
+    ["Feb", "02"],
+    ["Mar", "03"],
+    ["Apr", "04"],
+    ["May", "05"],
+    ["Jun", "06"],
+    ["Jul", "07"],
+    ["Aug", "08"],
+    ["Sep", "09"],
+    ["Oct", "10"],
+    ["Nov", "11"],
+    ["Dec", "12"]
+  ]);
+
 
   const mapProps = {
     dataField: "location",
@@ -159,6 +177,11 @@ const TrafficDashboard: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen>
+          {console.log(myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21))}
+          {console.log("Start date: " + selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16))}
+          {console.log("End date: " + selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16))}
+
+
           <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton>
             <h5 className="centerItem" style={{fontWeight: "bold"}}>Date and Time</h5>
             

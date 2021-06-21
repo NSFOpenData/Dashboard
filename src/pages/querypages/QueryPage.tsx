@@ -13,13 +13,13 @@ const QueryPage: React.FC = () => {
                 <IonAvatar></IonAvatar>
                 <IonAvatar></IonAvatar>
                 <div className="logo">
-                    <img  src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+                    <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
                 </div>
             </IonRow>
             </IonToolbar>
         </IonHeader>
   
-        <IonContent className="profilePage"> 
+        <IonContent className="ion-padding"> 
         
             <IonAvatar></IonAvatar>
             <IonAvatar></IonAvatar>

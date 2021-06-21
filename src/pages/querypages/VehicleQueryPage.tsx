@@ -1,8 +1,8 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading, IonList, IonItemDivider } from '@ionic/react';
-import React, {useState, Component, useRef} from 'react';
+import React, {useState, Component, useRef, useEffect} from 'react';
 import './VehicleQueryPage.css';
 
-import {gql, useMutation, useQuery} from '@apollo/client';
+import {gql, useLazyQuery, useMutation, useQuery} from '@apollo/client';
 
 const VehicleQueryPage: React.FC = () => {
     
@@ -33,7 +33,7 @@ const VehicleQueryPage: React.FC = () => {
     const [vehicleApproxLocation, setVehicleApproxLocation] = useState<string| null>();
     const [vehicleLicense, setVehicleLicense] = useState<string| null>();
 
-    const { loading, data, error } = useQuery(FIND_VEHICLE_QUERY, {
+    const [getSearchResults, { loading, data, error }] = useLazyQuery(FIND_VEHICLE_QUERY, {
         variables: {
             make: vehicleCompany, 
             model: vehicleModel,
@@ -41,17 +41,19 @@ const VehicleQueryPage: React.FC = () => {
             color: vehicleColor,
             license: vehicleLicense,
         }, 
+        
         fetchPolicy: "network-only"
         // onCompleted: ({result}) => {
         //     console.log(result);
         // }
     }); 
+    
+    useEffect(() => {
+        getSearchResults();
+    });
 
     if (loading) console.log("loading");
     if (error) console.log("error");
-    if (!loading){
-        console.log(data.findVehicles)
-    }
 
     return (
       <IonPage>
