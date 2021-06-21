@@ -64,9 +64,9 @@ const AnimalDashboard: React.FC = () => {
   return (
     
     <IonPage>
-      {
+      {/* {
       console.log(location + " " + type + " " + color)
-    }
+    } */}
       <IonHeader>
         <IonToolbar>
           <IonRow>

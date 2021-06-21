@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton
 import React, {useState, Component, useRef} from 'react';
 import './AnimalQueryPage.css';
 
-import {gql, useMutation, useQuery} from '@apollo/client';
+import {gql, NetworkStatus, useMutation, useQuery} from '@apollo/client';
 
 const AnimalQueryPage: React.FC = () => {
     
@@ -11,10 +11,10 @@ const AnimalQueryPage: React.FC = () => {
         query FindAnimals(
             $breed: String
             $type: String
-            $location: [String!]
             $color: String
+            $location: [String!]
         ){
-            findAnimals(params: {breed: $breed, type: $type, location: $location, color: $color}){
+            findAnimals(params: {breed: $breed, type: $type, color: $color, location: $location}){
                 _id
                 location
                 files
@@ -31,16 +31,20 @@ const AnimalQueryPage: React.FC = () => {
     const [animalColor, setAnimalColor] = useState<string| null>();
     const [animalApproxLocation, setAnimalApproxLocation] = useState<string| null>();
 
-    const { loading, data, error } = useQuery(FIND_ANIMAL_QUERY, {
+    const { loading, data, error, refetch, networkStatus } = useQuery(FIND_ANIMAL_QUERY, {
         variables: {
             breed: animalBreed,
             type: animalType,
             color: animalColor, 
             location: animalApproxLocation,
             //////
-        }
+        },
+        fetchPolicy: "no-cache",
+        notifyOnNetworkStatusChange: true,
+        // pollInterval: 40,
     }); 
 
+    if (networkStatus == NetworkStatus.refetch) console.log("refetching!")
     if (loading) console.log("loading");
     if (error) console.log("error");
 
@@ -56,7 +60,7 @@ const AnimalQueryPage: React.FC = () => {
             </IonToolbar>
         </IonHeader>
   
-        <IonContent className="profilePage"> 
+        <IonContent className="ion-padding"> 
             <IonButton expand="full" color="secondary" disabled={true}>
                 Animal Advanced Search Query
             </IonButton>
@@ -85,15 +89,19 @@ const AnimalQueryPage: React.FC = () => {
                 <IonInput value={animalApproxLocation} 
                 placeholder="Animal Approximate Community Location"
                 onIonChange={event => setAnimalApproxLocation(event.detail.value!)}></IonInput>
-            </IonItem>     
+            </IonItem>  
+            {/* <IonButton color="light" expand="block" onClick={() => reset()}>
+                Refetch!    
+            </IonButton>    */}
             {
-                (animalType || animalColor || animalApproxLocation) &&
+                (animalType || animalBreed || animalColor || animalApproxLocation) &&
                 <IonContent>
+                    
                     {!loading && data.findAnimals.map((animal: any) => (
                         <IonCard button={false} color="light">
                            <IonCardContent>
-                             <h5>Manufacturer: {animal.type}</h5>
-                             <h5>Model: {animal.breed}</h5>
+                             <h5>Type: {animal.type}</h5>
+                             <h5>Breed: {animal.breed}</h5>
                              <h5>Color: {animal.color}</h5>
                              <h5>Location: [ {animal.location[0]} , {animal.location[1]} ]</h5>         
                            </IonCardContent>
