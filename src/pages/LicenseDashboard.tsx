@@ -173,10 +173,7 @@ const LicenseDashboard: React.FC = () => {
 
         
         <IonAvatar></IonAvatar>
-
           <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5>
-         
-
           <IonItem>
             <IonLabel>Choose Location:</IonLabel>
             <IonSelect value={location} placeholder="Select One" onIonChange={e => setLocation(e.detail.value)}>
@@ -217,7 +214,6 @@ const LicenseDashboard: React.FC = () => {
 
 
         <IonContent scrollX={true}>
-
           {!loading && data?.vehicles?.map((vehicle: any) => (
             // console.log(vehicle.license)
             <IonItem lines="none">
@@ -235,8 +231,7 @@ const LicenseDashboard: React.FC = () => {
               </IonCard>
             </IonItem>
           ))}
-          
-
+        
         </IonContent>
       
         <IonAvatar></IonAvatar>
