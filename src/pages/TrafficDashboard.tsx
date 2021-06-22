@@ -156,20 +156,43 @@ const TrafficDashboard: React.FC = () => {
 
   //// FOR QUICK DATE TIME PICKER
   function goBack6Hours() {
+    // if the subtracted value is negative, call go back 24hours function and subtract that negative value from 24
+    var hourEndIndex = 13;
+    if (quickTimePicker.length == 15) {
+      hourEndIndex = 12;
+    }
+    var tempTime = +quickTimePicker.substring(11, hourEndIndex);
+    var back12Hrs = tempTime - 6;
+    // console.log(tempTime.toString())
+    // console.log(back12Hrs.toString());
+    if (back12Hrs < 0) {
+      goBack24Hours();
+      var newHour = 24 + back12Hrs;
+      quickTimePicker = quickTimePicker.substring(0, 10) + " " + newHour.toString() + ":" + quickTimePicker.substring(hourEndIndex + 1, quickTimePicker.length);
+    } else {
+      quickTimePicker = quickTimePicker.substring(0, 10) + " " + back12Hrs.toString() + ":" + quickTimePicker.substring(hourEndIndex + 1, quickTimePicker.length);
+    }
+
+
+    console.log(quickTimePicker);
   }
 
   function goBack12Hours() {
     // if the subtracted value is negative, call go back 24hours function and subtract that negative value from 24
-    var tempTime = +quickTimePicker.substring(11, 13);
+    var hourEndIndex = 13;
+    if (quickTimePicker.length == 15) {
+      hourEndIndex = 12;
+    }
+    var tempTime = +quickTimePicker.substring(11, hourEndIndex);
     var back12Hrs = tempTime - 12;
-    console.log(tempTime.toString())
-    console.log(back12Hrs.toString());
+    // console.log(tempTime.toString())
+    // console.log(back12Hrs.toString());
     if (back12Hrs < 0) {
       goBack24Hours();
       var newHour = 24 + back12Hrs;
-      quickTimePicker = quickTimePicker.substring(0, 10) + " " + newHour.toString() + ":" + quickTimePicker.substring(14, quickTimePicker.length);
+      quickTimePicker = quickTimePicker.substring(0, 10) + " " + newHour.toString() + ":" + quickTimePicker.substring(hourEndIndex + 1, quickTimePicker.length);
     } else {
-      quickTimePicker = quickTimePicker.substring(0, 10) + " " + back12Hrs.toString() + ":" + quickTimePicker.substring(14, quickTimePicker.length);
+      quickTimePicker = quickTimePicker.substring(0, 10) + " " + back12Hrs.toString() + ":" + quickTimePicker.substring(hourEndIndex + 1, quickTimePicker.length);
     }
 
     console.log(quickTimePicker);
@@ -242,7 +265,7 @@ const TrafficDashboard: React.FC = () => {
           </IonSegmentButton>
 
           {/* from the quickTimePicker value, go 6 hrs back */}
-          <IonSegmentButton value="sixhr">
+          <IonSegmentButton value="sixhr" onClick={() => goBack6Hours()}>
             <IonLabel>Past 6 Hrs</IonLabel>
           </IonSegmentButton>
         </IonSegment>
