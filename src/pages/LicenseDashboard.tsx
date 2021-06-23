@@ -184,13 +184,14 @@ const LicenseDashboard: React.FC = () => {
         <IonLoading isOpen={loading} message="Loading.." />
 
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
 
+        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
         <div className="centerItem">
           <IonRow>
-            <h6>Upload File/Files:</h6>
             <IonItem lines="none">
               <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
+                <input type="text" placeholder="Object ID" name="id"></input>
+                <input type="text" placeholder="Please type: 'vehicle'" name="type"></input>
                 <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
                 <input type="submit" value="upload"></input>
               </form>
@@ -198,7 +199,7 @@ const LicenseDashboard: React.FC = () => {
           </IonRow>
         </div>
 
-        <IonButton color="danger" expand="full" onClick={() => console.log("Trying to Get Picture From DB")}>
+        <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
           Retrieve
         </IonButton>
 
