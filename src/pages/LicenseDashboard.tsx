@@ -32,7 +32,7 @@ let files: any[] = [];
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
-  const [photo, setPhoto] = useState("https://nsf-scc1.isis.vanderbilt.edu/file/vehicle/60ad6a891cf9295d5d661d00/B_71_5x.jpg")  // "https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
+  const [photo, setPhoto] = useState("https://nsf-scc1.isis.vanderbilt.edu/file/vehicle/60ad6a891cf9295d5d661ce5/car1.jpg")  // "https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
 
 
   // User inputs from dropdown menus
@@ -275,20 +275,23 @@ const LicenseDashboard: React.FC = () => {
         <IonContent scrollX={true}>
           {!loading && data?.vehicles?.map((vehicle: any) => (
             // console.log(vehicle.license)
-            <IonItem lines="none">
-              <IonCard button={true} color="light">
-                <img style={{ height: 120, width: 300 }} src={photo} ></img>
-                <IonCardContent>
-                  <IonCardSubtitle>Car Information</IonCardSubtitle>
-                  <h5>Manufacturer: {vehicle.make}</h5>
-                  <h5>Model: {vehicle.model}</h5>
-                  <h5>Color: {vehicle.color}</h5>
-                  <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
-                  {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
-                  <h5>License Plate: {vehicle.license} </h5>
-                </IonCardContent>
-              </IonCard>
-            </IonItem>
+            <div className="centerItem">
+              <IonItem lines="none">
+                <IonCard button={true} color="light">
+                  <img style={{ height: 160, width: 300 }} src={photo} ></img>
+                  <IonCardContent>
+                    <IonCardSubtitle>Car Information</IonCardSubtitle>
+                    <h5>Manufacturer: {vehicle.make}</h5>
+                    <h5>Model: {vehicle.model}</h5>
+                    <h5>Color: {vehicle.color}</h5>
+                    <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
+                    {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
+                    <h5>License Plate: {vehicle.license} </h5>
+                  </IonCardContent>
+                </IonCard>
+              </IonItem>
+            </div>
+
           ))}
 
         </IonContent>
