@@ -28,6 +28,8 @@ interface InternalValues {
   file: any;
 }
 
+let files: any[] = [];
+
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
@@ -146,8 +148,15 @@ const LicenseDashboard: React.FC = () => {
   });
 
   const onFileChange = (fileChangeEvent: any) => {
-    values.current.file = fileChangeEvent.target.files[0];
-    console.log(values.current.file);
+    // values.current.file = fileChangeEvent.target.files[0];
+    // console.log(values.current.file);
+    files = Array.from(fileChangeEvent.target.files);
+
+    {
+      files.map((file: any) => (
+        console.log(file)
+      ))
+    }
   };
 
   const submitFileForm = async () => {
@@ -158,11 +167,17 @@ const LicenseDashboard: React.FC = () => {
     let formData = new FormData();
     formData.set("type", "vehicle");
     formData.set("id", "60b6e51818ca7fe9e8156888");
-    // formData.set("images", values.current.file.name);
+    {
+      files.map((file: any) => (
+        // console.log(file.name)
+        formData.append("images", file.name)
+      ))
+    }
 
-    console.log(values.current.file.name);
-    console.log(formData.get("type"));
-    console.log(formData.get("id"));
+
+    // console.log(values.current.file.name);
+    // console.log(formData.get("type"));
+    // console.log(formData.get("id"));
 
     try {
       const response = await fetch("https://nsf-scc1.isis.vanderbilt.edu/upload", {
@@ -219,7 +234,8 @@ const LicenseDashboard: React.FC = () => {
             {/* <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post"> */}
             {/* <input type="text" placeholder="Object ID" name="id"></input>
             <input type="text" placeholder="Please type: 'vehicle'" name="type"></input> */}
-            <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+            {/* <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input> */}
+            <input type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
             {/* <input type="submit" value="upload"></input> */}
             {/* </form> */}
           </IonItem>
