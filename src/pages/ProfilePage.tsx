@@ -5,7 +5,7 @@ import React, { Component, useRef, useState } from 'react';
 import { Plugins, CameraResultType } from '@capacitor/core';
 
 /* GraphQL for API Calls */
-import {gql, useQuery} from '@apollo/client';
+import { gql, NetworkStatus, useQuery } from '@apollo/client';
 
 const { Camera } = Plugins;
 //import { Dimensions } from 'react-native';
@@ -32,87 +32,101 @@ const ProfilePage: React.FC = () => {
     }
   `;
 
-  const { loading, data, error } = useQuery(USER_QUERY);
+  const { loading, data, error, refetch, networkStatus } = useQuery(USER_QUERY, {
+    fetchPolicy: "cache-and-network",
+    notifyOnNetworkStatusChange: true,
+    nextFetchPolicy: "cache-first",
+
+    // errorPolicy: 'ignore',
+  });
+
+  if (networkStatus == NetworkStatus.refetch) console.log("refetching!")
+  if (!loading) console.log(data.me.name)
+
 
   async function takePicture() {
     // take phot with Camera - it's editable as well
     const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri
-      });
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
 
-      var imageUrl = image.webPath;
-      console.log(imageUrl);
-      
-      // Can be set to the src of an image now
-      setPhoto(imageUrl!);
-    }
+    var imageUrl = image.webPath;
+    console.log(imageUrl);
 
-    function upgrade(){
-          // send to upgrading page OR external website
-    }
+    // Can be set to the src of an image now
+    setPhoto(imageUrl!);
+  }
 
-    function resetInputs(){
-      /// firstNameInput.current!.value! = '';
+  function upgrade() {
+    // send to upgrading page OR external website
+  }
 
-    }
+  function resetInputs() {
+    /// firstNameInput.current!.value! = '';
+
+  }
 
   return (
     <IonPage>
       <IonHeader>
-          <IonToolbar>
+        <IonToolbar>
           <IonRow>
-              <IonAvatar></IonAvatar>
-              <IonAvatar></IonAvatar>
+            <IonAvatar></IonAvatar>
+            <IonAvatar></IonAvatar>
 
-              <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+            <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
           </IonRow>
-          </IonToolbar>
+        </IonToolbar>
       </IonHeader>
 
-      <IonContent className="profilePage">            
-          {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}             
-          
-          <IonList>
-            <IonGrid>
-              <IonCol>
-                <div className="centerItem">
-                  <IonItem lines="none" className="profileImage">
-                    <img style={{height: 150, width: 150, borderRadius: 30}} src={photo} ></img>
-                  </IonItem>
-                </div>
-                
+      <IonContent className="profilePage">
+        {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}
+        <IonList>
+          <IonGrid>
+            <IonCol>
+              <div className="centerItem">
+                <IonItem lines="none" className="profileImage">
+                  <img style={{ height: 150, width: 150, borderRadius: 30 }} src={photo} ></img>
+                </IonItem>
+              </div>
 
-                <div className="centerItem">
+              <div className="centerItem">
+                <IonRow>
                   <IonItem lines="none">
                     <IonButton color="light" size="small" onClick={() => takePicture()}>Change Profile Picture</IonButton>
                   </IonItem>
-                </div>
-                
-              </IonCol>
-            </IonGrid>
+                  <IonItem lines="none">
+                    <IonButton color="light" size="small" onClick={() => refetch()}>Reload Profile Page</IonButton>
+                  </IonItem>
+                </IonRow>
+              </div>
 
-           
-            {!loading && 
+
+            </IonCol>
+          </IonGrid>
+
+
+          {!loading &&
             <IonList>
-                <IonItem>
-                  <IonLabel>Name: {data?.me?.name}</IonLabel>
-                </IonItem>
+              <IonItem>
+                <IonLabel>Name: {data?.me?.name}</IonLabel>
+              </IonItem>
 
-                <IonItem>
-                  <IonLabel>Email: {data?.me?.email}</IonLabel>
-                </IonItem>
+              <IonItem>
+                <IonLabel>Email: {data?.me?.email}</IonLabel>
+              </IonItem>
 
-                <IonItem>
-                  <IonLabel>Role/Privilege Level: {data?.me?.role}</IonLabel>
-                </IonItem>
+              <IonItem>
+                <IonLabel>Role/Privilege Level: {data?.me?.role}</IonLabel>
+              </IonItem>
 
             </IonList>
-                
-            }
 
-            {/* {!loading && data?.me?.map((user: any) => (
+          }
+
+          {/* {!loading && data?.me?.map((user: any) => (
                 <IonItem>
                   <IonLabel>Name: {user.name}</IonLabel>
                   <IonLabel>Email: {user.email}</IonLabel>
@@ -120,20 +134,24 @@ const ProfilePage: React.FC = () => {
                 </IonItem>
 
             ))} */}
-          </IonList>
+        </IonList>
 
-          <div className="centerItem">
-            <IonButton color="light" size="small" onClick={() => upgrade()}>Press Here to Upgrade Your Accessbility</IonButton>
-                 
-          </div>
+        <div className="centerItem">
+          <IonButton color="light" size="small" onClick={() => upgrade()}>Press Here to Upgrade Your Accessbility</IonButton>
+        </div>
 
-          <IonAvatar></IonAvatar>
-          {/*           
+        <IonAvatar></IonAvatar>
+
+
+
+
+        <IonAvatar></IonAvatar>
+        {/*           
           <div className="centerItem">
             <IonButton color="primary" size="small">Submit</IonButton>
             <IonButton color="danger" size="small">Reset</IonButton> 
           </div> */}
-          
+
       </IonContent>
     </IonPage >
   );

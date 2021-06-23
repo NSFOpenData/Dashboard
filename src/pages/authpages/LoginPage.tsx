@@ -3,7 +3,7 @@ import React, { Component, useState } from 'react';
 import './LoginPage.css';
 
 /* GraphQL for API Calls */
-import {gql, useQuery, useMutation, ApolloProvider} from '@apollo/client';
+import { gql, useQuery, useMutation, ApolloProvider } from '@apollo/client';
 import { useHistory } from 'react-router';
 import { register } from '../../serviceWorkerRegistration';
 import { PassThrough } from 'stream';
@@ -19,9 +19,9 @@ const LoginPage: React.FC = () => {
     const history = useHistory();
 
     const [formState, setFormState] = useState({
-         email: '',
-         password: '',
-     });
+        email: '',
+        password: '',
+    });
 
     const LOGIN_MUTATION = gql`
         mutation (
@@ -30,60 +30,63 @@ const LoginPage: React.FC = () => {
         ){
             login(email: $email, password: $password)
         }
-    `; 
+    `;
 
-    const [login] = useMutation(LOGIN_MUTATION, {
-        variables:{
+    const [login, { data, error, loading }] = useMutation(LOGIN_MUTATION, {
+        variables: {
             email: formState.email,
             password: formState.password,
-        },  
+        },
 
-        onCompleted: ({login}) => {
+        onCompleted: ({ login }) => {
             // localStorage.setItem(AUTH_TOKEN, register.token);
             // AUTH_TOKEN = login.token;
             console.log("login", login);
             localStorage.setItem(AUTH_TOKEN, login);
             //history.push('/');
-        }
+        },
+        // refetchQueries: [{ query: 'LOGIN_MUTATION' }]
     });
-    
-    return (
-      <IonPage>
-        <IonHeader>
-            <IonToolbar>
-            <IonRow>
-                <IonAvatar></IonAvatar>
-                <IonAvatar></IonAvatar>
-  
-                <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-            </IonRow>
-            </IonToolbar>
-        </IonHeader>
-  
-        <IonContent className="profilePage">            
-            <IonAvatar></IonAvatar>
-            <IonItem>
-                <IonInput placeholder="Email" onIonChange={e => setFormState({...formState, email: e.detail.value!})}></IonInput>
-            </IonItem>
-            <IonItem>
-                <IonInput placeholder="Password" onIonChange={e => setFormState({...formState, password: e.detail.value!})}></IonInput>
-            </IonItem>
 
-            {(formState.email.length > 0 && formState.password.length > 0 && 
-                formState.email.includes(atChar) && formState.email.includes(dotCom) &&
-                formState.password.length >= 4) && 
-                <IonButton expand="full" onClick={() => login()} routerLink={'/profilePage'} >Login</IonButton>
-                // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
-            }
-{/* 
+    if (!loading) console.log(data!.me.email)
+
+    return (
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonRow>
+                        <IonAvatar></IonAvatar>
+                        <IonAvatar></IonAvatar>
+
+                        <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+                    </IonRow>
+                </IonToolbar>
+            </IonHeader>
+
+            <IonContent className="profilePage">
+                <IonAvatar></IonAvatar>
+                <IonItem>
+                    <IonInput placeholder="Email" onIonChange={e => setFormState({ ...formState, email: e.detail.value! })}></IonInput>
+                </IonItem>
+                <IonItem>
+                    <IonInput placeholder="Password" onIonChange={e => setFormState({ ...formState, password: e.detail.value! })}></IonInput>
+                </IonItem>
+
+                {(formState.email.length > 0 && formState.password.length > 0 &&
+                    formState.email.includes(atChar) && formState.email.includes(dotCom) &&
+                    formState.password.length >= 4) &&
+                    <IonButton expand="full" onClick={() => login()} routerLink={'/profilePage'} >Login</IonButton>
+                    // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
+                }
+                {/* 
             <div className="centerItem">
                 <IonButton routerLink={'/authentication'}>Go Back</IonButton>
             </div> */}
-        </IonContent>
-      </IonPage >
+            </IonContent>
+        </IonPage >
     );
-  
-  }
-  
-  export {AUTH_TOKEN};
-  export default LoginPage;
+
+}
+
+export { AUTH_TOKEN };
+export default LoginPage;

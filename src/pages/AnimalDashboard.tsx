@@ -83,9 +83,30 @@ const AnimalDashboard: React.FC = () => {
         {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
         {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
 
-
         {/* <IonLoading isOpen={loading} message="Loading..." /> */}
         <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton>
+
+        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
+        <div className="centerItem">
+          <IonRow>
+            <IonItem lines="none">
+              <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
+                <input type="text" placeholder="Object ID" name="id"></input>
+                <input type="text" placeholder="Please type: 'animal'" name="type"></input>
+                <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+                <input type="submit" value="upload"></input>
+              </form>
+            </IonItem>
+          </IonRow>
+        </div>
+
+        <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
+          Retrieve
+        </IonButton>
+
+
+
+
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Date and Time</h5>
 
 
@@ -211,3 +232,7 @@ const AnimalDashboard: React.FC = () => {
 };
 
 export default AnimalDashboard;
+
+function onFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
+  throw new Error('Function not implemented.');
+}
