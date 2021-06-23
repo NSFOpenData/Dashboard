@@ -23,17 +23,16 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 const { Camera } = Plugins;
 
+// for uploading files
 interface InternalValues {
   file: any;
 }
-
-let files: any[] = [];
 
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
   const [photo, setPhoto] = useState("https://nsf-scc1.isis.vanderbilt.edu/file/vehicle/60ad6a891cf9295d5d661ce5/car1.jpg")  // "https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
-
+  //60b6e51818ca7fe9e8156888
 
   // User inputs from dropdown menus
   const [location, setLocation] = useState<string>("");
@@ -141,22 +140,52 @@ const LicenseDashboard: React.FC = () => {
     showMapStyles: true,
   }; // for other properties: https://opensource.appbase.io/reactive-manual/map-components/reactivegooglemap.html
 
-  /* Uploading Files */
+  ////* Uploading Files */
   const values = useRef<InternalValues>({
     file: false,
   });
 
   const onFileChange = (fileChangeEvent: any) => {
-    files = Array.from(fileChangeEvent.target.files);
-
-    {
-      files.map((file: any) => (
-        // console.log(vehicle.license)
-        console.log(file)
-
-      ))
-    }
+    values.current.file = fileChangeEvent.target.files[0];
+    console.log(values.current.file);
   };
+
+  const submitFileForm = async () => {
+    if (!values.current.file) {
+      return false;
+    }
+
+    let formData = new FormData();
+    formData.set("type", "vehicle");
+    formData.set("id", "60b6e51818ca7fe9e8156888");
+    // formData.set("images", values.current.file.name);
+
+    console.log(values.current.file.name);
+    console.log(formData.get("type"));
+    console.log(formData.get("id"));
+
+    try {
+      const response = await fetch("https://nsf-scc1.isis.vanderbilt.edu/upload", {
+        method: "POST",
+        body: formData,
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      if (!response.ok) {
+        console.log("Error uploading file");
+        throw new Error(response.statusText);
+      }
+      else if (response.ok) {
+        console.log("Success uploading file");
+        console.log(response.statusText);
+      }
+
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
 
   return (
@@ -180,25 +209,23 @@ const LicenseDashboard: React.FC = () => {
         {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
         {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
 
-
         <IonLoading isOpen={loading} message="Loading.." />
 
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
         <div className="centerItem">
-          <IonRow>
-            <IonItem lines="none">
-              <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
-                <input type="text" placeholder="Object ID" name="id"></input>
-                <input type="text" placeholder="Please type: 'vehicle'" name="type"></input>
-                <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
-                <input type="submit" value="upload"></input>
-              </form>
-            </IonItem>
-          </IonRow>
+          <IonItem lines="none">
+            {/* <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post"> */}
+            {/* <input type="text" placeholder="Object ID" name="id"></input>
+            <input type="text" placeholder="Please type: 'vehicle'" name="type"></input> */}
+            <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+            {/* <input type="submit" value="upload"></input> */}
+            {/* </form> */}
+          </IonItem>
         </div>
 
+        <IonButton color="primary" expand="block" onClick={() => submitFileForm()}>Submit</IonButton>
         <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
           Retrieve
         </IonButton>
