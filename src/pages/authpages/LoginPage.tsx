@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
         // refetchQueries: [{ query: 'LOGIN_MUTATION' }]
     });
 
-    if (!loading) console.log(data!.me.email)
+    // if (!loading) console.log(data!.me.email)
 
     return (
         <IonPage>

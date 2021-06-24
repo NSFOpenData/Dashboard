@@ -33,6 +33,7 @@ const ProfilePage: React.FC = () => {
   `;
 
   const { loading, data, error, refetch, networkStatus } = useQuery(USER_QUERY, {
+    errorPolicy: 'ignore',
     fetchPolicy: "cache-and-network",
     notifyOnNetworkStatusChange: true,
     nextFetchPolicy: "cache-first",
