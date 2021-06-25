@@ -11,7 +11,7 @@ const AnimalQueryPage: React.FC = () => {
         query FindAnimals(
             $breed: String
             $type: String
-            $color: [String]
+            $color: [String!]
             $location: [String!]
         ){
             findAnimals(params: {breed: $breed, type: $type, color: $color, location: $location}){
@@ -93,19 +93,20 @@ const AnimalQueryPage: React.FC = () => {
                     <IonLabel>Please Type: </IonLabel>
                     <IonInput value={animalColor1}
                         placeholder="Animal Color 1"
-                        onIonChange={event => setAnimalColorArray(animalColorArray!.push(event.detail.value!))}></IonInput>
+                        onIonChange={event => animalColorArray?.push(event.detail.value!)}></IonInput>
+                    {/* //  setAnimalColorArray(oldArr => [...oldArr, event.detail.value!])}></IonInput> */}
                 </IonItem>
                 <IonItem>
                     <IonLabel>Please Type: </IonLabel>
                     <IonInput value={animalColor2}
-                        placeholder="Animal Color 2"
-                        onIonChange={event => setAnimalColorArray(animalColorArray!.push(event.detail.value!))}></IonInput>
+                        placeholder="Animal Color 2 (optional)"
+                        onIonChange={event => animalColorArray?.push(event.detail.value!)}></IonInput>
                 </IonItem>
                 <IonItem>
                     <IonLabel>Please Type: </IonLabel>
                     <IonInput value={animalColor3}
-                        placeholder="Animal Color 3"
-                        onIonChange={event => setAnimalColorArray(animalColorArray!.push(event.detail.value!))}></IonInput>
+                        placeholder="Animal Color 3 (optional)"
+                        onIonChange={event => animalColorArray?.push(event.detail.value!)}></IonInput>
                 </IonItem>
                 <IonItem>
                     <IonLabel>Please Type: </IonLabel>
@@ -114,10 +115,13 @@ const AnimalQueryPage: React.FC = () => {
                         onIonChange={event => setAnimalApproxLocation(event.detail.value!)}></IonInput>
                 </IonItem>
                 {/* <IonButton color="light" expand="block" onClick={() => reset()}>
-                Refetch!    
-            </IonButton>    */}
+                    Refetch!    
+                </IonButton>    */}
                 {
-                    (animalType || animalBreed || animalColor1 || animalColor2 || animalColor3 || animalApproxLocation) &&
+                    console.log(animalColorArray)
+                }
+                {
+                    (animalType || animalColor1 || animalBreed || animalApproxLocation) && // || animalColor1 || animalColor2 || animalColor3
                     <IonContent>
 
                         {!loading && data.findAnimals.map((animal: any) => (
