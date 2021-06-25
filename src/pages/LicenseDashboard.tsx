@@ -223,10 +223,11 @@ const LicenseDashboard: React.FC = () => {
 
   // FOR PLACING SELECTED CAR's location on the map
   var carLat = 36.1627
-  var carLng = -86.7816
-  const carOnMap = (longitude: number, latitude: number) => {
+  var carLng = -70.7816
+  const carOnMap = (latitude: number, longitude: number) => {
     carLng = longitude;
     carLat = latitude;
+    console.log(carLat.toString(), ", ", carLng.toString());
   }
 
   return (
