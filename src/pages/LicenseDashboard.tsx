@@ -30,6 +30,8 @@ interface InternalValues {
 
 let files: any[] = [];
 
+let readableLocations: Array<string>;
+
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
@@ -202,6 +204,40 @@ const LicenseDashboard: React.FC = () => {
     }
   }
 
+  function getLocation(longitude: number, latitude: number) {
+    // let result = "could not fetch location"
+    console.log("trying to get location");
+    try {
+      fetch("http://open.mapquestapi.com/geocoding/v1/reverse?key=qepcZemyOkwek8Bmhm0oVdGKTAXpaTZw&location=" + longitude.toString() + "," + latitude.toString() + "&includeRoadMetadata=true&includeNearestIntersection=true", {
+        method: "GET",
+        mode: "no-cors",
+      }).then(function (response) {
+        response.json().then(body => {
+
+          readableLocations.push((body.results[0].locations[0].street + ", "
+            + body.results[0].locations[0].adminArea5 + ", "
+            + body.results[0].locations[0].adminArea3 + ", "
+            + body.results[0].locations[0].adminArea1 + " "
+            + body.results[0].locations[0].postalCode))
+        });
+      })
+
+
+      // if (!response.ok) {
+      //   console.log("error getting the location")
+      // } else if (response.ok) {
+      //   console.log("getting location successful")
+      //   console.log(response.body)
+      // }
+    } catch (err) {
+      console.log(err);
+      // return ("error")
+    }
+    // return "errorrr"
+
+    // return result;
+  };
+
 
   return (
     <IonPage>
@@ -226,6 +262,8 @@ const LicenseDashboard: React.FC = () => {
 
         <IonLoading isOpen={loading} message="Loading.." />
 
+
+        {/* <IonButton onClick={() => getLocation()}>Get location temp button</IonButton> */}
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
@@ -315,29 +353,40 @@ const LicenseDashboard: React.FC = () => {
           </IonSelect>
         </IonItem>
 
+        {!loading && data?.vehicles?.map((vehicle: any) => (
+          getLocation(vehicle.location[0], vehicle.location[1])
+        ))}
+
+        {
+          readableLocations.map((location: any) => (
+            console.log("locations: " + location)
+          ))
+        }
 
         <IonContent scrollX={true}>
-          {!loading && data?.vehicles?.map((vehicle: any) => (
-            // console.log(vehicle.license)
-            <div className="centerItem">
-              <IonItem lines="none">
-                <IonCard button={true} color="light">
-                  <img style={{ height: 160, width: 300 }} src={photo} ></img>
-                  <IonCardContent>
-                    <IonCardSubtitle>Car Information</IonCardSubtitle>
-                    <h5>Manufacturer: {vehicle.make}</h5>
-                    <h5>Model: {vehicle.model}</h5>
-                    <h5>Color: {vehicle.color}</h5>
-                    <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
-                    {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
-                    <h5>License Plate: {vehicle.license} </h5>
-                  </IonCardContent>
-                </IonCard>
-              </IonItem>
-            </div>
-
+          {!loading && data?.vehicles?.map((vehicle: any, index: number) => (
+            // getLocation(vehicle.location[0], vehicle.location[1])
+            // {/* // console.log(vehicle.license)
+            // <div className="centerItem">
+            //   {vehicle.location[0] > 35.996 && // && vehicle.location[0] < 36.30 && vehicle.location[1] < -86.60 && vehicle.location[1] > -86.90 &&
+            //     <IonItem lines="none">
+            //       <IonCard button={true} color="light">
+            //         <img style={{ height: 160, width: 300 }} src={photo} ></img>
+            //         <IonCardContent>
+            //           <IonCardSubtitle>Car Information</IonCardSubtitle>
+            //           <h5>Manufacturer: {vehicle.make}</h5>
+            //           <h5>Model: {vehicle.model}</h5>
+            //           <h5>Color: {vehicle.color}</h5>
+            //           {/* <h5>Location: {readableLocations[index]}</h5>  */}
+            //           <h5>Location: {getLocation(vehicle.location[0], vehicle.location[1])}</h5>
+            //           <h5>License Plate: {vehicle.license} </h5>
+            //         </IonCardContent>
+            //       </IonCard>
+            //     </IonItem>
+            //   }
+            // </div>
+            <div></div>
           ))}
-
         </IonContent>
 
         <IonAvatar></IonAvatar>
