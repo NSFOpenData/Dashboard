@@ -20,6 +20,8 @@ import 'leaflet/dist/leaflet.css';
 import { gql, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { latLng } from 'leaflet';
+import { render } from '@testing-library/react';
 
 const { Camera } = Plugins;
 
@@ -32,6 +34,7 @@ let files: any[] = [];
 
 let readableLocations: Array<string>;
 
+
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
@@ -41,7 +44,6 @@ const LicenseDashboard: React.FC = () => {
   // User inputs from dropdown menus
   const [location, setLocation] = useState<string>("");
   const [licensePlate, setLicensePlate] = useState<string>("");
-
 
   // for date selection and readability
   let dateTime = new Date();
@@ -219,8 +221,16 @@ const LicenseDashboard: React.FC = () => {
   //   }
   // };
 
+  // FOR PLACING SELECTED CAR's location on the map
+  var carLat = 36.1627
+  var carLng = -86.7816
+  const carOnMap = (longitude: number, latitude: number) => {
+    carLng = longitude;
+    carLat = latitude;
+  }
 
   return (
+    // return (
     <IonPage>
       {/* {
         console.log(licensePlate + location)
@@ -352,7 +362,7 @@ const LicenseDashboard: React.FC = () => {
             <div className="centerItem">
               {vehicle.location[0] > 35.996 && // && vehicle.location[0] < 36.30 && vehicle.location[1] < -86.60 && vehicle.location[1] > -86.90 &&
                 <IonItem lines="none">
-                  <IonCard button={true} color="light">
+                  <IonCard button={true} color="light" onClick={() => carOnMap(vehicle.location[0], vehicle.location[1])}>
                     <img style={{ height: 160, width: 300 }} src={photo} ></img>
                     <IonCardContent>
                       <IonCardSubtitle>Car Information</IonCardSubtitle>
@@ -375,12 +385,13 @@ const LicenseDashboard: React.FC = () => {
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Track</h5>
 
+
         <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[36.1627, -86.7816]}>
+          <Marker position={[carLat, carLng]}>
             <Popup>
               This is Nashville,
             </Popup>
@@ -390,7 +401,9 @@ const LicenseDashboard: React.FC = () => {
 
       </IonContent>
     </IonPage>
+    // );
   );
+
 };
 
 export default LicenseDashboard;
