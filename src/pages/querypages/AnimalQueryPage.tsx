@@ -9,8 +9,8 @@ const AnimalQueryPage: React.FC = () => {
     // trying without location for now
     const FIND_ANIMAL_QUERY = gql`
         query FindAnimals(
-            $breed: String
-            $type: String
+            $breed: [String!]
+            $type: [String!]
             $color: [String!]
             $location: [String!]
         ){
@@ -27,39 +27,57 @@ const AnimalQueryPage: React.FC = () => {
 
     // Animal Related USER INPUT Variables:
     const [animalBreed, setAnimalBreed] = useState<string | null>();
+    const [animalBreedArray, setAnimalBreedArray] = useState<string[]>();
+
     const [animalType, setAnimalType] = useState<string | null>();
+    const [animalTypeArray, setAnimalTypeArray] = useState<string[]>();
 
     const [animalColor, setAnimalColor] = useState<string | null>();
     const [animalColorArray, setAnimalColorArray] = useState<string[]>();
 
     const [animalApproxLocation, setAnimalApproxLocation] = useState<string | null>();
 
-    // let animalColorArray;
-    // const setAnimalColors = (colorString: string) => {
-    //     var splitted = colorString.split(",", 5);
-    //     animalColorArray = splitted;
-    //     console.log(animalColor)
-    // }
+
+    const onBreedChange = (breedString: string) => {
+        setAnimalBreed(breedString);
+
+        if (breedString?.indexOf(",") == -1) {
+            var tempArr: string[] = [breedString];
+            setAnimalBreedArray(tempArr);
+        }
+        else if (breedString?.indexOf(",") !== -1) {
+            setAnimalBreedArray(breedString?.split(", ", 10));
+        }
+    }
+
+    const onTypeChage = (typeString: string) => {
+        setAnimalType(typeString);
+
+        if (typeString?.indexOf(",") == -1) {
+            var tempArr: string[] = [typeString];
+            setAnimalTypeArray(tempArr);
+        }
+        else if (typeString?.indexOf(",") !== -1) {
+            setAnimalTypeArray(typeString?.split(", ", 10));
+        }
+    }
 
     const onColorChange = (colorString: string) => {
         setAnimalColor(colorString);
-
-        // var tempArr: string[] = [animalColor?];
-        // setAnimalColorArray(tempArr);
 
         if (colorString?.indexOf(",") == -1) {
             var tempArr: string[] = [colorString];
             setAnimalColorArray(tempArr);
         }
         else if (colorString?.indexOf(",") !== -1) {
-            setAnimalColorArray(colorString?.split(",", 10));
+            setAnimalColorArray(colorString?.split(", ", 10));
         }
     }
 
     const { loading, data, error, refetch, networkStatus } = useQuery(FIND_ANIMAL_QUERY, {
         variables: {
-            breed: animalBreed,
-            type: animalType,
+            breed: animalBreedArray,
+            type: animalTypeArray,
             color: animalColorArray,
             location: animalApproxLocation,
         },
@@ -92,19 +110,19 @@ const AnimalQueryPage: React.FC = () => {
                     <IonLabel>Please Type: </IonLabel>
                     <IonInput value={animalType}
                         placeholder="Animal Type (i.e. dog, cat, etc.)"
-                        onIonChange={event => setAnimalType(event.detail.value!)}></IonInput>
+                        onIonChange={event => onTypeChage(event.detail.value!)}></IonInput>
                 </IonItem>
                 <IonItem>
                     <IonLabel>Please Type: </IonLabel>
                     <IonInput value={animalBreed}
                         placeholder="Animal Breed"
-                        onIonChange={event => setAnimalBreed(event.detail.value!)}></IonInput>
+                        onIonChange={event => onBreedChange(event.detail.value!)}></IonInput>
                 </IonItem>
 
                 <IonItem>
                     <IonLabel>Please Type: </IonLabel>
                     <IonInput value={animalColor}
-                        placeholder="Animal Color (i.e. black, red, brown)"
+                        placeholder="Animal Color (i.e. black, blue, etc.)"
                         onIonChange={event => onColorChange(event.detail.value!)}></IonInput>
                     {/* //  setAnimalColorArray(oldArr => [...oldArr, event.detail.value!])}></IonInput> */}
                 </IonItem>
