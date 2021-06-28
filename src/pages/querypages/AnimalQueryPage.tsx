@@ -87,7 +87,7 @@ const AnimalQueryPage: React.FC = () => {
 
     if (networkStatus == NetworkStatus.refetch) console.log("refetching!")
     if (loading) console.log("loading");
-    if (error) console.log("error");
+    if (error) console.log("error: " + error.message);
 
     return (
         <IonPage>
@@ -124,7 +124,6 @@ const AnimalQueryPage: React.FC = () => {
                     <IonInput value={animalColor}
                         placeholder="Animal Color (i.e. black, blue, etc.)"
                         onIonChange={event => onColorChange(event.detail.value!)}></IonInput>
-                    {/* //  setAnimalColorArray(oldArr => [...oldArr, event.detail.value!])}></IonInput> */}
                 </IonItem>
                 <IonItem>
                     <IonLabel>Please Type: </IonLabel>
@@ -135,16 +134,16 @@ const AnimalQueryPage: React.FC = () => {
                 {/* <IonButton color="light" expand="block" onClick={() => reset()}>
                     Refetch!    
                 </IonButton>    */}
-                {
+                {/* {
                     console.log("animal color string: " + animalColor)
                 }
                 {
                     console.log(animalColorArray)
-                }
+                } */}
+
                 {
                     (animalType || animalColor || animalBreed || animalApproxLocation) && // || animalColor1 || animalColor2 || animalColor3
                     <IonContent>
-
                         {!loading && data.findAnimals.map((animal: any) => (
                             <IonCard button={false} color="light">
                                 <IonCardContent>
