@@ -29,9 +29,6 @@ const AnimalQueryPage: React.FC = () => {
     const [animalBreed, setAnimalBreed] = useState<string | null>();
     const [animalType, setAnimalType] = useState<string | null>();
 
-    const [animalColor1, setAnimalColor1] = useState<string | null>();
-    const [animalColor2, setAnimalColor2] = useState<string | null>();
-    const [animalColor3, setAnimalColor3] = useState<string | null>();
     const [animalColor, setAnimalColor] = useState<string | null>();
     const [animalColorArray, setAnimalColorArray] = useState<string[]>();
 
@@ -44,15 +41,18 @@ const AnimalQueryPage: React.FC = () => {
     //     console.log(animalColor)
     // }
 
-    const onChange = (colorString: string) => {
+    const onColorChange = (colorString: string) => {
         setAnimalColor(colorString);
+
+        // var tempArr: string[] = [animalColor?];
+        // setAnimalColorArray(tempArr);
 
         if (animalColor?.indexOf(",") == -1) {
             var tempArr: string[] = [animalColor];
             setAnimalColorArray(tempArr);
         }
         else if (animalColor?.indexOf(",") !== -1) {
-            setAnimalColorArray(animalColor?.split(",", 5));
+            setAnimalColorArray(animalColor?.split(",", 10));
         }
 
         console.log("color array: " + animalColorArray);
@@ -106,9 +106,9 @@ const AnimalQueryPage: React.FC = () => {
 
                 <IonItem>
                     <IonLabel>Please Type: </IonLabel>
-                    <IonInput value={animalColor1}
+                    <IonInput value={animalColor}
                         placeholder="Animal Color (i.e. black, red, brown)"
-                        onIonChange={event => onChange(event.detail.value!)}></IonInput>
+                        onIonChange={event => onColorChange(event.detail.value!)}></IonInput>
                     {/* //  setAnimalColorArray(oldArr => [...oldArr, event.detail.value!])}></IonInput> */}
                 </IonItem>
                 {/* <IonItem>
@@ -134,6 +134,12 @@ const AnimalQueryPage: React.FC = () => {
                 </IonButton>    */}
                 {
                     console.log(animalColorArray)
+                }
+                {
+                    console.log(animalType)
+                }
+                {
+                    console.log("animal color string: " + animalColor)
                 }
                 {
                     (animalType || animalColor || animalBreed || animalApproxLocation) && // || animalColor1 || animalColor2 || animalColor3
