@@ -52,7 +52,7 @@ const AnimalQueryPage: React.FC = () => {
             setAnimalColorArray(tempArr);
         }
         else if (colorString?.indexOf(",") !== -1) {
-            setAnimalColorArray(colorString?.split(",", 10));
+            setAnimalColorArray(colorString?.split(", ", 10));
         }
     }
 
