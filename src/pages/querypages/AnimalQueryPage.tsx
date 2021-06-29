@@ -6,17 +6,22 @@ import { gql, NetworkStatus, useMutation, useQuery } from '@apollo/client';
 
 const AnimalQueryPage: React.FC = () => {
 
+    type LocationInput = {
+        lat: String
+        lon: String
+        name: String
+    };
+
     // trying without location for now
     const FIND_ANIMAL_QUERY = gql`
         query FindAnimals(
             $breed: [String!]
             $type: [String!]
             $color: [String!]
-            $location: [String!]
+            $location: LocationInput
         ){
             findAnimals(params: {breed: $breed, type: $type, color: $color, location: $location}){
                 _id
-                location
                 files
                 color
                 breed
@@ -35,7 +40,7 @@ const AnimalQueryPage: React.FC = () => {
     const [animalColor, setAnimalColor] = useState<string | null>();
     const [animalColorArray, setAnimalColorArray] = useState<string[]>();
 
-    const [animalApproxLocation, setAnimalApproxLocation] = useState<string | null>();
+    const [animalApproxLocation, setAnimalApproxLocation] = useState<LocationInput | null>();
 
 
     const onBreedChange = (breedString: string) => {
@@ -87,7 +92,7 @@ const AnimalQueryPage: React.FC = () => {
 
     if (networkStatus == NetworkStatus.refetch) console.log("refetching!")
     if (loading) console.log("loading");
-    if (error) console.log("error: " + error.message);
+    if (error) console.log("error: " + error.networkError);
 
     return (
         <IonPage>
@@ -125,12 +130,12 @@ const AnimalQueryPage: React.FC = () => {
                         placeholder="Animal Color (i.e. black, blue, etc.)"
                         onIonChange={event => onColorChange(event.detail.value!)}></IonInput>
                 </IonItem>
-                <IonItem>
+                {/* <IonItem>
                     <IonLabel>Please Type: </IonLabel>
                     <IonInput value={animalApproxLocation}
                         placeholder="Animal Approximate Community Location"
                         onIonChange={event => setAnimalApproxLocation(event.detail.value!)}></IonInput>
-                </IonItem>
+                </IonItem> */}
                 {/* <IonButton color="light" expand="block" onClick={() => reset()}>
                     Refetch!    
                 </IonButton>    */}
@@ -150,7 +155,7 @@ const AnimalQueryPage: React.FC = () => {
                                     <h5>Type: {animal.type}</h5>
                                     <h5>Breed: {animal.breed}</h5>
                                     <h5>Color: {animal.color}</h5>
-                                    <h5>Location: [ {animal.location[0]} , {animal.location[1]} ]</h5>
+                                    {/* <h5>Location: [ {animal.location[0]} , {animal.location[1]} ]</h5> */}
                                 </IonCardContent>
                             </IonCard>
                         ))}
