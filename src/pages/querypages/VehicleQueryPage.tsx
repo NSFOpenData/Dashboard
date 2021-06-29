@@ -6,40 +6,106 @@ import {gql, useLazyQuery, useMutation, useQuery} from '@apollo/client';
 
 const VehicleQueryPage: React.FC = () => {
     
+    type LocationInput = {
+        lat: String
+        lon: String
+        name: String
+    };
+
     // trying without location for now
     const FIND_VEHICLE_QUERY = gql`
         query FindVehicles(
-            $make: String
-            $model: String
-            $location: [String!]
-            $color: String
-            $license: String
+            $make: [String!]
+            $model: [String!]
+            $color: [String!]
+            $license: [String!]
+            $location: LocationInput
         ){
             findVehicles(params: {make: $make, model: $model, location: $location, color: $color, license: $license}){
                 _id
                 make
                 model
-                location
                 files
                 color
+                location {
+                    lat 
+                    lon
+                    name
+                }
             }
         }
     `;
 
     // Vehicle Related USER INPUT Variables:
     const [vehicleCompany, setVehicleCompany] = useState<string | null>();
+    const [vehicleCompanyArray, setVehicleCompanyArray] = useState<string[]>();
+
     const [vehicleModel, setVehicleModel] = useState<string | null>();
+    const [vehicleModelArray, setVehicleModelArray] = useState<string[]>();
+
     const [vehicleColor, setVehicleColor] = useState<string| null>();
-    const [vehicleApproxLocation, setVehicleApproxLocation] = useState<string| null>();
+    const [vehicleColorArray, setVehicleColorArray] = useState<string[]>();
+
     const [vehicleLicense, setVehicleLicense] = useState<string| null>();
+    const [vehicleLicenseArray, setVehicleLicenseArray] = useState<string[]>();
+
+    const [vehicleApproxLocation, setVehicleApproxLocation] = useState<LocationInput | null>();
+
+    const onCompanyChange = (company: string) => {
+        setVehicleCompany(company);
+
+        if (company?.indexOf(",") == -1) {
+            var tempArr: string[] = [company];
+            setVehicleCompanyArray(tempArr);
+        }
+        else if (company?.indexOf(",") !== -1) {
+            setVehicleCompanyArray(company?.split(", ", 10));
+        }
+    }
+
+    const onModelChange = (model: string) => {
+        setVehicleModel(model);
+
+        if (model?.indexOf(",") == -1) {
+            var tempArr: string[] = [model];
+            setVehicleModelArray(tempArr);
+        }
+        else if (model?.indexOf(",") !== -1) {
+            setVehicleModelArray(model?.split(", ", 10));
+        }
+    }
+
+    const onColorChange = (color: string) => {
+        setVehicleColor(color);
+
+        if (color?.indexOf(",") == -1) {
+            var tempArr: string[] = [color];
+            setVehicleColorArray(tempArr);
+        }
+        else if (color?.indexOf(",") !== -1) {
+            setVehicleColorArray(color?.split(", ", 10));
+        }
+    }
+
+    const onLicenseChange = (license: string) => {
+        setVehicleLicense(license);
+
+        if (license?.indexOf(",") == -1) {
+            var tempArr: string[] = [license];
+            setVehicleLicenseArray(tempArr);
+        }
+        else if (license?.indexOf(",") !== -1) {
+            setVehicleLicenseArray(license?.split(", ", 10));
+        }
+    }
 
     const [getSearchResults, { loading, data, error }] = useLazyQuery(FIND_VEHICLE_QUERY, {
         variables: {
-            make: vehicleCompany, 
-            model: vehicleModel,
-            // location: 
-            color: vehicleColor,
-            license: vehicleLicense,
+            make: vehicleCompanyArray, 
+            model: vehicleModelArray,
+            location: vehicleApproxLocation,
+            color: vehicleColorArray,
+            license: vehicleLicenseArray,
         }, 
         
         fetchPolicy: "network-only"
@@ -75,32 +141,33 @@ const VehicleQueryPage: React.FC = () => {
                 <IonLabel>Please Type: </IonLabel>
                 <IonInput value={vehicleCompany} 
                 placeholder="Vehicle Manufacturer/Company Name"
-                onIonChange={event => setVehicleCompany(event.detail.value!)}></IonInput>
+                onIonChange={event => onCompanyChange(event.detail.value!)}></IonInput>
             </IonItem>   
             <IonItem>
                 <IonLabel>Please Type: </IonLabel>
                 <IonInput value={vehicleModel} 
                 placeholder="Vehicle Model Name"
-                onIonChange={event => setVehicleModel(event.detail.value!)}></IonInput>
+                onIonChange={event => onModelChange(event.detail.value!)}></IonInput>
             </IonItem> 
             <IonItem>
                 <IonLabel>Please Type: </IonLabel>
                 <IonInput value={vehicleColor} 
                 placeholder="Vehicle Color"
-                onIonChange={event => setVehicleColor(event.detail.value!)}></IonInput>
+                onIonChange={event => onColorChange(event.detail.value!)}></IonInput>
             </IonItem>     
-            <IonItem>
-                <IonLabel>Please Type: </IonLabel>
-                <IonInput value={vehicleApproxLocation} 
-                placeholder="Vehicle Approximate Community Location"
-                onIonChange={event => setVehicleApproxLocation(event.detail.value!)}></IonInput>
-            </IonItem> 
             <IonItem>
                 <IonLabel>Please Type: </IonLabel>
                 <IonInput value={vehicleLicense} 
                 placeholder="Vehicle License"
-                onIonChange={event => setVehicleLicense(event.detail.value!)}></IonInput>
+                onIonChange={event => onLicenseChange(event.detail.value!)}></IonInput>
             </IonItem>
+            {/* <IonItem>
+                <IonLabel>Please Type: </IonLabel>
+                <IonInput value={vehicleApproxLocation} 
+                placeholder="Vehicle Approximate Community Location"
+                onIonChange={event => setVehicleApproxLocation(event.detail.value!)}></IonInput>
+            </IonItem>  */}
+            
             {
                 (vehicleCompany || vehicleColor || vehicleModel || vehicleColor || vehicleApproxLocation || vehicleLicense) &&
                 <IonContent>
@@ -112,7 +179,7 @@ const VehicleQueryPage: React.FC = () => {
                              <h5>Manufacturer: {vehicle.make}</h5>
                              <h5>Model: {vehicle.model}</h5>
                              <h5>Color: {vehicle.color}</h5>
-                             <h5>Location: [ {vehicle.location[0]} , {vehicle.location[1]} ]</h5>
+                             <h5>Location: [ {vehicle.location.lat}, {vehicle.location.lon} ]</h5>
                              {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
                              <h5>License Plate: {vehicle.license} </h5>           
                            </IonCardContent>
