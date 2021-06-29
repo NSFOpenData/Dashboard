@@ -5,3 +5,10 @@
   height: 70px;
   width: 180px;
 }
+
+.titleItem {
+  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  font-family: "Georgia", Times, serif;
+}

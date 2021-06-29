@@ -24,12 +24,15 @@ const Tab1: React.FC = () => {
 
       <IonContent fullscreen>
 
+      
+        <h2 className="titleItem">Dashboards</h2>
+  
         <IonCard button={true} color="tertiary" routerLink={'/trafficDashboard'}>
           <IonCardHeader>
             <IonCardTitle>Traffic Dashboard</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            View Time, Number of Cars, and Street Information
+            Time, Number of Cars, and Street Information
           </IonCardContent>
         </IonCard>
 
@@ -39,7 +42,7 @@ const Tab1: React.FC = () => {
             <IonCardTitle>License Dashboard</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            View License, Time, and Location Information
+            License, Time, and Location Information
           </IonCardContent>
         </IonCard>
 
@@ -48,7 +51,7 @@ const Tab1: React.FC = () => {
             <IonCardTitle>Delivery Dashboard</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            View Time, Type, and Location Information
+            Time, Type, and Location Information
           </IonCardContent>
         </IonCard>
 
@@ -57,7 +60,17 @@ const Tab1: React.FC = () => {
             <IonCardTitle>Animal Dashboard</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            View Time, Color, and Location Information
+            Time, Color, and Location Information
+          </IonCardContent>
+        </IonCard>
+
+        <h2 className="titleItem">Tools</h2>
+        <IonCard button={true} color="medium" routerLink={'/openalprPage'}>
+          <IonCardHeader>
+            <IonCardTitle>OpenALPR Tool</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            Read License Live-Time
           </IonCardContent>
         </IonCard>
 

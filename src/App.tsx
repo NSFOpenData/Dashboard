@@ -56,6 +56,9 @@ import QueryResultPage from './pages/querypages/QueryResultPage';
 import VehicleQueryPage from './pages/querypages/VehicleQueryPage';
 import AnimalQueryPage from './pages/querypages/AnimalQueryPage';
 
+/* Openalpr Page */
+import OpenalprPage from './pages/openalpr_pages/OpenalprPage';
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
@@ -115,6 +118,11 @@ const App: React.FC = () => (
             <AnimalQueryPage />
           </Route>
 
+          {/* OpenAlpr Page */}
+          <Route path='/openalprPage'>
+            <OpenalprPage />
+          </Route>
+
           {/* Advanced Time Setting Page */}
           <Route path="/extendedDateAndTime1">
             <ExtendedDateAndTime dashBoardNum = {1}/>
@@ -131,6 +139,8 @@ const App: React.FC = () => (
           <Route path="/extendedDateAndTime4">
             <ExtendedDateAndTime dashBoardNum = {4}/>
           </Route>
+
+
           
         </IonRouterOutlet>
 
