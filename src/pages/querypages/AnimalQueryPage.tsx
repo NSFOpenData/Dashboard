@@ -26,6 +26,11 @@ const AnimalQueryPage: React.FC = () => {
                 color
                 breed
                 type
+                location {
+                    lat 
+                    lon
+                    name
+                }
             }
         }
     `;
@@ -136,15 +141,6 @@ const AnimalQueryPage: React.FC = () => {
                         placeholder="Animal Approximate Community Location"
                         onIonChange={event => setAnimalApproxLocation(event.detail.value!)}></IonInput>
                 </IonItem> */}
-                {/* <IonButton color="light" expand="block" onClick={() => reset()}>
-                    Refetch!    
-                </IonButton>    */}
-                {/* {
-                    console.log("animal color string: " + animalColor)
-                }
-                {
-                    console.log(animalColorArray)
-                } */}
 
                 {
                     (animalType || animalColor || animalBreed || animalApproxLocation) && // || animalColor1 || animalColor2 || animalColor3
@@ -155,7 +151,7 @@ const AnimalQueryPage: React.FC = () => {
                                     <h5>Type: {animal.type}</h5>
                                     <h5>Breed: {animal.breed}</h5>
                                     <h5>Color: {animal.color}</h5>
-                                    {/* <h5>Location: [ {animal.location[0]} , {animal.location[1]} ]</h5> */}
+                                    <h5>Location: [ {animal.location.lat}, {animal.location.lon} ]</h5>
                                 </IonCardContent>
                             </IonCard>
                         ))}
