@@ -14,7 +14,7 @@ import {
 
 // const [photoToScan, setPhotoToScan] = useState<CameraPhoto | null>();
 
-let photoToScan: CameraPhoto | null;
+let photoToScan: string | undefined;
 
 // const OpenalprPage: React.FC = () => {
 const GetImagePage: React.FC = () => {
@@ -40,8 +40,8 @@ const GetImagePage: React.FC = () => {
   };
 
   useEffect(() => {
-    photoToScan = photo!
-    console.log("PHOTO STATE: ", photo)
+    photoToScan = photo?.path
+    console.log("PHOTO STATE: ", photo?.path)
   })
   
 return (
