@@ -65,7 +65,7 @@ const Tab1: React.FC = () => {
         </IonCard>
 
         <h2 className="titleItem">Tools</h2>
-        <IonCard button={true} color="medium" routerLink={'/openalprPage'}>
+        <IonCard button={true} color="medium" routerLink={'/getImagePage'}>
           <IonCardHeader>
             <IonCardTitle>OpenALPR Tool</IonCardTitle>
           </IonCardHeader>

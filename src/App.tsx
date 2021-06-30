@@ -58,6 +58,7 @@ import AnimalQueryPage from './pages/querypages/AnimalQueryPage';
 
 /* Openalpr Page */
 import OpenalprPage from './pages/openalpr_pages/OpenalprPage';
+import GetImagePage from './pages/openalpr_pages/GetImagePage';
 
 const App: React.FC = () => (
   <IonApp>
@@ -121,6 +122,9 @@ const App: React.FC = () => (
           {/* OpenAlpr Page */}
           <Route path='/openalprPage'>
             <OpenalprPage />
+          </Route>
+          <Route path='/getImagePage'>
+            <GetImagePage />
           </Route>
 
           {/* Advanced Time Setting Page */}
