@@ -1,6 +1,6 @@
 
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonicSafeString, IonRow, IonAvatar } from '@ionic/react';
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import {ModalController,  AlertController, Platform } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { OpenALPR, OpenALPROptions, OpenALPRResult } from 'cordova-plugin-openalpr/native';
@@ -25,6 +25,7 @@ const OpenalprPage: React.FC = () => {
         quality: 100,
         allowEditing: false,
         resultType: CameraResultType.DataUrl,
+        saveToGallery: false,
       });
     }
   };
@@ -36,6 +37,10 @@ const OpenalprPage: React.FC = () => {
     let capture:any = await VideoCapturePlus.captureVideo(options);
     console.log((capture[0] as MediaFile).fullPath)
   };
+
+  useEffect(() => {
+    console.log("PHOTO STATE: ", photo);
+  })
     
   return (
       <IonPage>
@@ -51,8 +56,12 @@ const OpenalprPage: React.FC = () => {
 
       <IonContent className="ion-padding">
         <IonButton onClick={() => doMediaCapture()}>
-          VIDEO CAPATURE
+          VIDEO 
         </IonButton>
+        <IonButton onClick={() => takePhoto()}>
+          PHOTO
+        </IonButton>
+
       {/* <IonButton onClick={() => scan('camera')}>Scan Live With Camera</IonButton>
       <IonButton onClick={() => scan('library')}>Scan Picture</IonButton> */}
       <h2 className="titleItem">openalpr welcome</h2>
