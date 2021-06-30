@@ -12,7 +12,9 @@ import {
   VideoCapturePlus,
 } from "@ionic-native/video-capture-plus";
 
-const [photoToScan, setPhotoToScan] = useState<CameraPhoto | null>();
+// const [photoToScan, setPhotoToScan] = useState<CameraPhoto | null>();
+
+let photoToScan: string | undefined;
 
 // const OpenalprPage: React.FC = () => {
 const GetImagePage: React.FC = () => {
@@ -38,8 +40,12 @@ const GetImagePage: React.FC = () => {
   };
 
   useEffect(() => {
-    setPhotoToScan(photo);
-    console.log("PHOTO STATE: ", photo);
+    photoToScan = photo?.webPath
+    console.log("PHOTO logs: ", photo?.path)
+    console.log("PHOTO logs: ", photo?.base64String)
+    console.log("PHOTO logs: ", photo?.dataUrl)
+    console.log("PHOTO logs: ", photo?.exif)
+    console.log("PHOTO logs: ", photo?.webPath)    
   })
   
 return (

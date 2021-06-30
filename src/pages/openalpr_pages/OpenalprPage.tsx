@@ -7,7 +7,7 @@ import { OpenALPR, OpenALPROptions, OpenALPRResult } from 'cordova-plugin-openal
 import './OpenalprPage.css';
 import {OpenalprResultPage} from './OpenalprResultPage';
 
-import {photoToScan} from './GetImagePage';
+import photoToScan from './GetImagePage';
 
 
 // const OpenalprPage: React.FC = () => {
@@ -20,7 +20,7 @@ export default class OpenalprPage extends React.Component{
 
     this.openAlprOptions = {
       amount: 3,
-      country: this.openalpr.Country.US
+      country: this.openalpr.Country?.US
     };
   }
 
