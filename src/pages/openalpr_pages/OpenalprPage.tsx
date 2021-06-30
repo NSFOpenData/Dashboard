@@ -15,12 +15,13 @@ export class OpenalprPage extends React.Component{
     public scanOptions: OpenALPROptions;
   
     constructor(private camera: Camera, private openALPR: OpenALPR, private alertCtrl: AlertController, private modalCtrl: ModalController, private platform: Platform) {
-      super(camera)
+      super(camera, openALPR)
       this.cameraOptions = {
-        quality: 80,
-        destinationType: this.camera.DestinationType.DATA_URL,
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
         encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.CAMERA
       }
   
       this.scanOptions = {
