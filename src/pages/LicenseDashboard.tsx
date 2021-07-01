@@ -123,9 +123,13 @@ const LicenseDashboard: React.FC = () => {
 
 
   const VEHICLE_POST_QUERY = gql`
-    query getAll{
+    query Vehicles{
       vehicles {
-        location,
+        location {
+          lat 
+          lon
+          name
+        },
         model,
         make,
         color,
@@ -158,15 +162,16 @@ const LicenseDashboard: React.FC = () => {
 
     {
       files.map((file: any) => (
-        console.log(file)
+        console.log("file-to-upload detected: " + file.name)
       ))
     }
   };
 
   const submitFileForm = async () => {
-    if (!values.current.file) {
-      return false;
-    }
+    // if (!values.current.file) {
+    //   console.log("we got no file to upload")
+    //   return false;
+    // }
 
     let formData = new FormData();
     formData.set("type", "vehicle");
@@ -177,8 +182,6 @@ const LicenseDashboard: React.FC = () => {
         formData.append("images", file.name)
       ))
     }
-
-
     // console.log(values.current.file.name);
     // console.log(formData.get("type"));
     // console.log(formData.get("id"));

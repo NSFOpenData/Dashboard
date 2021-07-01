@@ -5,14 +5,8 @@ import React, { useState, Component } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './AnimalDashboard.css';
 
-/* Axios for API Calls */
-import axios from 'axios';
-import { Console } from 'console';
-
-import { thumbsUpSharp } from 'ionicons/icons';
-
 /* GraphQL for API Calls */
-import { gql, useQuery } from '@apollo/client';
+import { gql, NetworkStatus, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router';
 
 const AnimalDashboard: React.FC = () => {
@@ -49,17 +43,29 @@ const AnimalDashboard: React.FC = () => {
   let individualCardPhotoSource = [];
 
   const ANIMAL_POST_QUERY = gql`
-    query getAll{
+    query Animals{
       animals {
-        location,
         color,
         breed,
         type,
+        location {
+          lat 
+          lon
+          name
+        }
       }
     }
   `;
 
-  const { loading, data, error } = useQuery(ANIMAL_POST_QUERY);
+  const { loading, data, error, refetch, networkStatus } = useQuery(ANIMAL_POST_QUERY, {
+    fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true,
+});
+
+if (networkStatus == NetworkStatus.refetch) console.log("refetching!")
+if (loading) console.log("loading");
+if (error) console.log("error: " + error.networkError);
+
 
   return (
 
@@ -215,7 +221,7 @@ const AnimalDashboard: React.FC = () => {
                     <h5>Type: {animal.type}</h5>
                     <h5>Breed: {animal.breed}</h5>
                     <h5>Color: {animal.color}</h5>
-                    <h5>Location: [ {animal.location[0]} , {animal.location[1]} ]</h5>
+                    <h5>Location: [ {animal.location.lat}, {animal.location.lon} ]</h5>
                   </IonCardContent>
                 </IonCard>
               </IonItem>
