@@ -7,7 +7,7 @@ import { OpenALPR, OpenALPROptions, OpenALPRResult } from 'cordova-plugin-openal
 import './OpenalprPage.css';
 import {OpenalprResultPage} from './OpenalprResultPage';
 
-import photoToScan from './GetImagePage';
+import {photoToScan} from './GetImagePage';
 
 
 // const OpenalprPage: React.FC = () => {
@@ -26,6 +26,7 @@ export default class OpenalprPage extends React.Component{
 
   scan(){
     console.log("the phototoscan value: " + photoToScan);
+    console.log("end of log for photoscan")
     this.openalpr.scan(photoToScan, this.openAlprOptions).then((result: [OpenALPRResult]) => {
       this.showResult(result);
     }).catch(error => console.error(error));

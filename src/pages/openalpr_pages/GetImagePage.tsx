@@ -25,7 +25,7 @@ const GetImagePage: React.FC = () => {
       getPhoto({
         quality: 100,
         allowEditing: false,
-        resultType: CameraResultType.DataUrl,
+        resultType: CameraResultType.Uri,
         saveToGallery: false,
       });
     }
@@ -40,7 +40,7 @@ const GetImagePage: React.FC = () => {
   };
 
   useEffect(() => {
-    photoToScan = photo?.webPath
+    photoToScan = photo?.path
     console.log("PHOTO logs: ", photo?.webPath)
     console.log("PHOTO logs: ", photo?.path)
     console.log("PHOTO logs: ", photo?.base64String)
