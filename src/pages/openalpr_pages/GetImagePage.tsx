@@ -41,11 +41,11 @@ const GetImagePage: React.FC = () => {
 
   useEffect(() => {
     photoToScan = photo?.webPath
+    console.log("PHOTO logs: ", photo?.webPath)
     console.log("PHOTO logs: ", photo?.path)
     console.log("PHOTO logs: ", photo?.base64String)
-    console.log("PHOTO logs: ", photo?.dataUrl)
     console.log("PHOTO logs: ", photo?.exif)
-    console.log("PHOTO logs: ", photo?.webPath)    
+    // console.log("PHOTO logs: ", photo?.dataUrl)
   })
   
 return (
