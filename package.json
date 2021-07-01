@@ -13,7 +13,7 @@
     "@capacitor/android": "^2.4.7",
     "@capacitor/core": "2.4.7",
     "@capacitor/ios": "^2.4.7",
-    "@ionic-native/camera": "^4.20.0",
+    "@ionic-native/camera": "^5.34.0",
     "@ionic-native/core": "^5.34.0",
     "@ionic-native/image-picker": "^4.20.0",
     "@ionic-native/openalpr": "^5.34.0",

@@ -25,6 +25,7 @@ export default class OpenalprPage extends React.Component{
   }
 
   scan(){
+    console.log("the phototoscan value: " + photoToScan);
     this.openalpr.scan(photoToScan, this.openAlprOptions).then((result: [OpenALPRResult]) => {
       this.showResult(result);
     }).catch(error => console.error(error));
@@ -67,8 +68,8 @@ export default class OpenalprPage extends React.Component{
             SCAN
           </IonButton>
 
-        {/* <IonButton onClick={() => scan('camera')}>Scan Live With Camera</IonButton>
-        <IonButton onClick={() => scan('library')}>Scan Picture</IonButton> */}
+        {/* <IonButton onClick={() => this.scan('camera')}>Scan Live With Camera</IonButton>
+        <IonButton onClick={() => this.scan('library')}>Scan Picture</IonButton> */}
         <h2 className="titleItem">openalpr welcome</h2>
     
         </IonContent>
