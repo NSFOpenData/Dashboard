@@ -63,17 +63,6 @@ const Tab1: React.FC = () => {
             Time, Color, and Location Information
           </IonCardContent>
         </IonCard>
-
-        <h2 className="titleItem">Tools</h2>
-        <IonCard button={true} color="medium" routerLink={'/getImagePage'}>
-          <IonCardHeader>
-            <IonCardTitle>OpenALPR Tool</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            Read License Live-Time
-          </IonCardContent>
-        </IonCard>
-
       
       </IonContent>
     </IonPage>

@@ -19,8 +19,8 @@ const client = new ApolloClient({
     headers:{
       // 'Content-Type': 'application/json',
       // 'Accept': 'application/json',
-      authorization: token ? bearer.concat(token!) : '',
-      // authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6ImFwcHRlc3RAYXBwdGVzdC5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjI3NDczNDIsImV4cCI6MTYyMzM1MjE0Miwic3ViIjoiNjBiNjU4MDRkYzI3NTQ5YTkwMDcyYjIyIn0.89rdr_qyT2ntC5LOyu6CrWBnUhjiqNOeTDz1bWm6TOg"
+      // authorization: token ? bearer.concat(token!) : '',
+      authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InRva2VuQHRva2VuLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTYyNTU5MzMzMSwiZXhwIjoxNjI2MTk4MTMxLCJzdWIiOiI2MGU0OTVjNjkzMGY2MTFlYzZmZTgxODIifQ.Oxneo71V5mPXry6xYBcqSYhGDqrHO9GwJ_z0dD64Zz0"
     }
     
   }),
