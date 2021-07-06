@@ -1,4 +1,4 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput, IonLabel } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput, IonLabel, IonSelect, IonSelectOption } from '@ionic/react';
 import React, { Component, useState } from 'react';
 import './RegisterPage.css';
 
@@ -76,6 +76,23 @@ const RegisterPage: React.FC = () => {
                 <IonButton expand="full" onClick={() => register()}>Register</IonButton>
             }
 
+            <IonItem>
+                <IonLabel>Community</IonLabel>
+                <IonSelect>
+                    <IonSelectOption value="Goodlettsville">Goodlettsville</IonSelectOption>
+                    <IonSelectOption value="Lebanon">Lebanon</IonSelectOption>
+                    <IonSelectOption value="MountJuliet">Mount Juliet</IonSelectOption>
+                    <IonSelectOption value="Murfreesboro">Murfreesboro</IonSelectOption>
+                    <IonSelectOption value="Smyrna">Smyrna</IonSelectOption>
+                    <IonSelectOption value="Hendersonville">Hendersonville</IonSelectOption>
+                    <IonSelectOption value="Gallatin">Gallatin</IonSelectOption>
+                    <IonSelectOption value="Nolensville">Nolensville</IonSelectOption>
+                    <IonSelectOption value="Brentwood">Brentwood</IonSelectOption>
+                    <IonSelectOption value="Franklin">Franklin</IonSelectOption>
+                    
+                </IonSelect>
+            </IonItem>
+            
             <div className="centerItem">
                 <p>After registering, please go back and Log In</p>
             </div>
@@ -86,7 +103,7 @@ const RegisterPage: React.FC = () => {
 
             {/* <IonButton color="secondary" size="default" routerLink={"/loginpage"}>Log In</IonButton> */}
 
-
+            
 
             {/* get inputs from the user first */}
             {/* check that every input has length greater than 1*/}

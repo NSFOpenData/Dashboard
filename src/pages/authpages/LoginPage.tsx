@@ -1,4 +1,4 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput, IonRouterLink } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput, IonSelect, IonLabel, IonSelectOption } from '@ionic/react';
 import React, { Component, useState } from 'react';
 import './LoginPage.css';
 
@@ -82,6 +82,23 @@ const LoginPage: React.FC = () => {
             <div className="centerItem">
                 <IonButton routerLink={'/authentication'}>Go Back</IonButton>
             </div> */}
+
+                <IonItem>
+                    <IonLabel>Community</IonLabel>
+                    <IonSelect>
+                    <IonSelectOption value="Goodlettsville">Goodlettsville</IonSelectOption>
+                    <IonSelectOption value="Lebanon">Lebanon</IonSelectOption>
+                    <IonSelectOption value="MountJuliet">Mount Juliet</IonSelectOption>
+                    <IonSelectOption value="Murfreesboro">Murfreesboro</IonSelectOption>
+                    <IonSelectOption value="Smyrna">Smyrna</IonSelectOption>
+                    <IonSelectOption value="Hendersonville">Hendersonville</IonSelectOption>
+                    <IonSelectOption value="Gallatin">Gallatin</IonSelectOption>
+                    <IonSelectOption value="Nolensville">Nolensville</IonSelectOption>
+                    <IonSelectOption value="Brentwood">Brentwood</IonSelectOption>
+                    <IonSelectOption value="Franklin">Franklin</IonSelectOption>
+                        
+                    </IonSelect>
+                </IonItem>
             </IonContent>
         </IonPage >
     );
