@@ -158,6 +158,7 @@ const LicenseDashboard: React.FC = () => {
   const onFileChange = (fileChangeEvent: any) => {
     // values.current.file = fileChangeEvent.target.files[0];
     // console.log(values.current.file);
+    console.log("here" + fileChangeEvent.target.files[0].name)
     files = Array.from(fileChangeEvent.target.files);
 
     {
@@ -174,12 +175,12 @@ const LicenseDashboard: React.FC = () => {
     // }
 
     let formData = new FormData();
-    formData.set("type", "vehicle");
-    formData.set("id", "60b6e51818ca7fe9e8156888");
+    formData.append("type", "vehicle");
+    formData.append("id", "60b6e51818ca7fe9e8156888");
     {
       files.map((file: any) => (
         // console.log(file.name)
-        formData.append("images", file.name)
+        formData.append("images", file, file.name)
       ))
     }
     // console.log(values.current.file.name);
