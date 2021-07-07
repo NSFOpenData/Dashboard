@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonicSafeString, IonRow, IonAvatar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonicSafeString, IonRow, IonAvatar, IonCol } from '@ionic/react';
 import React from 'react';
 //import { View } from 'react-native';
 import ExploreContainer from '../components/ExploreContainer';
@@ -8,19 +8,18 @@ import './Tab1.css';
 const Tab1: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonRow>
-            <IonAvatar></IonAvatar>
-            <IonAvatar></IonAvatar>
+      {/* <div className="centerItem"> */}
+        <IonHeader>
+          <IonToolbar>
+            <div className="centerItem">
+              <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
 
-          
-            <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
+              {/* <img src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img> */}
+            </div>
+          </IonToolbar>
         
-           
-          </IonRow>
-        </IonToolbar>
-      </IonHeader>
+        </IonHeader>
+      {/* </div> */}
 
       <IonContent fullscreen>
 

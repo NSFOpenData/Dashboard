@@ -2,8 +2,9 @@
   justify-content: center;
   display: flex !important;
   align-items: center !important;
-  height: 70px;
-  width: 180px;
+  vertical-align: middle;
+  /* height: 70px;
+  width: 180px; */
 }
 
 .titleItem {
@@ -11,4 +12,10 @@
   display: flex !important;
   align-items: center !important;
   font-family: "Georgia", Times, serif;
+}
+
+.centerItem {
+  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
 }

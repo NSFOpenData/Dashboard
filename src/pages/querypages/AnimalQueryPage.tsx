@@ -103,12 +103,11 @@ const AnimalQueryPage: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonRow>
-                        <IonAvatar></IonAvatar>
-                        <IonAvatar></IonAvatar>
-                        <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-                    </IonRow>
+                    <div className="centerItem">
+                        <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+                    </div>
                 </IonToolbar>
+                
             </IonHeader>
 
             <IonContent className="ion-padding">

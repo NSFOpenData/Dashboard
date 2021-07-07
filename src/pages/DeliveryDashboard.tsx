@@ -45,15 +45,13 @@ const DeliveryDashboard: React.FC = () => {
       console.log(deliveryType)
       } */}
       <IonHeader>
-        <IonToolbar>
-          <IonRow>
-            <IonAvatar></IonAvatar>
-            <IonAvatar></IonAvatar>
-            <img style={{ alignContent: "center", height: 70, width: 180}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-          </IonRow>
-        </IonToolbar>
+          <IonToolbar>
+              <div className="centerItem">
+                <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+              </div>
+          </IonToolbar>
       </IonHeader>
-
+      
       <IonContent fullscreen>
           {/* generalized date string formats! */}
           {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
