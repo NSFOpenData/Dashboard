@@ -105,7 +105,7 @@ const DeliveryDashboard: React.FC = () => {
 
         <IonAvatar></IonAvatar>
 
-          <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5>
+          {/* <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5> */}
           
 
           <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>

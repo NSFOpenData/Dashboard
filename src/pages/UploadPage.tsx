@@ -100,6 +100,10 @@ const UploadPage: React.FC = () => {
         <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
           Retrieve
         </IonButton>
+
+        <div>
+            <IonButton color="light" routerLink={"/licenseDashboard"}>get icon for this too</IonButton>
+        </div>
       </IonContent>
 
 
