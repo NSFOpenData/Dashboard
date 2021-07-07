@@ -92,6 +92,10 @@ if (error) console.log("error: " + error.networkError);
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
         <div className="centerItem">
+          <IonButton routerLink={'/uploadPageA'}>Get some icon for this button</IonButton>
+
+        </div>
+        {/* <div className="centerItem">
           <IonRow>
             <IonItem lines="none">
               <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
@@ -102,14 +106,13 @@ if (error) console.log("error: " + error.networkError);
               </form>
             </IonItem>
           </IonRow>
-        </div>
+        </div> */}
 
-        <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
+        {/* <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
           Retrieve
-        </IonButton>
+        </IonButton> */}
 
-
-
+        <IonAvatar></IonAvatar>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Date and Time</h5>
 

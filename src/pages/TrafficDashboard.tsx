@@ -280,13 +280,13 @@ const TrafficDashboard: React.FC = () => {
           </h6>
         </div>
 
+        {/* <IonAvatar></IonAvatar> */}
+
+        {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Number of Cars</h5> */}
+
         <IonAvatar></IonAvatar>
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Number of Cars</h5>
-
-        <IonAvatar></IonAvatar>
-
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Location</h5>
+        {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Location</h5> */}
 
 
         <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>

@@ -263,21 +263,25 @@ const LicenseDashboard: React.FC = () => {
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
         <div className="centerItem">
-          <IonItem lines="none">
+          <IonButton routerLink={'/uploadPageL'}>Get some icon for this button</IonButton>
+
+        </div>
+        {/* <div className="centerItem"> */}
+          {/* <IonItem lines="none"> */}
             {/* <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post"> */}
             {/* <input type="text" placeholder="Object ID" name="id"></input>
             <input type="text" placeholder="Please type: 'vehicle'" name="type"></input> */}
             {/* <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input> */}
-            <input type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+            {/* <input type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input> */}
             {/* <input type="submit" value="upload"></input> */}
             {/* </form> */}
-          </IonItem>
-        </div>
+          {/* </IonItem> */}
+        {/* </div> */}
 
-        <IonButton color="primary" expand="block" onClick={() => submitFileForm()}>Submit</IonButton>
-        <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
+        {/* <IonButton color="primary" expand="block" onClick={() => submitFileForm()}>Submit</IonButton> */}
+        {/* <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
           Retrieve
-        </IonButton>
+        </IonButton> */}
 
         <IonAvatar></IonAvatar>
 
@@ -387,7 +391,7 @@ const LicenseDashboard: React.FC = () => {
 
         <IonAvatar></IonAvatar>
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Track</h5>
+        {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Track</h5> */}
 
 
         <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>

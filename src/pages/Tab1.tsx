@@ -8,24 +8,16 @@ import './Tab1.css';
 const Tab1: React.FC = () => {
   return (
     <IonPage>
-      {/* <div className="centerItem"> */}
-        <IonHeader>
-          <IonToolbar>
-            <div className="centerItem">
-              <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
-
-              {/* <img src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img> */}
-            </div>
-          </IonToolbar>
-        
-        </IonHeader>
-      {/* </div> */}
-
-      <IonContent fullscreen>
-
+      <IonHeader>
+        <IonToolbar>
+          <div className="centerItem">
+            <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+          </div>
+        </IonToolbar>
       
-        <h2 className="titleItem">Dashboards</h2>
-  
+      </IonHeader>
+
+      <IonContent fullscreen>  
         <IonCard button={true} color="tertiary" routerLink={'/trafficDashboard'}>
           <IonCardHeader>
             <IonCardTitle>Traffic Dashboard</IonCardTitle>
