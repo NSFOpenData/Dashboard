@@ -49,6 +49,7 @@ import LicenseDashboard from './pages/LicenseDashboard';
 import AnimalDashboard from './pages/AnimalDashboard';
 import ExtendedDateAndTime from './pages/subpages/ExtendedDateAndTime';
 import ProfilePage from './pages/ProfilePage';
+import UploadPage from './pages/UploadPage';
 
 /* Query Pages */
 import QueryPage from './pages/querypages/QueryPage';
@@ -99,6 +100,9 @@ const App: React.FC = () => (
           </Route>
           <Route path="/animalDashboard">
             <AnimalDashboard />
+          </Route>
+          <Route path="/uploadPage">
+            <UploadPage />
           </Route>
 
           {/* Query Pages */}

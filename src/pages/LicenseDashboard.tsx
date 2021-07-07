@@ -263,21 +263,25 @@ const LicenseDashboard: React.FC = () => {
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
         <div className="centerItem">
-          <IonItem lines="none">
+          <IonButton routerLink={'/uploadPage'}>Get some icon for this button</IonButton>
+
+        </div>
+        {/* <div className="centerItem"> */}
+          {/* <IonItem lines="none"> */}
             {/* <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post"> */}
             {/* <input type="text" placeholder="Object ID" name="id"></input>
             <input type="text" placeholder="Please type: 'vehicle'" name="type"></input> */}
             {/* <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input> */}
-            <input type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
+            {/* <input type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input> */}
             {/* <input type="submit" value="upload"></input> */}
             {/* </form> */}
-          </IonItem>
-        </div>
+          {/* </IonItem> */}
+        {/* </div> */}
 
-        <IonButton color="primary" expand="block" onClick={() => submitFileForm()}>Submit</IonButton>
-        <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
+        {/* <IonButton color="primary" expand="block" onClick={() => submitFileForm()}>Submit</IonButton> */}
+        {/* <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
           Retrieve
-        </IonButton>
+        </IonButton> */}
 
         <IonAvatar></IonAvatar>
 

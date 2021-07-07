@@ -280,9 +280,9 @@ const TrafficDashboard: React.FC = () => {
           </h6>
         </div>
 
-        <IonAvatar></IonAvatar>
+        {/* <IonAvatar></IonAvatar> */}
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Number of Cars</h5>
+        {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Number of Cars</h5> */}
 
         <IonAvatar></IonAvatar>
 
