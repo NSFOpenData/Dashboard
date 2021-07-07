@@ -1,9 +1,11 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton, IonAvatar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton, IonAvatar, IonSegment, IonSegmentButton, IonLabel, IonIcon } from '@ionic/react';
 import React, { useState, Component, useRef, useMemo, useCallback } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './TrafficDashboard.css';
 import ExtendedDateAndTime from '../pages/subpages/ExtendedDateAndTime';
 
+// icons
+import {calendarOutline, albums, cubeOutline, bugOutline} from 'ionicons/icons';
 
 /* Reactive Google Map */
 import { ReactiveBase, SingleList } from '@appbaseio/reactivesearch';
@@ -247,8 +249,12 @@ const TrafficDashboard: React.FC = () => {
           {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
 
 
-        <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton>
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Date and Time</h5>
+        {/* <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton> */}
+        
+        <div className="centerItem">
+          <IonIcon className="icon" icon={calendarOutline} />
+        </div>
+
 
 
         <IonSegment color="secondary" value="favorite">
@@ -270,12 +276,12 @@ const TrafficDashboard: React.FC = () => {
 
         <div className="centerItem">
           <h6>
-            Start Date and Time:
+            {/* Start Date and Time: */}
             <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
           </h6>
           <IonAvatar></IonAvatar>
           <h6>
-            End Date and Time:
+            {/* End Date and Time: */}
             <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!)}></IonDatetime>
           </h6>
         </div>

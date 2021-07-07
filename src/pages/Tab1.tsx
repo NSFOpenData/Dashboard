@@ -1,9 +1,13 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonicSafeString, IonRow, IonAvatar, IonCol } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonicSafeString, IonRow, IonAvatar, IonCol, IonLabel, IonIcon } from '@ionic/react';
 import React from 'react';
 //import { View } from 'react-native';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
+
+// icons
+import {carOutline, albums, cubeOutline, bugOutline} from 'ionicons/icons';
+
 
 const Tab1: React.FC = () => {
   return (
@@ -17,44 +21,45 @@ const Tab1: React.FC = () => {
       
       </IonHeader>
 
-      <IonContent fullscreen>  
-        <IonCard button={true} color="tertiary" routerLink={'/trafficDashboard'}>
-          <IonCardHeader>
-            <IonCardTitle>Traffic Dashboard</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            Time, Number of Cars, and Street Information
-          </IonCardContent>
-        </IonCard>
+      <IonContent ion-padding>  
+        {/* <head>
+          <script src="https://kit.fontawesome.com/9b94afdf90.js" crossOrigin="anonymous"></script>
+        </head> */}
+        <IonAvatar></IonAvatar>
+        <IonButton expand="block" size="large" color="light" routerLink={"/trafficDashboard"}>
+          <div className="icon">
+            <i className="fas fa-car-alt"></i>
+          </div>
+          <IonAvatar></IonAvatar>
+          <IonAvatar></IonAvatar>
+          <IonLabel>Traffic Dashboard</IonLabel>
+        </IonButton>
+    
+        <IonButton expand="block" size="large" color="light" routerLink={"/licenseDashboard"}>
+          <IonIcon className="icon" icon={albums} />
+          <IonAvatar></IonAvatar>
+          <IonAvatar></IonAvatar>
+          <IonLabel>License Dashboard</IonLabel>
+        </IonButton>
 
+      <IonButton expand="block" size="large" color="light" routerLink={"/deliveryDashboard"}>
+        <div className="truckIcon">
+          <i className="fas fa-truck"></i>
+        </div>
+        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar>
+        <IonLabel>Delivery Dashboard</IonLabel>
+      </IonButton>
 
-        <IonCard button={true} color="primary" routerLink={'/licenseDashboard'}>
-          <IonCardHeader>
-            <IonCardTitle>License Dashboard</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            License, Time, and Location Information
-          </IonCardContent>
-        </IonCard>
-
-        <IonCard button={true} color="secondary" routerLink={'/deliveryDashboard'}>
-          <IonCardHeader>
-            <IonCardTitle>Delivery Dashboard</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            Time, Type, and Location Information
-          </IonCardContent>
-        </IonCard>
-
-        <IonCard button={true} color="light" routerLink={'/animalDashboard'}>
-          <IonCardHeader>
-            <IonCardTitle>Animal Dashboard</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            Time, Color, and Location Information
-          </IonCardContent>
-        </IonCard>
-      
+      <IonButton expand="block" size="large" color="light" routerLink={"/animalDashboard"}>
+        <div className="icon">
+          <i className="fas fa-dog"></i>
+        </div>
+        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar>
+        <IonLabel>Animal Dashboard</IonLabel>
+      </IonButton>      
+        
       </IonContent>
     </IonPage>
 
