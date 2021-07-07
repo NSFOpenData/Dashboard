@@ -19,3 +19,14 @@
   display: flex !important;
   align-items: center !important;
 }
+
+.icon {
+  font-size: 40px;
+}
+.truckIcon {
+  font-size: 35px;
+}
+
+.ion-margin {
+  margin: 30px;
+}
