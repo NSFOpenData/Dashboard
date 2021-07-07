@@ -1,7 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton, IonAvatar, IonSegment, IonSegmentButton, IonLabel, IonItem } from '@ionic/react';
 import React, { useState, Component, useRef, useMemo, useCallback } from 'react';
-import ExploreContainer from '../components/ExploreContainer';
-import './UploadPage.css';
+import './UploadPageLicense.css';
 
 // for uploading files
 interface InternalValues {
@@ -102,7 +101,7 @@ const UploadPage: React.FC = () => {
         </IonButton>
 
         <div>
-            <IonButton color="light" routerLink={"/licenseDashboard"}>get icon for this too</IonButton>
+            <IonButton color="light" routerLink={"/licenseDashboard"} routerDirection="back">get icon for this too</IonButton>
         </div>
       </IonContent>
 

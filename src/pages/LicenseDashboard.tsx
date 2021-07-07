@@ -263,7 +263,7 @@ const LicenseDashboard: React.FC = () => {
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
         <div className="centerItem">
-          <IonButton routerLink={'/uploadPage'}>Get some icon for this button</IonButton>
+          <IonButton routerLink={'/uploadPageL'}>Get some icon for this button</IonButton>
 
         </div>
         {/* <div className="centerItem"> */}
