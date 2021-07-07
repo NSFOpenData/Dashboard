@@ -48,14 +48,14 @@ const RegisterPage: React.FC = () => {
     return (
       <IonPage>
         <IonHeader>
-            <IonToolbar>
-            <IonRow>
-                <IonAvatar></IonAvatar>
-                <IonAvatar></IonAvatar>
-                
-                <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-            </IonRow>
-            </IonToolbar>
+          <IonToolbar>
+            <div className="centerItem">
+              <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+
+              {/* <img src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img> */}
+            </div>
+          </IonToolbar>
+        
         </IonHeader>
   
         <IonContent className="profilePage">    

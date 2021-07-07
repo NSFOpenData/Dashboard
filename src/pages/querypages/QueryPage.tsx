@@ -8,16 +8,14 @@ const QueryPage: React.FC = () => {
     return (
       <IonPage>
         <IonHeader>
-            <IonToolbar>
-            <IonRow>
-                <IonAvatar></IonAvatar>
-                <IonAvatar></IonAvatar>
-                <div className="logo">
-                    <img style={{ alignContent: "center", height: 70}} src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
-                </div>
-            </IonRow>
-            </IonToolbar>
-        </IonHeader>
+              <IonToolbar>
+                  <div className="centerItem">
+                    <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+
+                  </div>
+              </IonToolbar>
+              
+          </IonHeader>
   
         <IonContent className="ion-padding"> 
         
