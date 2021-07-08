@@ -1,7 +1,7 @@
 
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading, IonList, IonIcon } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
-import React, { useState, Component, useRef } from 'react';
+import React, { useState, Component, useRef, useEffect } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './LicenseDashboard.css';
 
@@ -237,12 +237,14 @@ const LicenseDashboard: React.FC = () => {
   // };
 
   // FOR PLACING SELECTED CAR's location on the map
-  var carLat = 36.1627
-  var carLng = -70.7816
+  
+  const [carLat, setCarLat] = useState<number>(0);
+  const [carLon, setCarLon] = useState<number>(0);
+
   const carOnMap = (latitude: number, longitude: number) => {
-    carLng = longitude;
-    carLat = latitude;
-    console.log(carLat.toString(), ", ", carLng.toString());
+    setCarLat(latitude);
+    setCarLon(longitude);
+    console.log(carLat, ", ", carLon);
   }
 
   return (
@@ -377,15 +379,15 @@ const LicenseDashboard: React.FC = () => {
             // console.log(vehicle.license)
             <div className="centerItem">
                 <IonItem lines="none">
-                  <IonCard button={true} color="light" onClick={() => carOnMap(vehicle.location[0], vehicle.location[1])}>
-                    <img style={{ height: 160, width: 320 }} src={photo} ></img>
+                  <IonCard button={true} color="light" onClick={() => carOnMap(vehicle.location.lat, vehicle.location.lon)}>
+                    <img className="centerItem" style={{ height: 160, width: 320 }} src={photo} ></img>
                     <IonCardContent>
                       <IonCardSubtitle>Car Information</IonCardSubtitle>
                       <h5>Manufacturer: {vehicle.make}</h5>
                       <h5>Model: {vehicle.model}</h5>
                       <h5>Color: {vehicle.color}</h5>
                       {/* <h5>Location: {readableLocations[index]}</h5>  */}
-                      <h5>Location: [ {vehicle.location.lat}, {vehicle.location.lat} ]</h5>
+                      <h5>Location: [ {vehicle.location.lat}, {vehicle.location.lon} ]</h5>
                       <h5>License Plate: {vehicle.license} </h5>
                     </IonCardContent>
                   </IonCard>
@@ -399,18 +401,20 @@ const LicenseDashboard: React.FC = () => {
 
         {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Track</h5> */}
 
-
-        <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={[carLat, carLng]}>
-            <Popup>
-              This is Nashville,
-            </Popup>
-          </Marker>
-        </MapContainer>
+        { carLat != 0 && carLon != 0 &&
+          <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={9} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[carLat, carLon]}>
+              <Popup>
+                This is Nashville,
+              </Popup>
+            </Marker>
+          </MapContainer>
+        }
+        
         {/* https://stackoverflow.com/questions/67552020/how-to-fix-error-failed-to-compile-node-modules-react-leaflet-core-esm-pat  */}
 
       </IonContent>
