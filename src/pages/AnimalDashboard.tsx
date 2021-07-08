@@ -91,7 +91,7 @@ const AnimalDashboard: React.FC = () => {
         {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
 
         {/* <IonLoading isOpen={loading} message="Loading..." /> */}
-        <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton>
+        {/* <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton> */}
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
 

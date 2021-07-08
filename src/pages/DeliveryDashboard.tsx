@@ -59,7 +59,7 @@ const DeliveryDashboard: React.FC = () => {
           {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
           
 
-        <IonButton color="secondary" expand="full" disabled={true}>Delivery Dashboard</IonButton>
+        {/* <IonButton color="secondary" expand="full" disabled={true}>Delivery Dashboard</IonButton> */}
         
             <h5 className="centerItem" style={{fontWeight: "bold"}}>Date and Time</h5>
             

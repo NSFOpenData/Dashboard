@@ -21,7 +21,7 @@ const Tab1: React.FC = () => {
       
       </IonHeader>
 
-      <IonContent ion-padding>  
+      <IonContent className="ion-padding">  
         {/* <head>
           <script src="https://kit.fontawesome.com/9b94afdf90.js" crossOrigin="anonymous"></script>
         </head> */}

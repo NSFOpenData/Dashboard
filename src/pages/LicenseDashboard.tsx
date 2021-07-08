@@ -265,7 +265,7 @@ const LicenseDashboard: React.FC = () => {
 
 
         {/* <IonButton onClick={() => getLocation()}>Get location temp button</IonButton> */}
-        <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
+        {/* <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton> */}
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
 
@@ -278,7 +278,7 @@ const LicenseDashboard: React.FC = () => {
             <IonIcon className="icon" icon={cloudDownloadOutline} />
           </IonButton> 
         </div>
-        
+
         {/* <div className="centerItem"> */}
           {/* <IonItem lines="none"> */}
             {/* <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post"> */}
