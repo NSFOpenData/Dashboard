@@ -1,8 +1,11 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonLabel } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonIcon, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonLabel } from '@ionic/react';
 import React, { Component } from 'react';
 import './AuthMain.css';
 import { Plugins } from '@capacitor/core';
 // import "@codetrix-studio/capacitor-google-auth";
+
+// icons
+import {personAddOutline, personOutline, personCircleOutline} from 'ionicons/icons';
 
 const INITIAL_STATE = {
 
@@ -36,9 +39,11 @@ class AuthMain extends Component {
           </IonButton> */}
 
           <IonButton className="login-button" routerLink={"/registerpage"} expand="block" fill="solid" color="primary">
+            <IonIcon className="iconSize" icon={personAddOutline} />
             Register
           </IonButton>
           <IonButton className="login-button" routerLink={"/loginpage"} expand="block" fill="solid" color="secondary">
+            <IonIcon className="iconSize" icon={personOutline} />
             Login
           </IonButton>
 
@@ -47,7 +52,8 @@ class AuthMain extends Component {
             <h5>Already Logged In?</h5>
           </div>
           <IonButton className="login-button" routerLink={"/profilePage"} expand="block" fill="solid" color="light">
-            Go To Profile page
+            <IonIcon className="iconSize" icon={personCircleOutline} />
+            Profile page
           </IonButton>
         </IonContent>
       </IonPage>

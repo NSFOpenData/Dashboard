@@ -1,6 +1,9 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton, IonAvatar, IonSegment, IonSegmentButton, IonLabel, IonItem } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText, IonRow, IonFooter, IonDatetime, IonButton, IonAvatar, IonSegment, IonSegmentButton, IonLabel, IonItem, IonIcon } from '@ionic/react';
 import React, { useState, Component, useRef, useMemo, useCallback } from 'react';
-import './UploadPageLicense.css';
+import './UploadPageAnimal.css';
+
+// icons
+import { chevronBackOutline } from 'ionicons/icons';
 
 // for uploading files
 interface InternalValues {
@@ -100,12 +103,15 @@ const UploadPage: React.FC = () => {
           Retrieve
         </IonButton>
 
-        <div>
-            <IonButton color="light" routerLink={"/animalDashboard"} routerDirection="back">get icon for this too</IonButton>
+        <div className="bottom">
+          <IonButton color="light" routerLink={"/animalDashboard"} routerDirection="back">
+            <IonIcon icon={chevronBackOutline}></IonIcon>
+            back
+          </IonButton>
         </div>
       </IonContent>
 
-
+      
     </IonPage>
 
 

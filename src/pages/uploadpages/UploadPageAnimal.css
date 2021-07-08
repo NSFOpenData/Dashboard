@@ -3,3 +3,8 @@
   display: flex !important;
   align-items: center !important;
 }
+
+.bottom {
+  position: absolute;
+  bottom: 55px;
+}

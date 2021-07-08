@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonLabel, IonSelect, IonSelectOption, IonAvatar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLoading, IonSegment, IonSegmentButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonLabel, IonSelect, IonSelectOption, IonAvatar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLoading, IonSegment, IonSegmentButton, IonIcon } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
 import React, { useState, Component } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -8,6 +8,9 @@ import './AnimalDashboard.css';
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router';
+
+// icons
+import {cloudUploadOutline, cloudDownloadOutline } from 'ionicons/icons';
 
 const AnimalDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
@@ -60,11 +63,11 @@ const AnimalDashboard: React.FC = () => {
   const { loading, data, error, refetch, networkStatus } = useQuery(ANIMAL_POST_QUERY, {
     fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
-});
+  });
 
-if (networkStatus == NetworkStatus.refetch) console.log("refetching!")
-if (loading) console.log("loading");
-if (error) console.log("error: " + error.networkError);
+  if (networkStatus == NetworkStatus.refetch) console.log("refetching!")
+  if (loading) console.log("loading");
+  if (error) console.log("error: " + error.networkError);
 
 
   return (
@@ -88,30 +91,20 @@ if (error) console.log("error: " + error.networkError);
         {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
 
         {/* <IonLoading isOpen={loading} message="Loading..." /> */}
-        <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton>
+        {/* <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton> */}
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
+
         <div className="centerItem">
-          <IonButton routerLink={'/uploadPageA'}>Get some icon for this button</IonButton>
+          <IonButton color="secondary" routerLink={'/uploadPageA'}>
+            <IonIcon className="icon" icon={cloudUploadOutline} />
+          </IonButton>
 
+          <IonButton color="success" routerLink={'/uploadPageA'}>
+            <IonIcon className="icon" icon={cloudDownloadOutline} />
+          </IonButton> 
         </div>
-        {/* <div className="centerItem">
-          <IonRow>
-            <IonItem lines="none">
-              <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post">
-                <input type="text" placeholder="Object ID" name="id"></input>
-                <input type="text" placeholder="Please type: 'animal'" name="type"></input>
-                <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input>
-                <input type="submit" value="upload"></input>
-              </form>
-            </IonItem>
-          </IonRow>
-        </div> */}
-
-        {/* <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
-          Retrieve
-        </IonButton> */}
-
+   
         <IonAvatar></IonAvatar>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Date and Time</h5>
