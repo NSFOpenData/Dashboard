@@ -26,7 +26,7 @@ const Tab1: React.FC = () => {
           <script src="https://kit.fontawesome.com/9b94afdf90.js" crossOrigin="anonymous"></script>
         </head> */}
         <IonAvatar></IonAvatar>
-        <IonButton expand="block" size="large" color="light" routerLink={"/trafficDashboard"}>
+        <IonButton expand="block" size="large" color="primary" routerLink={"/trafficDashboard"}>
           <div className="icon">
             <i className="fas fa-car-alt"></i>
           </div>
@@ -35,14 +35,14 @@ const Tab1: React.FC = () => {
           <IonLabel>Traffic Dashboard</IonLabel>
         </IonButton>
     
-        <IonButton expand="block" size="large" color="light" routerLink={"/licenseDashboard"}>
+        <IonButton expand="block" size="large" color="secondary" routerLink={"/licenseDashboard"}>
           <IonIcon className="icon" icon={albums} />
           <IonAvatar></IonAvatar>
           <IonAvatar></IonAvatar>
           <IonLabel>License Dashboard</IonLabel>
         </IonButton>
 
-      <IonButton expand="block" size="large" color="light" routerLink={"/deliveryDashboard"}>
+      <IonButton expand="block" size="large" color="medium" routerLink={"/deliveryDashboard"}>
         <div className="truckIcon">
           <i className="fas fa-truck"></i>
         </div>

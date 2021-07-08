@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading, IonList } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading, IonList, IonIcon } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
 import React, { useState, Component, useRef } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -22,6 +22,10 @@ import { useHistory } from 'react-router';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { latLng } from 'leaflet';
 import { render } from '@testing-library/react';
+
+// icons
+import {cloudUploadOutline, cloudDownloadOutline } from 'ionicons/icons';
+
 
 const { Camera } = Plugins;
 
@@ -138,8 +142,10 @@ const LicenseDashboard: React.FC = () => {
     }
   `;
 
-  const { loading, data, error } = useQuery(VEHICLE_POST_QUERY);
-
+  const { loading, data, error, refetch, networkStatus } = useQuery(VEHICLE_POST_QUERY, {
+    fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true,
+  });
   const mapProps = {
     dataField: "location",
     defaultMapStyle: "Light Monochrome",
@@ -262,10 +268,17 @@ const LicenseDashboard: React.FC = () => {
         <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
-        <div className="centerItem">
-          <IonButton routerLink={'/uploadPageL'}>Get some icon for this button</IonButton>
 
+        <div className="centerItem">
+          <IonButton color="secondary" routerLink={'/uploadPageL'}>
+            <IonIcon className="icon" icon={cloudUploadOutline} />
+          </IonButton>
+
+          <IonButton color="success" routerLink={'/uploadPageL'}>
+            <IonIcon className="icon" icon={cloudDownloadOutline} />
+          </IonButton> 
         </div>
+        
         {/* <div className="centerItem"> */}
           {/* <IonItem lines="none"> */}
             {/* <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post"> */}

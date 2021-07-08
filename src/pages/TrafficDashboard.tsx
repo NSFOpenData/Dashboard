@@ -251,10 +251,11 @@ const TrafficDashboard: React.FC = () => {
 
         {/* <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton> */}
         
-        <div className="centerItem">
+        {/* <div className="centerItem">
           <IonIcon className="icon" icon={calendarOutline} />
-        </div>
+        </div> */}
 
+      <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
 
 
         <IonSegment color="secondary" value="favorite">
