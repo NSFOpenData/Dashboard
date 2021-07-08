@@ -22,6 +22,10 @@ import { Datepicker, Input, Page, setOptions } from '@mobiscroll/react';
 import { render } from '@testing-library/react';
 import { flagOutline } from 'ionicons/icons';
 
+// icons
+import {mapOutline} from 'ionicons/icons';
+
+
 
 setOptions({
   theme: 'ios',
@@ -134,6 +138,10 @@ const TrafficDashboard: React.FC = () => {
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
   const [start, startRef] = React.useState<any>(null);
   const [end, endRef] = React.useState<any>(null);
+  
+
+  // for the map
+  const [showMap, setShowMap] = useState<boolean>(false);
 
 
   // for date selection and readability
@@ -255,7 +263,7 @@ const TrafficDashboard: React.FC = () => {
           <IonIcon className="icon" icon={calendarOutline} />
         </div> */}
 
-      <h5 className="centerItem" style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
+      <h5 className="centerItem" style={{ fontWeight: "bold" }}>Date and Time</h5>
 
 
         <IonSegment color="secondary" value="favorite">
@@ -295,30 +303,45 @@ const TrafficDashboard: React.FC = () => {
 
         {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Location</h5> */}
 
+        {/* <div className="leaflet-container"> */}
 
-        <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {/* <TileLayer
-            attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-            url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-          /> */}
-          <Marker position={[36.1627, -86.7816]}>
-            <Popup>
-              This is Nashville.
-            </Popup>
-          </Marker>
-          <Marker position={[36.1627, -86.796]}>
-            <Popup>
-              This is close to Nashville.
-            </Popup>
-          </Marker>
+        {/* <div className="centerItem"> */}
+          <IonButton className="centerItem" expand="block" color="light" onClick={() => setShowMap(!showMap)}>
+            <IonIcon icon={mapOutline}></IonIcon>
 
-          <DraggableMarker1 />
-          <DraggableMarker2 />
-        </MapContainer>
+          </IonButton>
+
+        {/* </div> */}
+
+
+        {showMap &&
+          <MapContainer style={{ height: '500px'}} id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {/* <TileLayer
+              attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+              url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+            /> */}
+            <Marker position={[36.1627, -86.7816]}>
+              <Popup>
+                This is Nashville.
+              </Popup>
+            </Marker>
+            <Marker position={[36.1627, -86.796]}>
+              <Popup>
+                This is close to Nashville.
+              </Popup>
+            </Marker>
+
+            <DraggableMarker1 />
+            <DraggableMarker2 />
+          </MapContainer>
+        }
+          
+        {/* </div> */}
+        
 
       </IonContent>
 

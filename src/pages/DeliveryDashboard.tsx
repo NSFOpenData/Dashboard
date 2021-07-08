@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonLabel, IonSelect, IonSelectOption, IonItem, IonAvatar, IonSegment, IonSegmentButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonLabel, IonSelect, IonSelectOption, IonItem, IonAvatar, IonSegment, IonSegmentButton, IonIcon } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
 import React, {useState} from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
@@ -7,6 +7,7 @@ import ExploreContainer from '../components/ExploreContainer';
 import './DeliveryDashboard.css';
 
 import 'leaflet/dist/leaflet.css';
+import { mapOutline } from 'ionicons/icons';
 
 
 const DeliveryDashboard: React.FC = () => {
@@ -14,6 +15,9 @@ const DeliveryDashboard: React.FC = () => {
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedDate, setSelectedDate] = useState<string>('2012-12-15T13:47:20.789');
 
+
+  // for the map
+  const [showMap, setShowMap] = useState<boolean>(false);
 
   // For User's input from dropdown menus
   const [deliveryType, setDeliveryType] = useState<string>("");
@@ -106,8 +110,14 @@ const DeliveryDashboard: React.FC = () => {
         <IonAvatar></IonAvatar>
 
           {/* <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5> */}
-          
 
+        <IonButton className="centerItem" expand="block" color="light" onClick={() => setShowMap(!showMap)}>
+          <IonIcon icon={mapOutline}></IonIcon>
+
+        </IonButton>
+
+          
+        {showMap && 
           <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -119,6 +129,7 @@ const DeliveryDashboard: React.FC = () => {
               </Popup>
             </Marker>
           </MapContainer> 
+        }
         {/* </IonTitle> */}
       
       </IonContent>

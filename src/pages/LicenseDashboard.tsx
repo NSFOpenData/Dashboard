@@ -17,7 +17,7 @@ import PersonalInfo from './PersonalInfo'
 import 'leaflet/dist/leaflet.css';
 
 /* GraphQL for API Calls */
-import { gql, useQuery } from '@apollo/client';
+import { gql, NetworkStatus, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { latLng } from 'leaflet';
@@ -42,7 +42,7 @@ let readableLocations: Array<string>;
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
   const [selectedEndDate, setSelectedEndDate] = useState<string>('2021-06-01T13:47:20.789');
-  const [photo, setPhoto] = useState("https://nsf-scc1.isis.vanderbilt.edu/file/vehicle/60ad6a891cf9295d5d661ce5/car1.jpg")  // "https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
+  const [photo, setPhoto] = useState("https://images.summitmedia-digital.com/topgear/images/2018/07/12/Toyota-Cressida-MkII---Arvi.jpg")  // "https://upload.wikimedia.org/wikipedia/commons/7/74/Vintage_blue_car.png");
   //60b6e51818ca7fe9e8156888
 
   // User inputs from dropdown menus
@@ -146,6 +146,11 @@ const LicenseDashboard: React.FC = () => {
     fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
   });
+  if (networkStatus == NetworkStatus.refetch) console.log("refetching!")
+  if (loading) console.log("loading");
+  if (error) console.log("error: " + error.networkError);
+
+
   const mapProps = {
     dataField: "location",
     defaultMapStyle: "Light Monochrome",
@@ -365,38 +370,26 @@ const LicenseDashboard: React.FC = () => {
           </IonSelect>
         </IonItem>
 
-        {/* {!loading && data?.vehicles?.map((vehicle: any) => (
-          getLocation(vehicle.location[0], vehicle.location[1])
-        ))}
-
-        {
-          readableLocations.map((location: any) => (
-            console.log("locations: " + location)
-          ))
-        } */}
-
         <IonContent scrollX={true}>
           {!loading && data?.vehicles?.map((vehicle: any, index: number) => (
 
             // getLocation(vehicle.location[0], vehicle.location[1])
             // console.log(vehicle.license)
             <div className="centerItem">
-              {vehicle.location[0] > 35.996 && // && vehicle.location[0] < 36.30 && vehicle.location[1] < -86.60 && vehicle.location[1] > -86.90 &&
                 <IonItem lines="none">
                   <IonCard button={true} color="light" onClick={() => carOnMap(vehicle.location[0], vehicle.location[1])}>
-                    <img style={{ height: 160, width: 300 }} src={photo} ></img>
+                    <img style={{ height: 160, width: 320 }} src={photo} ></img>
                     <IonCardContent>
                       <IonCardSubtitle>Car Information</IonCardSubtitle>
                       <h5>Manufacturer: {vehicle.make}</h5>
                       <h5>Model: {vehicle.model}</h5>
                       <h5>Color: {vehicle.color}</h5>
                       {/* <h5>Location: {readableLocations[index]}</h5>  */}
-                      <h5>Location: [ {vehicle.location[0]}, {vehicle.location[1]} ]</h5>
+                      <h5>Location: [ {vehicle.location.lat}, {vehicle.location.lat} ]</h5>
                       <h5>License Plate: {vehicle.license} </h5>
                     </IonCardContent>
                   </IonCard>
                 </IonItem>
-              }
             </div>
             // <div></div>
           ))}
