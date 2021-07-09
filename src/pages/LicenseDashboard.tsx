@@ -253,16 +253,17 @@ const LicenseDashboard: React.FC = () => {
       {/* {
         console.log(licensePlate + location)
       } */}
-      <IonHeader>
-          <IonToolbar>
-              <div className="centerItem">
-                <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
-              </div>
-          </IonToolbar>
-      </IonHeader>
       
 
       <IonContent fullscreen>
+        <IonHeader mode="ios" collapse="condense">
+            <IonToolbar>
+                <div className="centerItem">
+                  <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+                </div>
+            </IonToolbar>
+        </IonHeader>
+        
         {/* generalized date string formats! */}
         {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
         {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
@@ -331,28 +332,6 @@ const LicenseDashboard: React.FC = () => {
           </h6>
         </div>
 
-
-        <IonAvatar></IonAvatar>
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Location</h5>
-        <IonItem>
-          <IonLabel>Choose Location:</IonLabel>
-          <IonSelect value={location} placeholder="Select One" onIonChange={e => setLocation(e.detail.value)}>
-            <IonSelectOption value="eastnashville">East Nashville</IonSelectOption>
-            <IonSelectOption value="inglewood">Ingle Wood</IonSelectOption>
-            <IonSelectOption value="madison">Madison</IonSelectOption>
-            <IonSelectOption value="bordeaux">Bordeaux</IonSelectOption>
-            <IonSelectOption value="whitescreek">Whites Creek</IonSelectOption>
-            <IonSelectOption value="donelson">Donelson</IonSelectOption>
-            <IonSelectOption value="hermitage">Hermitage</IonSelectOption>
-            <IonSelectOption value="berryhill">Berry Hill</IonSelectOption>
-            <IonSelectOption value="greenhills">Green Hills</IonSelectOption>
-            <IonSelectOption value="westmeade">West Meade</IonSelectOption>
-            <IonSelectOption value="bellemeade">Belle Meade</IonSelectOption>
-            <IonSelectOption value="oakhill">Oak Hill</IonSelectOption>
-            <IonSelectOption value="crievehall">Crieve Hall</IonSelectOption>
-          </IonSelect>
-        </IonItem>
-
         <IonAvatar></IonAvatar>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>License Plates</h5>
@@ -373,6 +352,21 @@ const LicenseDashboard: React.FC = () => {
 
         <IonAvatar></IonAvatar>
 
+        { carLat != 0 && carLon != 0 &&
+          <MapContainer style={{ height: '350px'}} id="mapid" center={[36.1627, -86.7816]} zoom={8.3} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[carLat, carLon]}>
+              <Popup>
+                Vehicle Location
+              </Popup>
+            </Marker>
+          </MapContainer>
+        }
+
+        <IonAvatar></IonAvatar>
 
         <IonContent scrollX={true}>
           {!loading && data?.vehicles?.map((vehicle: any, index: number) => (
@@ -403,19 +397,7 @@ const LicenseDashboard: React.FC = () => {
 
         {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Track</h5> */}
 
-        { carLat != 0 && carLon != 0 &&
-          <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={9} scrollWheelZoom={false}>
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[carLat, carLon]}>
-              <Popup>
-                Vehicle Location
-              </Popup>
-            </Marker>
-          </MapContainer>
-        }
+        
         
         {/* https://stackoverflow.com/questions/67552020/how-to-fix-error-failed-to-compile-node-modules-react-leaflet-core-esm-pat  */}
 

@@ -242,6 +242,10 @@ const TrafficDashboard: React.FC = () => {
 
   return (
     <IonPage>
+      
+
+      <IonContent fullscreen>
+      
       <IonHeader>
           <IonToolbar>
               <div className="centerItem">
@@ -249,8 +253,6 @@ const TrafficDashboard: React.FC = () => {
               </div>
           </IonToolbar>
       </IonHeader>
-
-      <IonContent fullscreen>
         {/* generalized date string formats! */}
         {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)} */}
         {/* {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
@@ -315,7 +317,7 @@ const TrafficDashboard: React.FC = () => {
 
 
         {showMap &&
-          <MapContainer style={{ height: '500px'}} id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
+          <MapContainer style={{ height: '350px'}} id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

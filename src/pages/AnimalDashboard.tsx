@@ -211,8 +211,25 @@ const AnimalDashboard: React.FC = () => {
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Animal Info</h5>
 
-        <IonContent>
+        
 
+          { animalLat != 0 && animalLon != 0 &&
+            <MapContainer style={{height: "350px"}}  id="mapid" center={[36.1627, -86.7816]} zoom={9} scrollWheelZoom={false}>
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[animalLat, animalLon]}>
+                <Popup>
+                  Animal Location
+                </Popup>
+              </Marker>
+            </MapContainer>
+          }
+
+          <IonAvatar></IonAvatar>
+
+        <IonContent>
           {!loading && data?.animals?.map((animal: any) => (
             // console.log(vehicle.license)
             <div className="centerItem">
@@ -225,6 +242,7 @@ const AnimalDashboard: React.FC = () => {
                     <h5>Breed: {animal.breed}</h5>
                     <h5>Color: {animal.color}</h5>
                     <h5>Location: [ {animal.location.lat}, {animal.location.lon} ]</h5>
+                    <h5>Time: {animal.createdAt} </h5>
                   </IonCardContent>
                 </IonCard>
               </IonItem>
@@ -232,20 +250,7 @@ const AnimalDashboard: React.FC = () => {
 
           ))}
         </IonContent>
-
-        { animalLat != 0 && animalLon != 0 &&
-          <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={9} scrollWheelZoom={false}>
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[animalLat, animalLon]}>
-              <Popup>
-                Animal Location
-              </Popup>
-            </Marker>
-          </MapContainer>
-        }
+        <IonAvatar></IonAvatar>
 
       </IonContent>
     </IonPage>
