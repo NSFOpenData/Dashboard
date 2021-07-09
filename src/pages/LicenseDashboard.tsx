@@ -137,7 +137,8 @@ const LicenseDashboard: React.FC = () => {
         model,
         make,
         color,
-        license
+        license,
+        createdAt,
       }
     }
   `;
@@ -384,6 +385,7 @@ const LicenseDashboard: React.FC = () => {
                       <h5>Color: {vehicle.color}</h5>
                       {/* <h5>Location: {readableLocations[index]}</h5>  */}
                       <h5>Location: [ {vehicle.location.lat}, {vehicle.location.lon} ]</h5>
+                      <h5>Date: {new Date(vehicle.createdAt).toString()} </h5>
                       <h5>License Plate: {vehicle.license} </h5>
                     </IonCardContent>
                   </IonCard>

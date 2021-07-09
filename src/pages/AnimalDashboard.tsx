@@ -52,11 +52,12 @@ const AnimalDashboard: React.FC = () => {
         color,
         breed,
         type,
+        createdAt,
         location {
           lat 
           lon
-          name
-        }
+          name,
+        },
       }
     }
   `;
@@ -142,29 +143,7 @@ const AnimalDashboard: React.FC = () => {
             <IonDatetime displayFormat="MMM DD, YYYY HH:mm" min="1990" max="2030" value={selectedEndDate} onIonChange={e => setSelectedEndDate(e.detail.value!)}></IonDatetime>
           </h6>
         </div>
-        <IonAvatar></IonAvatar>
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Location</h5>
-
-
-        <IonItem>
-          <IonLabel>Choose Location:</IonLabel>
-          <IonSelect value={location} placeholder="Select One" onIonChange={e => setLocation(e.detail.value)}>
-            <IonSelectOption value="eastnashville">East Nashville</IonSelectOption>
-            <IonSelectOption value="inglewood">Ingle Wood</IonSelectOption>
-            <IonSelectOption value="madison">Madison</IonSelectOption>
-            <IonSelectOption value="bordeaux">Bordeaux</IonSelectOption>
-            <IonSelectOption value="whitescreek">Whites Creek</IonSelectOption>
-            <IonSelectOption value="donelson">Donelson</IonSelectOption>
-            <IonSelectOption value="hermitage">Hermitage</IonSelectOption>
-            <IonSelectOption value="berryhill">Berry Hill</IonSelectOption>
-            <IonSelectOption value="greenhills">Green Hills</IonSelectOption>
-            <IonSelectOption value="westmeade">West Meade</IonSelectOption>
-            <IonSelectOption value="bellemeade">Belle Meade</IonSelectOption>
-            <IonSelectOption value="oakhill">Oak Hill</IonSelectOption>
-            <IonSelectOption value="crievehall">Crieve Hall</IonSelectOption>
-          </IonSelect>
-        </IonItem>
         <IonAvatar></IonAvatar>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Type</h5>
@@ -231,7 +210,7 @@ const AnimalDashboard: React.FC = () => {
 
         <IonContent>
           {!loading && data?.animals?.map((animal: any) => (
-            // console.log(vehicle.license)
+            // console.log(animal.createdAt)
             <div className="centerItem">
               <IonItem lines="none">
                 <IonCard button={true} color="light" onClick={() => animalOnMap(animal.location.lat, animal.location.lon)}>
@@ -242,7 +221,7 @@ const AnimalDashboard: React.FC = () => {
                     <h5>Breed: {animal.breed}</h5>
                     <h5>Color: {animal.color}</h5>
                     <h5>Location: [ {animal.location.lat}, {animal.location.lon} ]</h5>
-                    <h5>Time: {animal.createdAt} </h5>
+                    <h5>Date: {new Date(animal.createdAt).toString()} </h5>
                   </IonCardContent>
                 </IonCard>
               </IonItem>
