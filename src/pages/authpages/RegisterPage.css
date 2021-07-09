@@ -3,3 +3,8 @@
   display: flex !important;
   align-items: center !important;
 }
+
+.backButton {
+  position: absolute;
+  bottom: 5px;
+}

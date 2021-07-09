@@ -110,7 +110,7 @@ const RegisterPage: React.FC = () => {
             {/* check that every input has length greater than 1*/}
             {/* then, when the user presses submit, call the registermutation function */}
 
-            <div className="bottom">
+            <div className="backButton">
                 <IonButton color="light" routerLink={"/authentication"} routerDirection="back">
                     <IonIcon icon={chevronBackOutline}></IonIcon>
                     back
