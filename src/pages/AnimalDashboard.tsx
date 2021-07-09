@@ -11,6 +11,7 @@ import { useHistory } from 'react-router';
 
 // icons
 import {cloudUploadOutline, cloudDownloadOutline } from 'ionicons/icons';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 const AnimalDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('2021-06-01T13:47:20.789');
@@ -69,7 +70,15 @@ const AnimalDashboard: React.FC = () => {
   if (loading) console.log("loading");
   if (error) console.log("error: " + error.networkError);
 
+  // for the map
+  const [animalLat, setAnimalLat] = useState<number>(0);
+  const [animalLon, setAnimalLon] = useState<number>(0);
 
+  const animalOnMap = (latitude: number, longitude: number) => {
+    setAnimalLat(latitude);
+    setAnimalLon(longitude);
+    console.log(animalLat, ", ", animalLon);
+  }
   return (
 
     <IonPage>
@@ -202,13 +211,30 @@ const AnimalDashboard: React.FC = () => {
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>Animal Info</h5>
 
-        <IonContent>
+        
 
+          { animalLat != 0 && animalLon != 0 &&
+            <MapContainer style={{height: "350px"}}  id="mapid" center={[36.1627, -86.7816]} zoom={9} scrollWheelZoom={false}>
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[animalLat, animalLon]}>
+                <Popup>
+                  Animal Location
+                </Popup>
+              </Marker>
+            </MapContainer>
+          }
+
+          <IonAvatar></IonAvatar>
+
+        <IonContent>
           {!loading && data?.animals?.map((animal: any) => (
             // console.log(vehicle.license)
             <div className="centerItem">
               <IonItem lines="none">
-                <IonCard button={true} color="light">
+                <IonCard button={true} color="light" onClick={() => animalOnMap(animal.location.lat, animal.location.lon)}>
                   <img style={{ height: 170, width: 320 }} src={"https://i.guim.co.uk/img/media/03734ee186eba543fb3d0e35db2a90a14a5d79e3/0_173_5200_3120/master/5200.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=9c30ed97ea8731f3e2a155467201afe3"} ></img>
                   <IonCardContent>
                     <IonCardSubtitle>Animal Information</IonCardSubtitle>
@@ -216,6 +242,7 @@ const AnimalDashboard: React.FC = () => {
                     <h5>Breed: {animal.breed}</h5>
                     <h5>Color: {animal.color}</h5>
                     <h5>Location: [ {animal.location.lat}, {animal.location.lon} ]</h5>
+                    <h5>Time: {animal.createdAt} </h5>
                   </IonCardContent>
                 </IonCard>
               </IonItem>
@@ -223,6 +250,7 @@ const AnimalDashboard: React.FC = () => {
 
           ))}
         </IonContent>
+        <IonAvatar></IonAvatar>
 
       </IonContent>
     </IonPage>

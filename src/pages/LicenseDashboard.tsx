@@ -1,7 +1,7 @@
 
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, IonText, IonDatetime, IonRow, IonItem, IonCol, IonLabel, IonInput, IonSelectOption, IonSelect, IonAvatar, IonSegment, IonSegmentButton, IonChip, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonLoading, IonList, IonIcon } from '@ionic/react';
 import { Datepicker } from '@mobiscroll/react';
-import React, { useState, Component, useRef } from 'react';
+import React, { useState, Component, useRef, useEffect } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './LicenseDashboard.css';
 
@@ -237,12 +237,14 @@ const LicenseDashboard: React.FC = () => {
   // };
 
   // FOR PLACING SELECTED CAR's location on the map
-  var carLat = 36.1627
-  var carLng = -70.7816
+  
+  const [carLat, setCarLat] = useState<number>(0);
+  const [carLon, setCarLon] = useState<number>(0);
+
   const carOnMap = (latitude: number, longitude: number) => {
-    carLng = longitude;
-    carLat = latitude;
-    console.log(carLat.toString(), ", ", carLng.toString());
+    setCarLat(latitude);
+    setCarLon(longitude);
+    console.log(carLat, ", ", carLon);
   }
 
   return (
@@ -251,16 +253,17 @@ const LicenseDashboard: React.FC = () => {
       {/* {
         console.log(licensePlate + location)
       } */}
-      <IonHeader>
-          <IonToolbar>
-              <div className="centerItem">
-                <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
-              </div>
-          </IonToolbar>
-      </IonHeader>
       
 
       <IonContent fullscreen>
+        <IonHeader mode="ios" collapse="condense">
+            <IonToolbar>
+                <div className="centerItem">
+                  <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+                </div>
+            </IonToolbar>
+        </IonHeader>
+        
         {/* generalized date string formats! */}
         {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
         {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
@@ -329,32 +332,9 @@ const LicenseDashboard: React.FC = () => {
           </h6>
         </div>
 
-
-        <IonAvatar></IonAvatar>
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>Location</h5>
-        <IonItem>
-          <IonLabel>Choose Location:</IonLabel>
-          <IonSelect value={location} placeholder="Select One" onIonChange={e => setLocation(e.detail.value)}>
-            <IonSelectOption value="eastnashville">East Nashville</IonSelectOption>
-            <IonSelectOption value="inglewood">Ingle Wood</IonSelectOption>
-            <IonSelectOption value="madison">Madison</IonSelectOption>
-            <IonSelectOption value="bordeaux">Bordeaux</IonSelectOption>
-            <IonSelectOption value="whitescreek">Whites Creek</IonSelectOption>
-            <IonSelectOption value="donelson">Donelson</IonSelectOption>
-            <IonSelectOption value="hermitage">Hermitage</IonSelectOption>
-            <IonSelectOption value="berryhill">Berry Hill</IonSelectOption>
-            <IonSelectOption value="greenhills">Green Hills</IonSelectOption>
-            <IonSelectOption value="westmeade">West Meade</IonSelectOption>
-            <IonSelectOption value="bellemeade">Belle Meade</IonSelectOption>
-            <IonSelectOption value="oakhill">Oak Hill</IonSelectOption>
-            <IonSelectOption value="crievehall">Crieve Hall</IonSelectOption>
-          </IonSelect>
-        </IonItem>
-
         <IonAvatar></IonAvatar>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>License Plates</h5>
-
 
         <IonItem>
           <IonLabel>Choose License Plate:</IonLabel>
@@ -370,6 +350,24 @@ const LicenseDashboard: React.FC = () => {
           </IonSelect>
         </IonItem>
 
+        <IonAvatar></IonAvatar>
+
+        { carLat != 0 && carLon != 0 &&
+          <MapContainer style={{ height: '350px'}} id="mapid" center={[36.1627, -86.7816]} zoom={8.3} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[carLat, carLon]}>
+              <Popup>
+                Vehicle Location
+              </Popup>
+            </Marker>
+          </MapContainer>
+        }
+
+        <IonAvatar></IonAvatar>
+
         <IonContent scrollX={true}>
           {!loading && data?.vehicles?.map((vehicle: any, index: number) => (
 
@@ -377,15 +375,15 @@ const LicenseDashboard: React.FC = () => {
             // console.log(vehicle.license)
             <div className="centerItem">
                 <IonItem lines="none">
-                  <IonCard button={true} color="light" onClick={() => carOnMap(vehicle.location[0], vehicle.location[1])}>
-                    <img style={{ height: 160, width: 320 }} src={photo} ></img>
+                  <IonCard button={true} color="light" onClick={() => carOnMap(vehicle.location.lat, vehicle.location.lon)}>
+                    <img className="centerItem" style={{ height: 160, width: 320 }} src={photo} ></img>
                     <IonCardContent>
                       <IonCardSubtitle>Car Information</IonCardSubtitle>
                       <h5>Manufacturer: {vehicle.make}</h5>
                       <h5>Model: {vehicle.model}</h5>
                       <h5>Color: {vehicle.color}</h5>
                       {/* <h5>Location: {readableLocations[index]}</h5>  */}
-                      <h5>Location: [ {vehicle.location.lat}, {vehicle.location.lat} ]</h5>
+                      <h5>Location: [ {vehicle.location.lat}, {vehicle.location.lon} ]</h5>
                       <h5>License Plate: {vehicle.license} </h5>
                     </IonCardContent>
                   </IonCard>
@@ -399,18 +397,8 @@ const LicenseDashboard: React.FC = () => {
 
         {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Track</h5> */}
 
-
-        <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={[carLat, carLng]}>
-            <Popup>
-              This is Nashville,
-            </Popup>
-          </Marker>
-        </MapContainer>
+        
+        
         {/* https://stackoverflow.com/questions/67552020/how-to-fix-error-failed-to-compile-node-modules-react-leaflet-core-esm-pat  */}
 
       </IonContent>

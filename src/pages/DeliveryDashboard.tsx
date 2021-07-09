@@ -118,7 +118,7 @@ const DeliveryDashboard: React.FC = () => {
 
           
         {showMap && 
-          <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
+          <MapContainer style={{height: "350px"}} id="mapid" center={[36.1627, -86.7816]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -131,7 +131,7 @@ const DeliveryDashboard: React.FC = () => {
           </MapContainer> 
         }
         {/* </IonTitle> */}
-      
+        <IonAvatar></IonAvatar>
       </IonContent>
     </IonPage>
 

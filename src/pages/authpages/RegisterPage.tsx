@@ -1,10 +1,11 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput, IonLabel, IonSelect, IonSelectOption } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonItem, IonInput, IonLabel, IonSelect, IonSelectOption, IonIcon } from '@ionic/react';
 import React, { Component, useState } from 'react';
 import './RegisterPage.css';
 
 /* GraphQL for API Calls */
 import {gql, useQuery, useMutation, ApolloProvider} from '@apollo/client';
 import { useHistory } from 'react-router';
+import { chevronBackOutline } from 'ionicons/icons';
 
 // these have to be in the email in order to make sure email is valid
 const atChar = '@';
@@ -108,6 +109,13 @@ const RegisterPage: React.FC = () => {
             {/* get inputs from the user first */}
             {/* check that every input has length greater than 1*/}
             {/* then, when the user presses submit, call the registermutation function */}
+
+            <div className="backButton">
+                <IonButton color="light" routerLink={"/authentication"} routerDirection="back">
+                    <IonIcon icon={chevronBackOutline}></IonIcon>
+                    back
+                </IonButton>
+            </div>
         </IonContent>
       </IonPage >
     );

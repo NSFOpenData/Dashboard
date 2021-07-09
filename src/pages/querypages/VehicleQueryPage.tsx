@@ -3,6 +3,7 @@ import React, {useState, Component, useRef, useEffect} from 'react';
 import './VehicleQueryPage.css';
 
 import {gql, useLazyQuery, useMutation, useQuery} from '@apollo/client';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 const VehicleQueryPage: React.FC = () => {
     
@@ -121,6 +122,16 @@ const VehicleQueryPage: React.FC = () => {
     // if (loading) console.log("loading");
     if (error) console.log("error");
 
+    // for the map
+    const [carLat, setCarLat] = useState<number>(0);
+    const [carLon, setCarLon] = useState<number>(0);
+  
+    const carOnMap = (latitude: number, longitude: number) => {
+      setCarLat(latitude);
+      setCarLon(longitude);
+      console.log(carLat, ", ", carLon);
+    }
+
     return (
       <IonPage>
         <IonHeader>
@@ -173,7 +184,7 @@ const VehicleQueryPage: React.FC = () => {
                     {/* <IonButton color="primary" expand="block">Search</IonButton> */}
                     {!loading && data.findVehicles.map((vehicle: any) => (
                         // console.log(vehicle)
-                        <IonCard button={false} color="light">
+                        <IonCard button={false} color="light" onClick={() => carOnMap(vehicle.location.lat, vehicle.location.lon)}>
                            <IonCardContent>
                              <h5>Manufacturer: {vehicle.make}</h5>
                              <h5>Model: {vehicle.model}</h5>
@@ -188,6 +199,20 @@ const VehicleQueryPage: React.FC = () => {
                 </IonContent>
                 //  routerLink={'/queryResultPage'}
             }      
+
+        { carLat != 0 && carLon != 0 &&
+          <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={9} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[carLat, carLon]}>
+              <Popup>
+                Vehicle Location
+              </Popup>
+            </Marker>
+          </MapContainer>
+        }
         </IonContent>
       </IonPage >
     );

@@ -3,6 +3,7 @@ import React, { useState, Component, useRef } from 'react';
 import './AnimalQueryPage.css';
 
 import { gql, NetworkStatus, useMutation, useQuery } from '@apollo/client';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 const AnimalQueryPage: React.FC = () => {
 
@@ -99,6 +100,16 @@ const AnimalQueryPage: React.FC = () => {
     if (loading) console.log("loading");
     if (error) console.log("error: " + error.networkError);
 
+    // for the map 
+    const [animalLat, setAnimalLat] = useState<number>(0);
+    const [animalLon, setAnimalLon] = useState<number>(0);
+  
+    const animalOnMap = (latitude: number, longitude: number) => {
+      setAnimalLat(latitude);
+      setAnimalLon(longitude);
+      console.log(animalLat, ", ", animalLon);
+    }
+
     return (
         <IonPage>
             <IonHeader>
@@ -145,7 +156,7 @@ const AnimalQueryPage: React.FC = () => {
                     (animalType || animalColor || animalBreed || animalApproxLocation) && // || animalColor1 || animalColor2 || animalColor3
                     <IonContent>
                         {!loading && data.findAnimals.map((animal: any) => (
-                            <IonCard button={false} color="light">
+                            <IonCard button={false} color="light" onClick={() => animalOnMap(animal.location.lat, animal.location.lon)}>
                                 <IonCardContent>
                                     <h5>Type: {animal.type}</h5>
                                     <h5>Breed: {animal.breed}</h5>
@@ -156,6 +167,20 @@ const AnimalQueryPage: React.FC = () => {
                         ))}
                     </IonContent>
                 }
+
+        { animalLat != 0 && animalLon != 0 &&
+          <MapContainer id="mapid" center={[36.1627, -86.7816]} zoom={9} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[animalLat, animalLon]}>
+              <Popup>
+                Animal Location
+              </Popup>
+            </Marker>
+          </MapContainer>
+        }
 
 
             </IonContent>
