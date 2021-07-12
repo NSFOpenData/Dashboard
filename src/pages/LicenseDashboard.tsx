@@ -472,11 +472,13 @@ const LicenseDashboard: React.FC = () => {
                       carOnMap(vehicle.location.lat, vehicle.location.lon)
                     }
                   >
-                    <img
-                      className="centerItem"
-                      style={{ height: 160, width: 320 }}
-                      src={photo}
-                    ></img>
+                    {vehicle?.files != null && (
+                      <img
+                        className="centerItem"
+                        style={{ height: 160, width: 320 }}
+                        src={vehicle.files[0]}
+                      ></img>
+                    )}
                     <IonCardContent>
                       <IonCardSubtitle>Car Information</IonCardSubtitle>
                       <h5>Manufacturer: {vehicle.make}</h5>
