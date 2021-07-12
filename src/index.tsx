@@ -1,30 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
 
-import {ApolloClient, InMemoryCache, ApolloProvider, concat} from "@apollo/client";
-import {createUploadLink} from "apollo-upload-client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  concat,
+} from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 
-import {AUTH_TOKEN} from "../src/pages/authpages/LoginPage";
+import { AUTH_TOKEN } from "../src/pages/authpages/LoginPage";
 
-const bearer = 'Bearer ';
+const bearer = "Bearer ";
 const token = localStorage.getItem(AUTH_TOKEN);
 //console.log("token: ", token);
 // client set up to use GraphQL
 const client = new ApolloClient({
-  link : createUploadLink({
-    uri:"https://nsf-scc1.isis.vanderbilt.edu/graphql",
-    headers:{
+  link: createUploadLink({
+    uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
+    headers: {
       // 'Content-Type': 'application/json',
       // 'Accept': 'application/json',
       // authorization: token ? bearer.concat(token!) : '',
-      authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InRva2VuQHRva2VuLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTYyNTU5MzMzMSwiZXhwIjoxNjI2MTk4MTMxLCJzdWIiOiI2MGU0OTVjNjkzMGY2MTFlYzZmZTgxODIifQ.Oxneo71V5mPXry6xYBcqSYhGDqrHO9GwJ_z0dD64Zz0",
-    }
-    
+      authorization:
+        "Bearer " +
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InByaXZpbGVnZWRAdXNlci5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjYxMDkwMzUsImV4cCI6MTYyNjcxMzgzNSwic3ViIjoiNjBlYzczNDg5NTM2ZWQ2ZWM4ZjhkYTJkIn0.udbvQ9bvc0_ZT0Dz9CrGOpEr-JLJusjMGd6jJzHdxFA",
+    },
   }),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
@@ -33,7 +39,7 @@ ReactDOM.render(
       <App />
     </React.StrictMode>
   </ApolloProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
