@@ -112,6 +112,8 @@ const AnimalQueryPage: React.FC = () => {
 
     return (
         <IonPage>
+
+            <IonContent className="ion-padding">
             <IonHeader>
                 <IonToolbar>
                     <div className="centerItem">
@@ -120,8 +122,6 @@ const AnimalQueryPage: React.FC = () => {
                 </IonToolbar>
                 
             </IonHeader>
-
-            <IonContent className="ion-padding">
                 <IonButton expand="full" color="secondary" disabled={true}>
                     Animal Advanced Search Query
                 </IonButton>
@@ -184,6 +184,7 @@ const AnimalQueryPage: React.FC = () => {
 
 
             </IonContent>
+            <IonAvatar></IonAvatar>
         </IonPage >
     );
 

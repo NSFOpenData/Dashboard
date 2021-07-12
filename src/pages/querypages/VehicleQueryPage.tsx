@@ -10,7 +10,7 @@ const VehicleQueryPage: React.FC = () => {
     type LocationInput = {
         lat: String
         lon: String
-        name: String
+        name: String | null
     };
 
     // trying without location for now
@@ -134,6 +134,8 @@ const VehicleQueryPage: React.FC = () => {
 
     return (
       <IonPage>
+  
+        <IonContent className="ion-padding"> 
         <IonHeader>
             <IonToolbar>
                 <div className="centerItem">
@@ -142,8 +144,6 @@ const VehicleQueryPage: React.FC = () => {
             </IonToolbar>
             
         </IonHeader>
-  
-        <IonContent className="ion-padding"> 
             <IonButton expand="full" disabled={true}>
                 Vehicle Advanced Search Query
             </IonButton>
@@ -214,6 +214,8 @@ const VehicleQueryPage: React.FC = () => {
           </MapContainer>
         }
         </IonContent>
+
+        <IonAvatar></IonAvatar>
       </IonPage >
     );
   
