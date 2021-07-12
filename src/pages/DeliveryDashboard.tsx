@@ -48,15 +48,17 @@ const DeliveryDashboard: React.FC = () => {
       {/* {
       console.log(deliveryType)
       } */}
-      <IonHeader>
+      
+      
+      <IonContent fullscreen>
+        
+        <IonHeader>
           <IonToolbar>
               <div className="centerItem">
                 <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
               </div>
           </IonToolbar>
       </IonHeader>
-      
-      <IonContent fullscreen>
           {/* generalized date string formats! */}
           {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
           {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}

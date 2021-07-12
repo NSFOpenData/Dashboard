@@ -86,6 +86,8 @@ const AnimalDashboard: React.FC = () => {
       {/* {
       console.log(location + " " + type + " " + color)
     } */}
+      
+      <IonContent fullscreen>
       <IonHeader>
           <IonToolbar>
               <div className="centerItem">
@@ -93,8 +95,6 @@ const AnimalDashboard: React.FC = () => {
               </div>
           </IonToolbar>
       </IonHeader>
-      
-      <IonContent fullscreen>
         {/* generalized date string formats! */}
         {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
         {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
