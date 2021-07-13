@@ -22,9 +22,20 @@
 
 .icon {
   font-size: 40px;
+  justify-content: left;
+  margin-right: 103px;
+}
+.licenseIcon {
+  font-size: 40px;
+  margin-right: 90px;
 }
 .truckIcon {
-  font-size: 35px;
+  font-size: 33px;
+  margin-right: 85px;
+}
+.petIcon {
+  font-size: 40px;
+  margin-right: 95px;
 }
 
 .ion-margin {

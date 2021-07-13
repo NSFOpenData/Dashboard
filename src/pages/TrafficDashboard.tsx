@@ -34,13 +34,6 @@ import {
   bugOutline,
 } from "ionicons/icons";
 
-/* Reactive Google Map */
-import { ReactiveBase, SingleList } from "@appbaseio/reactivesearch";
-import {
-  ReactiveGoogleMap,
-  ReactiveOpenStreetMap,
-} from "@appbaseio/reactivemaps";
-
 /* Reactive Open Street Map */
 import {
   MapContainer,
@@ -48,6 +41,8 @@ import {
   Marker,
   Popup,
   MapConsumer,
+  useMap,
+  useMapEvent,
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -301,6 +296,71 @@ const TrafficDashboard: React.FC = () => {
     //}
   }; // for other properties: https://opensource.appbase.io/reactive-manual/map-components/reactivegooglemap.html
 
+  // markers to be initiated
+
+  const [m1visible, setM1Visible] = useState<boolean>(false);
+  const [m1Lat, setM1Lat] = useState<number>(36.1627);
+  const [m1Lon, setM1Lon] = useState<number>(-86.7816);
+
+  const [m2visible, setM2Visible] = useState<boolean>(false);
+  const [m2Lat, setM2Lat] = useState<number>(0);
+  const [m2Lon, setM2Lon] = useState<number>(0);
+
+  const [m3visible, setM3Visible] = useState<boolean>(false);
+  const [m3Lat, setM3Lat] = useState<number>(0);
+  const [m3Lon, setM3Lon] = useState<number>(0);
+
+  const [m4visible, setM4Visible] = useState<boolean>(false);
+  const [m4Lat, setM4Lat] = useState<number>(0);
+  const [m4Lon, setM4Lon] = useState<number>(0);
+
+  const [mIndex, setMIndex] = useState<number>(1);
+
+  const [mapCenterLat, setMapCenterLat] = useState<number>(0);
+  const [mapCenterLon, setMapCenterLon] = useState<number>(0);
+
+  function CenterUpdate() {
+    const map = useMap();
+    console.log(map.getCenter());
+
+    setMapCenterLat(map.getCenter().lat);
+    setMapCenterLon(map.getCenter().lng);
+
+    return null;
+  }
+
+  // for creating markers
+  function AddMarker() {
+    switch (mIndex) {
+      case 1:
+        setM1Visible(true);
+        setM1Lat(mapCenterLat);
+        setM1Lon(mapCenterLon);
+        setMIndex(mIndex + 1);
+        break;
+      case 2:
+        setM2Visible(true);
+        setM2Lat(mapCenterLat + 0.5);
+        setM2Lon(mapCenterLon + 0.5);
+        setMIndex(mIndex + 1);
+        break;
+      case 3:
+        setM3Visible(true);
+        setM3Lat(mapCenterLat - 0.5);
+        setM3Lon(mapCenterLon - 0.5);
+        setMIndex(mIndex + 1);
+        break;
+      case 4:
+        setM4Visible(true);
+        setM4Lat(mapCenterLat + 0.5);
+        setM4Lon(mapCenterLon - 0.5);
+        setMIndex(0);
+        break;
+    }
+
+    return null;
+  }
+
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -390,21 +450,13 @@ const TrafficDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* <IonAvatar></IonAvatar> */}
-
-        {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Number of Cars</h5> */}
-
         <IonAvatar></IonAvatar>
 
-        {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Location</h5> */}
-
-        {/* <div className="leaflet-container"> */}
-
-        {/* <div className="centerItem"> */}
         <IonButton
           className="centerItem"
           expand="block"
           color="light"
+          size="small"
           onClick={() => setShowMap(!showMap)}
         >
           <IonIcon icon={mapOutline}></IonIcon>
@@ -413,31 +465,56 @@ const TrafficDashboard: React.FC = () => {
         {/* </div> */}
 
         {showMap && (
-          <MapContainer
-            style={{ height: "350px" }}
-            id="mapid"
-            center={[36.1627, -86.7816]}
-            zoom={13}
-            scrollWheelZoom={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {/* <TileLayer
-              attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-              url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-            /> */}
-            <Marker position={[36.1627, -86.7816]}>
-              <Popup>This is Nashville.</Popup>
-            </Marker>
-            <Marker position={[36.1627, -86.796]}>
-              <Popup>This is close to Nashville.</Popup>
-            </Marker>
+          <div>
+            <MapContainer
+              style={{ height: "350px" }}
+              id="mapid"
+              center={[36.1627, -86.7816]}
+              zoom={13}
+              scrollWheelZoom={false}
+            >
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {/* <TileLayer
+                attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+              /> */}
+              {m1visible && (
+                <Marker position={[m1Lat, m1Lon]}>
+                  <Popup>M1</Popup>
+                </Marker>
+              )}
+              {m2visible && (
+                <Marker position={[m2Lat, m2Lon]}>
+                  <Popup>M2</Popup>
+                </Marker>
+              )}
+              {m3visible && (
+                <Marker position={[m3Lat, m3Lon]}>
+                  <Popup>M3</Popup>
+                </Marker>
+              )}
+              {m4visible && (
+                <Marker position={[m4Lat, m4Lon]}>
+                  <Popup>M4</Popup>
+                </Marker>
+              )}
 
-            <DraggableMarker1 />
-            <DraggableMarker2 />
-          </MapContainer>
+              {/* <DraggableMarker1 />
+              <DraggableMarker2 /> */}
+              <CenterUpdate />
+            </MapContainer>
+            <IonButton
+              className="rightItem"
+              color="danger"
+              size="small"
+              onClick={() => AddMarker()}
+            >
+              Add Marker
+            </IonButton>
+          </div>
         )}
 
         {/* </div> */}

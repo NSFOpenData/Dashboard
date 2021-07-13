@@ -51,9 +51,9 @@ const Tab1: React.FC = () => {
           <div className="icon">
             <i className="fas fa-car-alt"></i>
           </div>
-          <IonAvatar></IonAvatar>
-          <IonAvatar></IonAvatar>
-          <IonLabel>Traffic Dashboard</IonLabel>
+          {/* <IonAvatar></IonAvatar>
+          <IonAvatar></IonAvatar> */}
+          <IonLabel>Traffic Dashboard </IonLabel>
         </IonButton>
 
         <IonButton
@@ -62,9 +62,7 @@ const Tab1: React.FC = () => {
           color="secondary"
           routerLink={"/licenseDashboard"}
         >
-          <IonIcon className="icon" icon={albums} />
-          <IonAvatar></IonAvatar>
-          <IonAvatar></IonAvatar>
+          <IonIcon className="licenseIcon" icon={albums} />
           <IonLabel>License Dashboard</IonLabel>
         </IonButton>
 
@@ -77,8 +75,6 @@ const Tab1: React.FC = () => {
           <div className="truckIcon">
             <i className="fas fa-truck"></i>
           </div>
-          <IonAvatar></IonAvatar>
-          <IonAvatar></IonAvatar>
           <IonLabel>Delivery Dashboard</IonLabel>
         </IonButton>
 
@@ -88,11 +84,10 @@ const Tab1: React.FC = () => {
           color="light"
           routerLink={"/animalDashboard"}
         >
-          <div className="icon">
+          <div className="petIcon">
             <i className="fas fa-dog"></i>
           </div>
-          <IonAvatar></IonAvatar>
-          <IonAvatar></IonAvatar>
+
           <IonLabel>Animal Dashboard</IonLabel>
         </IonButton>
       </IonContent>
