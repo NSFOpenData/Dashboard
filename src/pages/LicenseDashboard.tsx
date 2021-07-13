@@ -344,17 +344,10 @@ const LicenseDashboard: React.FC = () => {
         {/* <IonButton onClick={() => getLocation()}>Get location temp button</IonButton> */}
         {/* <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton> */}
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Upload/Retrieve Data
-        </h5>
-
         <div className="centerItem">
+          <h5 style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
           <IonButton color="secondary" routerLink={"/uploadPageL"}>
             <IonIcon className="icon" icon={cloudUploadOutline} />
-          </IonButton>
-
-          <IonButton color="success" routerLink={"/uploadPageL"}>
-            <IonIcon className="icon" icon={cloudDownloadOutline} />
           </IonButton>
         </div>
 
@@ -378,11 +371,11 @@ const LicenseDashboard: React.FC = () => {
         <IonAvatar></IonAvatar>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Date and Time
+          Plate Selection{" "}
         </h5>
 
         <div className="centerItem">
-          <IonButton>Recent Traffic Data</IonButton>
+          <IonButton>View Recent Plates</IonButton>
         </div>
         <div className="centerItem">
           <IonButton
@@ -390,7 +383,7 @@ const LicenseDashboard: React.FC = () => {
             size="small"
             onClick={() => setAdvancedDate(!advancedDate)}
           >
-            Advanced Date/Time Selection
+            Custom Query
           </IonButton>
         </div>
 
@@ -521,10 +514,7 @@ const LicenseDashboard: React.FC = () => {
                         <h5>Neighborhood: {vehicle.neighborhood}</h5>
                       )} */}
                       {/* <h5>Location: {readableLocations[index]}</h5>  */}
-                      <h5>
-                        Location: [ {vehicle.location.lat},{" "}
-                        {vehicle.location.lon} ]
-                      </h5>
+                      <h5>Location: {vehicle.location.name}</h5>
                       <h5>Date: {new Date(vehicle.createdAt).toString()} </h5>
                       <h5>License Plate: {vehicle.license} </h5>
                     </IonCardContent>
