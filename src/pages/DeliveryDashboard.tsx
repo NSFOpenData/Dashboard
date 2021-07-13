@@ -275,6 +275,7 @@ const DeliveryDashboard: React.FC = () => {
           className="centerItem"
           expand="block"
           color="light"
+          size="small"
           onClick={() => setShowMap(!showMap)}
         >
           <IonIcon icon={mapOutline}></IonIcon>

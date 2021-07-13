@@ -67,6 +67,7 @@ const AnimalQueryPage: React.FC = () => {
           lon
           name
         }
+        createdAt
       }
     }
   `;
@@ -209,6 +210,7 @@ const AnimalQueryPage: React.FC = () => {
                     <h5>
                       Location: [ {animal.location.lat}, {animal.location.lon} ]
                     </h5>
+                    <h5>Date: {new Date(animal.createdAt).toString()} </h5>
                   </IonCardContent>
                 </IonCard>
               ))}
