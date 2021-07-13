@@ -213,6 +213,10 @@ const AnimalDashboard: React.FC = () => {
     setAnimalLon(longitude);
     console.log(animalLat, ", ", animalLon);
   };
+
+  // for number of animal being shown
+  const [numCard, setNumCard] = useState<number>(data?.animals?.length);
+
   return (
     <IonPage>
       {/* {
@@ -243,10 +247,6 @@ const AnimalDashboard: React.FC = () => {
           <IonButton color="secondary" routerLink={"/uploadPageA"}>
             <IonIcon className="icon" icon={cloudUploadOutline} />
           </IonButton>
-
-          <IonButton color="success" routerLink={"/uploadPageA"}>
-            <IonIcon className="icon" icon={cloudDownloadOutline} />
-          </IonButton>
         </div>
 
         <IonAvatar></IonAvatar>
@@ -256,7 +256,7 @@ const AnimalDashboard: React.FC = () => {
         </h5>
 
         <div className="centerItem">
-          <IonButton>Recent Traffic Data</IonButton>
+          <IonButton onClick={() => setNumCard(10)}>View Recent Pets</IonButton>
         </div>
         <div className="centerItem">
           <IonButton
@@ -264,7 +264,7 @@ const AnimalDashboard: React.FC = () => {
             size="small"
             onClick={() => setAdvancedDate(!advancedDate)}
           >
-            Advanced Date/Time Selection
+            Custom Query
           </IonButton>
         </div>
 
@@ -400,7 +400,7 @@ const AnimalDashboard: React.FC = () => {
 
         <IonContent>
           {!loading &&
-            data?.animals?.map((animal: any) => (
+            data?.animals?.slice(0, numCard).map((animal: any) => (
               // console.log(animal.createdAt)
               <div className="centerItem">
                 <IonItem lines="none">
