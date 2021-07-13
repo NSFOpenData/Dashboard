@@ -69,6 +69,7 @@ const VehicleQueryPage: React.FC = () => {
           lon
           name
         }
+        createdAt
         license
       }
     }
@@ -248,6 +249,7 @@ const VehicleQueryPage: React.FC = () => {
                         Location: [ {vehicle.location.lat},{" "}
                         {vehicle.location.lon} ]
                       </h5>
+                      <h5>Date: {new Date(vehicle.createdAt).toString()} </h5>
                       {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
                       <h5>License Plate: {vehicle.license} </h5>
                     </IonCardContent>

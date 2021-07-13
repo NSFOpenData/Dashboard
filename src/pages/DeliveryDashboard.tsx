@@ -171,20 +171,25 @@ const DeliveryDashboard: React.FC = () => {
 
         {/* <IonButton color="secondary" expand="full" disabled={true}>Delivery Dashboard</IonButton> */}
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Date and Time
-        </h5>
-
         <div className="centerItem">
-          <IonButton>Recent Traffic Data</IonButton>
+          <h5 className="plateSelectionMargin" style={{ fontWeight: "bold" }}>
+            Delivery Selection{" "}
+          </h5>
+
+          <div className="centerItem">
+            <IonButton className="buttonLeftMargin" size="small">
+              View Recent Deliveries
+            </IonButton>
+          </div>
         </div>
         <div className="centerItem">
           <IonButton
+            className="customQueryMarginD"
             color="medium"
             size="small"
             onClick={() => setAdvancedDate(!advancedDate)}
           >
-            Advanced Date/Time Selection
+            Custom Query
           </IonButton>
         </div>
 
@@ -270,6 +275,7 @@ const DeliveryDashboard: React.FC = () => {
           className="centerItem"
           expand="block"
           color="light"
+          size="small"
           onClick={() => setShowMap(!showMap)}
         >
           <IonIcon icon={mapOutline}></IonIcon>

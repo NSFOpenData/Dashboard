@@ -382,20 +382,25 @@ const TrafficDashboard: React.FC = () => {
           <IonIcon className="icon" icon={calendarOutline} />
         </div> */}
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Date and Time
-        </h5>
-
         <div className="centerItem">
-          <IonButton>Recent Traffic Data</IonButton>
+          <h5 className="plateSelectionMargin" style={{ fontWeight: "bold" }}>
+            Traffic Selection{" "}
+          </h5>
+
+          <div className="centerItem">
+            <IonButton className="buttonLeftMargin" size="small">
+              View Recent Traffic
+            </IonButton>
+          </div>
         </div>
         <div className="centerItem">
           <IonButton
+            className="customQueryMarginT"
             color="medium"
             size="small"
             onClick={() => setAdvancedDate(!advancedDate)}
           >
-            Advanced Date/Time Selection
+            Custom Query
           </IonButton>
         </div>
 

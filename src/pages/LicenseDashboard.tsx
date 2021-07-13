@@ -318,6 +318,9 @@ const LicenseDashboard: React.FC = () => {
     console.log(carLat, ", ", carLon);
   };
 
+  // for number of cars being shown
+  const [numCard, setNumCard] = useState<number>(data?.vehicles?.length);
+
   return (
     // return (
     <IonPage>
@@ -345,40 +348,34 @@ const LicenseDashboard: React.FC = () => {
         {/* <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton> */}
 
         <div className="centerItem">
-          <h5 style={{ fontWeight: "bold" }}>Upload/Retrieve Data</h5>
-          <IonButton color="secondary" routerLink={"/uploadPageL"}>
-            <IonIcon className="icon" icon={cloudUploadOutline} />
+          <h5 style={{ fontWeight: "bold" }}>Upload Data</h5>
+          <IonButton
+            className="uploadMargin"
+            color="secondary"
+            routerLink={"/uploadPageL"}
+          >
+            <IonIcon className="iconSize" icon={cloudUploadOutline} />
           </IonButton>
         </div>
 
-        {/* <div className="centerItem"> */}
-        {/* <IonItem lines="none"> */}
-        {/* <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post"> */}
-        {/* <input type="text" placeholder="Object ID" name="id"></input>
-            <input type="text" placeholder="Please type: 'vehicle'" name="type"></input> */}
-        {/* <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input> */}
-        {/* <input type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input> */}
-        {/* <input type="submit" value="upload"></input> */}
-        {/* </form> */}
-        {/* </IonItem> */}
-        {/* </div> */}
-
-        {/* <IonButton color="primary" expand="block" onClick={() => submitFileForm()}>Submit</IonButton> */}
-        {/* <IonButton color="danger" expand="block" onClick={() => console.log("Trying to Get Picture From DB")}>
-          Retrieve
-        </IonButton> */}
-
-        <IonAvatar></IonAvatar>
-
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Plate Selection{" "}
-        </h5>
-
         <div className="centerItem">
-          <IonButton>View Recent Plates</IonButton>
+          <h5 className="plateSelectionMargin" style={{ fontWeight: "bold" }}>
+            Plate Selection{" "}
+          </h5>
+
+          <div className="centerItem">
+            <IonButton
+              className="buttonLeftMargin"
+              size="small"
+              onClick={() => setNumCard(10)}
+            >
+              View Recent Plates
+            </IonButton>
+          </div>
         </div>
         <div className="centerItem">
           <IonButton
+            className="customQueryMargin"
             color="medium"
             size="small"
             onClick={() => setAdvancedDate(!advancedDate)}
@@ -486,43 +483,63 @@ const LicenseDashboard: React.FC = () => {
 
         <IonContent scrollX={true}>
           {!loading &&
-            data?.vehicles?.map((vehicle: any, index: number) => (
-              // getLocation(vehicle.location[0], vehicle.location[1])
-              // console.log(vehicle.license)
-              <div className="centerItem">
-                <IonItem lines="none">
-                  <IonCard
-                    button={true}
-                    color="light"
-                    onClick={() =>
-                      carOnMap(vehicle.location.lat, vehicle.location.lon)
-                    }
-                  >
-                    {vehicle?.files != null && (
-                      <img
-                        className="centerItem"
-                        style={{ height: 160, width: 320 }}
-                        src={vehicle.files[0]}
-                      ></img>
-                    )}
-                    <IonCardContent>
-                      <IonCardSubtitle>Car Information</IonCardSubtitle>
-                      <h5>Manufacturer: {vehicle.make}</h5>
-                      <h5>Model: {vehicle.model}</h5>
-                      <h5>Color: {vehicle.color}</h5>
-                      {/* {vehicle.neighborhood != null && (
+            data?.vehicles
+              ?.slice(0, numCard)
+              .map((vehicle: any, index: number) => (
+                // getLocation(vehicle.location[0], vehicle.location[1])
+                // console.log(vehicle.license)
+                <div className="centerItem">
+                  <IonItem lines="none">
+                    <IonCard
+                      button={true}
+                      color="light"
+                      onClick={() =>
+                        carOnMap(vehicle.location.lat, vehicle.location.lon)
+                      }
+                    >
+                      {vehicle?.files != null && (
+                        <img
+                          className="centerItem"
+                          style={{ height: 160, width: 320 }}
+                          src={vehicle.files[0]}
+                        ></img>
+                      )}
+                      <IonCardContent>
+                        <IonCardSubtitle>Car Information</IonCardSubtitle>
+                        <h5>Manufacturer: {vehicle.make}</h5>
+                        <h5>Model: {vehicle.model}</h5>
+                        <h5>Color: {vehicle.color}</h5>
+                        {/* {vehicle.neighborhood != null && (
                         <h5>Neighborhood: {vehicle.neighborhood}</h5>
                       )} */}
-                      {/* <h5>Location: {readableLocations[index]}</h5>  */}
-                      <h5>Location: {vehicle.location.name}</h5>
-                      <h5>Date: {new Date(vehicle.createdAt).toString()} </h5>
-                      <h5>License Plate: {vehicle.license} </h5>
-                    </IonCardContent>
-                  </IonCard>
-                </IonItem>
-              </div>
-              // <div></div>
-            ))}
+                        {/* <h5>Location: {readableLocations[index]}</h5>  */}
+                        <h5>Location: {vehicle.location.name}</h5>
+                        <h5>
+                          Date:{" "}
+                          {new Date(vehicle.createdAt)
+                            .toString()
+                            .substr(
+                              0,
+                              new Date(vehicle.createdAt)
+                                .toString()
+                                .indexOf("GMT")
+                            ) +
+                            new Date(vehicle.createdAt)
+                              .toString()
+                              .substr(
+                                new Date(vehicle.createdAt)
+                                  .toString()
+                                  .indexOf("GMT") + 8,
+                                new Date(vehicle.createdAt).toString().length
+                              )}{" "}
+                        </h5>
+                        <h5>License Plate: {vehicle.license} </h5>
+                      </IonCardContent>
+                    </IonCard>
+                  </IonItem>
+                </div>
+                // <div></div>
+              ))}
         </IonContent>
 
         <IonAvatar></IonAvatar>
