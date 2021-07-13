@@ -3,3 +3,24 @@
   display: flex !important;
   align-items: center !important;
 }
+
+.uploadMargin {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+/* plate selection stuff */
+
+.plateSelectionMargin {
+  margin-top: 25px;
+}
+
+.buttonLeftMargin {
+  margin-left: 15px;
+  margin-top: 20px;
+}
+
+.customQueryMarginD {
+  margin-left: 176px;
+  margin-top: -3px;
+}

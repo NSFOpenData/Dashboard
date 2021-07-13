@@ -24,3 +24,24 @@
 .rightItem {
   float: right;
 }
+
+.uploadMargin {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+/* traffic selection stuff */
+
+.plateSelectionMargin {
+  margin-top: 25px;
+}
+
+.buttonLeftMargin {
+  margin-left: 15px;
+  margin-top: 20px;
+}
+
+.customQueryMarginT {
+  margin-left: 160px;
+  margin-top: -3px;
+}

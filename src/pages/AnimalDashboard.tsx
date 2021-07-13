@@ -239,27 +239,35 @@ const AnimalDashboard: React.FC = () => {
         {/* <IonLoading isOpen={loading} message="Loading..." /> */}
         {/* <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton> */}
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Upload/Retrieve Data
-        </h5>
-
         <div className="centerItem">
-          <IonButton color="secondary" routerLink={"/uploadPageA"}>
-            <IonIcon className="icon" icon={cloudUploadOutline} />
+          <h5 style={{ fontWeight: "bold" }}>Upload Data</h5>
+          <IonButton
+            className="uploadMargin"
+            color="secondary"
+            routerLink={"/uploadPageL"}
+          >
+            <IonIcon className="iconSize" icon={cloudUploadOutline} />
           </IonButton>
         </div>
 
-        <IonAvatar></IonAvatar>
-
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Date and Time
-        </h5>
-
         <div className="centerItem">
-          <IonButton onClick={() => setNumCard(10)}>View Recent Pets</IonButton>
+          <h5 className="animalSelectionMargin" style={{ fontWeight: "bold" }}>
+            Animal Selection{" "}
+          </h5>
+
+          <div className="centerItem">
+            <IonButton
+              className="buttonLeftMargin"
+              size="small"
+              onClick={() => setNumCard(10)}
+            >
+              View Recent Pets
+            </IonButton>
+          </div>
         </div>
         <div className="centerItem">
           <IonButton
+            className="customQueryMargin"
             color="medium"
             size="small"
             onClick={() => setAdvancedDate(!advancedDate)}
