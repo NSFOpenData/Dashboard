@@ -514,7 +514,25 @@ const LicenseDashboard: React.FC = () => {
                       )} */}
                         {/* <h5>Location: {readableLocations[index]}</h5>  */}
                         <h5>Location: {vehicle.location.name}</h5>
-                        <h5>Date: {new Date(vehicle.createdAt).toString()} </h5>
+                        <h5>
+                          Date:{" "}
+                          {new Date(vehicle.createdAt)
+                            .toString()
+                            .substr(
+                              0,
+                              new Date(vehicle.createdAt)
+                                .toString()
+                                .indexOf("GMT")
+                            ) +
+                            new Date(vehicle.createdAt)
+                              .toString()
+                              .substr(
+                                new Date(vehicle.createdAt)
+                                  .toString()
+                                  .indexOf("GMT") + 8,
+                                new Date(vehicle.createdAt).toString().length
+                              )}{" "}
+                        </h5>
                         <h5>License Plate: {vehicle.license} </h5>
                       </IonCardContent>
                     </IonCard>
