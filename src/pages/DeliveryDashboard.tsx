@@ -38,6 +38,9 @@ const DeliveryDashboard: React.FC = () => {
     "2012-12-15T13:47:20.789"
   );
 
+  // for the date and time selection
+  const [advancedDate, setAdvancedDate] = useState<boolean>(false);
+
   // for the map
   const [showMap, setShowMap] = useState<boolean>(false);
 
@@ -64,6 +67,89 @@ const DeliveryDashboard: React.FC = () => {
   var startDate = "";
   var endDate = "";
 
+  var quickTimePicker =
+    myMap.get(dateTime.toString().substring(4, 7)) +
+    " " +
+    dateTime.toString().substring(8, 21);
+
+  //// FOR QUICK DATE TIME PICKER
+  function goBack6Hours() {
+    // if the subtracted value is negative, call go back 24hours function and subtract that negative value from 24
+    var hourEndIndex = 13;
+    if (quickTimePicker.length == 15) {
+      hourEndIndex = 12;
+    }
+    var tempTime = +quickTimePicker.substring(11, hourEndIndex);
+    var back12Hrs = tempTime - 6;
+    // console.log(tempTime.toString())
+    // console.log(back12Hrs.toString());
+    if (back12Hrs < 0) {
+      goBack24Hours();
+      var newHour = 24 + back12Hrs;
+      quickTimePicker =
+        quickTimePicker.substring(0, 10) +
+        " " +
+        newHour.toString() +
+        ":" +
+        quickTimePicker.substring(hourEndIndex + 1, quickTimePicker.length);
+    } else {
+      quickTimePicker =
+        quickTimePicker.substring(0, 10) +
+        " " +
+        back12Hrs.toString() +
+        ":" +
+        quickTimePicker.substring(hourEndIndex + 1, quickTimePicker.length);
+    }
+
+    console.log(quickTimePicker);
+  }
+
+  function goBack12Hours() {
+    // if the subtracted value is negative, call go back 24hours function and subtract that negative value from 24
+    var hourEndIndex = 13;
+    if (quickTimePicker.length == 15) {
+      hourEndIndex = 12;
+    }
+    var tempTime = +quickTimePicker.substring(11, hourEndIndex);
+    var back12Hrs = tempTime - 12;
+    // console.log(tempTime.toString())
+    // console.log(back12Hrs.toString());
+    if (back12Hrs < 0) {
+      goBack24Hours();
+      var newHour = 24 + back12Hrs;
+      quickTimePicker =
+        quickTimePicker.substring(0, 10) +
+        " " +
+        newHour.toString() +
+        ":" +
+        quickTimePicker.substring(hourEndIndex + 1, quickTimePicker.length);
+    } else {
+      quickTimePicker =
+        quickTimePicker.substring(0, 10) +
+        " " +
+        back12Hrs.toString() +
+        ":" +
+        quickTimePicker.substring(hourEndIndex + 1, quickTimePicker.length);
+    }
+
+    console.log(quickTimePicker);
+  }
+
+  function goBack24Hours() {
+    console.log("i'm here");
+    // just change the date
+    var tempDay = +quickTimePicker.substring(3, 5); // turning string to integer
+    var day = tempDay - 1;
+    console.log(day.toString());
+    console.log(tempDay.toString());
+
+    quickTimePicker =
+      quickTimePicker.substring(0, 3) +
+      day.toString() +
+      quickTimePicker.substring(5, quickTimePicker.length);
+    console.log(quickTimePicker);
+  }
+
   return (
     <IonPage>
       {/* {
@@ -89,42 +175,69 @@ const DeliveryDashboard: React.FC = () => {
           Date and Time
         </h5>
 
-        <IonSegment color="secondary" value="favorite">
-          <IonSegmentButton value="yesterday">
-            <IonLabel>Yesterday</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="sixhr">
-            <IonLabel>Past 12 Hrs</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="onehr">
-            <IonLabel>Past 6 Hrs</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-
         <div className="centerItem">
-          <h6>
-            Start Date and Time:
-            <IonDatetime
-              displayFormat="MMM DD, YYYY HH:mm"
-              min="1990"
-              max="2030"
-              value={selectedStartDate}
-              onIonChange={(e) => setSelectedStartDate(e.detail.value!)}
-            ></IonDatetime>
-          </h6>
-          <IonAvatar></IonAvatar>
-          <h6>
-            End Date and Time:
-            <IonDatetime
-              displayFormat="MMM DD, YYYY HH:mm"
-              min="1990"
-              max="2030"
-              value={selectedEndDate}
-              onIonChange={(e) => setSelectedEndDate(e.detail.value!)}
-            ></IonDatetime>
-          </h6>
+          <IonButton>Recent Traffic Data</IonButton>
+        </div>
+        <div className="centerItem">
+          <IonButton
+            color="medium"
+            size="small"
+            onClick={() => setAdvancedDate(!advancedDate)}
+          >
+            Advanced Date/Time Selection
+          </IonButton>
         </div>
 
+        {advancedDate && (
+          <div>
+            <IonSegment color="secondary" value="favorite">
+              {/* from the quickTimePicker value, go 24 hrs back */}
+              <IonSegmentButton
+                value="twentyfourhr"
+                onClick={() => goBack24Hours()}
+              >
+                <IonLabel>Yesterday</IonLabel>
+              </IonSegmentButton>
+
+              {/* from the quickTimePicker value, go 12 hrs back */}
+              <IonSegmentButton
+                value="twelvehr"
+                onClick={() => goBack12Hours()}
+              >
+                <IonLabel>Past 12 Hrs</IonLabel>
+              </IonSegmentButton>
+
+              {/* from the quickTimePicker value, go 6 hrs back */}
+              <IonSegmentButton value="sixhr" onClick={() => goBack6Hours()}>
+                <IonLabel>Past 6 Hrs</IonLabel>
+              </IonSegmentButton>
+            </IonSegment>
+
+            <div className="centerItem">
+              <h6>
+                {/* Start Date and Time: */}
+                <IonDatetime
+                  displayFormat="MMM DD, YYYY HH:mm"
+                  min="1990"
+                  max="2030"
+                  value={selectedStartDate}
+                  onIonChange={(e) => setSelectedStartDate(e.detail.value!)}
+                ></IonDatetime>
+              </h6>
+              <IonAvatar></IonAvatar>
+              <h6>
+                {/* End Date and Time: */}
+                <IonDatetime
+                  displayFormat="MMM DD, YYYY HH:mm"
+                  min="1990"
+                  max="2030"
+                  value={selectedEndDate}
+                  onIonChange={(e) => setSelectedEndDate(e.detail.value!)}
+                ></IonDatetime>
+              </h6>
+            </div>
+          </div>
+        )}
         <IonAvatar></IonAvatar>
 
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>

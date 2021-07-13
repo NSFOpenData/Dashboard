@@ -55,7 +55,11 @@ import { latLng } from "leaflet";
 import { render } from "@testing-library/react";
 
 // icons
-import { cloudUploadOutline, cloudDownloadOutline } from "ionicons/icons";
+import {
+  cloudUploadOutline,
+  cloudDownloadOutline,
+  volumeHighSharp,
+} from "ionicons/icons";
 
 const { Camera } = Plugins;
 
@@ -83,6 +87,9 @@ const LicenseDashboard: React.FC = () => {
   // User inputs from dropdown menus
   const [location, setLocation] = useState<string>("");
   const [licensePlate, setLicensePlate] = useState<string>("");
+
+  // for the date and time selection
+  const [advancedDate, setAdvancedDate] = useState<boolean>(false);
 
   // for date selection and readability
   let dateTime = new Date();
@@ -374,43 +381,69 @@ const LicenseDashboard: React.FC = () => {
           Date and Time
         </h5>
 
-        <IonSegment color="secondary" value="favorite">
-          <IonSegmentButton
-            value="twentyfourhr"
-            onClick={() => goBack24Hours()}
-          >
-            <IonLabel>Yesterday</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="twelvehr" onClick={() => goBack12Hours()}>
-            <IonLabel>Past 12 Hrs</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="sixhr" onClick={() => goBack6Hours()}>
-            <IonLabel>Past 6 Hrs</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
         <div className="centerItem">
-          <h6>
-            Start Date and Time:
-            <IonDatetime
-              displayFormat="MMM DD, YYYY HH:mm"
-              min="1990"
-              max="2030"
-              value={selectedStartDate}
-              onIonChange={(e) => setSelectedStartDate(e.detail.value!)}
-            ></IonDatetime>
-          </h6>
-          <IonAvatar></IonAvatar>
-          <h6>
-            End Date and Time:
-            <IonDatetime
-              displayFormat="MMM DD, YYYY HH:mm"
-              min="1990"
-              max="2030"
-              value={selectedEndDate}
-              onIonChange={(e) => setSelectedEndDate(e.detail.value!)}
-            ></IonDatetime>
-          </h6>
+          <IonButton>Recent Traffic Data</IonButton>
         </div>
+        <div className="centerItem">
+          <IonButton
+            color="medium"
+            size="small"
+            onClick={() => setAdvancedDate(!advancedDate)}
+          >
+            Advanced Date/Time Selection
+          </IonButton>
+        </div>
+
+        {advancedDate && (
+          <div>
+            <IonSegment color="secondary" value="favorite">
+              {/* from the quickTimePicker value, go 24 hrs back */}
+              <IonSegmentButton
+                value="twentyfourhr"
+                onClick={() => goBack24Hours()}
+              >
+                <IonLabel>Yesterday</IonLabel>
+              </IonSegmentButton>
+
+              {/* from the quickTimePicker value, go 12 hrs back */}
+              <IonSegmentButton
+                value="twelvehr"
+                onClick={() => goBack12Hours()}
+              >
+                <IonLabel>Past 12 Hrs</IonLabel>
+              </IonSegmentButton>
+
+              {/* from the quickTimePicker value, go 6 hrs back */}
+              <IonSegmentButton value="sixhr" onClick={() => goBack6Hours()}>
+                <IonLabel>Past 6 Hrs</IonLabel>
+              </IonSegmentButton>
+            </IonSegment>
+
+            <div className="centerItem">
+              <h6>
+                {/* Start Date and Time: */}
+                <IonDatetime
+                  displayFormat="MMM DD, YYYY HH:mm"
+                  min="1990"
+                  max="2030"
+                  value={selectedStartDate}
+                  onIonChange={(e) => setSelectedStartDate(e.detail.value!)}
+                ></IonDatetime>
+              </h6>
+              <IonAvatar></IonAvatar>
+              <h6>
+                {/* End Date and Time: */}
+                <IonDatetime
+                  displayFormat="MMM DD, YYYY HH:mm"
+                  min="1990"
+                  max="2030"
+                  value={selectedEndDate}
+                  onIonChange={(e) => setSelectedEndDate(e.detail.value!)}
+                ></IonDatetime>
+              </h6>
+            </div>
+          </div>
+        )}
 
         <IonAvatar></IonAvatar>
 
@@ -484,6 +517,9 @@ const LicenseDashboard: React.FC = () => {
                       <h5>Manufacturer: {vehicle.make}</h5>
                       <h5>Model: {vehicle.model}</h5>
                       <h5>Color: {vehicle.color}</h5>
+                      {/* {vehicle.neighborhood != null && (
+                        <h5>Neighborhood: {vehicle.neighborhood}</h5>
+                      )} */}
                       {/* <h5>Location: {readableLocations[index]}</h5>  */}
                       <h5>
                         Location: [ {vehicle.location.lat},{" "}
