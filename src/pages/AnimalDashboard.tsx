@@ -179,6 +179,7 @@ const AnimalDashboard: React.FC = () => {
   const ANIMAL_POST_QUERY = gql`
     query Animals {
       animals {
+        _id
         color
         breed
         type
@@ -188,6 +189,7 @@ const AnimalDashboard: React.FC = () => {
           lon
           name
         }
+        files
       }
     }
   `;
@@ -415,7 +417,6 @@ const AnimalDashboard: React.FC = () => {
         <IonContent>
           {!loading &&
             data?.animals?.slice(0, numCard).map((animal: any) => (
-              // console.log(animal.createdAt)
               <div className="centerItem">
                 <IonItem lines="none">
                   <IonCard
@@ -425,10 +426,15 @@ const AnimalDashboard: React.FC = () => {
                       animalOnMap(animal.location.lat, animal.location.lon)
                     }
                   >
-                    {animal.files != null && (
+                    {animal.files !== undefined && animal.files.length != 0 && (
                       <img
                         style={{ height: 170, width: 320 }}
-                        src={animal.files[0]}
+                        src={
+                          "https://nsf-scc1.isis.vanderbilt.edu/file/animal/" +
+                          animal._id +
+                          "/" +
+                          animal.files[0]
+                        }
                       ></img>
                     )}
                     <IonCardContent>
