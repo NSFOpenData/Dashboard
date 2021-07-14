@@ -36,6 +36,7 @@ import { useHistory } from "react-router";
 // icons
 import { cloudUploadOutline, cloudDownloadOutline } from "ionicons/icons";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { types } from "util";
 
 const AnimalDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>(
@@ -46,7 +47,7 @@ const AnimalDashboard: React.FC = () => {
   );
 
   // for USER input on dropdown menus
-  const [location, setLocation] = useState<string>("");
+  // const [location, setLocation] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [color, setColor] = useState<string>("");
 
@@ -416,47 +417,97 @@ const AnimalDashboard: React.FC = () => {
 
         <IonContent>
           {!loading &&
-            data?.animals?.slice(0, numCard).map((animal: any) => (
-              <div className="centerItem">
-                <IonItem lines="none">
-                  <IonCard
-                    button={true}
-                    color="light"
-                    onClick={() =>
-                      animalOnMap(animal.location.lat, animal.location.lon)
-                    }
-                  >
-                    {animal.files !== undefined && animal.files.length != 0 && (
-                      <img
-                        style={{ height: 170, width: 320 }}
-                        src={
-                          "https://nsf-scc1.isis.vanderbilt.edu/file/animal/" +
-                          animal._id +
-                          "/" +
-                          animal.files[0]
+            data?.animals
+              ?.slice(0, numCard)
+              .reverse()
+              .map((animal: any) => (
+                <div className="centerItem">
+                  {type.length > 0 && type == animal.type && (
+                    <IonItem lines="none">
+                      <IonCard
+                        button={true}
+                        color="light"
+                        onClick={() =>
+                          animalOnMap(animal.location.lat, animal.location.lon)
                         }
-                      ></img>
-                    )}
-                    <IonCardContent>
-                      <IonCardSubtitle>Animal Information</IonCardSubtitle>
-                      <h5>Type: {animal.type}</h5>
-                      <h5>Breed: {animal.breed}</h5>
-                      <h5>Color: {animal.color}</h5>
-                      <h5>Location: {animal.location.name}</h5>
-                      <h5>
-                        Date:{" "}
-                        {new Date(animal.createdAt)
-                          .toString()
-                          .substr(
-                            0,
-                            new Date(animal.createdAt).toString().indexOf("GMT")
-                          ) + "(CDT)"}{" "}
-                      </h5>
-                    </IonCardContent>
-                  </IonCard>
-                </IonItem>
-              </div>
-            ))}
+                      >
+                        {animal.files !== undefined &&
+                          animal.files.length != 0 && (
+                            <img
+                              style={{ height: 170, width: 320 }}
+                              src={
+                                "https://nsf-scc1.isis.vanderbilt.edu/file/animal/" +
+                                animal._id +
+                                "/" +
+                                animal.files[0]
+                              }
+                            ></img>
+                          )}
+                        <IonCardContent>
+                          <IonCardSubtitle>Animal Information</IonCardSubtitle>
+                          <h5>Type: {animal.type}</h5>
+                          <h5>Breed: {animal.breed}</h5>
+                          <h5>Color: {animal.color}</h5>
+                          <h5>Location: {animal.location.name}</h5>
+                          <h5>
+                            Date:{" "}
+                            {new Date(animal.createdAt)
+                              .toString()
+                              .substr(
+                                0,
+                                new Date(animal.createdAt)
+                                  .toString()
+                                  .indexOf("GMT")
+                              ) + "(CDT)"}{" "}
+                          </h5>
+                        </IonCardContent>
+                      </IonCard>
+                    </IonItem>
+                  )}
+                  {type.length == 0 && (
+                    <IonItem lines="none">
+                      <IonCard
+                        button={true}
+                        color="light"
+                        onClick={() =>
+                          animalOnMap(animal.location.lat, animal.location.lon)
+                        }
+                      >
+                        {animal.files !== undefined &&
+                          animal.files.length != 0 && (
+                            <img
+                              style={{ height: 170, width: 320 }}
+                              src={
+                                "https://nsf-scc1.isis.vanderbilt.edu/file/animal/" +
+                                animal._id +
+                                "/" +
+                                animal.files[0]
+                              }
+                            ></img>
+                          )}
+                        <IonCardContent>
+                          <IonCardSubtitle>Animal Information</IonCardSubtitle>
+                          <h5>Type: {animal.type}</h5>
+                          <h5>Breed: {animal.breed}</h5>
+                          <h5>Color: {animal.color}</h5>
+                          <h5>Location: {animal.location.name}</h5>
+                          <h5>
+                            Date:{" "}
+                            {new Date(animal.createdAt)
+                              .toString()
+                              .substr(
+                                0,
+                                new Date(animal.createdAt)
+                                  .toString()
+                                  .indexOf("GMT")
+                              ) + "(CDT)"}{" "}
+                          </h5>
+                        </IonCardContent>
+                      </IonCard>
+                    </IonItem>
+                  )}
+                </div>
+              ))}
         </IonContent>
         <IonAvatar></IonAvatar>
       </IonContent>

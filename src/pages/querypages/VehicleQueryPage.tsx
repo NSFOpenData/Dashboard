@@ -232,29 +232,42 @@ const VehicleQueryPage: React.FC = () => {
             <IonContent>
               {/* <IonButton color="primary" expand="block">Search</IonButton> */}
               {!loading &&
-                data.findVehicles.map((vehicle: any) => (
-                  // console.log(vehicle)
-                  <IonCard
-                    button={false}
-                    color="light"
-                    onClick={() =>
-                      carOnMap(vehicle.location.lat, vehicle.location.lon)
-                    }
-                  >
-                    <IonCardContent>
-                      <h5>Manufacturer: {vehicle.make}</h5>
-                      <h5>Model: {vehicle.model}</h5>
-                      <h5>Color: {vehicle.color}</h5>
-                      <h5>
-                        Location: [ {vehicle.location.lat},{" "}
-                        {vehicle.location.lon} ]
-                      </h5>
-                      <h5>Date: {new Date(vehicle.createdAt).toString()} </h5>
-                      {/* <h5>Time: {JSON.parse(vehicle).time}</h5>      */}
-                      <h5>License Plate: {vehicle.license} </h5>
-                    </IonCardContent>
-                  </IonCard>
-                ))}
+                data.findVehicles
+                  .slice(0)
+                  .reverse()
+                  .map((vehicle: any) => (
+                    // console.log(vehicle)
+                    <IonCard
+                      button={false}
+                      color="light"
+                      onClick={() =>
+                        carOnMap(vehicle.location.lat, vehicle.location.lon)
+                      }
+                    >
+                      <IonCardContent>
+                        <h5>Manufacturer: {vehicle.make}</h5>
+                        <h5>Model: {vehicle.model}</h5>
+                        <h5>Color: {vehicle.color}</h5>
+                        {/* {vehicle.neighborhood != null && (
+                        <h5>Neighborhood: {vehicle.neighborhood}</h5>
+                      )} */}
+                        {/* <h5>Location: {readableLocations[index]}</h5>  */}
+                        <h5>Location: {vehicle.location.name}</h5>
+                        <h5>
+                          Date:{" "}
+                          {new Date(vehicle.createdAt)
+                            .toString()
+                            .substr(
+                              0,
+                              new Date(vehicle.createdAt)
+                                .toString()
+                                .indexOf("GMT")
+                            ) + "(CDT)"}{" "}
+                        </h5>
+                        <h5>License Plate: {vehicle.license} </h5>
+                      </IonCardContent>
+                    </IonCard>
+                  ))}
             </IonContent>
           )
           //  routerLink={'/queryResultPage'}
