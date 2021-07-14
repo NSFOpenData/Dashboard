@@ -23,7 +23,7 @@ import { gql, useMutation } from "@apollo/client";
 // getting live geolocation
 import { Geolocation, Geoposition } from "@ionic-native/geolocation";
 
-const CREATE_ANMIAL = gql`
+const CREATE_ANIMAL = gql`
   mutation (
     $neighborhood: String
     $color: String
@@ -71,7 +71,7 @@ const UploadPage: React.FC = () => {
 
   const [filesUpload, setFilesUpload] = useState<boolean>(false);
 
-  const [makeAnimal, { data, loading }] = useMutation(CREATE_ANMIAL, {
+  const [makeAnimal, { data, loading }] = useMutation(CREATE_ANIMAL, {
     variables: {
       // id: animalid,
       // createdAt: animalCreatedAt,
@@ -85,6 +85,8 @@ const UploadPage: React.FC = () => {
     onCompleted: ({ result }) => {
       console.log(result);
       setFilesUpload(true);
+      setAnimalId(data?.createAnimal._id);
+      console.log(animalid);
     },
   });
 
@@ -104,8 +106,8 @@ const UploadPage: React.FC = () => {
     }
 
     const formData = new FormData();
-    formData.append("type", "vehicle");
-    formData.append("id", "60db8c13d0ff05f382fd8707");
+    formData.append("type", "animal");
+    formData.append("id", animalid);
     // console.log(values.current.file[0].name);
     formData.append(
       "images",
@@ -222,7 +224,13 @@ const UploadPage: React.FC = () => {
             onIonChange={(e) => setAnimalNeighborhood(e.detail.value!)}
           ></IonInput>
         </IonItem>
-        <IonButton onClick={() => getLocation()}>Fetch Your Location</IonButton>
+        <IonButton
+          size="small"
+          className="centerItem"
+          onClick={() => getLocation()}
+        >
+          Fetch Your Location
+        </IonButton>
         <IonButton
           size="small"
           className="centerItem"
@@ -233,6 +241,16 @@ const UploadPage: React.FC = () => {
         </IonButton>
 
         {filesUpload && (
+          <IonButton
+            size="small"
+            color="medium"
+            onClick={() => setAnimalId(data?.createAnimal._id)}
+          >
+            Please Press Here To Get Animal's Unique ID
+          </IonButton>
+        )}
+
+        {filesUpload && !loading && (
           <div className="centerItem">
             <IonItem lines="none">
               <input

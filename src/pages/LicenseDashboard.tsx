@@ -205,6 +205,7 @@ const LicenseDashboard: React.FC = () => {
         color
         license
         createdAt
+        files
       }
     }
   `;
