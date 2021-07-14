@@ -217,6 +217,12 @@ const AnimalDashboard: React.FC = () => {
   // for number of animal being shown
   const [numCard, setNumCard] = useState<number>(data?.animals?.length);
 
+  // for getting live geolocation
+  interface LocationError {
+    showError: boolean;
+    message?: string;
+  }
+
   return (
     <IonPage>
       {/* {

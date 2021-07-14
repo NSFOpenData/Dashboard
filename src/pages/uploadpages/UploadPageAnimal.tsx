@@ -7,6 +7,9 @@ import {
   IonAvatar,
   IonItem,
   IonIcon,
+  IonInput,
+  IonLabel,
+  IonLoading,
 } from "@ionic/react";
 import React, { useState, useRef } from "react";
 import "./UploadPageAnimal.css";
@@ -17,30 +20,27 @@ import { chevronBackOutline } from "ionicons/icons";
 // /* GraphQL for API Calls */
 import { gql, useMutation } from "@apollo/client";
 
+// getting live geolocation
+import { Geolocation, Geoposition } from "@ionic-native/geolocation";
+
 const CREATE_ANMIAL = gql`
   mutation (
-    $_id: ID!
-    $createdAt: Float!
-    $location: Location!
-    $neighborhood: String!
+    $neighborhood: String
     $color: String
     $breed: String
     $type: String
-    $files: [String!]
+    $location: LocationInput!
   ) {
-    createVehicle(
-      vehicle: {
-        id: $_id
-        createdAt: $createdAt
-        location: $location
+    createAnimal(
+      animal: {
         neighborhood: $neighborhood
         color: $color
         breed: $breed
         type: $type
-        files: $files
+        location: $location
       }
     ) {
-      type
+      _id
     }
   }
 `;
@@ -50,10 +50,8 @@ interface InternalValues {
   file: any;
 }
 
-let files: any[] = [];
-
 const UploadPage: React.FC = () => {
-  type Location = {
+  type LocationInput = {
     lat: String;
     lon: String;
     name: String;
@@ -62,26 +60,31 @@ const UploadPage: React.FC = () => {
   /* Making Animal */
   const [animalid, setAnimalId] = useState<string>("");
   const [animalCreatedAt, setAnimalCreatedAt] = useState<number>(0);
-  const [animalLocation, setAnimalLocation] = useState<Location | null>(null);
+  const [animalLocation, setAnimalLocation] = useState<LocationInput | null>(
+    null
+  );
   const [animalNeighborhood, setAnimalNeighborhood] = useState<string>("");
   const [animalColor, setAnimalColor] = useState<string>("");
   const [animalBreed, setAnimalBreed] = useState<string>("");
-  const [animalType, setAnimalType] = useState<string>("");
+  const [animalType, setAnimalType] = useState<string | null>("");
   const [animalFiles, setAnimalFiles] = useState<Array<string> | null>(null);
 
-  const [makeAnimal] = useMutation(CREATE_ANMIAL, {
+  const [filesUpload, setFilesUpload] = useState<boolean>(false);
+
+  const [makeAnimal, { data, loading }] = useMutation(CREATE_ANMIAL, {
     variables: {
-      id: animalid,
-      createdAt: animalCreatedAt,
+      // id: animalid,
+      // createdAt: animalCreatedAt,
       location: animalLocation,
       neighborhood: animalNeighborhood,
       color: animalColor,
       breed: animalBreed,
       type: animalType,
-      files: animalFiles,
+      // files: animalFiles,
     },
     onCompleted: ({ result }) => {
       console.log(result);
+      setFilesUpload(true);
     },
   });
 
@@ -92,15 +95,6 @@ const UploadPage: React.FC = () => {
 
   const onFileChange = (fileChangeEvent: any) => {
     values.current.file = fileChangeEvent.target.files;
-    // console.log(values.current.file);
-    // console.log("here: " + fileChangeEvent.target.files[0].name);
-    // files = Array.from(fileChangeEvent.target.files);
-
-    // {
-    //   files.map((file: any) =>
-    //     console.log("file-to-upload detected: " + file.name)
-    //   );
-    // }
   };
 
   const submitFileForm = async () => {
@@ -120,15 +114,6 @@ const UploadPage: React.FC = () => {
     );
 
     console.log(values.current.file[0]);
-    // {
-    //   values.current.file.map(
-    //     (file: any) => console.log(file)
-    //     // formData.append("images", file, file.name)
-    //   );
-    // }
-    // console.log(values.current.file.name);
-    // console.log(formData.get("type"));
-    // console.log(formData.get("id"));
 
     try {
       const response = await fetch(
@@ -158,6 +143,37 @@ const UploadPage: React.FC = () => {
     }
   };
 
+  // live geo location
+  interface LocationError {
+    showError: boolean;
+    message?: string;
+  }
+
+  const [geoLoading, setGeoLoading] = useState<boolean>(false);
+  const [geoError, setGeoError] = useState<LocationError>({ showError: false });
+  const [position, setPosition] = useState<Geoposition>();
+
+  const getLocation = async () => {
+    setGeoLoading(true);
+
+    try {
+      const position = await Geolocation.getCurrentPosition();
+      setPosition(position);
+      setGeoLoading(false);
+      setGeoError({ showError: false });
+      let currentLocation = {
+        lat: position.coords.latitude.toString(),
+        lon: position.coords.longitude.toString(),
+        name: "Vanderbilt",
+      };
+      console.log(animalLocation);
+      setAnimalLocation(currentLocation);
+    } catch (e) {
+      setGeoError({ showError: true, message: e.message });
+      setGeoLoading(false);
+    }
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -169,33 +185,74 @@ const UploadPage: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen>
+        <IonLoading
+          isOpen={geoLoading}
+          onDidDismiss={() => setGeoLoading(false)}
+          message={"Getting Location..."}
+        />
+
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>
           Upload Animal Data
         </h5>
-        <div className="centerItem">
-          <IonItem lines="none">
-            {/* <form action="https://nsf-scc1.isis.vanderbilt.edu/upload" encType="multipart/form-data" method="post"> */}
-            {/* <input type="text" placeholder="Object ID" name="id"></input>
-            <input type="text" placeholder="Please type: 'vehicle'" name="type"></input> */}
-            {/* <input name="images" type="file" onChange={(event) => onFileChange(event)} accept="image/*,.pdf,.doc" multiple></input> */}
-            <input
-              type="file"
-              onChange={(event) => onFileChange(event)}
-              // accept="image/*,.pdf,.doc"
-              multiple
-            ></input>
-            {/* <input type="submit" value="upload"></input> */}
-            {/* </form> */}
-          </IonItem>
-        </div>
-
+        <IonItem>
+          <IonLabel>Type: </IonLabel>
+          <IonInput
+            placeholder="dog, cat, bird, etc."
+            onIonChange={(e) => setAnimalType(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
+        <IonItem>
+          <IonLabel>Breed: </IonLabel>
+          <IonInput
+            placeholder="poodle, persian, canary etc."
+            onIonChange={(e) => setAnimalBreed(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
+        <IonItem>
+          <IonLabel>Color: </IonLabel>
+          <IonInput
+            placeholder="black, white, brown, etc."
+            onIonChange={(e) => setAnimalColor(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
+        <IonItem>
+          <IonLabel>Neighborhood: </IonLabel>
+          <IonInput
+            placeholder="Nashville, Sylvan Park, Downtown, etc."
+            onIonChange={(e) => setAnimalNeighborhood(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
+        <IonButton onClick={() => getLocation()}>Fetch Your Location</IonButton>
         <IonButton
-          color="primary"
-          expand="block"
-          onClick={() => submitFileForm()}
+          size="small"
+          className="centerItem"
+          onClick={() => makeAnimal()}
+          color="secondary"
         >
-          Submit
+          Upload Picture
         </IonButton>
+
+        {filesUpload && (
+          <div className="centerItem">
+            <IonItem lines="none">
+              <input
+                type="file"
+                onChange={(event) => onFileChange(event)}
+                // accept="image/*,.pdf,.doc"
+                multiple
+              ></input>
+            </IonItem>
+
+            <IonButton
+              color="primary"
+              expand="block"
+              onClick={() => submitFileForm()}
+              size="small"
+            >
+              Upload!
+            </IonButton>
+          </div>
+        )}
 
         <div className="bottom">
           <IonButton
