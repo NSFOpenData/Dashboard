@@ -244,7 +244,7 @@ const AnimalDashboard: React.FC = () => {
           <IonButton
             className="uploadMargin"
             color="secondary"
-            routerLink={"/uploadPageL"}
+            routerLink={"/uploadPageA"}
           >
             <IonIcon className="iconSize" icon={cloudUploadOutline} />
           </IonButton>
@@ -430,11 +430,16 @@ const AnimalDashboard: React.FC = () => {
                       <h5>Type: {animal.type}</h5>
                       <h5>Breed: {animal.breed}</h5>
                       <h5>Color: {animal.color}</h5>
+                      <h5>Location: {animal.location.name}</h5>
                       <h5>
-                        Location: [ {animal.location.lat}, {animal.location.lon}{" "}
-                        ]
+                        Date:{" "}
+                        {new Date(animal.createdAt)
+                          .toString()
+                          .substr(
+                            0,
+                            new Date(animal.createdAt).toString().indexOf("GMT")
+                          ) + "(CDT)"}{" "}
                       </h5>
-                      <h5>Date: {new Date(animal.createdAt).toString()} </h5>
                     </IonCardContent>
                   </IonCard>
                 </IonItem>

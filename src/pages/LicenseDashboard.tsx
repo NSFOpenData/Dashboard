@@ -375,7 +375,7 @@ const LicenseDashboard: React.FC = () => {
         </div>
         <div className="centerItem">
           <IonButton
-            className="customQueryMargin"
+            className="customQueryMarginL"
             color="medium"
             size="small"
             onClick={() => setAdvancedDate(!advancedDate)}
@@ -523,15 +523,7 @@ const LicenseDashboard: React.FC = () => {
                               new Date(vehicle.createdAt)
                                 .toString()
                                 .indexOf("GMT")
-                            ) +
-                            new Date(vehicle.createdAt)
-                              .toString()
-                              .substr(
-                                new Date(vehicle.createdAt)
-                                  .toString()
-                                  .indexOf("GMT") + 8,
-                                new Date(vehicle.createdAt).toString().length
-                              )}{" "}
+                            ) + "(CDT)"}{" "}
                         </h5>
                         <h5>License Plate: {vehicle.license} </h5>
                       </IonCardContent>
