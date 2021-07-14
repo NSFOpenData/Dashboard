@@ -195,25 +195,34 @@ const AnimalQueryPage: React.FC = () => {
         {(animalType || animalColor || animalBreed || animalApproxLocation) && ( // || animalColor1 || animalColor2 || animalColor3
           <IonContent>
             {!loading &&
-              data.findAnimals.map((animal: any) => (
-                <IonCard
-                  button={false}
-                  color="light"
-                  onClick={() =>
-                    animalOnMap(animal.location.lat, animal.location.lon)
-                  }
-                >
-                  <IonCardContent>
-                    <h5>Type: {animal.type}</h5>
-                    <h5>Breed: {animal.breed}</h5>
-                    <h5>Color: {animal.color}</h5>
-                    <h5>
-                      Location: [ {animal.location.lat}, {animal.location.lon} ]
-                    </h5>
-                    <h5>Date: {new Date(animal.createdAt).toString()} </h5>
-                  </IonCardContent>
-                </IonCard>
-              ))}
+              data.findAnimals
+                .slice(0)
+                .reverse()
+                .map((animal: any) => (
+                  <IonCard
+                    button={false}
+                    color="light"
+                    onClick={() =>
+                      animalOnMap(animal.location.lat, animal.location.lon)
+                    }
+                  >
+                    <IonCardContent>
+                      <h5>Type: {animal.type}</h5>
+                      <h5>Breed: {animal.breed}</h5>
+                      <h5>Color: {animal.color}</h5>
+                      <h5>Location: {animal.location.name}</h5>
+                      <h5>
+                        Date:{" "}
+                        {new Date(animal.createdAt)
+                          .toString()
+                          .substr(
+                            0,
+                            new Date(animal.createdAt).toString().indexOf("GMT")
+                          ) + "(CDT)"}{" "}
+                      </h5>
+                    </IonCardContent>
+                  </IonCard>
+                ))}
           </IonContent>
         )}
 

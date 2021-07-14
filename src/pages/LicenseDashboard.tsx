@@ -195,6 +195,7 @@ const LicenseDashboard: React.FC = () => {
   const VEHICLE_POST_QUERY = gql`
     query Vehicles {
       vehicles {
+        _id
         location {
           lat
           lon
@@ -486,6 +487,7 @@ const LicenseDashboard: React.FC = () => {
           {!loading &&
             data?.vehicles
               ?.slice(0, numCard)
+              .reverse()
               .map((vehicle: any, index: number) => (
                 // getLocation(vehicle.location[0], vehicle.location[1])
                 // console.log(vehicle.license)
@@ -498,13 +500,19 @@ const LicenseDashboard: React.FC = () => {
                         carOnMap(vehicle.location.lat, vehicle.location.lon)
                       }
                     >
-                      {vehicle?.files != null && (
-                        <img
-                          className="centerItem"
-                          style={{ height: 160, width: 320 }}
-                          src={vehicle.files[0]}
-                        ></img>
-                      )}
+                      {vehicle.files !== undefined &&
+                        vehicle.files.length != 0 && (
+                          <img
+                            className="centerItem"
+                            style={{ height: 160, width: 320 }}
+                            src={
+                              "https://nsf-scc1.isis.vanderbilt.edu/file/animal/" +
+                              vehicle._id +
+                              "/" +
+                              vehicle.files[0]
+                            }
+                          ></img>
+                        )}
                       <IonCardContent>
                         <IonCardSubtitle>Car Information</IonCardSubtitle>
                         <h5>Manufacturer: {vehicle.make}</h5>
