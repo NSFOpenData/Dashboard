@@ -41,6 +41,7 @@ const CREATE_ANIMAL = gql`
       }
     ) {
       _id
+      neighborhood
     }
   }
 `;
@@ -54,7 +55,7 @@ const UploadPage: React.FC = () => {
   type LocationInput = {
     lat: String;
     lon: String;
-    name: String;
+    // name: String;
   };
 
   /* Making Animal */
@@ -166,7 +167,7 @@ const UploadPage: React.FC = () => {
       let currentLocation = {
         lat: position.coords.latitude.toString(),
         lon: position.coords.longitude.toString(),
-        name: "Vanderbilt",
+        // name: "Vanderbilt",
       };
       console.log(animalLocation);
       setAnimalLocation(currentLocation);
@@ -244,9 +245,10 @@ const UploadPage: React.FC = () => {
           <IonButton
             size="small"
             color="medium"
+            className="centerItem"
             onClick={() => setAnimalId(data?.createAnimal._id)}
           >
-            Please Press Here To Get Animal's Unique ID
+            Press Here To Get Animal's Unique ID
           </IonButton>
         )}
 

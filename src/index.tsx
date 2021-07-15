@@ -27,7 +27,7 @@ const client = new ApolloClient({
       // authorization: token ? bearer.concat(token!) : '',
       authorization:
         "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InByaXZpbGVnZWRAdXNlci5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjYxMDkwMzUsImV4cCI6MTYyNjcxMzgzNSwic3ViIjoiNjBlYzczNDg5NTM2ZWQ2ZWM4ZjhkYTJkIn0.udbvQ9bvc0_ZT0Dz9CrGOpEr-JLJusjMGd6jJzHdxFA",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InByaXZpbGVnZWRAdXNlci5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCIsIm5laWdoYm9yaG9vZCI6IlZhbmRlcmJpbHQifSwiaWF0IjoxNjI2MzYxMjA3LCJleHAiOjE2MjY5NjYwMDcsInN1YiI6IjYwZWM3MzQ4OTUzNmVkNmVjOGY4ZGEyZCJ9.yXGrAz5I_QBRSYWFeCnsI-ts_89w0voK1VIWi8eg7BE",
     },
   }),
   cache: new InMemoryCache(),

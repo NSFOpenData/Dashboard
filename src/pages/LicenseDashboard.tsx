@@ -506,7 +506,7 @@ const LicenseDashboard: React.FC = () => {
                             className="centerItem"
                             style={{ height: 160, width: 320 }}
                             src={
-                              "https://nsf-scc1.isis.vanderbilt.edu/file/animal/" +
+                              "https://nsf-scc1.isis.vanderbilt.edu/file/vehicle/" +
                               vehicle._id +
                               "/" +
                               vehicle.files[0]

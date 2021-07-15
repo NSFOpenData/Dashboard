@@ -413,8 +413,6 @@ const AnimalDashboard: React.FC = () => {
           </MapContainer>
         )}
 
-        <IonAvatar></IonAvatar>
-
         <IonContent>
           {!loading &&
             data?.animals
