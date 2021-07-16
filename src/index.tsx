@@ -24,10 +24,10 @@ const client = new ApolloClient({
     headers: {
       // 'Content-Type': 'application/json',
       // 'Accept': 'application/json',
-      authorization: token ? bearer.concat(token!) : "",
-      // authorization:
-      //   "Bearer " +
-      //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InByaXZpbGVnZWRAdXNlci5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCIsIm5laWdoYm9yaG9vZCI6IlZhbmRlcmJpbHQifSwiaWF0IjoxNjI2MzYxMjA3LCJleHAiOjE2MjY5NjYwMDcsInN1YiI6IjYwZWM3MzQ4OTUzNmVkNmVjOGY4ZGEyZCJ9.yXGrAz5I_QBRSYWFeCnsI-ts_89w0voK1VIWi8eg7BE",
+      // authorization: token ? bearer.concat(token!) : "",
+      authorization:
+        "Bearer " +
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InByaXZpbGVnZWRAdXNlci5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCIsIm5laWdoYm9yaG9vZCI6IlZhbmRlcmJpbHQifSwiaWF0IjoxNjI2NDQ2NjIwLCJleHAiOjE2MjcwNTE0MjAsInN1YiI6IjYwZWM3MzQ4OTUzNmVkNmVjOGY4ZGEyZCJ9.Yz9uLv8zwKTnFfHsppjXR5JQqvPUcUw3KgvAC9eZzlE",
     },
   }),
   cache: new InMemoryCache(),
