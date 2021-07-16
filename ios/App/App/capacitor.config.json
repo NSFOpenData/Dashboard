@@ -1,0 +1,17 @@
+{
+  "appId": "com.isis.authentication",
+  "appName": "Authentication",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    },
+    "GoogleAuth": {
+        "scopes": ["profile","email"],
+        "serverClientId": "160012889513-qkxxxxxxxxxxxxxxxxxxxxxxxxkgubrp5ve.apps.googleusercontent.com"
+      }
+  },
+  "cordova": {}
+}
