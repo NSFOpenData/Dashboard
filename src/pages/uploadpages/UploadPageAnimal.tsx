@@ -172,7 +172,7 @@ const UploadPage: React.FC = () => {
       console.log(animalLocation);
       setAnimalLocation(currentLocation);
     } catch (e) {
-      setGeoError({ showError: true, message: e.message });
+      // setGeoError({ showError: true, message: e.message });
       setGeoLoading(false);
     }
   };

@@ -463,6 +463,10 @@ const LicenseDashboard: React.FC = () => {
 
         <IonAvatar></IonAvatar>
 
+        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
+          Vehicle Info
+        </h5>
+
         {carLat != 0 && carLon != 0 && (
           <MapContainer
             style={{ height: "350px" }}
@@ -482,6 +486,8 @@ const LicenseDashboard: React.FC = () => {
         )}
 
         <IonAvatar></IonAvatar>
+
+        
 
         <IonContent scrollX={true}>
           {!loading &&
