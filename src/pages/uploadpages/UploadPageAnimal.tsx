@@ -4,7 +4,6 @@ import {
   IonPage,
   IonToolbar,
   IonButton,
-  IonAvatar,
   IonItem,
   IonIcon,
   IonInput,
@@ -51,7 +50,10 @@ interface InternalValues {
   file: any;
 }
 
-const UploadPage: React.FC = () => {
+// number of animals uploaded
+var numAnimalsUploaded = 0;
+
+const UploadPageAnimal: React.FC = () => {
   type LocationInput = {
     lat: String;
     lon: String;
@@ -117,6 +119,8 @@ const UploadPage: React.FC = () => {
     );
 
     console.log(values.current.file[0]);
+    numAnimalsUploaded = numAnimalsUploaded + 1;
+    console.log("num animals added: " + numAnimalsUploaded);
 
     try {
       const response = await fetch(
@@ -182,7 +186,7 @@ const UploadPage: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <div className="centerItem">
-            <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+            <img src="https://lh3.googleusercontent.com/proxy/gJcaKgiIGFDEeGC8ywwhYuq6V7ORJXtZDlD6Mnl-f5R41SiV1LUxrUI-DApcn8dsNRtVhphUPnTHNFiJ7A1hscmtB5AmNNJ_s_argNDcZyRLghm2J2Yh5-0au0YODdYKmHcuZvr1BsDk"></img>
           </div>
         </IonToolbar>
       </IonHeader>
@@ -289,4 +293,5 @@ const UploadPage: React.FC = () => {
   );
 };
 
-export default UploadPage;
+export default UploadPageAnimal;
+export { numAnimalsUploaded };

@@ -176,7 +176,7 @@ const VehicleQueryPage: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <div className="centerItem">
-              <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+              <img src="https://lh3.googleusercontent.com/proxy/gJcaKgiIGFDEeGC8ywwhYuq6V7ORJXtZDlD6Mnl-f5R41SiV1LUxrUI-DApcn8dsNRtVhphUPnTHNFiJ7A1hscmtB5AmNNJ_s_argNDcZyRLghm2J2Yh5-0au0YODdYKmHcuZvr1BsDk"></img>
             </div>
           </IonToolbar>
         </IonHeader>

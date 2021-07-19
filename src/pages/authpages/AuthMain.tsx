@@ -1,48 +1,73 @@
-import { IonContent, IonText, IonRow, IonCol, IonIcon, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg, IonAvatar, IonLabel } from '@ionic/react';
-import React, { Component } from 'react';
-import './AuthMain.css';
-import { Plugins } from '@capacitor/core';
+import {
+  IonContent,
+  IonText,
+  IonRow,
+  IonCol,
+  IonIcon,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonImg,
+  IonAvatar,
+  IonLabel,
+} from "@ionic/react";
+import React, { Component } from "react";
+import "./AuthMain.css";
+import { Plugins } from "@capacitor/core";
 // import "@codetrix-studio/capacitor-google-auth";
 
 // icons
-import {personAddOutline, personOutline, personCircleOutline} from 'ionicons/icons';
+import {
+  personAddOutline,
+  personOutline,
+  personCircleOutline,
+} from "ionicons/icons";
 
-const INITIAL_STATE = {
-
-};
-
+const INITIAL_STATE = {};
 
 class AuthMain extends Component {
-
   render() {
     return (
       <IonPage>
         <IonHeader>
           <IonToolbar>
             <div className="centerItem">
-              <img src="http://sensys.acm.org/2014/resources/images/IsisLogo.jpg"></img>
+              <img src="https://lh3.googleusercontent.com/proxy/gJcaKgiIGFDEeGC8ywwhYuq6V7ORJXtZDlD6Mnl-f5R41SiV1LUxrUI-DApcn8dsNRtVhphUPnTHNFiJ7A1hscmtB5AmNNJ_s_argNDcZyRLghm2J2Yh5-0au0YODdYKmHcuZvr1BsDk"></img>
 
               {/* <img src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img> */}
             </div>
           </IonToolbar>
-        
         </IonHeader>
 
         <IonAvatar></IonAvatar>
         <IonAvatar></IonAvatar>
         <IonAvatar></IonAvatar>
         <IonAvatar></IonAvatar>
-        
+
         <IonContent className="ion-padding">
           {/* <IonButton className="login-button" onClick={() => this.signIn()} expand="block" fill="solid" color="danger">
             Login with Google
           </IonButton> */}
 
-          <IonButton className="login-button" routerLink={"/registerpage"} expand="block" fill="solid" color="primary">
+          <IonButton
+            className="login-button"
+            routerLink={"/registerpage"}
+            expand="block"
+            fill="solid"
+            color="primary"
+          >
             <IonIcon className="iconSize" icon={personAddOutline} />
             Register
           </IonButton>
-          <IonButton className="login-button" routerLink={"/loginpage"} expand="block" fill="solid" color="secondary">
+          <IonButton
+            className="login-button"
+            routerLink={"/loginpage"}
+            expand="block"
+            fill="solid"
+            color="secondary"
+          >
             <IonIcon className="iconSize" icon={personOutline} />
             Login
           </IonButton>
@@ -51,33 +76,23 @@ class AuthMain extends Component {
           <div className="centerItem">
             <h5>Already Logged In?</h5>
           </div>
-          <IonButton className="login-button" routerLink={"/profilePage"} expand="block" fill="solid" color="light">
+          <IonButton
+            className="login-button"
+            routerLink={"/profilePage"}
+            expand="block"
+            fill="solid"
+            color="light"
+          >
             <IonIcon className="iconSize" icon={personCircleOutline} />
             Profile page
           </IonButton>
         </IonContent>
       </IonPage>
-    )
+    );
   }
 }
 
 export default AuthMain;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* -------------------------------------------------- */
 // import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
@@ -127,7 +142,7 @@ export default AuthMain;
 //         baseURL: `https://reqres.in/api`
 //     })
 //     api.post("/login", loginData)
-//         .then(res => {             
+//         .then(res => {
 //             history.push("/dashboard/" + email);
 //         })
 //         .catch(error=>{
