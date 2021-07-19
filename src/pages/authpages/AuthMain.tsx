@@ -34,8 +34,10 @@ class AuthMain extends Component {
         <IonHeader>
           <IonToolbar>
             <div className="centerItem">
-              <img src="https://lh3.googleusercontent.com/proxy/gJcaKgiIGFDEeGC8ywwhYuq6V7ORJXtZDlD6Mnl-f5R41SiV1LUxrUI-DApcn8dsNRtVhphUPnTHNFiJ7A1hscmtB5AmNNJ_s_argNDcZyRLghm2J2Yh5-0au0YODdYKmHcuZvr1BsDk"></img>
-
+              <img
+                className="logoPic"
+                src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
+              ></img>
               {/* <img src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img> */}
             </div>
           </IonToolbar>
