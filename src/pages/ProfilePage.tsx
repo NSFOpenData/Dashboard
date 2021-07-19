@@ -52,6 +52,9 @@ const ProfilePage: React.FC = () => {
         name
         email
         role
+        neighborhood {
+          name
+        }
       }
     }
   `;
@@ -158,6 +161,11 @@ const ProfilePage: React.FC = () => {
               <IonItem>
                 <IonLabel>Email: {data?.me?.email}</IonLabel>
               </IonItem>
+              <IonItem>
+                <IonLabel>
+                  Neighborhood: {data?.me?.neighborhood?.name}
+                </IonLabel>
+              </IonItem>
 
               <IonItem>
                 <IonLabel>Role/Privilege Level: {data?.me?.role}</IonLabel>
@@ -193,9 +201,19 @@ const ProfilePage: React.FC = () => {
           </IonButton>
         </div>
 
-        <IonAvatar></IonAvatar>
+        {/* <IonAvatar></IonAvatar>
 
-        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar> */}
+
+        <div className="bottomItem">
+          <IonButton
+            color="danger"
+            size="small"
+            onClick={() => console.log("trying to log out")}
+          >
+            Log Out
+          </IonButton>
+        </div>
         {/*           
           <div className="centerItem">
             <IonButton color="primary" size="small">Submit</IonButton>

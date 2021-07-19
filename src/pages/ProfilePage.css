@@ -27,3 +27,12 @@ IonList {
 .personalInfo {
   font-weight: bold;
 }
+
+.bottomItem {
+  bottom: 10px;
+  justify-content: flex-end;
+  display: flex !important;
+  align-items: flex-end;
+  margin-top: 40px;
+  margin-right: 10px;
+}

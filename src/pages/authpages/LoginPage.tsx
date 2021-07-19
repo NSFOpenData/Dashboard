@@ -95,28 +95,12 @@ const LoginPage: React.FC = () => {
           ></IonInput>
         </IonItem>
 
-        {
-          formState.email.length > 0 &&
-            formState.password.length > 0 &&
-            formState.email.includes(atChar) &&
-            formState.email.includes(dotCom) &&
-            formState.password.length >= 4 && (
-              <IonButton
-                expand="full"
-                onClick={() => login()}
-                routerLink={"/profilePage"}
-              >
-                Login
-              </IonButton>
-            )
-          // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
-        }
         {/* 
             <div className="centerItem">
                 <IonButton routerLink={'/authentication'}>Go Back</IonButton>
             </div> */}
 
-        <IonItem>
+        {/* <IonItem>
           <IonLabel>Community</IonLabel>
           <IonSelect>
             <IonSelectOption value="Goodlettsville">
@@ -134,7 +118,24 @@ const LoginPage: React.FC = () => {
             <IonSelectOption value="Brentwood">Brentwood</IonSelectOption>
             <IonSelectOption value="Franklin">Franklin</IonSelectOption>
           </IonSelect>
-        </IonItem>
+        </IonItem> */}
+
+        {
+          formState.email.length > 0 &&
+            formState.password.length > 0 &&
+            formState.email.includes(atChar) &&
+            formState.email.includes(dotCom) &&
+            formState.password.length >= 4 && (
+              <IonButton
+                expand="full"
+                onClick={() => login()}
+                routerLink={"/profilePage"}
+              >
+                Login
+              </IonButton>
+            )
+          // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
+        }
       </IonContent>
     </IonPage>
   );
