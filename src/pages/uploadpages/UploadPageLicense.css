@@ -4,7 +4,19 @@
   align-items: center !important;
 }
 
-.bottom {
+.bottomItems {
   position: absolute;
   bottom: 70px;
+}
+
+.privacyNotice {
+  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 55%;
+  padding: 20px;
+}
+
+.privacyText {
+  font-style: italic;
 }

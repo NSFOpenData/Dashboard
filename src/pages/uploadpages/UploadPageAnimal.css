@@ -8,3 +8,15 @@
   position: absolute;
   bottom: 85px;
 }
+
+.privacyNotice {
+  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 55%;
+  padding: 20px;
+}
+
+.privacyText {
+  font-style: italic;
+}
