@@ -23,3 +23,7 @@ IonList {
   height: 70px;
   width: 180px;
 }
+
+.personalInfo {
+  font-weight: bold;
+}
