@@ -55,7 +55,6 @@ const Tab1: React.FC = () => {
           <IonAvatar></IonAvatar> */}
           <IonLabel>Traffic Dashboard </IonLabel>
         </IonButton>
-
         <IonButton
           expand="block"
           size="large"
@@ -65,7 +64,6 @@ const Tab1: React.FC = () => {
           <IonIcon className="licenseIcon" icon={albums} />
           <IonLabel>License Dashboard</IonLabel>
         </IonButton>
-
         <IonButton
           expand="block"
           size="large"
@@ -77,7 +75,6 @@ const Tab1: React.FC = () => {
           </div>
           <IonLabel>Delivery Dashboard</IonLabel>
         </IonButton>
-
         <IonButton
           expand="block"
           size="large"
@@ -89,7 +86,16 @@ const Tab1: React.FC = () => {
           </div>
 
           <IonLabel>Animal Dashboard</IonLabel>
-        </IonButton>
+        </IonButton>{" "}
+        <IonAvatar></IonAvatar>
+        {/* <IonButton
+          expand="block"
+          size="large"
+          color="danger"
+          routerLink={"/tempEMailPage"}
+        >
+          <IonLabel>Temp Email Page</IonLabel>
+        </IonButton> */}
       </IonContent>
     </IonPage>
   );

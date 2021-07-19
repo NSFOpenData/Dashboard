@@ -10,6 +10,7 @@ import {
   IonInput,
   IonLabel,
   IonLoading,
+  IonText,
 } from "@ionic/react";
 import React, { useState, useRef } from "react";
 import "./UploadPageLicense.css";
@@ -277,7 +278,14 @@ const UploadPageLicense: React.FC = () => {
           </div>
         )}
 
-        <div className="bottom">
+        <div className="privacyNotice">
+          <IonText className="privacyText">
+            Privacy Notice: by uploading the data, your current location will be
+            disclosed
+          </IonText>
+        </div>
+
+        <div className="bottomItems">
           <IonButton
             color="light"
             routerLink={"/licenseDashboard"}

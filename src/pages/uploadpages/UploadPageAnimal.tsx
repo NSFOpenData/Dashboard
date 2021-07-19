@@ -9,6 +9,7 @@ import {
   IonInput,
   IonLabel,
   IonLoading,
+  IonText,
 } from "@ionic/react";
 import React, { useState, useRef } from "react";
 import "./UploadPageAnimal.css";
@@ -277,6 +278,13 @@ const UploadPageAnimal: React.FC = () => {
             </IonButton>
           </div>
         )}
+
+        <div className="privacyNotice">
+          <IonText className="privacyText">
+            Privacy Notice: by uploading the data, your current location will be
+            disclosed
+          </IonText>
+        </div>
 
         <div className="bottom">
           <IonButton
