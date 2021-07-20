@@ -450,14 +450,21 @@ const LicenseDashboard: React.FC = () => {
             placeholder="Select One"
             onIonChange={(e) => setLicensePlate(e.detail.value)}
           >
-            <IonSelectOption value="8A59S5">8A59S5</IonSelectOption>
-            <IonSelectOption value="NBT410">NBT410</IonSelectOption>
-            <IonSelectOption value="ATN684">ATN684</IonSelectOption>
-            <IonSelectOption value="7L19V8">7L19V8</IonSelectOption>
-            <IonSelectOption value="280QVG">280QVG</IonSelectOption>
-            <IonSelectOption value="BVH711">BVH711</IonSelectOption>
-            <IonSelectOption value="DLG208">DLG208</IonSelectOption>
-            <IonSelectOption value="BPD626">BPD626</IonSelectOption>
+            {!loading &&
+              data?.vehicles
+                ?.slice(0, numCard)
+                .reverse()
+                .filter((vehicle: string) => vehicle != null)
+                .map((vehicle: any) => (
+                  // if (vehicle.license != null) {
+                  <IonSelectOption value={vehicle.license}>
+                    {vehicle.license}
+                  </IonSelectOption>
+                  // }
+
+                  // if (vehicle.license !== null) {
+                  // }
+                ))}
           </IonSelect>
         </IonItem>
 
@@ -472,7 +479,7 @@ const LicenseDashboard: React.FC = () => {
             style={{ height: "350px" }}
             id="mapid"
             center={[36.1627, -86.7816]}
-            zoom={8.3}
+            zoom={12.5}
             scrollWheelZoom={false}
           >
             <TileLayer
