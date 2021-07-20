@@ -475,7 +475,7 @@ const LicenseDashboard: React.FC = () => {
             style={{ height: "350px" }}
             id="mapid"
             center={[36.1627, -86.7816]}
-            zoom={8.3}
+            zoom={12.5}
             scrollWheelZoom={false}
           >
             <TileLayer
