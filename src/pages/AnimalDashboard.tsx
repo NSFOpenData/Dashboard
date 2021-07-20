@@ -252,13 +252,24 @@ const AnimalDashboard: React.FC = () => {
         {/* <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton> */}
 
         <div className="centerItem">
-          <h5 style={{ fontWeight: "bold" }}>Upload Data</h5>
+          <h5 style={{ fontWeight: "bold" }}>Upload Animal</h5>
           <IonButton
             className="uploadMargin"
             color="secondary"
             routerLink={"/uploadPageA"}
           >
             <IonIcon className="iconSize" icon={cloudUploadOutline} />
+          </IonButton>
+        </div>
+
+        <div className="centerItem">
+          <IonButton
+            size="small"
+            className="reportLostPet"
+            color="danger"
+            routerLink={"/reportLostPetPage"}
+          >
+            Report Lost Pet
           </IonButton>
         </div>
 
