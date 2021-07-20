@@ -30,6 +30,9 @@ import { gql, NetworkStatus, useQuery } from "@apollo/client";
 // for number of animals contributed
 import { numAnimalsUploaded } from "../pages/uploadpages/UploadPageAnimal";
 
+// to get rid of token when logging out
+import { AUTH_TOKEN } from "../pages/authpages/LoginPage";
+
 const { Camera } = Plugins;
 //import { Dimensions } from 'react-native';
 /* Kind of have to figure out to use this later but it keeps throwing an error */
@@ -72,7 +75,7 @@ const ProfilePage: React.FC = () => {
   );
 
   if (networkStatus == NetworkStatus.refetch) console.log("refetching!");
-  if (!loading) console.log(data.me.name);
+  // if (!loading) console.log(data.me.name);
 
   async function takePicture() {
     // take phot with Camera - it's editable as well
@@ -95,6 +98,15 @@ const ProfilePage: React.FC = () => {
 
   function resetInputs() {
     /// firstNameInput.current!.value! = '';
+  }
+
+  // for the purpose of logging out
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem(AUTH_TOKEN)
+  );
+  function logOut() {
+    localStorage.setItem(AUTH_TOKEN, "");
+    setToken("");
   }
 
   return (
@@ -151,7 +163,7 @@ const ProfilePage: React.FC = () => {
           </IonGrid>
 
           {/* Personal Info */}
-          {!loading && (
+          {!loading && token !== null && (
             <IonList>
               <IonItem lines="none">
                 <h4 className="personalInfo">Personal Info</h4>
@@ -186,15 +198,6 @@ const ProfilePage: React.FC = () => {
               </IonItem>
             </IonList>
           )}
-
-          {/* {!loading && data?.me?.map((user: any) => (
-                <IonItem>
-                  <IonLabel>Name: {user.name}</IonLabel>
-                  <IonLabel>Email: {user.email}</IonLabel>
-                  <IonLabel>Role/Privilege Level: {user.role}</IonLabel>
-                </IonItem>
-
-            ))} */}
         </IonList>
 
         <div className="centerItem">
@@ -203,16 +206,8 @@ const ProfilePage: React.FC = () => {
           </IonButton>
         </div>
 
-        {/* <IonAvatar></IonAvatar>
-
-        <IonAvatar></IonAvatar> */}
-
         <div className="bottomItem">
-          <IonButton
-            color="danger"
-            size="small"
-            onClick={() => console.log("trying to log out")}
-          >
+          <IonButton color="danger" size="small" onClick={() => logOut()}>
             Log Out
           </IonButton>
         </div>

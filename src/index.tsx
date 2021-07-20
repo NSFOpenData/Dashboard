@@ -24,11 +24,11 @@ const client = new ApolloClient({
     headers: {
       // 'Content-Type': 'application/json',
       // 'Accept': 'application/json',
-      // authorization: token ? bearer.concat(token!) : "",
-      authorization:
-        "Bearer " +
-        // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJET01BSU4iOnsiZW1haWwiOiJkb2dAb3duZXIuY29tIiwicm9sZSI6IlVTRVIiLCJuZWlnaGJvcmhvb2QiOiJCZWxjb3VydCBBdmVudWUifSwiaWF0IjoxNjI2NzUzNzg3LCJleHAiOjE2MjczNTg1ODcsInN1YiI6IjYwZjY0YWRmNjMxYjgyMWVlNmIyNWRjOCJ9.QsrPQY76idwQy-jUuRWVqTLhw7FE_LEz8bMnAPVqFKo",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InByaXZpbGVnZWRAdXNlci5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCIsIm5laWdoYm9yaG9vZCI6IlZhbmRlcmJpbHQifSwiaWF0IjoxNjI2MzAzMDIyLCJleHAiOjE2MjY5MDc4MjIsInN1YiI6IjYwZWM3MzQ4OTUzNmVkNmVjOGY4ZGEyZCJ9.yLCZR_RtPngDrrz1ZRD-VwIzuk50DRfsB9_RrsQTf6o",
+      authorization: token ? bearer.concat(token!) : "",
+      // authorization:
+      //   "Bearer " +
+      // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJET01BSU4iOnsiZW1haWwiOiJkb2dAb3duZXIuY29tIiwicm9sZSI6IlVTRVIiLCJuZWlnaGJvcmhvb2QiOiJCZWxjb3VydCBBdmVudWUifSwiaWF0IjoxNjI2NzUzNzg3LCJleHAiOjE2MjczNTg1ODcsInN1YiI6IjYwZjY0YWRmNjMxYjgyMWVlNmIyNWRjOCJ9.QsrPQY76idwQy-jUuRWVqTLhw7FE_LEz8bMnAPVqFKo",
+      // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InByaXZpbGVnZWRAdXNlci5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCIsIm5laWdoYm9yaG9vZCI6IlZhbmRlcmJpbHQifSwiaWF0IjoxNjI2MzAzMDIyLCJleHAiOjE2MjY5MDc4MjIsInN1YiI6IjYwZWM3MzQ4OTUzNmVkNmVjOGY4ZGEyZCJ9.yLCZR_RtPngDrrz1ZRD-VwIzuk50DRfsB9_RrsQTf6o",
     },
   }),
   cache: new InMemoryCache(),
