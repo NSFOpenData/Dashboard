@@ -34,7 +34,7 @@ import { gql, NetworkStatus, useQuery } from "@apollo/client";
 import { numAnimalsUploaded } from "../pages/uploadpages/UploadPageAnimal";
 
 // to get rid of token when logging out
-// import { AUTH_TOKEN } from "../pages/authpages/LoginPage";
+import { AUTH_TOKEN } from "../pages/authpages/LoginPage";
 import { chevronDownCircleOutline } from "ionicons/icons";
 
 const { Camera } = Plugins;
@@ -70,11 +70,9 @@ const ProfilePage: React.FC = () => {
     USER_QUERY,
     {
       errorPolicy: "ignore",
-      fetchPolicy: "cache-and-network",
+      fetchPolicy: "network-only",
       notifyOnNetworkStatusChange: true,
       nextFetchPolicy: "cache-first",
-
-      // errorPolicy: 'ignore',
     }
   );
 
@@ -105,16 +103,23 @@ const ProfilePage: React.FC = () => {
   }
 
   // for the purpose of logging out
-  // const [token, setToken] = useState<string | null>(
-  //   localStorage.getItem(AUTH_TOKEN)
-  // );
-  // function logOut() {
-  //   localStorage.setItem(AUTH_TOKEN, "");
-  //   setToken("");
-  // }
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem(AUTH_TOKEN)
+  );
+  function logOut() {
+    localStorage.setItem(AUTH_TOKEN, "");
+    setToken("");
+  }
 
+  // a dummy boolean variable to reset the UI!
+  const [reloadPage, setReloadPage] = useState<boolean>(false);
+  // const [userName, setUserName] = useState<string>("");
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
+
+    refetch();
+    setReloadPage(!reloadPage);
+    // setUserName(data?.me?.name);
 
     setTimeout(() => {
       console.log("Async operation has ended");
@@ -137,15 +142,14 @@ const ProfilePage: React.FC = () => {
       </IonHeader>
 
       <IonContent className="profilePage">
-        {/* <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+        <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent
             pullingIcon={chevronDownCircleOutline}
             pullingText="Pull to refresh"
             refreshingSpinner="circles"
             refreshingText="Refreshing..."
           ></IonRefresherContent>
-        </IonRefresher> */}
-        {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}
+        </IonRefresher>
         <IonList>
           <IonGrid>
             <IonCol>
@@ -169,7 +173,7 @@ const ProfilePage: React.FC = () => {
                       Change Profile Picture
                     </IonButton>
                   </IonItem>
-                  <IonItem lines="none">
+                  {/* <IonItem lines="none">
                     <IonButton
                       color="light"
                       size="small"
@@ -177,7 +181,7 @@ const ProfilePage: React.FC = () => {
                     >
                       Reload Profile Page
                     </IonButton>
-                  </IonItem>
+                  </IonItem> */}
                 </IonRow>
               </div>
             </IonCol>
@@ -191,7 +195,7 @@ const ProfilePage: React.FC = () => {
                 <h4 className="personalInfo">Personal Info</h4>
               </IonItem>
               <IonItem>
-                <IonLabel>Name: {data?.me?.name}</IonLabel>
+                <IonLabel>Name: {data?.me.name}</IonLabel>
               </IonItem>
 
               <IonItem>
