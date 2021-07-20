@@ -53,18 +53,10 @@ const LoginPage: React.FC = () => {
     },
 
     onCompleted: ({ login }) => {
-      // localStorage.setItem(AUTH_TOKEN, register.token);
-      // AUTH_TOKEN = login.token;
       console.log("login", login);
       localStorage.setItem(AUTH_TOKEN, login);
-      //history.push('/');
     },
-    // refetchQueries: [{ query: 'LOGIN_MUTATION' }]
   });
-
-  const logOut = () => {
-    AUTH_TOKEN = "";
-  };
 
   // if (!loading) console.log(data!.me.email)
 

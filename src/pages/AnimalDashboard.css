@@ -28,3 +28,8 @@
 .reportLostPet {
   width: 200px;
 }
+
+.bottomItems {
+  position: absolute;
+  bottom: 70px;
+}
