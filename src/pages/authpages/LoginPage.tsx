@@ -30,7 +30,7 @@ var AUTH_TOKEN = "";
 
 // these have to be in the email in order to make sure email is valid
 const atChar = "@";
-const dotCom = ".com";
+const dot = ".";
 
 const LoginPage: React.FC = () => {
   const history = useHistory();
@@ -126,7 +126,7 @@ const LoginPage: React.FC = () => {
           formState.email.length > 0 &&
             formState.password.length > 0 &&
             formState.email.includes(atChar) &&
-            formState.email.includes(dotCom) &&
+            formState.email.includes(dot) &&
             formState.password.length >= 4 && (
               <IonButton
                 expand="full"
