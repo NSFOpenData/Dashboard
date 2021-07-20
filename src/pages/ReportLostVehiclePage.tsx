@@ -10,38 +10,51 @@ import {
   IonIcon,
 } from "@ionic/react";
 import React, { useState, Component } from "react";
-import "./ReportLostPetPage.css";
+import "./ReportLostVehiclePage.css";
 
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useMutation } from "@apollo/client";
-import { useHistory } from "react-router";
 import { chevronBackOutline } from "ionicons/icons";
 
-const ReportLostPetPage: React.FC = () => {
-  const PARTIAL_ANIMAL = gql`
-    mutation ($type: String!, $breed: String!, $color: [String!]!) {
-      createPartialAnimal(
-        partial: { color: $color, breed: $breed, type: $type }
+const ReportLostVehiclePage: React.FC = () => {
+  const PARTIAL_VEHICLE = gql`
+    mutation (
+      $color: [String!]!
+      $make: String!
+      $model: String!
+      $license: String
+    ) {
+      createPartialVehicle(
+        partial: {
+          color: $color
+          make: $make
+          model: $model
+          license: $license
+        }
       ) {
         _id
-        color
         createdAt
-        breed
         neighborhood
-        type
+        color
+        make
+        model
+        license
       }
     }
   `;
-  const [animalType, setAnimalType] = useState<string | null>("");
-  const [animalBreed, setAnimalBreed] = useState<string>("");
-  const [animalColor, setAnimalColor] = useState<string | null>();
-  const [animalColorArray, setAnimalColorArray] = useState<string[]>();
+  const [vehicleMake, setVehicleMake] = useState<string | null>("");
+  const [vehicleModel, setVehicleModel] = useState<string>("");
+  const [vehicleLicense, setVehicleLicense] = useState<string>("");
 
-  const [makePartialAnimal] = useMutation(PARTIAL_ANIMAL, {
+  const [vehicleColor, setVehicleColor] = useState<string | null>();
+  const [vehicleColorArray, setVehicleColorArray] = useState<string[]>();
+
+  const [makePartialVehicle] = useMutation(PARTIAL_VEHICLE, {
     variables: {
-      type: animalType,
-      breed: animalBreed,
-      color: animalColorArray,
+      color: vehicleColorArray,
+      make: vehicleMake,
+      model: vehicleModel,
+      license: vehicleLicense,
     },
     onCompleted: ({ result }) => {
       console.log(result);
@@ -49,16 +62,16 @@ const ReportLostPetPage: React.FC = () => {
   });
 
   const onColorChange = (colorString: string) => {
-    setAnimalColor(colorString);
+    setVehicleColor(colorString);
 
     if (colorString?.indexOf(",") == -1) {
       var tempArr: string[] = [colorString];
-      setAnimalColorArray(tempArr);
+      setVehicleColorArray(tempArr);
     } else if (colorString?.indexOf(",") !== -1) {
-      setAnimalColorArray(colorString?.split(", ", 10));
+      setVehicleColorArray(colorString?.split(", ", 10));
     }
 
-    console.log(animalColorArray);
+    console.log(vehicleColorArray);
   };
 
   return (
@@ -75,33 +88,40 @@ const ReportLostPetPage: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonItem>
-          <IonLabel>Type: </IonLabel>
+          <IonLabel>Make: </IonLabel>
           <IonInput
-            placeholder="dog, cat, bird, etc."
-            onIonChange={(e) => setAnimalType(e.detail.value!)}
+            placeholder="Toyota, Hyundai, BMW etc."
+            onIonChange={(e) => setVehicleMake(e.detail.value!)}
           ></IonInput>
         </IonItem>
         <IonItem>
-          <IonLabel>Breed: </IonLabel>
+          <IonLabel>Model: </IonLabel>
           <IonInput
-            placeholder="poodle, persian, canary etc."
-            onIonChange={(e) => setAnimalBreed(e.detail.value!)}
+            placeholder="Camry, Santa Fe, X6 etc."
+            onIonChange={(e) => setVehicleModel(e.detail.value!)}
           ></IonInput>
         </IonItem>
         <IonItem>
           <IonLabel>Color: </IonLabel>
           <IonInput
-            value={animalColor}
+            value={vehicleColor}
             placeholder="black, white, brown, etc."
             onIonChange={(e) => onColorChange(e.detail.value!)}
           ></IonInput>
         </IonItem>
+        <IonItem>
+          <IonLabel>License: </IonLabel>
+          <IonInput
+            placeholder="i.e. ABCDEF"
+            onIonChange={(e) => setVehicleLicense(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
 
-        {animalType && animalBreed && animalColor && (
+        {vehicleColor && vehicleMake && vehicleModel && vehicleLicense && (
           <IonButton
             expand="block"
             style={{ padding: 8 }}
-            onClick={() => makePartialAnimal()}
+            onClick={() => makePartialVehicle()}
           >
             Submit
           </IonButton>
@@ -110,7 +130,7 @@ const ReportLostPetPage: React.FC = () => {
         <div className="bottomItems">
           <IonButton
             color="light"
-            routerLink={"/animalDashboard"}
+            routerLink={"/licenseDashboard"}
             routerDirection="back"
           >
             <IonIcon icon={chevronBackOutline}></IonIcon>
@@ -122,7 +142,7 @@ const ReportLostPetPage: React.FC = () => {
   );
 };
 
-export default ReportLostPetPage;
+export default ReportLostVehiclePage;
 
 function onFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
   throw new Error("Function not implemented.");

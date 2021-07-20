@@ -59,6 +59,7 @@ import ProfilePage from "./pages/ProfilePage";
 import UploadPageLicense from "./pages/uploadpages/UploadPageLicense";
 import UploadPageAnimal from "./pages/uploadpages/UploadPageAnimal";
 import ReportLostPetPage from "./pages/ReportLostPetPage";
+import ReportLostVehiclePage from "./pages/ReportLostVehiclePage";
 
 /* Query Pages */
 import QueryPage from "./pages/querypages/QueryPage";
@@ -124,6 +125,9 @@ const App: React.FC = () => (
           </Route>
           <Route path="/reportLostPetPage">
             <ReportLostPetPage />
+          </Route>
+          <Route path="/reportLostVehiclePage">
+            <ReportLostVehiclePage />
           </Route>
 
           {/* Query Pages */}

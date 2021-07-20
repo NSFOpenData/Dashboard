@@ -18,11 +18,14 @@ import {
   IonList,
   IonText,
   IonAvatar,
+  IonRefresher,
+  IonRefresherContent,
 } from "@ionic/react";
 import "./ProfilePage.css";
 
 import React, { Component, useRef, useState } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
+import { RefresherEventDetail } from "@ionic/core";
 
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery } from "@apollo/client";
@@ -31,7 +34,8 @@ import { gql, NetworkStatus, useQuery } from "@apollo/client";
 import { numAnimalsUploaded } from "../pages/uploadpages/UploadPageAnimal";
 
 // to get rid of token when logging out
-import { AUTH_TOKEN } from "../pages/authpages/LoginPage";
+// import { AUTH_TOKEN } from "../pages/authpages/LoginPage";
+import { chevronDownCircleOutline } from "ionicons/icons";
 
 const { Camera } = Plugins;
 //import { Dimensions } from 'react-native';
@@ -101,12 +105,21 @@ const ProfilePage: React.FC = () => {
   }
 
   // for the purpose of logging out
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem(AUTH_TOKEN)
-  );
-  function logOut() {
-    localStorage.setItem(AUTH_TOKEN, "");
-    setToken("");
+  // const [token, setToken] = useState<string | null>(
+  //   localStorage.getItem(AUTH_TOKEN)
+  // );
+  // function logOut() {
+  //   localStorage.setItem(AUTH_TOKEN, "");
+  //   setToken("");
+  // }
+
+  function doRefresh(event: CustomEvent<RefresherEventDetail>) {
+    console.log("Begin async operation");
+
+    setTimeout(() => {
+      console.log("Async operation has ended");
+      event.detail.complete();
+    }, 2000);
   }
 
   return (
@@ -124,6 +137,14 @@ const ProfilePage: React.FC = () => {
       </IonHeader>
 
       <IonContent className="profilePage">
+        {/* <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+          <IonRefresherContent
+            pullingIcon={chevronDownCircleOutline}
+            pullingText="Pull to refresh"
+            refreshingSpinner="circles"
+            refreshingText="Refreshing..."
+          ></IonRefresherContent>
+        </IonRefresher> */}
         {/*<IonImg className="pictureDimention" src={photo}></IonImg>*/}
         <IonList>
           <IonGrid>
@@ -163,7 +184,8 @@ const ProfilePage: React.FC = () => {
           </IonGrid>
 
           {/* Personal Info */}
-          {!loading && token !== null && (
+          {/* {!loading && token !== null && ( */}
+          {!loading && (
             <IonList>
               <IonItem lines="none">
                 <h4 className="personalInfo">Personal Info</h4>
@@ -207,7 +229,11 @@ const ProfilePage: React.FC = () => {
         </div>
 
         <div className="bottomItem">
-          <IonButton color="danger" size="small" onClick={() => logOut()}>
+          <IonButton
+            color="danger"
+            size="small"
+            onClick={() => console.log("tryna log out")}
+          >
             Log Out
           </IonButton>
         </div>

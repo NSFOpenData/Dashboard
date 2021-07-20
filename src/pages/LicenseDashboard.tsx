@@ -350,13 +350,24 @@ const LicenseDashboard: React.FC = () => {
         {/* <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton> */}
 
         <div className="centerItem">
-          <h5 style={{ fontWeight: "bold" }}>Upload Data</h5>
+          <h5 style={{ fontWeight: "bold" }}>Upload Vehicle</h5>
           <IonButton
             className="uploadMargin"
             color="secondary"
             routerLink={"/uploadPageL"}
           >
             <IonIcon className="iconSize" icon={cloudUploadOutline} />
+          </IonButton>
+        </div>
+
+        <div className="centerItem">
+          <IonButton
+            size="small"
+            className="reportLostVehicle"
+            color="danger"
+            routerLink={"/reportLostVehiclePage"}
+          >
+            Report Lost Vehicle
           </IonButton>
         </div>
 
