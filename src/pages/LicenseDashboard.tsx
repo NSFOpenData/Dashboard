@@ -204,6 +204,7 @@ const LicenseDashboard: React.FC = () => {
         license
         createdAt
         files
+        neighborhood
       }
     }
   `;
@@ -211,8 +212,8 @@ const LicenseDashboard: React.FC = () => {
   const { loading, data, error, refetch, networkStatus } = useQuery(
     VEHICLE_POST_QUERY,
     {
-      fetchPolicy: "no-cache",
-      notifyOnNetworkStatusChange: true,
+      // fetchPolicy: "no-cache",
+      // notifyOnNetworkStatusChange: true,
     }
   );
   if (networkStatus == NetworkStatus.refetch) console.log("refetching!");
@@ -540,7 +541,7 @@ const LicenseDashboard: React.FC = () => {
                         <h5>Neighborhood: {vehicle.neighborhood}</h5>
                       )} */}
                         {/* <h5>Location: {readableLocations[index]}</h5>  */}
-                        <h5>Location: {vehicle.location.name}</h5>
+                        <h5>Location: {vehicle.neighborhood}</h5>
                         <h5>
                           Date:{" "}
                           {new Date(vehicle.createdAt)
