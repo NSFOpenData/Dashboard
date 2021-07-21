@@ -34,8 +34,18 @@ import { gql, NetworkStatus, useQuery } from "@apollo/client";
 import { numAnimalsUploaded } from "../pages/uploadpages/UploadPageAnimal";
 
 // to get rid of token when logging out
-import { AUTH_TOKEN } from "../pages/authpages/LoginPage";
-import { chevronDownCircleOutline } from "ionicons/icons";
+import {
+  AUTH_TOKEN,
+  userName,
+  userEmail,
+  userNeighborhood,
+  userRole,
+} from "../pages/authpages/LoginPage";
+import {
+  caretDownOutline,
+  chevronDownCircleOutline,
+  chevronDownOutline,
+} from "ionicons/icons";
 
 const { Camera } = Plugins;
 //import { Dimensions } from 'react-native';
@@ -69,10 +79,10 @@ const ProfilePage: React.FC = () => {
   const { loading, data, error, refetch, networkStatus } = useQuery(
     USER_QUERY,
     {
-      errorPolicy: "ignore",
+      // errorPolicy: "ignore",
       fetchPolicy: "network-only",
       notifyOnNetworkStatusChange: true,
-      nextFetchPolicy: "cache-first",
+      // nextFetchPolicy: "cache-first",
     }
   );
 
@@ -120,11 +130,13 @@ const ProfilePage: React.FC = () => {
     refetch();
     setReloadPage(!reloadPage);
     // setUserName(data?.me?.name);
+    // console.log(userName);
+    // setUserName(data?.me?.name);
 
     setTimeout(() => {
       console.log("Async operation has ended");
       event.detail.complete();
-    }, 2000);
+    }, 1000);
   }
 
   return (
@@ -142,6 +154,10 @@ const ProfilePage: React.FC = () => {
       </IonHeader>
 
       <IonContent className="profilePage">
+        <div style={{ margin: 3 }}>
+          <IonIcon icon={caretDownOutline}></IonIcon>
+          <text style={{ fontSize: 13, margin: 3 }}>pull to reload</text>
+        </div>
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent
             pullingIcon={chevronDownCircleOutline}
@@ -195,20 +211,18 @@ const ProfilePage: React.FC = () => {
                 <h4 className="personalInfo">Personal Info</h4>
               </IonItem>
               <IonItem>
-                <IonLabel>Name: {data?.me.name}</IonLabel>
+                <IonLabel>Name: {userName}</IonLabel>
               </IonItem>
 
               <IonItem>
-                <IonLabel>Email: {data?.me?.email}</IonLabel>
+                <IonLabel>Email: {userEmail}</IonLabel>
               </IonItem>
               <IonItem>
-                <IonLabel>
-                  Neighborhood: {data?.me?.neighborhood?.name}
-                </IonLabel>
+                <IonLabel>Neighborhood: {userNeighborhood}</IonLabel>
               </IonItem>
 
               <IonItem>
-                <IonLabel>Role/Privilege Level: {data?.me?.role}</IonLabel>
+                <IonLabel>Role/Privilege Level: {userRole}</IonLabel>
               </IonItem>
             </IonList>
           )}
