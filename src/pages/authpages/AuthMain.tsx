@@ -25,12 +25,14 @@ import {
   personCircleOutline,
 } from "ionicons/icons";
 
+import { AUTH_TOKEN } from "./LoginPage";
+
 const INITIAL_STATE = {};
 
 class AuthMain extends Component {
   render() {
     return (
-      <IonPage>
+      <IonPage className="centerItem">
         <IonHeader>
           <IonToolbar>
             <div className="centerItem">
@@ -75,6 +77,8 @@ class AuthMain extends Component {
           </IonButton>
 
           <IonAvatar></IonAvatar>
+
+          {/* {AUTH_TOKEN.length > 0 && ( */}
           <div className="centerItem">
             <h5>Already Logged In?</h5>
           </div>
@@ -88,6 +92,7 @@ class AuthMain extends Component {
             <IonIcon className="iconSize" icon={personCircleOutline} />
             Profile page
           </IonButton>
+          {/* )} */}
         </IonContent>
       </IonPage>
     );

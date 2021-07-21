@@ -27,6 +27,10 @@ import { PassThrough } from "stream";
 
 // const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6ImFwcHRlc3RAYXBwdGVzdC5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjI3NDczNDIsImV4cCI6MTYyMzM1MjE0Miwic3ViIjoiNjBiNjU4MDRkYzI3NTQ5YTkwMDcyYjIyIn0.89rdr_qyT2ntC5LOyu6CrWBnUhjiqNOeTDz1bWm6TOg';
 var AUTH_TOKEN = "";
+var userName = "";
+var userEmail = "";
+var userNeighborhood = "";
+var userRole = "";
 
 // these have to be in the email in order to make sure email is valid
 const atChar = "@";
@@ -40,9 +44,21 @@ const LoginPage: React.FC = () => {
     password: "",
   });
 
+  const [temp, setTemp] = useState<string>("");
+
   const LOGIN_MUTATION = gql`
     mutation ($email: String!, $password: String!) {
-      login(email: $email, password: $password)
+      login(email: $email, password: $password) {
+        user {
+          name
+          email
+          neighborhood {
+            name
+          }
+          role
+        }
+        token
+      }
     }
   `;
 
@@ -53,8 +69,17 @@ const LoginPage: React.FC = () => {
     },
 
     onCompleted: ({ login }) => {
-      console.log("login", login);
-      localStorage.setItem(AUTH_TOKEN, login);
+      console.log("login", login.user);
+      userName = login.user.name;
+      userEmail = login.user.email;
+      userNeighborhood = login.user.neighborhood.name;
+      userRole = login.user.role;
+
+      // setTemp(login.user.name);
+      // console.log("here: ", temp);
+
+      console.log(userName, userEmail, userNeighborhood, userRole);
+      localStorage.setItem(AUTH_TOKEN, login.token);
     },
   });
 
@@ -134,10 +159,12 @@ const LoginPage: React.FC = () => {
             )
           // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
         }
+
+        {userName.length > 0 && console.log(userName)}
       </IonContent>
     </IonPage>
   );
 };
 
-export { AUTH_TOKEN };
+export { AUTH_TOKEN, userName, userEmail, userNeighborhood, userRole };
 export default LoginPage;
