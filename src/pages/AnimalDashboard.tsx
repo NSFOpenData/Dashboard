@@ -191,6 +191,7 @@ const AnimalDashboard: React.FC = () => {
           name
         }
         files
+        neighborhood
       }
     }
   `;
@@ -502,7 +503,7 @@ const AnimalDashboard: React.FC = () => {
                           <h5>Type: {animal.type}</h5>
                           <h5>Breed: {animal.breed}</h5>
                           <h5>Color: {animal.color}</h5>
-                          <h5>Location: {animal.location.name}</h5>
+                          <h5>Location: {animal.neighborhood}</h5>
                           <h5>
                             Date:{" "}
                             {new Date(animal.createdAt)
