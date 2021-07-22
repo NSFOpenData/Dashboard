@@ -4,7 +4,6 @@ import {
   IonPage,
   IonToolbar,
   IonButton,
-  IonAvatar,
   IonItem,
   IonIcon,
   IonInput,
@@ -58,7 +57,6 @@ const UploadPageLicense: React.FC = () => {
   type LocationInput = {
     lat: String;
     lon: String;
-    // name: String;
   };
 
   /* Making Vehicle */
@@ -71,26 +69,20 @@ const UploadPageLicense: React.FC = () => {
   const [vehicleColor, setVehicleColor] = useState<string>("");
   const [vehicleMake, setVehicleMake] = useState<string>("");
   const [vehicleModel, setVehicleModel] = useState<string | null>("");
-  const [vehicleLicense, setVehicleLicense] = useState<string | null>("");
-  const [vehicleFiles, setVehicleFiles] = useState<Array<string> | null>(null);
 
   const [filesUpload, setFilesUpload] = useState<boolean>(false);
 
   const [makeVehicle, { data, loading }] = useMutation(CREATE_VEHICLE, {
     variables: {
-      // id: vehicleid,
-      // createdAt: vehicleCreatedAt,
       location: vehicleLocation,
       neighborhood: vehicleNeighborhood,
       color: vehicleColor,
       make: vehicleMake,
       model: vehicleModel,
-      // files: vehicleFiles,
     },
     onCompleted: ({ result }) => {
       console.log(result);
       setFilesUpload(true);
-      // setVehicleId(data?.createVehicle._id);
       console.log(vehicleid);
     },
   });
@@ -113,7 +105,6 @@ const UploadPageLicense: React.FC = () => {
     const formData = new FormData();
     formData.append("type", "vehicle");
     formData.append("id", vehicleid);
-    // console.log(values.current.file[0].name);
     formData.append(
       "images",
       values.current.file[0],

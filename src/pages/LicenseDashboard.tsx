@@ -2,63 +2,36 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
-  IonImg,
   IonButton,
-  IonText,
   IonDatetime,
-  IonRow,
   IonItem,
-  IonCol,
   IonLabel,
-  IonInput,
   IonSelectOption,
   IonSelect,
   IonAvatar,
   IonSegment,
   IonSegmentButton,
-  IonChip,
   IonCard,
-  IonCardTitle,
-  IonCardHeader,
   IonCardContent,
   IonCardSubtitle,
   IonLoading,
   IonList,
   IonIcon,
 } from "@ionic/react";
-import { Datepicker } from "@mobiscroll/react";
-import React, { useState, Component, useRef, useEffect } from "react";
-import ExploreContainer from "../components/ExploreContainer";
+import React, { useState, useRef } from "react";
 import "./LicenseDashboard.css";
 
-import { Plugins, CameraResultType } from "@capacitor/core";
-
-/* Reactive Google Map */
-import { ReactiveBase, SingleList } from "@appbaseio/reactivesearch";
-import {
-  ReactiveGoogleMap,
-  ReactiveOpenStreetMap,
-} from "@appbaseio/reactivemaps";
+import { Plugins } from "@capacitor/core";
 
 import "leaflet/dist/leaflet.css";
 
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery } from "@apollo/client";
-import { useHistory } from "react-router";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { latLng } from "leaflet";
-import { render } from "@testing-library/react";
 
 // icons
-import {
-  cloudUploadOutline,
-  cloudDownloadOutline,
-  volumeHighSharp,
-} from "ionicons/icons";
-
-const { Camera } = Plugins;
+import { cloudUploadOutline } from "ionicons/icons";
 
 // for uploading files
 interface InternalValues {
@@ -66,8 +39,6 @@ interface InternalValues {
 }
 
 let files: any[] = [];
-
-let readableLocations: Array<string>;
 
 const LicenseDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>(
@@ -322,12 +293,7 @@ const LicenseDashboard: React.FC = () => {
   const [numCard, setNumCard] = useState<number>(data?.vehicles?.length);
 
   return (
-    // return (
     <IonPage>
-      {/* {
-        console.log(licensePlate + location)
-      } */}
-
       <IonContent fullscreen>
         <IonHeader mode="ios" collapse="condense">
           <IonToolbar>
@@ -341,14 +307,34 @@ const LicenseDashboard: React.FC = () => {
         </IonHeader>
 
         {/* generalized date string formats! */}
-        {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
-        {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
-        {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
+        {/* {
+          (quickTimePicker =
+            myMap.get(dateTime.toString().substring(4, 7)) +
+            " " +
+            dateTime.toString().substring(8, 21))
+        }
+        {
+          (startDate =
+            selectedStartDate.substring(5, 7) +
+            " " +
+            selectedStartDate.substring(8, 10) +
+            " " +
+            selectedStartDate.substring(0, 4) +
+            " " +
+            selectedStartDate.substring(11, 16))
+        }
+        {
+          (endDate =
+            selectedEndDate.substring(5, 7) +
+            " " +
+            selectedEndDate.substring(8, 10) +
+            " " +
+            selectedEndDate.substring(0, 4) +
+            " " +
+            selectedEndDate.substring(11, 16))
+        } */}
 
         <IonLoading isOpen={loading} message="Loading.." />
-
-        {/* <IonButton onClick={() => getLocation()}>Get location temp button</IonButton> */}
-        {/* <IonButton color="primary" expand="full" disabled={true}>License Dashboard</IonButton> */}
 
         <div className="centerItem">
           <h5 style={{ fontWeight: "bold" }}>Upload Vehicle</h5>
@@ -514,8 +500,6 @@ const LicenseDashboard: React.FC = () => {
               ?.slice(0, numCard)
               .reverse()
               .map((vehicle: any, index: number) => (
-                // getLocation(vehicle.location[0], vehicle.location[1])
-                // console.log(vehicle.license)
                 <div className="centerItem">
                   <IonItem lines="none">
                     <IonCard
@@ -543,10 +527,6 @@ const LicenseDashboard: React.FC = () => {
                         <h5>Manufacturer: {vehicle.make}</h5>
                         <h5>Model: {vehicle.model}</h5>
                         <h5>Color: {vehicle.color}</h5>
-                        {/* {vehicle.neighborhood != null && (
-                        <h5>Neighborhood: {vehicle.neighborhood}</h5>
-                      )} */}
-                        {/* <h5>Location: {readableLocations[index]}</h5>  */}
                         <h5>Location: {vehicle.neighborhood}</h5>
                         <h5>
                           Date:{" "}
@@ -564,18 +544,13 @@ const LicenseDashboard: React.FC = () => {
                     </IonCard>
                   </IonItem>
                 </div>
-                // <div></div>
               ))}
         </IonContent>
 
         <IonAvatar></IonAvatar>
-
-        {/* <h5 className="centerItem" style={{ fontWeight: "bold" }}>Track</h5> */}
-
         {/* https://stackoverflow.com/questions/67552020/how-to-fix-error-failed-to-compile-node-modules-react-leaflet-core-esm-pat  */}
       </IonContent>
     </IonPage>
-    // );
   );
 };
 

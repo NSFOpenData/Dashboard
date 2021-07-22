@@ -4,26 +4,19 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
   IonRow,
-  IonImg,
   IonLabel,
   IonButton,
-  IonInput,
-  IonFab,
-  IonFabButton,
   IonIcon,
   IonItem,
   IonList,
-  IonText,
-  IonAvatar,
   IonRefresher,
   IonRefresherContent,
 } from "@ionic/react";
 import "./ProfilePage.css";
 
-import React, { Component, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
 import { RefresherEventDetail } from "@ionic/core";
 
@@ -41,27 +34,14 @@ import {
   userNeighborhood,
   userRole,
 } from "../pages/authpages/LoginPage";
-import {
-  caretDownOutline,
-  chevronDownCircleOutline,
-  chevronDownOutline,
-} from "ionicons/icons";
+import { caretDownOutline, chevronDownCircleOutline } from "ionicons/icons";
 
 const { Camera } = Plugins;
-//import { Dimensions } from 'react-native';
-/* Kind of have to figure out to use this later but it keeps throwing an error */
-
-// dimension of the phone
-//const windowWidth = Dimensions.get('window').width;
-//const windowHeight = Dimensions.get('window').height;
-
-//http://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png
 
 const ProfilePage: React.FC = () => {
   const [photo, setPhoto] = useState(
     "https://k00228961.github.io/RWD/img/picon.png"
   );
-  const [level, setLevel] = useState("Full");
 
   const USER_QUERY = gql`
     query getAll {
@@ -87,7 +67,6 @@ const ProfilePage: React.FC = () => {
   );
 
   if (networkStatus == NetworkStatus.refetch) console.log("refetching!");
-  // if (!loading) console.log(data.me.name);
 
   async function takePicture() {
     // take phot with Camera - it's editable as well
@@ -108,10 +87,6 @@ const ProfilePage: React.FC = () => {
     // send to upgrading page OR external website
   }
 
-  function resetInputs() {
-    /// firstNameInput.current!.value! = '';
-  }
-
   // for the purpose of logging out
   const [token, setToken] = useState<string | null>(
     localStorage.getItem(AUTH_TOKEN)
@@ -123,7 +98,6 @@ const ProfilePage: React.FC = () => {
 
   // a dummy boolean variable to reset the UI!
   const [reloadPage, setReloadPage] = useState<boolean>(false);
-  // const [userName, setUserName] = useState<string>("");
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
 
@@ -148,7 +122,6 @@ const ProfilePage: React.FC = () => {
               className="logoPic"
               src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
             ></img>
-            {/* <img src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img> */}
           </div>
         </IonToolbar>
       </IonHeader>
@@ -189,22 +162,12 @@ const ProfilePage: React.FC = () => {
                       Change Profile Picture
                     </IonButton>
                   </IonItem>
-                  {/* <IonItem lines="none">
-                    <IonButton
-                      color="light"
-                      size="small"
-                      onClick={() => refetch()}
-                    >
-                      Reload Profile Page
-                    </IonButton>
-                  </IonItem> */}
                 </IonRow>
               </div>
             </IonCol>
           </IonGrid>
 
           {/* Personal Info */}
-          {/* {!loading && token !== null && ( */}
           {!loading && (
             <IonList>
               <IonItem lines="none">
@@ -247,32 +210,13 @@ const ProfilePage: React.FC = () => {
         </div>
 
         <div className="bottomItem">
-          <IonButton
-            color="danger"
-            size="small"
-            onClick={() => console.log("tryna log out")}
-          >
+          <IonButton color="danger" size="small" onClick={() => logOut()}>
             Log Out
           </IonButton>
         </div>
-        {/*           
-          <div className="centerItem">
-            <IonButton color="primary" size="small">Submit</IonButton>
-            <IonButton color="danger" size="small">Reset</IonButton> 
-          </div> */}
       </IonContent>
     </IonPage>
   );
 };
 
 export default ProfilePage;
-
-// Source: https://enappd.com/blog/camera-and-gallery-in-ionic-react-app-using-capacitor/110/
-
-/*
-<IonFab color="primary" vertical="bottom" horizontal="center" slot="fixed">
-    <IonFabButton color="primary" onClick={() => this.takePicture()}>
-        <IonIcon name="add" />
-    </IonFabButton>
-</IonFab>
-*/

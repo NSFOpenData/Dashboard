@@ -1,27 +1,19 @@
 import {
   IonContent,
-  IonText,
-  IonRow,
-  IonCol,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
   IonButton,
-  IonImg,
   IonAvatar,
   IonItem,
   IonInput,
-  IonLabel,
-  IonSelect,
-  IonSelectOption,
   IonIcon,
 } from "@ionic/react";
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "./RegisterPage.css";
 
 /* GraphQL for API Calls */
-import { gql, useQuery, useMutation, ApolloProvider } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { useHistory } from "react-router";
 import { chevronBackOutline } from "ionicons/icons";
 
@@ -30,8 +22,6 @@ const atChar = "@";
 const dotCom = ".com";
 
 const RegisterPage: React.FC = () => {
-  const history = useHistory();
-
   const [formState, setFormState] = useState({
     // login: true,
     name: "",
@@ -122,26 +112,6 @@ const RegisterPage: React.FC = () => {
             }
           ></IonInput>
         </IonItem>
-        {/* 
-        <IonItem>
-          <IonLabel>Community</IonLabel>
-          <IonSelect>
-            <IonSelectOption value="Goodlettsville">
-              Goodlettsville
-            </IonSelectOption>
-            <IonSelectOption value="Lebanon">Lebanon</IonSelectOption>
-            <IonSelectOption value="MountJuliet">Mount Juliet</IonSelectOption>
-            <IonSelectOption value="Murfreesboro">Murfreesboro</IonSelectOption>
-            <IonSelectOption value="Smyrna">Smyrna</IonSelectOption>
-            <IonSelectOption value="Hendersonville">
-              Hendersonville
-            </IonSelectOption>
-            <IonSelectOption value="Gallatin">Gallatin</IonSelectOption>
-            <IonSelectOption value="Nolensville">Nolensville</IonSelectOption>
-            <IonSelectOption value="Brentwood">Brentwood</IonSelectOption>
-            <IonSelectOption value="Franklin">Franklin</IonSelectOption>
-          </IonSelect>
-        </IonItem> */}
 
         {formState.name.length > 0 &&
           formState.email.length > 0 &&

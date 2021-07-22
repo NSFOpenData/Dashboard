@@ -1,31 +1,20 @@
 import {
   IonContent,
-  IonText,
-  IonRow,
-  IonCol,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
   IonButton,
-  IonImg,
   IonAvatar,
   IonItem,
   IonInput,
-  IonSelect,
-  IonLabel,
-  IonSelectOption,
 } from "@ionic/react";
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "./LoginPage.css";
 
 /* GraphQL for API Calls */
-import { gql, useQuery, useMutation, ApolloProvider } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { useHistory } from "react-router";
-import { register } from "../../serviceWorkerRegistration";
-import { PassThrough } from "stream";
 
-// const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6ImFwcHRlc3RAYXBwdGVzdC5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCJ9LCJpYXQiOjE2MjI3NDczNDIsImV4cCI6MTYyMzM1MjE0Miwic3ViIjoiNjBiNjU4MDRkYzI3NTQ5YTkwMDcyYjIyIn0.89rdr_qyT2ntC5LOyu6CrWBnUhjiqNOeTDz1bWm6TOg';
 var AUTH_TOKEN = "";
 var userName = "";
 var userEmail = "";
@@ -37,14 +26,10 @@ const atChar = "@";
 const dot = ".";
 
 const LoginPage: React.FC = () => {
-  const history = useHistory();
-
   const [formState, setFormState] = useState({
     email: "",
     password: "",
   });
-
-  const [temp, setTemp] = useState<string>("");
 
   const LOGIN_MUTATION = gql`
     mutation ($email: String!, $password: String!) {
@@ -75,15 +60,10 @@ const LoginPage: React.FC = () => {
       userNeighborhood = login.user.neighborhood.name;
       userRole = login.user.role;
 
-      // setTemp(login.user.name);
-      // console.log("here: ", temp);
-
       console.log(userName, userEmail, userNeighborhood, userRole);
       localStorage.setItem(AUTH_TOKEN, login.token);
     },
   });
-
-  // if (!loading) console.log(data!.me.email)
 
   return (
     <IonPage>
@@ -94,7 +74,6 @@ const LoginPage: React.FC = () => {
               className="logoPic"
               src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
             ></img>
-            {/* <img src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img> */}
           </div>
         </IonToolbar>
       </IonHeader>
@@ -118,31 +97,6 @@ const LoginPage: React.FC = () => {
           ></IonInput>
         </IonItem>
 
-        {/* 
-            <div className="centerItem">
-                <IonButton routerLink={'/authentication'}>Go Back</IonButton>
-            </div> */}
-
-        {/* <IonItem>
-          <IonLabel>Community</IonLabel>
-          <IonSelect>
-            <IonSelectOption value="Goodlettsville">
-              Goodlettsville
-            </IonSelectOption>
-            <IonSelectOption value="Lebanon">Lebanon</IonSelectOption>
-            <IonSelectOption value="MountJuliet">Mount Juliet</IonSelectOption>
-            <IonSelectOption value="Murfreesboro">Murfreesboro</IonSelectOption>
-            <IonSelectOption value="Smyrna">Smyrna</IonSelectOption>
-            <IonSelectOption value="Hendersonville">
-              Hendersonville
-            </IonSelectOption>
-            <IonSelectOption value="Gallatin">Gallatin</IonSelectOption>
-            <IonSelectOption value="Nolensville">Nolensville</IonSelectOption>
-            <IonSelectOption value="Brentwood">Brentwood</IonSelectOption>
-            <IonSelectOption value="Franklin">Franklin</IonSelectOption>
-          </IonSelect>
-        </IonItem> */}
-
         {
           formState.email.length > 0 &&
             formState.password.length > 0 &&
@@ -157,7 +111,7 @@ const LoginPage: React.FC = () => {
                 Login
               </IonButton>
             )
-          // IF SUCCESS, go to the profile page / routerLink={'/profilepage'}
+          // IF SUCCESS, go to the profile page
         }
 
         {userName.length > 0 && console.log(userName)}

@@ -2,18 +2,14 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
-  IonImg,
   IonButton,
   IonAvatar,
 } from "@ionic/react";
-import React, { useState, Component, useRef } from "react";
+import React from "react";
 import "./QueryPage.css";
 
 const QueryPage: React.FC = () => {
-  // choose either vehicle or animal search
-
   return (
     <IonPage>
       <IonHeader>
@@ -61,8 +57,5 @@ const QueryPage: React.FC = () => {
   );
 };
 
-// vehicle related variables
-//   export {vMake, vModel, vColor, vApproxLoc, vLicense}
-// animal related variables
 export {};
 export default QueryPage;

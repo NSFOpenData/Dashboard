@@ -2,36 +2,19 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
-  IonImg,
   IonButton,
-  IonText,
-  IonDatetime,
-  IonRow,
   IonItem,
-  IonCol,
   IonLabel,
   IonInput,
-  IonSelectOption,
-  IonSelect,
   IonAvatar,
-  IonSegment,
-  IonSegmentButton,
-  IonChip,
   IonCard,
-  IonCardTitle,
-  IonCardHeader,
   IonCardContent,
-  IonCardSubtitle,
-  IonLoading,
-  IonList,
-  IonItemDivider,
 } from "@ionic/react";
-import React, { useState, Component, useRef } from "react";
+import React, { useState } from "react";
 import "./AnimalQueryPage.css";
 
-import { gql, NetworkStatus, useMutation, useQuery } from "@apollo/client";
+import { gql, NetworkStatus, useQuery } from "@apollo/client";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 const AnimalQueryPage: React.FC = () => {
@@ -188,14 +171,8 @@ const AnimalQueryPage: React.FC = () => {
             onIonChange={(event) => onColorChange(event.detail.value!)}
           ></IonInput>
         </IonItem>
-        {/* <IonItem>
-                    <IonLabel>Please Type: </IonLabel>
-                    <IonInput value={animalApproxLocation}
-                        placeholder="Animal Approximate Community Location"
-                        onIonChange={event => setAnimalApproxLocation(event.detail.value!)}></IonInput>
-                </IonItem> */}
 
-        {(animalType || animalColor || animalBreed || animalApproxLocation) && ( // || animalColor1 || animalColor2 || animalColor3
+        {(animalType || animalColor || animalBreed || animalApproxLocation) && (
           <IonContent>
             {!loading &&
               data.findAnimals
@@ -251,8 +228,5 @@ const AnimalQueryPage: React.FC = () => {
   );
 };
 
-// vehicle related variables
-//   export {vMake, vModel, vColor, vApproxLoc, vLicense}
-// animal related variables
 export {};
 export default AnimalQueryPage;

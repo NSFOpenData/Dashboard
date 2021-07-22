@@ -30,6 +30,7 @@ const CREATE_ANIMAL = gql`
     $breed: String
     $type: String
     $location: LocationInput!
+    $files: [Upload!]
   ) {
     createAnimal(
       animal: {
@@ -38,6 +39,7 @@ const CREATE_ANIMAL = gql`
         breed: $breed
         type: $type
         location: $location
+        files: $files
       }
     ) {
       _id
@@ -58,7 +60,6 @@ const UploadPageAnimal: React.FC = () => {
   type LocationInput = {
     lat: String;
     lon: String;
-    // name: String;
   };
 
   /* Making Animal */
@@ -71,20 +72,21 @@ const UploadPageAnimal: React.FC = () => {
   const [animalColor, setAnimalColor] = useState<string>("");
   const [animalBreed, setAnimalBreed] = useState<string>("");
   const [animalType, setAnimalType] = useState<string | null>("");
-  const [animalFiles, setAnimalFiles] = useState<Array<string> | null>(null);
 
-  const [filesUpload, setFilesUpload] = useState<boolean>(false);
+  const [fileNameArray, setFileNameArray] = useState<Array<string> | null>(
+    null
+  );
+
+  const [filesUpload, setFilesUpload] = useState<boolean>(true);
 
   const [makeAnimal, { data, loading }] = useMutation(CREATE_ANIMAL, {
     variables: {
-      // id: animalid,
-      // createdAt: animalCreatedAt,
       location: animalLocation,
       neighborhood: animalNeighborhood,
       color: animalColor,
       breed: animalBreed,
       type: animalType,
-      // files: animalFiles,
+      files: fileNameArray,
     },
     onCompleted: ({ result }) => {
       console.log(result);
@@ -101,6 +103,9 @@ const UploadPageAnimal: React.FC = () => {
 
   const onFileChange = (fileChangeEvent: any) => {
     values.current.file = fileChangeEvent.target.files;
+    var tempArr: string[] = [values.current.file];
+    setFileNameArray(tempArr);
+    console.log(fileNameArray);
   };
 
   const submitFileForm = async () => {
@@ -112,7 +117,6 @@ const UploadPageAnimal: React.FC = () => {
     const formData = new FormData();
     formData.append("type", "animal");
     formData.append("id", animalid);
-    // console.log(values.current.file[0].name);
     formData.append(
       "images",
       values.current.file[0],
@@ -172,7 +176,6 @@ const UploadPageAnimal: React.FC = () => {
       let currentLocation = {
         lat: position.coords.latitude.toString(),
         lon: position.coords.longitude.toString(),
-        // name: "Vanderbilt",
       };
       console.log(animalLocation);
       setAnimalLocation(currentLocation);
@@ -240,16 +243,8 @@ const UploadPageAnimal: React.FC = () => {
         >
           Fetch Your Location
         </IonButton>
-        <IonButton
-          size="small"
-          className="centerItem"
-          onClick={() => makeAnimal()}
-          color="secondary"
-        >
-          Upload Picture
-        </IonButton>
 
-        {filesUpload && (
+        {/* {filesUpload && (
           <IonButton
             size="small"
             color="medium"
@@ -258,7 +253,7 @@ const UploadPageAnimal: React.FC = () => {
           >
             Press Here To Get Animal's Unique ID
           </IonButton>
-        )}
+        )} */}
 
         {filesUpload && !loading && (
           <div className="centerItem">
@@ -271,16 +266,24 @@ const UploadPageAnimal: React.FC = () => {
               ></input>
             </IonItem>
 
-            <IonButton
+            {/* <IonButton
               color="primary"
               expand="block"
               onClick={() => submitFileForm()}
               size="small"
             >
               Upload!
-            </IonButton>
+            </IonButton> */}
           </div>
         )}
+        <IonButton
+          size="small"
+          className="centerItem"
+          onClick={() => makeAnimal()}
+          color="secondary"
+        >
+          Upload
+        </IonButton>
 
         <div className="privacyNotice">
           <IonText className="privacyText">

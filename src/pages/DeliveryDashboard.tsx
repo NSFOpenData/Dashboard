@@ -2,13 +2,9 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
-  IonImg,
   IonButton,
-  IonText,
   IonDatetime,
-  IonRow,
   IonLabel,
   IonSelect,
   IonSelectOption,
@@ -18,10 +14,8 @@ import {
   IonSegmentButton,
   IonIcon,
 } from "@ionic/react";
-import { Datepicker } from "@mobiscroll/react";
 import React, { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import ExploreContainer from "../components/ExploreContainer";
 import "./DeliveryDashboard.css";
 
 import "leaflet/dist/leaflet.css";
@@ -152,10 +146,6 @@ const DeliveryDashboard: React.FC = () => {
 
   return (
     <IonPage>
-      {/* {
-      console.log(deliveryType)
-      } */}
-
       <IonContent fullscreen>
         <IonHeader>
           <IonToolbar>
@@ -168,11 +158,32 @@ const DeliveryDashboard: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         {/* generalized date string formats! */}
-        {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
-          {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
-          {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
-
-        {/* <IonButton color="secondary" expand="full" disabled={true}>Delivery Dashboard</IonButton> */}
+        {/* {
+          (quickTimePicker =
+            myMap.get(dateTime.toString().substring(4, 7)) +
+            " " +
+            dateTime.toString().substring(8, 21))
+        }
+        {
+          (startDate =
+            selectedStartDate.substring(5, 7) +
+            " " +
+            selectedStartDate.substring(8, 10) +
+            " " +
+            selectedStartDate.substring(0, 4) +
+            " " +
+            selectedStartDate.substring(11, 16))
+        }
+        {
+          (endDate =
+            selectedEndDate.substring(5, 7) +
+            " " +
+            selectedEndDate.substring(8, 10) +
+            " " +
+            selectedEndDate.substring(0, 4) +
+            " " +
+            selectedEndDate.substring(11, 16))
+        } */}
 
         <div className="centerItem">
           <h5 className="plateSelectionMargin" style={{ fontWeight: "bold" }}>
@@ -272,8 +283,6 @@ const DeliveryDashboard: React.FC = () => {
 
         <IonAvatar></IonAvatar>
 
-        {/* <h5 className="centerItem" style={{fontWeight: "bold"}}>Location</h5> */}
-
         <IonButton
           className="centerItem"
           expand="block"
@@ -301,7 +310,6 @@ const DeliveryDashboard: React.FC = () => {
             </Marker>
           </MapContainer>
         )}
-        {/* </IonTitle> */}
         <IonAvatar></IonAvatar>
       </IonContent>
     </IonPage>
