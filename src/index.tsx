@@ -4,31 +4,20 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  concat,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 
 import { AUTH_TOKEN } from "../src/pages/authpages/LoginPage";
 
 const bearer = "Bearer ";
 const token = localStorage.getItem(AUTH_TOKEN);
-//console.log("token: ", token);
+
 // client set up to use GraphQL
 const client = new ApolloClient({
   link: createUploadLink({
     uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
     headers: {
-      // 'Content-Type': 'application/json',
-      // 'Accept': 'application/json',
       authorization: token ? bearer.concat(token!) : "",
-      // authorization:
-      //   "Bearer " +
-      //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL25zZi1zY2MxLmlzaXMudmFuZGVyYmlsdC5lZHUvZ3JhcGhxbCI6eyJlbWFpbCI6InByaXZpbGVnZWRAdXNlci5jb20iLCJyb2xlIjoiUFJJVklMRUdFRCIsIm5laWdoYm9yaG9vZCI6IlZhbmRlcmJpbHQifSwiaWF0IjoxNjI2ODE1OTk0LCJleHAiOjE2Mjc0MjA3OTQsInN1YiI6IjYwZWM3MzQ4OTUzNmVkNmVjOGY4ZGEyZCJ9.X72Fh1Z1GLyuI86SXTIPYG1WHH5ow-31PVv21aUSdAY",
-      // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJET01BSU4iOnsiZW1haWwiOiJwcml2aWxlZ2VkQHVzZXIuY29tIiwicm9sZSI6IlBSSVZJTEVHRUQiLCJuZWlnaGJvcmhvb2QiOiJWYW5kZXJiaWx0In0sImlhdCI6MTYyNjgxMDU4NywiZXhwIjoxNjI3NDE1Mzg3LCJzdWIiOiI2MGVjNzM0ODk1MzZlZDZlYzhmOGRhMmQifQ.N5WDL-sFoT3b88XWYD9eaz3lZpHUoV_ux3m222ynKqc",
     },
   }),
   cache: new InMemoryCache(),
