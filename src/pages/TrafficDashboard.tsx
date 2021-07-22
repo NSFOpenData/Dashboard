@@ -2,11 +2,7 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
-  IonText,
-  IonRow,
-  IonFooter,
   IonDatetime,
   IonButton,
   IonAvatar,
@@ -15,51 +11,16 @@ import {
   IonLabel,
   IonIcon,
 } from "@ionic/react";
-import React, {
-  useState,
-  Component,
-  useRef,
-  useMemo,
-  useCallback,
-} from "react";
-import ExploreContainer from "../components/ExploreContainer";
+import React, { useState, useRef, useMemo, useCallback } from "react";
 import "./TrafficDashboard.css";
-import ExtendedDateAndTime from "../pages/subpages/ExtendedDateAndTime";
-
-// icons
-import {
-  calendarOutline,
-  albums,
-  cubeOutline,
-  bugOutline,
-} from "ionicons/icons";
 
 /* Reactive Open Street Map */
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  MapConsumer,
-  useMap,
-  useMapEvent,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-/* Mobiscrall */
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
-import { Datepicker, Input, Page, setOptions } from "@mobiscroll/react";
-import { render } from "@testing-library/react";
-import { flagOutline } from "ionicons/icons";
-
 // icons
 import { mapOutline } from "ionicons/icons";
-
-setOptions({
-  theme: "ios",
-  themeVariant: "light",
-});
 
 /* Important Components */
 //import { DatePickerModule } from 'ionic-calendar-date-picker';
@@ -209,8 +170,6 @@ const TrafficDashboard: React.FC = () => {
     }
     var tempTime = +quickTimePicker.substring(11, hourEndIndex);
     var back12Hrs = tempTime - 6;
-    // console.log(tempTime.toString())
-    // console.log(back12Hrs.toString());
     if (back12Hrs < 0) {
       goBack24Hours();
       var newHour = 24 + back12Hrs;
@@ -240,8 +199,6 @@ const TrafficDashboard: React.FC = () => {
     }
     var tempTime = +quickTimePicker.substring(11, hourEndIndex);
     var back12Hrs = tempTime - 12;
-    // console.log(tempTime.toString())
-    // console.log(back12Hrs.toString());
     if (back12Hrs < 0) {
       goBack24Hours();
       var newHour = 24 + back12Hrs;
@@ -286,17 +243,7 @@ const TrafficDashboard: React.FC = () => {
       and: "places",
     },
     showMapStyles: true,
-
-    //onPopoverClick: (item: { place: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => <div>{item.place}</div>,
-    //renderData: (result: { magnitude: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => {
-    //  console.log(result);
-    //  return {
-    //    label: <div>{}</div>
-    //  };
-    //}
   }; // for other properties: https://opensource.appbase.io/reactive-manual/map-components/reactivegooglemap.html
-
-  // markers to be initiated
 
   const [m1visible, setM1Visible] = useState<boolean>(false);
   const [m1Lat, setM1Lat] = useState<number>(36.1627);
@@ -375,15 +322,32 @@ const TrafficDashboard: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         {/* generalized date string formats! */}
-        {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)} */}
-        {/* {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
-          {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
-
-        {/* <IonButton color="tertiary" expand="full" disabled={true}>Traffic Dashboard</IonButton> */}
-
-        {/* <div className="centerItem">
-          <IonIcon className="icon" icon={calendarOutline} />
-        </div> */}
+        {/* {
+          (quickTimePicker =
+            myMap.get(dateTime.toString().substring(4, 7)) +
+            " " +
+            dateTime.toString().substring(8, 21))
+        }
+        {
+          (startDate =
+            selectedStartDate.substring(5, 7) +
+            " " +
+            selectedStartDate.substring(8, 10) +
+            " " +
+            selectedStartDate.substring(0, 4) +
+            " " +
+            selectedStartDate.substring(11, 16))
+        }
+        {
+          (endDate =
+            selectedEndDate.substring(5, 7) +
+            " " +
+            selectedEndDate.substring(8, 10) +
+            " " +
+            selectedEndDate.substring(0, 4) +
+            " " +
+            selectedEndDate.substring(11, 16))
+        } */}
 
         <div className="centerItem">
           <h5 className="plateSelectionMargin" style={{ fontWeight: "bold" }}>
@@ -470,8 +434,6 @@ const TrafficDashboard: React.FC = () => {
           <IonIcon icon={mapOutline}></IonIcon>
         </IonButton>
 
-        {/* </div> */}
-
         {showMap && (
           <div>
             <MapContainer
@@ -485,10 +447,6 @@ const TrafficDashboard: React.FC = () => {
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {/* <TileLayer
-                attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-              /> */}
               {m1visible && (
                 <Marker position={[m1Lat, m1Lon]}>
                   <Popup>M1</Popup>
@@ -524,8 +482,6 @@ const TrafficDashboard: React.FC = () => {
             </IonButton>
           </div>
         )}
-
-        {/* </div> */}
       </IonContent>
     </IonPage>
   );

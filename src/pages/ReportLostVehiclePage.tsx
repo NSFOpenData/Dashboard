@@ -9,11 +9,11 @@ import {
   IonInput,
   IonIcon,
 } from "@ionic/react";
-import React, { useState, Component } from "react";
+import React, { useState } from "react";
 import "./ReportLostVehiclePage.css";
 
 /* GraphQL for API Calls */
-import { gql, NetworkStatus, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { chevronBackOutline } from "ionicons/icons";
 
 const ReportLostVehiclePage: React.FC = () => {
@@ -143,7 +143,3 @@ const ReportLostVehiclePage: React.FC = () => {
 };
 
 export default ReportLostVehiclePage;
-
-function onFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
-  throw new Error("Function not implemented.");
-}

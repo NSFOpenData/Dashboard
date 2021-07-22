@@ -2,41 +2,30 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
-  IonImg,
   IonButton,
-  IonText,
   IonDatetime,
-  IonRow,
   IonItem,
   IonLabel,
   IonSelect,
   IonSelectOption,
   IonAvatar,
   IonCard,
-  IonCardHeader,
-  IonCardTitle,
   IonCardSubtitle,
   IonCardContent,
-  IonLoading,
   IonSegment,
   IonSegmentButton,
   IonIcon,
 } from "@ionic/react";
-import { Datepicker } from "@mobiscroll/react";
-import React, { useState, Component } from "react";
-import ExploreContainer from "../components/ExploreContainer";
+import React, { useState } from "react";
 import "./AnimalDashboard.css";
 
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery } from "@apollo/client";
-import { useHistory } from "react-router";
 
 // icons
-import { cloudUploadOutline, cloudDownloadOutline } from "ionicons/icons";
+import { cloudUploadOutline } from "ionicons/icons";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { types } from "util";
 
 const AnimalDashboard: React.FC = () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>(
@@ -47,7 +36,6 @@ const AnimalDashboard: React.FC = () => {
   );
 
   // for USER input on dropdown menus
-  // const [location, setLocation] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [color, setColor] = useState<string>("");
 
@@ -70,9 +58,9 @@ const AnimalDashboard: React.FC = () => {
     ["Nov", "11"],
     ["Dec", "12"],
   ]);
-  var quickTimePicker = "";
   var startDate = "";
   var endDate = "";
+  var quickTimePicker = "";
   var quickTimePicker =
     myMap.get(dateTime.toString().substring(4, 7)) +
     " " +
@@ -87,8 +75,6 @@ const AnimalDashboard: React.FC = () => {
     }
     var tempTime = +quickTimePicker.substring(11, hourEndIndex);
     var back12Hrs = tempTime - 6;
-    // console.log(tempTime.toString())
-    // console.log(back12Hrs.toString());
     if (back12Hrs < 0) {
       goBack24Hours();
       var newHour = 24 + back12Hrs;
@@ -118,8 +104,6 @@ const AnimalDashboard: React.FC = () => {
     }
     var tempTime = +quickTimePicker.substring(11, hourEndIndex);
     var back12Hrs = tempTime - 12;
-    // console.log(tempTime.toString())
-    // console.log(back12Hrs.toString());
     if (back12Hrs < 0) {
       goBack24Hours();
       var newHour = 24 + back12Hrs;
@@ -155,27 +139,6 @@ const AnimalDashboard: React.FC = () => {
       quickTimePicker.substring(5, quickTimePicker.length);
     console.log(quickTimePicker);
   }
-
-  const mapProps = {
-    dataField: "location",
-    defaultMapStyle: "Light Monochrome",
-    defaultZoom: 13,
-    react: {
-      and: "places",
-    },
-    showMapStyles: true,
-
-    //onPopoverClick: (item: { place: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => <div>{item.place}</div>,
-    //renderData: (result: { magnitude: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => {
-    //  console.log(result);
-    //  return {
-    //    label: <div>{}</div>
-    //  };
-    //}
-  }; // for other properties: https://opensource.appbase.io/reactive-manual/map-components/reactivegooglemap.html
-
-  // const history = useHistory();
-  let individualCardPhotoSource = [];
 
   const ANIMAL_POST_QUERY = gql`
     query Animals {
@@ -229,10 +192,6 @@ const AnimalDashboard: React.FC = () => {
 
   return (
     <IonPage>
-      {/* {
-      console.log(location + " " + type + " " + color)
-    } */}
-
       <IonContent fullscreen>
         <IonHeader>
           <IonToolbar>
@@ -245,9 +204,32 @@ const AnimalDashboard: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         {/* generalized date string formats! */}
-        {/* {quickTimePicker = myMap.get(dateTime.toString().substring(4, 7)) + " " + dateTime.toString().substring(8, 21)}
-        {startDate = selectedStartDate.substring(5,7) + " " + selectedStartDate.substring(8, 10) + " " + selectedStartDate.substring(0, 4) + " " + selectedStartDate.substring(11, 16)}
-        {endDate = selectedEndDate.substring(5,7) + " " + selectedEndDate.substring(8, 10) + " " + selectedEndDate.substring(0, 4) + " " + selectedEndDate.substring(11, 16)} */}
+        {/* {
+          (quickTimePicker =
+            myMap.get(dateTime.toString().substring(4, 7)) +
+            " " +
+            dateTime.toString().substring(8, 21))
+        }
+        {
+          (startDate =
+            selectedStartDate.substring(5, 7) +
+            " " +
+            selectedStartDate.substring(8, 10) +
+            " " +
+            selectedStartDate.substring(0, 4) +
+            " " +
+            selectedStartDate.substring(11, 16))
+        }
+        {
+          (endDate =
+            selectedEndDate.substring(5, 7) +
+            " " +
+            selectedEndDate.substring(8, 10) +
+            " " +
+            selectedEndDate.substring(0, 4) +
+            " " +
+            selectedEndDate.substring(11, 16))
+        } */}
 
         {/* <IonLoading isOpen={loading} message="Loading..." /> */}
         {/* <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton> */}
@@ -399,8 +381,6 @@ const AnimalDashboard: React.FC = () => {
             <IonSelectOption value="mint">Mint</IonSelectOption>
             <IonSelectOption value="blue">Blue</IonSelectOption>
             <IonSelectOption value="purple">Purple</IonSelectOption>
-            {/* I have no idea how to set colors for snake as they have 
-              differnt colors - do we allow people to choose multiple color */}
           </IonSelect>
         </IonItem>
 
@@ -529,7 +509,3 @@ const AnimalDashboard: React.FC = () => {
 };
 
 export default AnimalDashboard;
-
-function onFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
-  throw new Error("Function not implemented.");
-}

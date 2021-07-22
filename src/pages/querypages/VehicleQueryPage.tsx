@@ -2,36 +2,19 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
-  IonImg,
   IonButton,
-  IonText,
-  IonDatetime,
-  IonRow,
   IonItem,
-  IonCol,
   IonLabel,
   IonInput,
-  IonSelectOption,
-  IonSelect,
   IonAvatar,
-  IonSegment,
-  IonSegmentButton,
-  IonChip,
   IonCard,
-  IonCardTitle,
-  IonCardHeader,
   IonCardContent,
-  IonCardSubtitle,
-  IonLoading,
-  IonList,
-  IonItemDivider,
 } from "@ionic/react";
-import React, { useState, Component, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./VehicleQueryPage.css";
 
-import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 const VehicleQueryPage: React.FC = () => {
@@ -147,9 +130,6 @@ const VehicleQueryPage: React.FC = () => {
       },
 
       fetchPolicy: "network-only",
-      // onCompleted: ({result}) => {
-      //     console.log(result);
-      // }
     }
   );
 
@@ -218,63 +198,49 @@ const VehicleQueryPage: React.FC = () => {
             onIonChange={(event) => onLicenseChange(event.detail.value!)}
           ></IonInput>
         </IonItem>
-        {/* <IonItem>
-                <IonLabel>Please Type: </IonLabel>
-                <IonInput value={vehicleApproxLocation} 
-                placeholder="Vehicle Approximate Community Location"
-                onIonChange={event => setVehicleApproxLocation(event.detail.value!)}></IonInput>
-            </IonItem>  */}
 
-        {
-          (vehicleCompany ||
-            vehicleColor ||
-            vehicleModel ||
-            vehicleColor ||
-            vehicleApproxLocation ||
-            vehicleLicense) && (
-            <IonContent>
-              {/* <IonButton color="primary" expand="block">Search</IonButton> */}
-              {!loading &&
-                data.findVehicles
-                  .slice(0)
-                  .reverse()
-                  .map((vehicle: any) => (
-                    // console.log(vehicle)
-                    <IonCard
-                      button={false}
-                      color="light"
-                      onClick={() =>
-                        carOnMap(vehicle.location.lat, vehicle.location.lon)
-                      }
-                    >
-                      <IonCardContent>
-                        <h5>Manufacturer: {vehicle.make}</h5>
-                        <h5>Model: {vehicle.model}</h5>
-                        <h5>Color: {vehicle.color}</h5>
-                        {/* {vehicle.neighborhood != null && (
-                        <h5>Neighborhood: {vehicle.neighborhood}</h5>
-                      )} */}
-                        {/* <h5>Location: {readableLocations[index]}</h5>  */}
-                        <h5>Location: {vehicle.location.name}</h5>
-                        <h5>
-                          Date:{" "}
-                          {new Date(vehicle.createdAt)
-                            .toString()
-                            .substr(
-                              0,
-                              new Date(vehicle.createdAt)
-                                .toString()
-                                .indexOf("GMT")
-                            ) + "(CDT)"}{" "}
-                        </h5>
-                        <h5>License Plate: {vehicle.license} </h5>
-                      </IonCardContent>
-                    </IonCard>
-                  ))}
-            </IonContent>
-          )
-          //  routerLink={'/queryResultPage'}
-        }
+        {(vehicleCompany ||
+          vehicleColor ||
+          vehicleModel ||
+          vehicleColor ||
+          vehicleApproxLocation ||
+          vehicleLicense) && (
+          <IonContent>
+            {!loading &&
+              data.findVehicles
+                .slice(0)
+                .reverse()
+                .map((vehicle: any) => (
+                  // console.log(vehicle)
+                  <IonCard
+                    button={false}
+                    color="light"
+                    onClick={() =>
+                      carOnMap(vehicle.location.lat, vehicle.location.lon)
+                    }
+                  >
+                    <IonCardContent>
+                      <h5>Manufacturer: {vehicle.make}</h5>
+                      <h5>Model: {vehicle.model}</h5>
+                      <h5>Color: {vehicle.color}</h5>
+                      <h5>Location: {vehicle.location.name}</h5>
+                      <h5>
+                        Date:{" "}
+                        {new Date(vehicle.createdAt)
+                          .toString()
+                          .substr(
+                            0,
+                            new Date(vehicle.createdAt)
+                              .toString()
+                              .indexOf("GMT")
+                          ) + "(CDT)"}{" "}
+                      </h5>
+                      <h5>License Plate: {vehicle.license} </h5>
+                    </IonCardContent>
+                  </IonCard>
+                ))}
+          </IonContent>
+        )}
 
         {carLat != 0 && carLon != 0 && (
           <MapContainer
@@ -299,8 +265,5 @@ const VehicleQueryPage: React.FC = () => {
   );
 };
 
-// vehicle related variables
-//   export {vMake, vModel, vColor, vApproxLoc, vLicense}
-// animal related variables
 export {};
 export default VehicleQueryPage;
