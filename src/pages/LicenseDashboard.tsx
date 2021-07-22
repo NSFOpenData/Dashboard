@@ -16,13 +16,10 @@ import {
   IonCardContent,
   IonCardSubtitle,
   IonLoading,
-  IonList,
   IonIcon,
 } from "@ionic/react";
 import React, { useState, useRef } from "react";
 import "./LicenseDashboard.css";
-
-import { Plugins } from "@capacitor/core";
 
 import "leaflet/dist/leaflet.css";
 
