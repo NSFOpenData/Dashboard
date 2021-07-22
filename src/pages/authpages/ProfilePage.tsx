@@ -24,7 +24,7 @@ import { RefresherEventDetail } from "@ionic/core";
 import { gql, NetworkStatus, useQuery } from "@apollo/client";
 
 // for number of animals contributed
-import { numAnimalsUploaded } from "../pages/uploadpages/UploadPageAnimal";
+import { numAnimalsUploaded } from "../../pages/uploadpages/UploadPageAnimal";
 
 // to get rid of token when logging out
 import {
@@ -33,7 +33,7 @@ import {
   userEmail,
   userNeighborhood,
   userRole,
-} from "../pages/authpages/LoginPage";
+} from "../../pages/authpages/LoginPage";
 import { caretDownOutline, chevronDownCircleOutline } from "ionicons/icons";
 
 const { Camera } = Plugins;

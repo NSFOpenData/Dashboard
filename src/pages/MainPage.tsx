@@ -9,7 +9,7 @@ import {
   IonIcon,
 } from "@ionic/react";
 import React from "react";
-import "./Tab1.css";
+import "./MainPage.css";
 
 // icons
 import { albums } from "ionicons/icons";
