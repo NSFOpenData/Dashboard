@@ -20,22 +20,42 @@
   align-items: center !important;
 }
 
+.eachButton {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.shiftRight {
+  /* padding: 20px; */
+}
+
 .icon {
   font-size: 40px;
-  justify-content: left;
-  margin-right: 103px;
+  padding: 20px;
+  /* justify-content: left; */
 }
+.trafficDashboardText {
+  padding: 7px;
+}
+
 .licenseIcon {
   font-size: 40px;
-  margin-right: 90px;
+  /* margin-right: 90px; */
+  padding: 20px;
 }
 .truckIcon {
   font-size: 33px;
-  margin-right: 85px;
+  /* margin-right: 85px; */
+  padding: 20px;
 }
+
+/* animal dashboard */
 .petIcon {
   font-size: 40px;
-  margin-right: 95px;
+  /* margin-right: 95px; */
+  padding: 20px;
+}
+.animalDashboardText {
+  padding: 7px;
 }
 
 .ion-margin {
