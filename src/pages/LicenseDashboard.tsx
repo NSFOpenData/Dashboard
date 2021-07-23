@@ -456,6 +456,7 @@ const LicenseDashboard: React.FC = () => {
           </IonSelect>
         </IonItem>
         <IonAvatar></IonAvatar>
+
         {carLat != 0 && carLon != 0 && (
           <MapContainer
             style={{ height: "350px" }}

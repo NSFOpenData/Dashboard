@@ -167,7 +167,7 @@ const UploadPageLicense: React.FC = () => {
       console.log(vehicleLocation);
       setVehicleLocation(currentLocation);
     } catch (e) {
-      setGeoError({ showError: true, message: e.message });
+      // setGeoError({ showError: true, message: e.message });
       setGeoLoading(false);
     }
   };
