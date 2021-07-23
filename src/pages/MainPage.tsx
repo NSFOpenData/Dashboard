@@ -35,11 +35,14 @@ const Tab1: React.FC = () => {
           size="large"
           color="primary"
           routerLink={"/trafficDashboard"}
+          className="eachButton"
         >
           <div className="icon">
             <i className="fas fa-car-alt"></i>
           </div>
-          <IonLabel>Traffic Dashboard </IonLabel>
+          <IonLabel className="trafficDashboardText">
+            Traffic Dashboard{" "}
+          </IonLabel>
         </IonButton>
         <IonButton
           expand="block"
@@ -71,7 +74,7 @@ const Tab1: React.FC = () => {
             <i className="fas fa-dog"></i>
           </div>
 
-          <IonLabel>Animal Dashboard</IonLabel>
+          <IonLabel className="animalDashboardText">Animal Dashboard</IonLabel>
         </IonButton>{" "}
         <IonAvatar></IonAvatar>
       </IonContent>
