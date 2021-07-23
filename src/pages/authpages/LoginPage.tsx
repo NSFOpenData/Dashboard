@@ -62,6 +62,10 @@ const LoginPage: React.FC = () => {
 
       console.log(userName, userEmail, userNeighborhood, userRole);
       localStorage.setItem(AUTH_TOKEN, login.token);
+
+      // AUTH_TOKEN = login.token;
+
+      // console.log("TOKEN: ", AUTH_TOKEN);
     },
   });
 

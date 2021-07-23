@@ -35,6 +35,7 @@ import {
   userRole,
 } from "../../pages/authpages/LoginPage";
 import { caretDownOutline, chevronDownCircleOutline } from "ionicons/icons";
+var token = localStorage.getItem(AUTH_TOKEN);
 
 const { Camera } = Plugins;
 
@@ -88,12 +89,13 @@ const ProfilePage: React.FC = () => {
   }
 
   // for the purpose of logging out
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem(AUTH_TOKEN)
-  );
+  // const [token, setToken] = useState<string | null>(
+  //   localStorage.getItem(AUTH_TOKEN)
+  // );
   function logOut() {
     localStorage.setItem(AUTH_TOKEN, "");
-    setToken("");
+    token = localStorage.getItem(AUTH_TOKEN);
+    // setToken("");
   }
 
   // a dummy boolean variable to reset the UI!
@@ -115,6 +117,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <IonPage>
+      {console.log("token: ", token)}
       <IonHeader>
         <IonToolbar>
           <div className="centerItem">
@@ -168,7 +171,8 @@ const ProfilePage: React.FC = () => {
           </IonGrid>
 
           {/* Personal Info */}
-          {!loading && (
+          {/* {!loading && ( */}
+          {token!.length > 0 && (
             <IonList>
               <IonItem lines="none">
                 <h4 className="personalInfo">Personal Info</h4>
@@ -189,9 +193,12 @@ const ProfilePage: React.FC = () => {
               </IonItem>
             </IonList>
           )}
+          {/* )} */}
 
           {/* Contribution */}
-          {!loading && (
+          {/* {!loading && ( */}
+
+          {token!.length > 0 && (
             <IonList>
               <IonItem lines="none">
                 <h4 className="personalInfo">Contribution</h4>
@@ -201,6 +208,7 @@ const ProfilePage: React.FC = () => {
               </IonItem>
             </IonList>
           )}
+          {/* )} */}
         </IonList>
 
         <div className="centerItem">

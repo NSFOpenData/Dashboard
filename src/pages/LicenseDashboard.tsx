@@ -279,6 +279,7 @@ const LicenseDashboard: React.FC = () => {
 
   const [carLat, setCarLat] = useState<number>(0);
   const [carLon, setCarLon] = useState<number>(0);
+  const [openPage, setopenPage] = useState<boolean>(true);
 
   const carOnMap = (latitude: number, longitude: number) => {
     setCarLat(latitude);
@@ -302,7 +303,6 @@ const LicenseDashboard: React.FC = () => {
             </div>
           </IonToolbar>
         </IonHeader>
-
         {/* generalized date string formats! */}
         {/* {
           (quickTimePicker =
@@ -332,7 +332,6 @@ const LicenseDashboard: React.FC = () => {
         } */}
 
         <IonLoading isOpen={loading} message="Loading.." />
-
         <div className="centerItem">
           <h5 style={{ fontWeight: "bold" }}>Upload Vehicle</h5>
           <IonButton
@@ -343,7 +342,6 @@ const LicenseDashboard: React.FC = () => {
             <IonIcon className="iconSize" icon={cloudUploadOutline} />
           </IonButton>
         </div>
-
         <div className="centerItem">
           <IonButton
             size="small"
@@ -354,7 +352,6 @@ const LicenseDashboard: React.FC = () => {
             Report Lost Vehicle
           </IonButton>
         </div>
-
         <div className="centerItem">
           <h5 className="plateSelectionMargin" style={{ fontWeight: "bold" }}>
             Plate Selection{" "}
@@ -380,7 +377,6 @@ const LicenseDashboard: React.FC = () => {
             Custom Query
           </IonButton>
         </div>
-
         {advancedDate && (
           <div>
             <IonSegment color="secondary" value="favorite">
@@ -431,13 +427,10 @@ const LicenseDashboard: React.FC = () => {
             </div>
           </div>
         )}
-
         <IonAvatar></IonAvatar>
-
         <h5 className="centerItem" style={{ fontWeight: "bold" }}>
           License Plates
         </h5>
-
         <IonItem>
           <IonLabel>Choose License Plate:</IonLabel>
           <IonSelect
@@ -462,9 +455,7 @@ const LicenseDashboard: React.FC = () => {
                 ))}
           </IonSelect>
         </IonItem>
-
         <IonAvatar></IonAvatar>
-
         {carLat != 0 && carLon != 0 && (
           <MapContainer
             style={{ height: "350px" }}
@@ -482,9 +473,7 @@ const LicenseDashboard: React.FC = () => {
             </Marker>
           </MapContainer>
         )}
-
         <IonAvatar></IonAvatar>
-
         <IonContent scrollX={true}>
           {!loading &&
             data?.vehicles
@@ -537,7 +526,6 @@ const LicenseDashboard: React.FC = () => {
                 </div>
               ))}
         </IonContent>
-
         <IonAvatar></IonAvatar>
         {/* https://stackoverflow.com/questions/67552020/how-to-fix-error-failed-to-compile-node-modules-react-leaflet-core-esm-pat  */}
       </IonContent>

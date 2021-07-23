@@ -23,6 +23,8 @@ import { gql, useMutation } from "@apollo/client";
 // getting live geolocation
 import { Geolocation, Geoposition } from "@ionic-native/geolocation";
 
+import { useDropzone } from "react-dropzone";
+
 const CREATE_ANIMAL = gql`
   mutation (
     $neighborhood: String
@@ -73,38 +75,77 @@ const UploadPageAnimal: React.FC = () => {
   const [animalBreed, setAnimalBreed] = useState<string>("");
   const [animalType, setAnimalType] = useState<string | null>("");
 
+  const [files, setFiles] = useState<{}>({});
   const [fileNameArray, setFileNameArray] = useState<Array<string> | null>(
     null
   );
-
   const [filesUpload, setFilesUpload] = useState<boolean>(true);
 
   const [makeAnimal, { data, loading }] = useMutation(CREATE_ANIMAL, {
     variables: {
+      files,
       location: animalLocation,
       neighborhood: animalNeighborhood,
       color: animalColor,
       breed: animalBreed,
       type: animalType,
-      files: fileNameArray,
     },
     onCompleted: ({ result }) => {
-      console.log(result);
+      // console.log(result);
       setFilesUpload(true);
       setAnimalId(data?.createAnimal._id);
       console.log(animalid);
     },
   });
 
+  const handleSubmit = async () => {
+    if (files) {
+      makeAnimal({
+        variables: {
+          files,
+          location: animalLocation,
+          neighborhood: animalNeighborhood,
+          color: animalColor,
+          breed: animalBreed,
+          type: animalType,
+        },
+        // add the rest of the form fields to this query
+        // refetchQueries: [{ query: FileQuery, variables: file }],
+      });
+      // setFiles({});
+      // post message on form
+      console.log("Uploaded successfully: ", files);
+    } else {
+      // return alertk
+      console.log("No files to upload");
+    }
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    onDrop: (acceptedFile) => {
+      setFiles(
+        Object.assign(acceptedFile[0], {
+          preview: URL.createObjectURL(acceptedFile[0]),
+        })
+      );
+    },
+  });
+
   ////* Uploading Files */
+  // const values = useRef<InternalValues>({
+  //   file: false,
+  // });
   const values = useRef<InternalValues>({
     file: false,
   });
-
   const onFileChange = (fileChangeEvent: any) => {
     values.current.file = fileChangeEvent.target.files;
+    setFiles(values.current.file);
     var tempArr: string[] = [values.current.file];
     setFileNameArray(tempArr);
+
+    console.log(files);
     console.log(fileNameArray);
   };
 
@@ -258,12 +299,19 @@ const UploadPageAnimal: React.FC = () => {
         {filesUpload && !loading && (
           <div className="centerItem">
             <IonItem lines="none">
-              <input
+              {/* <input
                 type="file"
                 onChange={(event) => onFileChange(event)}
+                // onChange={() => makeAnimal()}
                 // accept="image/*,.pdf,.doc"
                 multiple
-              ></input>
+                required
+              ></input> */}
+
+              <div {...getRootProps({ className: "dropzone" })}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop some file here, or click to select file</p>
+              </div>
             </IonItem>
 
             {/* <IonButton
@@ -279,7 +327,7 @@ const UploadPageAnimal: React.FC = () => {
         <IonButton
           size="small"
           className="centerItem"
-          onClick={() => makeAnimal()}
+          onClick={() => handleSubmit()}
           color="secondary"
         >
           Upload
