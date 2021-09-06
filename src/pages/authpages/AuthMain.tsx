@@ -39,7 +39,7 @@ class AuthMain extends Component {
         <IonAvatar></IonAvatar>
 
         <IonContent className="ion-padding">
-          <IonButton
+          {/* <IonButton
             className="login-button"
             routerLink={"/registerpage"}
             expand="block"
@@ -48,7 +48,8 @@ class AuthMain extends Component {
           >
             <IonIcon className="iconSize" icon={personAddOutline} />
             Register
-          </IonButton>
+          </IonButton> */}
+         
           <IonButton
             className="login-button"
             routerLink={"/loginpage"}
@@ -57,7 +58,7 @@ class AuthMain extends Component {
             color="secondary"
           >
             <IonIcon className="iconSize" icon={personOutline} />
-            Login
+            Sign in with Google
           </IonButton>
 
           <IonAvatar></IonAvatar>
