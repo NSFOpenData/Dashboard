@@ -17,6 +17,7 @@ import {
   personOutline,
   personCircleOutline,
 } from "ionicons/icons";
+import { abort } from "process";
 
 class AuthMain extends Component {
   render() {
@@ -58,7 +59,7 @@ class AuthMain extends Component {
             color="secondary"
           >
             <IonIcon className="iconSize" icon={personOutline} />
-            Sign in with Google
+            Third Party Login
           </IonButton>
 
           <IonAvatar></IonAvatar>

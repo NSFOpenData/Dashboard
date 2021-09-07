@@ -5,9 +5,13 @@ import {
   IonToolbar,
   IonButton,
   IonAvatar,
-  IonItem,
-  IonInput,
+  IonIcon,
 } from "@ionic/react";
+
+import {
+  personOutline,
+} from "ionicons/icons";
+
 import React, { useState } from "react";
 import "./LoginPage.css";
 //firebase
@@ -28,33 +32,37 @@ var userRole = "";
 const atChar = "@";
 const dot = ".";
 
-const provider = new GoogleAuthProvider();
+// const provider = new GoogleAuthProvider();
 
 const LoginPage: React.FC = () => {
-  const auth = getAuth();
-  signInWithRedirect(auth, provider);
-  getRedirectResult(auth)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access Google APIs.
-      const credential = GoogleAuthProvider.credentialFromResult(result!);
-      const token = credential!.accessToken;
-      console.log("hehe")
-      console.log(token);
-      // The signed-in user info.
-      const user = result!.user;
-      const routerLink = "/profilePage"
 
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
 
-    });  
+  const SignInOnClick = (provider: any) => {
+    const auth = getAuth();
+    signInWithRedirect(auth, provider);
+    getRedirectResult(auth) 
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = GoogleAuthProvider.credentialFromResult(result!);
+        const token = credential!.accessToken;
+        console.log("hehe")
+        console.log(token);
+        // The signed-in user info.
+        const user = result!.user;
+        const routerLink = "/profilePage"
+
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+
+      });
+  };  
 //   const [formState, setFormState] = useState({
 //     email: "",
 //     password: "",
@@ -95,24 +103,73 @@ const LoginPage: React.FC = () => {
 //   });
 
   return (
-    <IonPage>
+    <IonPage className="centerItem">
+        <IonHeader>
+          <IonToolbar>
+            <div className="centerItem">
+              <img
+                className="logoPic"
+                src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
+              ></img>
+            </div>
+          </IonToolbar>
+        </IonHeader>
+
+        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar>
+        <IonAvatar></IonAvatar>
+
+        <IonContent className="ion-padding">
+          {/* <IonButton
+            className="login-button"
+            routerLink={"/registerpage"}
+            expand="block"
+            fill="solid"
+            color="primary"
+          >
+            <IonIcon className="iconSize" icon={personAddOutline} />
+            Register
+          </IonButton> */}
+         
+          <IonButton
+            className="login-button"
+            expand="block"
+            fill="solid"
+            color="secondary"
+            onClick={() => SignInOnClick(new GoogleAuthProvider())}
+            routerLink={"/profilePage"}
+          >
+            <IonIcon className="iconSize" icon={personOutline} />
+            Sign in with Google
+          </IonButton> 
+
+          {/*We can add on other sign in buttons with facebook and so on after this*/}
+
+          <IonAvatar></IonAvatar>
+
+        </IonContent>
+      </IonPage>);
+    /*<IonPage>
       <IonHeader>
         <IonToolbar>
           <div className="centerItem">
             <img
               className="logoPic"
               src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
+              alt="Vanderbilt University Logo"
             ></img>
           </div>
         </IonToolbar>
       </IonHeader>
                      <IonButton
                 expand="full"
-                routerLink={"/profilePage"}
+                onClick={() => SignInOnClick(new GoogleAuthProvider())}
+                //routerLink={"/profilePage"}
               >
-                Login
+                Sign in with Google
                </IonButton>
-{/* 
+{ 
        <IonContent className="profilePage">
          <IonAvatar></IonAvatar>
          <IonItem>
@@ -131,9 +188,9 @@ const LoginPage: React.FC = () => {
             // }
           ></IonInput>
         </IonItem>
-       </IonContent> */}
+       </IonContent> }
      </IonPage>
-   );
+   );*/
 //         {
 //           formState.email.length > 0 &&
 //             formState.password.length > 0 &&
