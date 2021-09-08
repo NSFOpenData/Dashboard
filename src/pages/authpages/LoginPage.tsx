@@ -6,6 +6,7 @@ import {
   IonButton,
   IonAvatar,
   IonIcon,
+  IonRouterLink,
 } from "@ionic/react";
 
 import {
@@ -15,7 +16,7 @@ import {
 import React, { useState } from "react";
 import "./LoginPage.css";
 //firebase
-import { getAuth, getRedirectResult, signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, getRedirectResult, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 
 /* GraphQL for API Calls */
@@ -32,36 +33,32 @@ var userRole = "";
 const atChar = "@";
 const dot = ".";
 
-// const provider = new GoogleAuthProvider();
 
 const LoginPage: React.FC = () => {
-
-
+  const auth = getAuth();
   const SignInOnClick = (provider: any) => {
-    const auth = getAuth();
-    signInWithRedirect(auth, provider);
-    getRedirectResult(auth) 
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access Google APIs.
-        const credential = GoogleAuthProvider.credentialFromResult(result!);
-        const token = credential!.accessToken;
-        console.log("hehe")
-        console.log(token);
-        // The signed-in user info.
-        const user = result!.user;
-        const routerLink = "/profilePage"
+  signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential!.accessToken;
+    localStorage.setItem(AUTH_TOKEN, token!);
+    console.log(token)
+    // The signed-in user info.
+    const user = result.user;
+    console.log(user)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
 
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-
-      });
   };  
 //   const [formState, setFormState] = useState({
 //     email: "",
@@ -138,7 +135,7 @@ const LoginPage: React.FC = () => {
             fill="solid"
             color="secondary"
             onClick={() => SignInOnClick(new GoogleAuthProvider())}
-            routerLink={"/profilePage"}
+            //routerLink={"/profilePage"}
           >
             <IonIcon className="iconSize" icon={personOutline} />
             Sign in with Google
