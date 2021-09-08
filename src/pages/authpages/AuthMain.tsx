@@ -17,6 +17,7 @@ import {
   personOutline,
   personCircleOutline,
 } from "ionicons/icons";
+import { abort } from "process";
 
 class AuthMain extends Component {
   render() {
@@ -39,7 +40,7 @@ class AuthMain extends Component {
         <IonAvatar></IonAvatar>
 
         <IonContent className="ion-padding">
-          <IonButton
+          {/* <IonButton
             className="login-button"
             routerLink={"/registerpage"}
             expand="block"
@@ -48,7 +49,8 @@ class AuthMain extends Component {
           >
             <IonIcon className="iconSize" icon={personAddOutline} />
             Register
-          </IonButton>
+          </IonButton> */}
+         
           <IonButton
             className="login-button"
             routerLink={"/loginpage"}
@@ -57,7 +59,7 @@ class AuthMain extends Component {
             color="secondary"
           >
             <IonIcon className="iconSize" icon={personOutline} />
-            Login
+            Third Party Login
           </IonButton>
 
           <IonAvatar></IonAvatar>

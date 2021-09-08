@@ -45,6 +45,7 @@
     "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-openalpr": "^2.1.0",
     "cordova-plugin-video-capture-plus": "^1.0.0",
+    "firebase": "^9.0.1",
     "graphql": "^15.5.0",
     "ionic-angular": "^3.9.10",
     "ionic-calendar-date-picker": "^0.1.2",

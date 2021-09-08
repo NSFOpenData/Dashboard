@@ -63,6 +63,7 @@ import AnimalQueryPage from "./pages/querypages/AnimalQueryPage";
 
 import TempEmailPage from "./pages/TempEmailPage";
 
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
