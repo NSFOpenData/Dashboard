@@ -19,6 +19,7 @@ import "./ProfilePage.css";
 import React, { useState } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
 import { RefresherEventDetail } from "@ionic/core";
+import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth"
 
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery } from "@apollo/client";
@@ -39,6 +40,30 @@ import { caretDownOutline, chevronDownCircleOutline } from "ionicons/icons";
 const { Camera } = Plugins;
 
 const ProfilePage: React.FC = () => {
+  const auth = getAuth();
+  getRedirectResult(auth)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access Google APIs.
+    const credential = GoogleAuthProvider.credentialFromResult(result!);
+    const token = credential!.accessToken;
+    // The signed-in user info.
+    const user = result!.user;
+    console.log(credential)
+    console.log(user)
+    console.log(user.email)
+    
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+
+    // ...
+  });
+
   const [photo, setPhoto] = useState(
     "https://k00228961.github.io/RWD/img/picon.png"
   );
