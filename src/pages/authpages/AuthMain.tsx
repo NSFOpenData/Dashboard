@@ -10,6 +10,8 @@ import {
 import React, { Component } from "react";
 import "./AuthMain.css";
 import { Plugins } from "@capacitor/core";
+import { getAuth, signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
+
 
 // icons
 import {
@@ -19,8 +21,11 @@ import {
 } from "ionicons/icons";
 import { abort } from "process";
 
-class AuthMain extends Component {
-  render() {
+var userEmail = "";
+  const AuthMain: React.FC = () => {
+    const auth = getAuth();
+    const SignInOnClick = (provider: any) => 
+    signInWithRedirect(auth, provider);
     return (
       <IonPage className="centerItem">
         <IonHeader>
@@ -53,13 +58,16 @@ class AuthMain extends Component {
          
           <IonButton
             className="login-button"
-            routerLink={"/loginpage"}
             expand="block"
             fill="solid"
             color="secondary"
+            onClick={
+              () => SignInOnClick(new GoogleAuthProvider())
+            }
+            routerLink = {"/profilePage"}
           >
             <IonIcon className="iconSize" icon={personOutline} />
-            Third Party Login
+            Sign in with Google
           </IonButton>
 
           <IonAvatar></IonAvatar>
@@ -82,6 +90,5 @@ class AuthMain extends Component {
       </IonPage>
     );
   }
-}
 
 export default AuthMain;
