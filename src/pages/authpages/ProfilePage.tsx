@@ -140,7 +140,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <div className="centerItem">
             <img
@@ -149,7 +149,7 @@ const ProfilePage: React.FC = () => {
             ></img>
           </div>
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
 
       <IonContent className="profilePage">
         <div style={{ margin: 3 }}>

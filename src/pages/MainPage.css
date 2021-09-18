@@ -1,10 +1,12 @@
+body {
+  background-color: #E3E3E3;
+}
+
 .logo {
   justify-content: center;
   display: flex !important;
   align-items: center !important;
   vertical-align: middle;
-  /* height: 70px;
-  width: 180px; */
 }
 
 .titleItem {
@@ -21,47 +23,110 @@
 }
 
 .eachButton {
+  flex-flow: column;
   justify-content: flex-end;
-  align-items: flex-end;
+  width: 24.5%;
+  height: 34vh;
+  vertical-align: middle;
+  --box-shadow: none;
+  --border-radius: 10px;
+  padding: .5% .5%;
+  box-shadow: auto;
+  border: transparent;
+  border-radius: 2em;
+  text-transform: none;
+  
 }
-.shiftRight {
-  /* padding: 20px; */
+.icon {
+  padding: 20px;
+  font-size: .75rem;
 }
 
-.icon {
-  font-size: 40px;
-  padding: 20px;
-  /* justify-content: left; */
-}
-.trafficDashboardText {
-  padding: 7px;
+.icon .fas {
+  opacity: .4;
 }
 
 .licenseIcon {
-  font-size: 40px;
-  /* margin-right: 90px; */
+  font-size: 60px;
   padding: 20px;
 }
 .truckIcon {
   font-size: 33px;
-  /* margin-right: 85px; */
   padding: 20px;
 }
 
 /* animal dashboard */
 .petIcon {
   font-size: 40px;
-  /* margin-right: 95px; */
   padding: 20px;
 }
-.animalDashboardText {
-  padding: 7px;
+
+.dashboardText {
+  padding: 10px 0 0 0;
+  font-size: 2.7em;
 }
 
 .ion-margin {
   margin: 30px;
 }
 
-.logoPic {
-  padding: 15px;
+.button-inner {
+  flex-flow: column;
 }
+
+.button-content {
+  background-color: white;
+  border-radius: 1em;
+  text-align: center;
+  
+  padding: 5px 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
+}
+
+.dash-title {
+  margin-left: 1em;
+  margin-top: .3em;
+}
+
+.header {
+  height: 4.8em;
+}
+
+@media screen and (max-width: 1025px) {
+  .eachButton {
+    width: 48%;
+    height: 34vh;
+  }
+
+  .dashboardText {
+    font-size: 2em;
+  }
+}
+
+ion-content.ion-padding{
+  --background:#e3e3e3;
+  
+}
+
+.dash-title {
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  ion-content.ion-padding{
+    --background:black;
+  }
+
+  .button-content {
+    background-color: #3f3f3f;
+  }
+
+  .dash-title {
+    color: #dfdddd;
+  }
+
+}
+

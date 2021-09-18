@@ -12,7 +12,7 @@ import "./QueryPage.css";
 const QueryPage: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <div className="centerItem">
             <img
@@ -21,7 +21,7 @@ const QueryPage: React.FC = () => {
             ></img>{" "}
           </div>
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
 
       <IonContent className="ion-padding">
         <IonAvatar></IonAvatar>

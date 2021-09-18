@@ -153,7 +153,7 @@ const VehicleQueryPage: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="ion-padding">
-        <IonHeader>
+        {/* <IonHeader>
           <IonToolbar>
             <div className="centerItem">
               <img
@@ -162,7 +162,7 @@ const VehicleQueryPage: React.FC = () => {
               ></img>{" "}
             </div>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonButton expand="full" disabled={true}>
           Vehicle Advanced Search Query
         </IonButton>

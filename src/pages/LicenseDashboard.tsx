@@ -292,7 +292,7 @@ const LicenseDashboard: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonHeader mode="ios" collapse="condense">
+        {/* <IonHeader mode="ios" collapse="condense">
           <IonToolbar>
             <div className="centerItem">
               <img
@@ -301,7 +301,7 @@ const LicenseDashboard: React.FC = () => {
               ></img>{" "}
             </div>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         {/* generalized date string formats! */}
         {/* {

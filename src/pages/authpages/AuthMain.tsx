@@ -28,7 +28,7 @@ var userEmail = "";
     signInWithRedirect(auth, provider);
     return (
       <IonPage className="centerItem">
-        <IonHeader>
+        {/* <IonHeader>
           <IonToolbar>
             <div className="centerItem">
               <img
@@ -37,7 +37,7 @@ var userEmail = "";
               ></img>
             </div>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         <IonAvatar></IonAvatar>
         <IonAvatar></IonAvatar>

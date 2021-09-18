@@ -147,7 +147,7 @@ const DeliveryDashboard: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonHeader>
+        {/* <IonHeader>
           <IonToolbar>
             <div className="centerItem">
               <img
@@ -156,7 +156,7 @@ const DeliveryDashboard: React.FC = () => {
               ></img>{" "}
             </div>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         {/* generalized date string formats! */}
         {/* {
           (quickTimePicker =

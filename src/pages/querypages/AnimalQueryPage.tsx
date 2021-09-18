@@ -132,7 +132,7 @@ const AnimalQueryPage: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="ion-padding">
-        <IonHeader>
+        {/* <IonHeader>
           <IonToolbar>
             <div className="centerItem">
               <img
@@ -141,7 +141,7 @@ const AnimalQueryPage: React.FC = () => {
               ></img>{" "}
             </div>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonButton expand="full" color="secondary" disabled={true}>
           Animal Advanced Search Query
         </IonButton>

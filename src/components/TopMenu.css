@@ -1,0 +1,47 @@
+.logoPic {
+    padding: 10px 0;
+    height: 3.75em; 
+  } 
+
+.menuButton {
+    font-size: 4em;
+    color: black !important;
+    opacity: 1 !important;
+    /* background-color: */
+}
+
+.menu {
+    padding: 0 0 0 15px;
+    opacity: 1 !important;
+    text-decoration-color: black !important;
+}
+
+.menuButton .fas {
+    opacity: 1;
+    
+}
+
+.rightSide {
+    margin-right: 10px !important;
+}
+
+.searchButton {
+    font-size: .75rem;
+}
+
+.menuHeader {
+    height: 80px;
+    /* text-align: left !important; */
+    align-items: baseline !important;
+    /* vertical-align: center; */
+}
+
+.headerTitle {
+    padding-top: 20px;
+    color: black;
+    font-size: 30px;
+}
+
+.dashboardTitle {
+    padding: 30px 15px 15px 15px;
+}

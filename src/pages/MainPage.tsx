@@ -1,84 +1,81 @@
 import {
   IonContent,
-  IonHeader,
   IonPage,
-  IonToolbar,
   IonButton,
-  IonAvatar,
-  IonLabel,
-  IonIcon,
+
 } from "@ionic/react";
 import React from "react";
 import "./MainPage.css";
 
-// icons
-import { albums } from "ionicons/icons";
 
 const Tab1: React.FC = () => {
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <div className="centerItem">
-            <img
-              className="logoPic"
-              src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
-            ></img>
-          </div>
-        </IonToolbar>
-      </IonHeader>
-
+    <IonPage className="homeBackground">
+      
       <IonContent className="ion-padding">
-        <IonAvatar></IonAvatar>
-        <IonButton
-          expand="block"
-          size="large"
-          color="primary"
-          routerLink={"/trafficDashboard"}
-          className="eachButton"
-        >
-          <div className="icon">
-            <i className="fas fa-car-alt"></i>
-          </div>
-          <IonLabel className="trafficDashboardText">
-            Traffic Dashboard{" "}
-          </IonLabel>
-        </IonButton>
-        <IonButton
-          expand="block"
-          size="large"
-          color="secondary"
-          routerLink={"/licenseDashboard"}
-        >
-          <IonIcon className="licenseIcon" icon={albums} />
-          <IonLabel>License Dashboard</IonLabel>
-        </IonButton>
-        <IonButton
-          expand="block"
-          size="large"
-          color="medium"
-          routerLink={"/deliveryDashboard"}
-        >
-          <div className="truckIcon">
-            <i className="fas fa-truck"></i>
-          </div>
-          <IonLabel>Delivery Dashboard</IonLabel>
-        </IonButton>
-        <IonButton
-          expand="block"
-          size="large"
-          color="light"
-          routerLink={"/animalDashboard"}
-        >
-          <div className="petIcon">
-            <i className="fas fa-dog"></i>
-          </div>
+      <h1 className="dash-title"><b>Dashboards</b></h1>
+        <div className="button-content">
+          <IonButton
+            color="traffic"
+            routerLink={"/trafficDashboard"}
+            className="eachButton"
+          >
+            <div>
+              <h1 className="dashboardText">
+                <b>Traffic</b>
+              </h1>
+              <div className="icon">
+                <i className="fas fa-car-alt fa-2x"></i>
+                </div>
+            </div>
+          </IonButton>
+          
 
-          <IonLabel className="animalDashboardText">Animal Dashboard</IonLabel>
-        </IonButton>{" "}
-        <IonAvatar></IonAvatar>
+          <IonButton
+            color="license"
+            routerLink={"/licenseDashboard"}
+            className="eachButton"
+          >
+            <div>
+              <h1 className="dashboardText"><b>License</b></h1>
+              <div className="icon">
+                <i className="fas fa-id-card-alt fa-2x"></i>
+                </div>
+            </div>
+            
+          </IonButton>
+
+          <IonButton
+            color="delivery"
+            routerLink={"/deliveryDashboard"}
+            className="eachButton"
+          >
+            <div>
+              <h1 className="dashboardText"><b>Delivery</b></h1>
+              <div className="icon">
+                <i className="fas fa-truck fa-2x"></i>
+                </div>
+            </div>
+          </IonButton>
+
+          <IonButton
+            color="animal"
+            routerLink={"/animalDashboard"}
+            className="eachButton"
+          >
+            <div>
+              <h1 className="dashboardText"><b>Animal</b></h1>
+              
+              <div className="icon">
+                <i className="fas fa-dog fa-2x"></i>
+                </div>
+            </div>
+            
+          </IonButton>{" "}
+        </div>
+
       </IonContent>
-    </IonPage>
+      </IonPage>
   );
 };
 

@@ -311,7 +311,7 @@ const TrafficDashboard: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonHeader>
+        {/* <IonHeader>
           <IonToolbar>
             <div className="centerItem">
               <img
@@ -320,7 +320,7 @@ const TrafficDashboard: React.FC = () => {
               ></img>{" "}
             </div>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         {/* generalized date string formats! */}
         {/* {
           (quickTimePicker =
