@@ -19,6 +19,7 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import "./AnimalDashboard.css";
+import TopMenu from './../components/TopMenu';
 
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery } from "@apollo/client";
@@ -193,16 +194,6 @@ const AnimalDashboard: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonHeader>
-          <IonToolbar>
-            <div className="centerItem">
-              <img
-                className="logoPic"
-                src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
-              ></img>{" "}
-            </div>
-          </IonToolbar>
-        </IonHeader>
         {/* generalized date string formats! */}
         {/* {
           (quickTimePicker =

@@ -23,7 +23,7 @@ class AuthMain extends Component {
   render() {
     return (
       <IonPage className="centerItem">
-        <IonHeader>
+        {/* <IonHeader>
           <IonToolbar>
             <div className="centerItem">
               <img
@@ -32,7 +32,7 @@ class AuthMain extends Component {
               ></img>
             </div>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         <IonAvatar></IonAvatar>
         <IonAvatar></IonAvatar>

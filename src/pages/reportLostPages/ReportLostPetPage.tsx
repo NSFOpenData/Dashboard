@@ -62,7 +62,7 @@ const ReportLostPetPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <div className="centerItem">
             <img
@@ -71,7 +71,7 @@ const ReportLostPetPage: React.FC = () => {
             ></img>{" "}
           </div>
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
       <IonContent fullscreen>
         <IonItem>
           <IonLabel>Type: </IonLabel>

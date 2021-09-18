@@ -38,7 +38,7 @@ const TempEmailPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <div className="centerItem">
             <img
@@ -47,7 +47,7 @@ const TempEmailPage: React.FC = () => {
             ></img>{" "}
           </div>
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
 
       {/* <IonContent fullscreen>
         <IonButton onClick={() => sendEmail()}>Send Email</IonButton>

@@ -66,7 +66,7 @@ const RegisterPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <div className="centerItem">
             <img
@@ -75,7 +75,7 @@ const RegisterPage: React.FC = () => {
             ></img>{" "}
           </div>
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
 
       <IonContent className="profilePage">
         <IonAvatar></IonAvatar>

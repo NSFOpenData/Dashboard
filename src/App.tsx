@@ -1,12 +1,8 @@
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
+  IonContent,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import {
@@ -63,11 +59,17 @@ import AnimalQueryPage from "./pages/querypages/AnimalQueryPage";
 
 import TempEmailPage from "./pages/TempEmailPage";
 
+import TopMenu from './components/TopMenu';
+
 
 const App: React.FC = () => (
   <IonApp>
+    <TopMenu />
+
+    <IonContent>
     <IonReactRouter>
-      <IonTabs>
+      {/* <IonTabs> */}
+
         <IonRouterOutlet>
           <Route path="/tempEmailPage">
             <TempEmailPage />
@@ -151,7 +153,7 @@ const App: React.FC = () => (
           </Route>
         </IonRouterOutlet>
 
-        <IonTabBar slot="bottom">
+        {/* <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/mainPage">
             <IonIcon icon={homeOutline} />
             <IonLabel>Home</IonLabel>
@@ -164,9 +166,10 @@ const App: React.FC = () => (
             <IonIcon icon={searchCircleOutline} />
             <IonLabel>Search</IonLabel>
           </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
+        </IonTabBar> */}
+      {/* </IonTabs> */}
     </IonReactRouter>
+    </IonContent>
   </IonApp>
 );
 

@@ -11,7 +11,7 @@ const QueryResultPage: React.FC = () => {
 
     return (
       <IonPage>
-        <IonHeader>
+        {/* <IonHeader>
             <IonToolbar>
             <IonRow>
                 <IonAvatar></IonAvatar>
@@ -19,7 +19,7 @@ const QueryResultPage: React.FC = () => {
                 <img className="logo" src="https://cps-iot-week2021.isis.vanderbilt.edu/images/VUISISlogo.png"></img>
             </IonRow>
             </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
   
         <IonContent className="profilePage"> 
             <h5 style={{fontWeight: "bold"}}>| Query Result Page</h5>
