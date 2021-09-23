@@ -59,27 +59,7 @@ const ProfilePage: React.FC = () => {
     console.log(credential)
     console.log(user)
     console.log(user.email)
-    const [login, { data, error, loading }] = useMutation(LOGIN_MUTATION, {
-    variables: {
-      idtoken: token,
-      email: user.email,
-    },
-      onCompleted: ({ login }) => {
-        if(login.isRegistered){
-          userName = login.user.name;
-          userEmail = login.user.email;
-          userNeighborhood = login.user.neighborhood.name;
-          userRole = login.user.role;
-    
-          console.log(userName, userEmail, userNeighborhood, userRole);
-          localStorage.setItem(AUTH_TOKEN, login.token);
-        }
-        else{
-          //pass the token to the registration page
-          //or store it so that it automatically registers after they login
-        }
-    },
-  });
+    login({variables : {token, userEmail}});    
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -97,7 +77,7 @@ const ProfilePage: React.FC = () => {
   );
 
   const LOGIN_MUTATION = gql`
-    mutation ($idtoken: String!, $email: String!) {
+    mutation ($idToken: String!, $email: String!) {
       login(email: $email, password: $password) {
         isRegistered
         token
@@ -112,6 +92,26 @@ const ProfilePage: React.FC = () => {
       }
     }
   `;
+
+  const [login] = useMutation(LOGIN_MUTATION, {
+    onCompleted: ({ login }) => {
+        if(login.isRegistered) {          
+          console.log("User was registered")
+          // userName = login.user.name;
+          // userEmail = login.user.email;
+          // userNeighborhood = login.user.neighborhood.name;
+          // userRole = login.user.role;
+    
+          // console.log(userName, userEmail, userNeighborhood, userRole);
+          // localStorage.setItem(AUTH_TOKEN, login.token);
+        }
+        else {
+          console.log("User wasn't registered!")
+          //pass the token to the registration page
+          //or store it so that it automatically registers after they login
+        }
+    },
+  });
 
   const USER_QUERY = gql`
     query getAll {
