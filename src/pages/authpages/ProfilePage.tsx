@@ -22,21 +22,27 @@ import { RefresherEventDetail } from "@ionic/core";
 import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth"
 
 /* GraphQL for API Calls */
-import { gql, NetworkStatus, useQuery } from "@apollo/client";
+import { gql, NetworkStatus, useQuery, useMutation } from "@apollo/client";
 
 // for number of animals contributed
 import { numAnimalsUploaded } from "../../pages/uploadpages/UploadPageAnimal";
 
 // to get rid of token when logging out
-import {
-  AUTH_TOKEN,
-  userName,
-  userEmail,
-  userNeighborhood,
-  userRole,
-} from "../../pages/authpages/LoginPage";
+// import {
+//   AUTH_TOKEN,
+//   userName,
+//   userEmail,
+//   userNeighborhood,
+//   userRole,
+// } from "../../pages/authpages/LoginPage";
 import { caretDownOutline, chevronDownCircleOutline } from "ionicons/icons";
 
+
+var AUTH_TOKEN = "";
+var userName = "";
+var userEmail = "";
+var userNeighborhood = "";
+var userRole = "";
 const { Camera } = Plugins;
 
 const ProfilePage: React.FC = () => {
@@ -48,10 +54,32 @@ const ProfilePage: React.FC = () => {
     const token = credential!.accessToken;
     // The signed-in user info.
     const user = result!.user;
+    userEmail = user.email!
+    userName = user.displayName!
     console.log(credential)
     console.log(user)
     console.log(user.email)
+    const [login, { data, error, loading }] = useMutation(LOGIN_MUTATION, {
+    variables: {
+      idtoken: token,
+      email: user.email,
+    },
+      onCompleted: ({ login }) => {
+        if(login.isRegistered){
+          userName = login.user.name;
+          userEmail = login.user.email;
+          userNeighborhood = login.user.neighborhood.name;
+          userRole = login.user.role;
     
+          console.log(userName, userEmail, userNeighborhood, userRole);
+          localStorage.setItem(AUTH_TOKEN, login.token);
+        }
+        else{
+          //pass the token to the registration page
+          //or store it so that it automatically registers after they login
+        }
+    },
+  });
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -67,6 +95,23 @@ const ProfilePage: React.FC = () => {
   const [photo, setPhoto] = useState(
     "https://k00228961.github.io/RWD/img/picon.png"
   );
+
+  const LOGIN_MUTATION = gql`
+    mutation ($idtoken: String!, $email: String!) {
+      login(email: $email, password: $password) {
+        isRegistered
+        token
+        user {
+          name
+          email
+          neighborhood {
+            name
+          }
+          role
+        }
+      }
+    }
+  `;
 
   const USER_QUERY = gql`
     query getAll {
@@ -113,13 +158,13 @@ const ProfilePage: React.FC = () => {
   }
 
   // for the purpose of logging out
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem(AUTH_TOKEN)
-  );
-  function logOut() {
-    localStorage.setItem(AUTH_TOKEN, "");
-    setToken("");
-  }
+  // const [token, setToken] = useState<string | null>(
+  //   localStorage.getItem(AUTH_TOKEN)
+  // );
+  // function logOut() {
+  //   localStorage.setItem(AUTH_TOKEN, "");
+  //   setToken("");
+  // }
 
   // a dummy boolean variable to reset the UI!
   const [reloadPage, setReloadPage] = useState<boolean>(false);
@@ -128,8 +173,7 @@ const ProfilePage: React.FC = () => {
 
     refetch();
     setReloadPage(!reloadPage);
-    // setUserName(data?.me?.name);
-    // console.log(userName);
+    console.log(userName);
     // setUserName(data?.me?.name);
 
     setTimeout(() => {
@@ -234,11 +278,11 @@ const ProfilePage: React.FC = () => {
           </IonButton>
         </div>
 
-        <div className="bottomItem">
+        {/* <div className="bottomItem">
           <IonButton color="danger" size="small" onClick={() => logOut()}>
             Log Out
           </IonButton>
-        </div>
+        </div> */}
       </IonContent>
     </IonPage>
   );

@@ -42,8 +42,8 @@ firebase.initializeApp({
   projectId: "nsfopendata",
   storageBucket: "nsfopendata.appspot.com",
   messagingSenderId: "534112304877",
-  appId: "1:534112304877:web:196cde4f56c8987f1cd6e4",
-  measurementId: "G-3DW2VYJHZL"
+  appId: "1:534112304877:web:12c89010611160931cd6e4",
+  measurementId: "G-Q543M8QW7L"
 });
 
 // If you want your app to work offline and load faster, you can change
