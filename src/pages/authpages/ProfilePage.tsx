@@ -58,8 +58,12 @@ const ProfilePage: React.FC = () => {
     userName = user.displayName!
     console.log(credential)
     console.log(user)
-    console.log(user.email)
-    login({variables : {token, userEmail}});    
+    console.log(user.email)    
+    auth.currentUser?.getIdToken(true).then(function(tok) {
+      login({variables : {idToken: tok, email : "test@acc.com"}});    
+    }).catch(function(error) {
+      console.log("Error obtaining token: ", error);
+    });  
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -77,8 +81,8 @@ const ProfilePage: React.FC = () => {
   );
 
   const LOGIN_MUTATION = gql`
-    mutation ($idToken: String!, $email: String!) {
-      login(email: $email, password: $password) {
+    mutation login($idToken: String!, $email: String!) {
+      login(idToken: $idToken, email: $email) {
         isRegistered
         token
         user {

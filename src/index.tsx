@@ -11,14 +11,15 @@ import { AUTH_TOKEN } from "../src/pages/authpages/LoginPage";
 // Import the functions you need from the SDKs you need
 import * as firebase from 'firebase/app';
 
-
 const bearer = "Bearer ";
+// TODO: this has to be hard-coded temporarily to a valid token obtained from the backend
 const token = localStorage.getItem(AUTH_TOKEN);
 
 // client set up to use GraphQL
 const client = new ApolloClient({
   link: createUploadLink({
-    uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
+    //uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
+    uri: "http://localhost:3000/graphql",
     headers: {
       authorization: token ? bearer.concat(token!) : "",
     },
@@ -35,7 +36,6 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-//firebase
 firebase.initializeApp({
   apiKey: "AIzaSyBdtgJTpg8-pYIb7sMny70qeJICM-fiSqY",
   authDomain: "nsfopendata.firebaseapp.com",

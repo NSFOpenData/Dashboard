@@ -42,7 +42,6 @@ const LoginPage: React.FC = () => {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential!.accessToken;
-    localStorage.setItem(AUTH_TOKEN, token!);
     console.log(token)
     // The signed-in user info.
     const user = result.user;
