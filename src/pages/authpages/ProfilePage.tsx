@@ -16,7 +16,7 @@ import {
 } from "@ionic/react";
 import "./ProfilePage.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
 import { RefresherEventDetail } from "@ionic/core";
 import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth"
@@ -41,28 +41,33 @@ const { Camera } = Plugins;
 
 const ProfilePage: React.FC = () => {
   const auth = getAuth();
-  getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result!);
-    const token = credential!.accessToken;
-    // The signed-in user info.
-    const user = result!.user;
-    console.log(credential)
-    console.log(user)
-    console.log(user.email)
-    
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
+  useEffect(() => {
 
-    // ...
-  });
+    getRedirectResult(auth)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = GoogleAuthProvider.credentialFromResult(result!);
+        const token = credential!.accessToken;
+        // The signed-in user info.
+        const user = result!.user;
+        console.log(credential)
+        console.log(user)
+        console.log(user.email)
+        
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+
+        // ...
+      });
+
+  }, []);
+  
 
   const [photo, setPhoto] = useState(
     "https://k00228961.github.io/RWD/img/picon.png"
@@ -173,6 +178,17 @@ const ProfilePage: React.FC = () => {
                     style={{ height: 150, width: 150, borderRadius: 30 }}
                     src={photo}
                   ></img>
+                  <IonButton
+                      color="vanderbilt"
+                      size="small"
+                      shape="round"
+                      className="pictureButton"
+                      onClick={() => takePicture()}
+                    >
+                    <div className = "icons">
+                      <i className="fas fa-pen fa-2x"></i>
+                    </div>
+                    </IonButton>
                 </IonItem>
               </div>
 
