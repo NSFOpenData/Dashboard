@@ -1,3 +1,7 @@
+.homeBackground {
+  --ion-background-color: #E3E3E3;
+}
+
 .centerItem {
   justify-content: center;
   display: flex !important;
@@ -24,10 +28,6 @@ IonList {
   width: 180px;
 }
 
-.personalInfo {
-  font-weight: bold;
-}
-
 .bottomItem {
   bottom: 10px;
   justify-content: flex-end;
@@ -36,3 +36,94 @@ IonList {
   margin-top: 40px;
   margin-right: 10px;
 }
+
+.pictureButton {
+  background-color: #D8AB4C;
+  position: absolute;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  margin-left: -40px;
+  margin-top: 90px;
+  font-size: 0.7em;
+  color: black;
+}
+
+.icons {
+  padding: 10px 20px;
+  font-size: .75rem;
+  
+}
+
+.cameraCenter {
+  margin-bottom: 1px;
+  margin-left: 1px;
+}
+
+.pictureButton:hover {
+  background-color: #ccb279;
+  color: rgb(94, 94, 94);
+}
+
+.username {
+  padding: 20px;
+  font-size: 25px;
+  
+}
+
+.diluted {
+  opacity: 0.6;
+}
+
+.profileTitle {
+  width: 480px;
+  margin-left: 20px;
+  /* font-weight: lighter; */
+  opacity: 0.8;
+}
+
+.uploadedCount {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.profileInfo {
+  --ion-background-color: white;
+  background-color: white;
+  width: 480px;
+  border-radius: 5px !important;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px 0;
+
+}
+
+.contributions {
+  text-align: center;
+}
+
+.personalDetails {
+  margin-left: 10px;
+  position: auto !important;
+}
+
+.upgradeButton {
+  float: right;
+  margin-right: 15px;
+}
+
+.personalData {
+  font-size: 20px;
+  line-height: 35px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .homeBackground{
+    --ion-background-color:black;
+  }
+  .profileInfo {
+    background-color: #3f3f3f;
+
+  }
+
+}
+

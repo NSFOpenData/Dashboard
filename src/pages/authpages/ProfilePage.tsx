@@ -5,6 +5,7 @@ import {
   IonHeader,
   IonPage,
   IonToolbar,
+  IonCard,
   IonRow,
   IonLabel,
   IonButton,
@@ -138,18 +139,15 @@ const ProfilePage: React.FC = () => {
     }, 1000);
   }
 
+  const isNotNull = (input: String) => {
+    return input ? <b>{input}</b> : <i className="diluted">Empty</i>;
+  }
+  const isNotZero = (input: Number) => {
+    return input ? <b>{input}</b> : <i className="diluted">--</i>;
+  }
+
   return (
-    <IonPage>
-      {/* <IonHeader>
-        <IonToolbar>
-          <div className="centerItem">
-            <img
-              className="logoPic"
-              src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
-            ></img>
-          </div>
-        </IonToolbar>
-      </IonHeader> */}
+    <IonPage className="homeBackground">
 
       <IonContent className="profilePage">
         <div style={{ margin: 3 }}>
@@ -164,81 +162,110 @@ const ProfilePage: React.FC = () => {
             refreshingText="Refreshing..."
           ></IonRefresherContent>
         </IonRefresher>
-        <IonList>
-          <IonGrid>
-            <IonCol>
               <div className="centerItem">
-                <IonItem lines="none" className="profileImage">
+                <div className="profileImage">
                   <img
                     style={{ height: 150, width: 150, borderRadius: 30 }}
                     src={photo}
                   ></img>
-                </IonItem>
+                  <button className="pictureButton" onClick={takePicture}>
+                    <div className="cameraCenter">
+                      <i className="fas fa-camera fa-2x"></i>
+                    </div>
+                  </button>
+                </div>
+                <br/>
+                
               </div>
+              <IonLabel className="centerItem username">
+                    {!loading &&
+                      isNotNull(userName)
+                    }
+                  </IonLabel>
 
-              <div className="centerItem">
-                <IonRow>
-                  <IonItem lines="none">
-                    <IonButton
-                      color="light"
-                      size="small"
-                      onClick={() => takePicture()}
-                    >
-                      Change Profile Picture
-                    </IonButton>
-                  </IonItem>
-                </IonRow>
-              </div>
-            </IonCol>
-          </IonGrid>
 
           {/* Personal Info */}
           {!loading && (
-            <IonList>
-              <IonItem lines="none">
-                <h4 className="personalInfo">Personal Info</h4>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Name: {userName}</IonLabel>
-              </IonItem>
+            <div>
+              <div className="centerItem">
+                <h4 className="profileTitle">Personal Info</h4>
+              </div>
 
-              <IonItem>
-                <IonLabel>Email: {userEmail}</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Neighborhood: {userNeighborhood}</IonLabel>
-              </IonItem>
+                
+              {/* <br/> */}
+              <div className="centerItem">
+                <div className="personalInfo profileInfo">
 
-              <IonItem>
-                <IonLabel>Role/Privilege Level: {userRole}</IonLabel>
-              </IonItem>
-            </IonList>
+                  <IonLabel className="personalDetails">E-mail</IonLabel>
+                  <br/>
+                  <IonLabel className="personalDetails personalData">{isNotNull(userEmail)}</IonLabel>
+                  <br/>
+                  {/* <div style={{lineHeight: "10px"}}> </div> */}
+
+                  <IonLabel className="personalDetails">Neighborhood</IonLabel>
+                  <br/>
+                  <IonLabel className="personalDetails personalData">{isNotNull(userNeighborhood)}</IonLabel>
+                  <br/>
+                  <IonLabel className="personalDetails">Role</IonLabel>
+                  <br/>
+                  <IonLabel className="personalDetails personalData">{isNotNull(userRole)}</IonLabel>
+
+                  <IonButton className="upgradeButton" color="light" size="small" onClick={upgrade}>
+                    Upgrade
+                  </IonButton>
+                  <br/>
+                </div>
+              </div>
+            </div>
           )}
-
-          {/* Contribution */}
+          <br/>
+ 
+          {/* <div className="button-content"> */}
           {!loading && (
-            <IonList>
-              <IonItem lines="none">
-                <h4 className="personalInfo">Contribution</h4>
-              </IonItem>
-              <IonItem>
-                <IonLabel># Pets Reported: {numAnimalsUploaded}</IonLabel>
-              </IonItem>
-            </IonList>
+            <div>
+              <div className="centerItem">
+                <h4 className="profileTitle">Contributions</h4>
+              </div>
+              <div className="centerItem">
+                <div className="contributions profileInfo">
+                  <IonGrid>
+                    <IonRow>
+                      <IonCol>
+                        <IonLabel className="uploadedCount">{isNotZero(numAnimalsUploaded)}</IonLabel>{/* REPLACE */}
+                        <br/>
+                    <IonLabel>Traffic Reported</IonLabel>
+                    </IonCol>
+                    <IonCol offset-4>
+                        <IonLabel className="uploadedCount">{isNotZero(numAnimalsUploaded)}</IonLabel>{/* REPLACE */}
+                        <br/>
+                    <IonLabel>Licenses Reported</IonLabel>
+                    </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol>
+                        <IonLabel className="uploadedCount">{isNotZero(numAnimalsUploaded)}</IonLabel>{/* REPLACE */}
+                        <br/>
+                    <IonLabel>Deliveries Reported</IonLabel>
+                    </IonCol>
+                    <IonCol offset-4>
+                    <IonLabel className="uploadedCount">{isNotZero(numAnimalsUploaded)}</IonLabel>
+                    <br/>
+                    <IonLabel>Animals Reported</IonLabel>
+                    </IonCol>
+                    </IonRow>
+                  </IonGrid>
+                  </div>
+                </div>
+            </div>
           )}
-        </IonList>
-
-        <div className="centerItem">
-          <IonButton color="light" size="small" onClick={() => upgrade()}>
-            Press Here to Upgrade Your Accessbility
-          </IonButton>
-        </div>
 
         <div className="bottomItem">
           <IonButton color="danger" size="small" onClick={() => logOut()}>
             Log Out
           </IonButton>
         </div>
+          {/* Contribution */}
+          
       </IonContent>
     </IonPage>
   );
