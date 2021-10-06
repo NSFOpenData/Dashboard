@@ -18,7 +18,7 @@ import "./UploadPageLicense.css";
 import { chevronBackOutline } from "ionicons/icons";
 
 // /* GraphQL for API Calls */
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 // getting live geolocation
 import { Geolocation, Geoposition } from "@ionic-native/geolocation";
@@ -31,6 +31,7 @@ const CREATE_VEHICLE = gql`
     $model: String
     $license: String
     $location: LocationInput!
+    $imagesID: String
   ) {
     createVehicle(
       vehicle: {
@@ -40,6 +41,7 @@ const CREATE_VEHICLE = gql`
         model: $model
         license: $license
         location: $location
+        imagesID: $imagesID
       }
     ) {
       _id
@@ -47,6 +49,11 @@ const CREATE_VEHICLE = gql`
     }
   }
 `;
+
+const UNIQUE_ID = gql`
+query UniqeId{
+  getUniqueID
+}`
 
 // for uploading files
 interface InternalValues {
@@ -61,6 +68,7 @@ const UploadPageLicense: React.FC = () => {
 
   /* Making Vehicle */
   const [vehicleid, setVehicleId] = useState<string>("");
+  const [imagesID, setImagesID] = useState<string>("");
   const [vehicleCreatedAt, setVehicleCreatedAt] = useState<number>(0);
   const [vehicleLocation, setVehicleLocation] = useState<LocationInput | null>(
     null
@@ -79,11 +87,12 @@ const UploadPageLicense: React.FC = () => {
       color: vehicleColor,
       make: vehicleMake,
       model: vehicleModel,
+      imagesID: imagesID,
     },
     onCompleted: ({ result }) => {
       console.log(result);
-      setFilesUpload(true);
-      console.log(vehicleid);
+      // setFilesUpload(true);
+      // console.log(vehicleid);
     },
   });
 
@@ -96,22 +105,28 @@ const UploadPageLicense: React.FC = () => {
     values.current.file = fileChangeEvent.target.files;
   };
 
+  // get uniqueID from the uuid library in the backend
+ const getUniqueID = useQuery(UNIQUE_ID);
+
   const submitFileForm = async () => {
     if (!values.current.file) {
       console.log("we got no file to upload");
       return false;
     }
+    
+    // call mutation to get unique id from the backend 
+    setImagesID(await getUniqueID.data.getUniqueID);
+
+    await getLocation(); // todo: do not need to ask user
 
     const formData = new FormData();
     formData.append("type", "vehicle");
-    formData.append("id", vehicleid);
+    formData.append("id", imagesID);
     formData.append(
       "images",
       values.current.file[0],
       values.current.file[0].name
     );
-
-    console.log(values.current.file[0]);
 
     try {
       const response = await fetch(
@@ -139,6 +154,12 @@ const UploadPageLicense: React.FC = () => {
     } catch (err) {
       console.log(err);
     }
+
+    // todo: make a vehicle with id used for images
+    // call function to make vehicle 
+    makeVehicle();
+
+    console.log("Created Vehicle object ID", data?.createVehicle._id);
   };
 
   // live geo location
@@ -223,23 +244,8 @@ const UploadPageLicense: React.FC = () => {
             onIonChange={(e) => setVehicleNeighborhood(e.detail.value!)}
           ></IonInput>
         </IonItem>
-        <IonButton
-          size="small"
-          className="centerItem"
-          onClick={() => getLocation()}
-        >
-          Fetch Your Location
-        </IonButton>
-        <IonButton
-          size="small"
-          className="centerItem"
-          onClick={() => makeVehicle()}
-          color="secondary"
-        >
-          Upload Picture
-        </IonButton>
-
-        {filesUpload && (
+        
+        {/* {filesUpload && (
           <IonButton
             size="small"
             color="medium"
@@ -248,9 +254,9 @@ const UploadPageLicense: React.FC = () => {
           >
             Press Here To Get Vehicle's Unique ID
           </IonButton>
-        )}
+        )} */}
 
-        {filesUpload && !loading && (
+        {(
           <div className="centerItem">
             <IonItem lines="none">
               <input

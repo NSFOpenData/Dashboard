@@ -17,57 +17,109 @@ import {
 } from "@ionic/react";
 import "./ProfilePage.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
 import { RefresherEventDetail } from "@ionic/core";
 import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth"
 
 /* GraphQL for API Calls */
-import { gql, NetworkStatus, useQuery } from "@apollo/client";
+import { gql, NetworkStatus, useQuery, useMutation } from "@apollo/client";
 
 // for number of animals contributed
 import { numAnimalsUploaded } from "../../pages/uploadpages/UploadPageAnimal";
 
 // to get rid of token when logging out
-import {
-  AUTH_TOKEN,
-  userName,
-  userEmail,
-  userNeighborhood,
-  userRole,
-} from "../../pages/authpages/LoginPage";
+// import {
+//   AUTH_TOKEN,
+//   userName,
+//   userEmail,
+//   userNeighborhood,
+//   userRole,
+// } from "../../pages/authpages/LoginPage";
 import { caretDownOutline, chevronDownCircleOutline } from "ionicons/icons";
 
+
+var AUTH_TOKEN = "";
+var userName = "";
+var userEmail = "";
+var userNeighborhood = "";
+var userRole = "";
 const { Camera } = Plugins;
 
 const ProfilePage: React.FC = () => {
   const auth = getAuth();
-  getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result!);
-    const token = credential!.accessToken;
-    // The signed-in user info.
-    const user = result!.user;
-    console.log(credential)
-    console.log(user)
-    console.log(user.email)
-    
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
+  useEffect(() => {
 
-    // ...
-  });
+    getRedirectResult(auth)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = GoogleAuthProvider.credentialFromResult(result!);
+        const token = credential!.accessToken;
+        // The signed-in user info.
+        const user = result!.user;
+        userEmail = user.email!
+        userName = user.displayName!
+        console.log(credential)
+        console.log(user)
+        console.log(user.email)
+        auth.currentUser?.getIdToken(true).then(function (tok) {
+          login({ variables: { idToken: tok, email: "test@acc.com" } });
+        }).catch(function (error) {
+          console.log("Error obtaining token: ", error);
+        });
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+
+        // ...
+      });
+  }, []);
 
   const [photo, setPhoto] = useState(
     "https://k00228961.github.io/RWD/img/picon.png"
   );
+
+  const LOGIN_MUTATION = gql`
+    mutation login($idToken: String!, $email: String!) {
+      login(idToken: $idToken, email: $email) {
+        isRegistered
+        token
+        user {
+          name
+          email
+          neighborhood {
+            name
+          }
+          role
+        }
+      }
+    }
+  `;
+
+  const [login] = useMutation(LOGIN_MUTATION, {
+    onCompleted: ({ login }) => {
+        if(login.isRegistered) {          
+          console.log("User was registered")
+          // userName = login.user.name;
+          // userEmail = login.user.email;
+          // userNeighborhood = login.user.neighborhood.name;
+          // userRole = login.user.role;
+    
+          // console.log(userName, userEmail, userNeighborhood, userRole);
+          // localStorage.setItem(AUTH_TOKEN, login.token);
+        }
+        else {
+          console.log("User wasn't registered!")
+          //pass the token to the registration page
+          //or store it so that it automatically registers after they login
+        }
+    },
+  });
 
   const USER_QUERY = gql`
     query getAll {
@@ -114,13 +166,13 @@ const ProfilePage: React.FC = () => {
   }
 
   // for the purpose of logging out
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem(AUTH_TOKEN)
-  );
-  function logOut() {
-    localStorage.setItem(AUTH_TOKEN, "");
-    setToken("");
-  }
+  // const [token, setToken] = useState<string | null>(
+  //   localStorage.getItem(AUTH_TOKEN)
+  // );
+  // function logOut() {
+  //   localStorage.setItem(AUTH_TOKEN, "");
+  //   setToken("");
+  // }
 
   // a dummy boolean variable to reset the UI!
   const [reloadPage, setReloadPage] = useState<boolean>(false);
@@ -129,8 +181,7 @@ const ProfilePage: React.FC = () => {
 
     refetch();
     setReloadPage(!reloadPage);
-    // setUserName(data?.me?.name);
-    // console.log(userName);
+    console.log(userName);
     // setUserName(data?.me?.name);
 
     setTimeout(() => {
@@ -259,7 +310,7 @@ const ProfilePage: React.FC = () => {
             </div>
           )}
 
-        <div className="bottomItem">
+        {/* <div className="bottomItem">
           <IonButton color="danger" size="small" onClick={() => logOut()}>
             Log Out
           </IonButton>
