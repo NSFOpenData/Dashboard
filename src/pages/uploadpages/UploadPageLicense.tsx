@@ -142,12 +142,11 @@ const UploadPageLicense: React.FC = () => {
           body: formData,
           mode: "no-cors",
           headers: {
-            "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "undefined"
           },
         }
       )
-      // .then(res => res.json())
+      // .then(res => res.json())a
       .then(res => { 
         console.log(res);
         console.log(res.status);
