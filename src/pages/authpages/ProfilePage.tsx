@@ -21,6 +21,7 @@ import React, { useState, useEffect } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
 import { RefresherEventDetail } from "@ionic/core";
 import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth"
+import authHelper from './../../auth-helper'
 
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery, useMutation } from "@apollo/client";
@@ -49,19 +50,32 @@ const { Camera } = Plugins;
 const ProfilePage: React.FC = () => {
   const auth = getAuth();
   useEffect(() => {
+    var result;
 
+    // result = authHelper.getLoginInfo();
+    
+    // console.log(result)
+
+    // userEmail = result.user.email!
+    // userName = result.user.displayName!
+
+    // const firebase = getFirebase()
     getRedirectResult(auth)
       .then((result) => {
+        if(result)
+          authHelper.addLoginInfo(result)
+        console.log(authHelper.getLoginInfo())
         // This gives you a Google Access Token. You can use it to access Google APIs.
         const credential = GoogleAuthProvider.credentialFromResult(result!);
         const token = credential!.accessToken;
+        const user = authHelper.getLoginInfo()!.user
         // The signed-in user info.
-        const user = result!.user;
+        // const user = result!.user;
         userEmail = user.email!
         userName = user.displayName!
-        console.log(credential)
-        console.log(user)
-        console.log(user.email)
+        // console.log(credential)
+        // console.log(user)
+        // console.log(user.email)
         auth.currentUser?.getIdToken(true).then(function (tok) {
           login({ variables: { idToken: tok, email: "test@acc.com" } });
         }).catch(function (error) {
@@ -78,6 +92,12 @@ const ProfilePage: React.FC = () => {
 
         // ...
       });
+      result = authHelper.getLoginInfo();
+      if(result) {
+        userEmail = result.user.email!
+        userName = result.user.displayName!
+      }
+      
   }, []);
 
   const [photo, setPhoto] = useState(

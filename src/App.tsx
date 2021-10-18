@@ -3,6 +3,7 @@ import {
   IonApp,
   IonRouterOutlet,
   IonContent,
+  
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import {
@@ -37,6 +38,7 @@ import "./theme/variables.css";
 import AuthMain from "./pages/authpages/AuthMain";
 import LoginPage from "./pages/authpages/LoginPage";
 import RegisterPage from "./pages/authpages/RegisterPage";
+import SignOut from './pages/authpages/SignOut'
 
 /* Sub Pages */
 import React from "react";
@@ -64,13 +66,13 @@ import TopMenu from './components/TopMenu';
 
 const App: React.FC = () => (
   <IonApp>
-    <TopMenu />
-
-    <IonContent>
+  <TopMenu />
+  <IonContent>
     <IonReactRouter>
       {/* <IonTabs> */}
-
-        <IonRouterOutlet>
+      <IonRouterOutlet>
+        
+        
           <Route path="/tempEmailPage">
             <TempEmailPage />
           </Route>
@@ -120,6 +122,9 @@ const App: React.FC = () => (
           <Route path="/reportLostVehiclePage">
             <ReportLostVehiclePage />
           </Route>
+          <Route path="/signout">
+            <SignOut />
+          </Route>
 
           {/* Query Pages */}
           <Route path="/queryPage">
@@ -151,7 +156,8 @@ const App: React.FC = () => (
           <Route path="/extendedDateAndTime4">
             <ExtendedDateAndTime dashBoardNum={4} />
           </Route>
-        </IonRouterOutlet>
+          
+        
 
         {/* <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/mainPage">
@@ -168,8 +174,11 @@ const App: React.FC = () => (
           </IonTabButton>
         </IonTabBar> */}
       {/* </IonTabs> */}
+      </IonRouterOutlet>
     </IonReactRouter>
     </IonContent>
+    
+    
   </IonApp>
 );
 
