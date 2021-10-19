@@ -77,7 +77,7 @@ const ProfilePage: React.FC = () => {
         // console.log(user)
         // console.log(user.email)
         auth.currentUser?.getIdToken(true).then(function (tok) {
-          login({ variables: { idToken: tok, email: "test@acc.com" } });
+          login({ variables: { idToken: tok, email: userEmail } });
         }).catch(function (error) {
           console.log("Error obtaining token: ", error);
         });
@@ -123,15 +123,9 @@ const ProfilePage: React.FC = () => {
 
   const [login] = useMutation(LOGIN_MUTATION, {
     onCompleted: ({ login }) => {
-        if(login.isRegistered) {          
-          console.log("User was registered")
-          // userName = login.user.name;
-          // userEmail = login.user.email;
-          // userNeighborhood = login.user.neighborhood.name;
-          // userRole = login.user.role;
-    
-          // console.log(userName, userEmail, userNeighborhood, userRole);
-          // localStorage.setItem(AUTH_TOKEN, login.token);
+        if (login.isRegistered) {          
+          console.log("User was registered");
+          authHelper.addLoginInfo(login);
         }
         else {
           console.log("User wasn't registered!")

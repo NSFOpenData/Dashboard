@@ -26,8 +26,7 @@ const RegisterPage: React.FC = () => {
     // login: true,
     name: "",
     email: "",
-    password: "",
-    neighbordhood: "",
+    neighborhood: "",
   });
 
   // https://github.com/howtographql/react-apollo/blob/master/src/components/Login.js
@@ -35,14 +34,12 @@ const RegisterPage: React.FC = () => {
     mutation (
       $name: String!
       $email: String!
-      $password: String!
       $neighborhood: String
     ) {
       register(
         user: {
           name: $name
           email: $email
-          password: $password
           neighborhood: $neighborhood
         }
       ) {
@@ -56,8 +53,7 @@ const RegisterPage: React.FC = () => {
     variables: {
       name: formState.name,
       email: formState.email,
-      password: formState.password,
-      neighborhood: formState.neighbordhood,
+      neighborhood: formState.neighborhood,
     },
     onCompleted: ({ register }) => {
       console.log(register);
@@ -97,18 +93,9 @@ const RegisterPage: React.FC = () => {
         </IonItem>
         <IonItem>
           <IonInput
-            placeholder="Password (at least 5 characters)"
-            onIonChange={(e) =>
-              setFormState({ ...formState, password: e.detail.value! })
-            }
-          ></IonInput>
-        </IonItem>
-
-        <IonItem>
-          <IonInput
             placeholder="Neighborhood - Capitalize the first letter please"
             onIonChange={(e) =>
-              setFormState({ ...formState, neighbordhood: e.detail.value! })
+              setFormState({ ...formState, neighborhood: e.detail.value! })
             }
           ></IonInput>
         </IonItem>
@@ -117,8 +104,7 @@ const RegisterPage: React.FC = () => {
           formState.email.length > 0 &&
           formState.email.includes(atChar) &&
           formState.email.includes(dotCom) &&
-          formState.password.length > 4 &&
-          formState.neighbordhood.length > 3 && (
+          formState.neighborhood.length > 3 && (
             <IonButton expand="full" onClick={() => register()}>
               Register
             </IonButton>
