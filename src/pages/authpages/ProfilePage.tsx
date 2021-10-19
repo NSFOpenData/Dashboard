@@ -23,6 +23,8 @@ import { RefresherEventDetail } from "@ionic/core";
 import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth"
 import authHelper from './../../auth-helper'
 
+import { Redirect } from "react-router";
+
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery, useMutation } from "@apollo/client";
 
@@ -48,6 +50,7 @@ var userRole = "";
 const { Camera } = Plugins;
 
 const ProfilePage: React.FC = () => {
+  const [registered, setRegistered] = useState(true)
   const auth = getAuth();
   useEffect(() => {
     var result;
@@ -129,6 +132,7 @@ const ProfilePage: React.FC = () => {
         }
         else {
           console.log("User wasn't registered!")
+          setRegistered(false)
           //pass the token to the registration page
           //or store it so that it automatically registers after they login
         }
@@ -330,6 +334,8 @@ const ProfilePage: React.FC = () => {
           </IonButton>
         </div>
           {/* Contribution */}
+
+      {!registered && <Redirect to="/registerPage"/>}
           
       </IonContent>
     </IonPage>
