@@ -7,7 +7,6 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 
-import { AUTH_TOKEN } from "../src/pages/authpages/LoginPage";
 // Import the functions you need from the SDKs you need
 // import * as firebase from 'firebase/app';
 
@@ -15,7 +14,8 @@ import authHelper from './auth-helper';
 
 const bearer = "Bearer ";
 // TODO: this has to be hard-coded temporarily to a valid token obtained from the backend
-const token = localStorage.getItem(AUTH_TOKEN);
+//const token = localStorage.getItem(AUTH_TOKEN);
+const token = authHelper.getLoginInfo().token;
 
 // client set up to use GraphQL
 const client = new ApolloClient({

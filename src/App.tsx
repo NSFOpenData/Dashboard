@@ -36,7 +36,7 @@ import "./theme/variables.css";
 
 /* Auth Pages */
 import AuthMain from "./pages/authpages/AuthMain";
-import LoginPage from "./pages/authpages/LoginPage";
+//import LoginPage from "./pages/authpages/LoginPage";
 import RegisterPage from "./pages/authpages/RegisterPage";
 import SignOut from './pages/authpages/SignOut'
 
@@ -82,9 +82,6 @@ const App: React.FC = () => (
           </Route>
           <Route path="/registerpage">
             <RegisterPage />
-          </Route>
-          <Route path="/loginpage">
-            <LoginPage />
           </Route>
 
           <Route exact path="/mainPage">
