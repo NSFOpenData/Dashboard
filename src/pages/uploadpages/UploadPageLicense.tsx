@@ -133,50 +133,37 @@ const UploadPageLicense: React.FC = () => {
       values.current.file[0].name
     );
 
-    try {
-      fetch(
-        // replace with https://nsf-scc1.isis.vanderbilt.edu/upload for production
-        "http://localhost:3000/upload_new",
-        {
-          method: "POST",
-          body: formData,
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "undefined"
-          },
-        }
-      )
-      // .then(res => res.json())a
-      .then(res => { 
-        console.log(res);
-        console.log(res.status);
-        if (res.status === 200) {
-          console.log("file uploaded");
-          // makeVehicle();
-        }
-      });
-
-      // if (!response.ok) {
-      //   console.log("Error uploading file", response.statusText.length);
-      //   // print response.statusText
-      //   console.log("status", response.status);
-      //   console.log("response", response);
-      //   throw new Error(response.toString());
-      // } else if (response.ok) {
-      //   console.log("Success uploading file");
-      //   console.log(response.statusText);
-
-      //   // call function to make vehicle 
-      //   console.log("make vehicle"); //todo: delete
-      //   // makeVehicle();
-
-      //   console.log("Created Vehicle object ID", data?.createVehicle._id);
-      // }
-
-    } catch (err) {
-      console.log(err);
+    let resUrl = "http://localhost:3000/upload_new"
+    let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
+    const response = await fetch(resUrl, {
+      method: "POST",
+      body: formData,
+    })
+    console.log(response);
+    if (response.status === 200) {
+      console.log("file uploaded");
+      setFilesUpload(true);
+    } else {
+      console.log("file upload failed");
     }
-  };
+
+    // if (!response.ok) {
+    //   console.log("Error uploading file", response.statusText.length);
+    //   // print response.statusText
+    //   console.log("status", response.status);
+    //   console.log("response", response);
+    //   throw new Error(response.toString());
+    // } else if (response.ok) {
+    //   console.log("Success uploading file");
+    //   console.log(response.statusText);
+
+    //   // call function to make vehicle 
+    //   console.log("make vehicle"); //todo: delete
+    //   // makeVehicle();
+
+    //   console.log("Created Vehicle object ID", data?.createVehicle._id);
+    // }
+  }
 
   // live geo location
   interface LocationError {
