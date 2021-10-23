@@ -21,6 +21,9 @@ import React, { useState, useEffect } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
 import { RefresherEventDetail } from "@ionic/core";
 import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth"
+import authHelper from './../../auth-helper'
+
+import { Redirect } from "react-router";
 
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery, useMutation } from "@apollo/client";
@@ -47,23 +50,37 @@ var userRole = "";
 const { Camera } = Plugins;
 
 const ProfilePage: React.FC = () => {
+  const [registered, setRegistered] = useState(true)
   const auth = getAuth();
   useEffect(() => {
+    var result;
 
+    // result = authHelper.getLoginInfo();
+    
+    // console.log(result)
+
+    // userEmail = result.user.email!
+    // userName = result.user.displayName!
+
+    // const firebase = getFirebase()
     getRedirectResult(auth)
       .then((result) => {
+        if(result)
+          authHelper.addLoginInfo(result)
+        console.log(authHelper.getLoginInfo())
         // This gives you a Google Access Token. You can use it to access Google APIs.
         const credential = GoogleAuthProvider.credentialFromResult(result!);
         const token = credential!.accessToken;
+        const user = authHelper.getLoginInfo()!.user
         // The signed-in user info.
-        const user = result!.user;
+        // const user = result!.user;
         userEmail = user.email!
         userName = user.displayName!
-        console.log(credential)
-        console.log(user)
-        console.log(user.email)
+        // console.log(credential)
+        // console.log(user)
+        // console.log(user.email)
         auth.currentUser?.getIdToken(true).then(function (tok) {
-          login({ variables: { idToken: tok, email: "test@acc.com" } });
+          login({ variables: { idToken: tok, email: userEmail } });
         }).catch(function (error) {
           console.log("Error obtaining token: ", error);
         });
@@ -78,6 +95,12 @@ const ProfilePage: React.FC = () => {
 
         // ...
       });
+      result = authHelper.getLoginInfo();
+      if(result) {
+        userEmail = result.user.email!
+        userName = result.user.displayName!
+      }
+      
   }, []);
 
   const [photo, setPhoto] = useState(
@@ -103,18 +126,13 @@ const ProfilePage: React.FC = () => {
 
   const [login] = useMutation(LOGIN_MUTATION, {
     onCompleted: ({ login }) => {
-        if(login.isRegistered) {          
-          console.log("User was registered")
-          // userName = login.user.name;
-          // userEmail = login.user.email;
-          // userNeighborhood = login.user.neighborhood.name;
-          // userRole = login.user.role;
-    
-          // console.log(userName, userEmail, userNeighborhood, userRole);
-          // localStorage.setItem(AUTH_TOKEN, login.token);
+        if (login.isRegistered) {          
+          console.log("User was registered");
+          authHelper.addLoginInfo(login);
         }
         else {
           console.log("User wasn't registered!")
+          setRegistered(false)
           //pass the token to the registration page
           //or store it so that it automatically registers after they login
         }
@@ -316,6 +334,8 @@ const ProfilePage: React.FC = () => {
           </IonButton>
         </div>
           {/* Contribution */}
+
+      {!registered && <Redirect to="/registerPage"/>}
           
       </IonContent>
     </IonPage>

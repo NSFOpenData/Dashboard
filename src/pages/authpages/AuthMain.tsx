@@ -21,11 +21,13 @@ import {
 } from "ionicons/icons";
 import { abort } from "process";
 
+
 var userEmail = "";
   const AuthMain: React.FC = () => {
     const auth = getAuth();
-    const SignInOnClick = (provider: any) => 
-    signInWithRedirect(auth, provider);
+    const SignInOnClick = (provider: any) => {
+      signInWithRedirect(auth, provider);
+    }
     return (
       <IonPage className="centerItem">
         {/* <IonHeader>
@@ -73,7 +75,7 @@ var userEmail = "";
           <IonAvatar></IonAvatar>
 
           {/* {AUTH_TOKEN.length > 0 && ( */}
-          <div className="centerItem">
+          {/* <div className="centerItem">
             <h5>Already Logged In?</h5>
           </div>
           <IonButton
@@ -85,7 +87,7 @@ var userEmail = "";
           >
             <IonIcon className="iconSize" icon={personCircleOutline} />
             Profile page
-          </IonButton>
+          </IonButton> */}
         </IonContent>
       </IonPage>
     );

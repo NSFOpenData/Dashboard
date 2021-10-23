@@ -15,14 +15,12 @@ import {
   import React from "react";
   import vulogo from './../img/vulogo.png';
   import './TopMenu.css';
-
-
-  
+  import authHelper from './../auth-helper'
+  // import {RouteComponentProps, withRouter} from 'react-router-dom'
 
   const TopMenu: React.FC = () => {
 
-  const [mobile, setMobile] = React.useState(window.innerWidth <= 1025);
-
+    const [mobile, setMobile] = React.useState(window.innerWidth <= 1025);
   React.useEffect(() => {
     function handleResize() {
       if(window.innerWidth <= 1025) setMobile(true);
@@ -36,7 +34,18 @@ import {
     window.removeEventListener('resize', handleResize);
   }
   })
- 
+
+  const signOut = (event: any) => {
+
+    event.preventDefault()
+    
+    authHelper.logout()
+    // history.push('/authentication')
+
+    // return <Redirect to='/authentication' />
+
+  }
+//  <IonItem routerLink={"/authentication"}>Log In</IonItem>}
     return (
         <div>
         <IonMenu side="start" menuId="first" contentId="main-content">
@@ -47,9 +56,14 @@ import {
   </IonHeader>
   <IonContent>
       <IonList>
+        
       <IonItem routerLink={"/mainPage"}><i className="fas fa-home fa-sm"></i> <span style={{'padding': '0 10px'}}>Home</span></IonItem>
-      <IonItem routerLink={"/queryPage"}><i className="fas fa-search fa-sm"></i> <span style={{'padding': '0 10px'}}>Search</span></IonItem>
-      <IonItem routerLink={"/authentication"}><i className="fas fa-user-circle fa-sm"></i> <span style={{'padding': '0 10px'}}>Profile</span></IonItem>
+      {authHelper.getLoginInfo() ?  <span>
+        <IonItem routerLink={"/queryPage"}><i className="fas fa-search fa-sm"></i> <span style={{'padding': '0 10px'}}>Search</span></IonItem>
+      <IonItem routerLink={"/profilePage"}><i className="fas fa-user-circle fa-sm"></i> <span style={{'padding': '0 10px'}}>Profile</span></IonItem>
+      <IonItem routerLink={"/signout"}><i className="fas fa-sign-out-alt"></i> <span style={{'padding': '0 10px'}}>Sign Out</span></IonItem>
+        </span> : <IonItem routerLink={"/authentication"}><i className="fas fa-sign-in-alt"></i><span style={{'padding': '0 10px'}}>Log In</span></IonItem>}
+        
       </IonList>
 
     
@@ -78,14 +92,26 @@ import {
 
       {!mobile && 
       <IonButtons slot="end">
+        {authHelper.getLoginInfo() ?  <span>
           <IonButton routerLink={"/queryPage"} className="menuButton rightSide">
             <div className = "rightMenuButton searchButton">
                 <i className="fas fa-search fa-2x"></i></div>
               </IonButton>
-              <IonButton routerLink={"/authentication"} className="menuButton rightSide">
+              <IonButton routerLink={"/profilePage"} className="menuButton rightSide">
               <div className = "rightMenuButton searchButton">
               <i className="fas fa-user-circle fa-2x"></i></div>
               </IonButton>
+          <IonButton routerLink={"/signout"} className="menuButton rightSide">
+              <div className = "rightMenuButton searchButton">
+              <i className="fas fa-sign-out-alt fa-2x"></i></div>
+              </IonButton>
+        </span> : <IonButton routerLink={"/authentication"} className="menuButton rightSide">
+              <div className = "rightMenuButton searchButton">
+              <b style={{fontSize: "1.5em"}}>Log In</b></div>
+              </IonButton>}
+          
+              
+
       
       </IonButtons>}
       
@@ -93,7 +119,6 @@ import {
   </IonHeader>
       </div>
     );
-  };
-  
-  export default TopMenu;
-  
+}
+
+export default TopMenu;

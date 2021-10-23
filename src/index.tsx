@@ -7,13 +7,15 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 
-import { AUTH_TOKEN } from "../src/pages/authpages/LoginPage";
 // Import the functions you need from the SDKs you need
-import * as firebase from 'firebase/app';
+// import * as firebase from 'firebase/app';
+
+import authHelper from './auth-helper';
 
 const bearer = "Bearer ";
 // TODO: this has to be hard-coded temporarily to a valid token obtained from the backend
-const token = localStorage.getItem(AUTH_TOKEN);
+//const token = localStorage.getItem(AUTH_TOKEN);
+const token = authHelper.getLoginInfo().token;
 
 // client set up to use GraphQL
 const client = new ApolloClient({
@@ -36,15 +38,8 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-firebase.initializeApp({
-  apiKey: "AIzaSyBdtgJTpg8-pYIb7sMny70qeJICM-fiSqY",
-  authDomain: "nsfopendata.firebaseapp.com",
-  projectId: "nsfopendata",
-  storageBucket: "nsfopendata.appspot.com",
-  messagingSenderId: "534112304877",
-  appId: "1:534112304877:web:12c89010611160931cd6e4",
-  measurementId: "G-Q543M8QW7L"
-});
+authHelper.getFirebase()
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
