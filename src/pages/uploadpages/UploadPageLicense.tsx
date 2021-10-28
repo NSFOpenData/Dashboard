@@ -11,7 +11,7 @@ import {
   IonLoading,
   IonText,
 } from "@ionic/react";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import "./UploadPageLicense.css";
 
 // icons
@@ -33,6 +33,7 @@ const CREATE_VEHICLE = gql`
     $license: String
     $location: LocationInput!
     $imagesID: String
+    $files: [String!]
   ) {
     createVehicle(
       vehicle: {
@@ -43,6 +44,7 @@ const CREATE_VEHICLE = gql`
         license: $license
         location: $location
         imagesID: $imagesID
+        files: $files
       }
     ) {
       _id
@@ -67,6 +69,7 @@ const UploadPageLicense: React.FC = () => {
     lon: String;
   };
 
+
   /* Making Vehicle */
   const [vehicleid, setVehicleId] = useState<string>("");
   const [imagesID, setImagesID] = useState<string>("");
@@ -74,6 +77,8 @@ const UploadPageLicense: React.FC = () => {
   const [vehicleLocation, setVehicleLocation] = useState<LocationInput | null>(
     null
   );
+  
+  const [fileName, setFileName] = useState<string>("");
   const [vehicleNeighborhood, setVehicleNeighborhood] = useState<string>("");
   const [vehicleColor, setVehicleColor] = useState<string>("");
   const [vehicleMake, setVehicleMake] = useState<string>("");
@@ -81,6 +86,12 @@ const UploadPageLicense: React.FC = () => {
   const [vehicleLicense, setVehicleLicense] = useState<string>("");
 
   const [filesUpload, setFilesUpload] = useState<boolean>(false);
+
+  ////* Uploading Files */
+  const values = useRef<InternalValues>({
+    file: false,
+  });
+
 
   var [makeVehicle, { data, loading }] = useMutation(CREATE_VEHICLE, {
     variables: {
@@ -91,21 +102,16 @@ const UploadPageLicense: React.FC = () => {
       model: vehicleModel,
       license: vehicleLicense,
       imagesID: imagesID,
+      files: [fileName],
     },
     onCompleted: ({ result }) => {
       console.log(result);
-      // setFilesUpload(true);
-      // console.log(vehicleid);
     },
-  });
-
-  ////* Uploading Files */
-  const values = useRef<InternalValues>({
-    file: false,
   });
 
   const onFileChange = (fileChangeEvent: any) => {
     values.current.file = fileChangeEvent.target.files;
+    setFileName(`vehicle/${imagesID}/${fileChangeEvent.target.files[0].name}`);
   };
 
   // get uniqueID from the uuid library in the backend
@@ -113,15 +119,10 @@ const UploadPageLicense: React.FC = () => {
     onCompleted: (data) => {
       setImagesID(data.getUniqueID);
     }
-    }
-    );
+  });
 
   const submitFileForm = async () => {
-    if (!values.current.file) {
-      console.log("we got no file to upload");
-      return false;
-    }
-
+   
     await getLocation(); // todo: do not need to ask user anymore
   
     const formData = new FormData();
@@ -133,36 +134,20 @@ const UploadPageLicense: React.FC = () => {
       values.current.file[0].name
     );
 
-    let resUrl = "http://localhost:3000/upload_new"
+    let resUrl = "http://localhost:3000/upload"
     let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
     const response = await fetch(resUrl, {
       method: "POST",
       body: formData,
-    })
+    });
+
     console.log(response);
     if (response.status === 200) {
-      console.log("file uploaded");
-      setFilesUpload(true);
+      console.log(fileName); // todo: remove after testing
+      makeVehicle();
     } else {
       console.log("file upload failed");
     }
-
-    // if (!response.ok) {
-    //   console.log("Error uploading file", response.statusText.length);
-    //   // print response.statusText
-    //   console.log("status", response.status);
-    //   console.log("response", response);
-    //   throw new Error(response.toString());
-    // } else if (response.ok) {
-    //   console.log("Success uploading file");
-    //   console.log(response.statusText);
-
-    //   // call function to make vehicle 
-    //   console.log("make vehicle"); //todo: delete
-    //   // makeVehicle();
-
-    //   console.log("Created Vehicle object ID", data?.createVehicle._id);
-    // }
   }
 
   // live geo location
