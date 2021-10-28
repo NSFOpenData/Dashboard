@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import {
   IonApp,
   IonRouterOutlet,
@@ -66,15 +66,20 @@ import TopMenu from './components/TopMenu';
 
 const App: React.FC = () => (
   <IonApp>
-  <TopMenu />
-  <IonContent>
+  
+  
     <IonReactRouter>
       {/* <IonTabs> */}
-      <IonRouterOutlet>
+      <TopMenu />
+      <IonContent>
+      <IonRouterOutlet> 
+      
         
-        
+      
           <Route path="/tempEmailPage">
+          
             <TempEmailPage />
+           
           </Route>
           {/* Auth Pages */}
           <Route path="/authentication">
@@ -154,7 +159,7 @@ const App: React.FC = () => (
             <ExtendedDateAndTime dashBoardNum={4} />
           </Route>
           
-        
+          
 
         {/* <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/mainPage">
@@ -171,9 +176,11 @@ const App: React.FC = () => (
           </IonTabButton>
         </IonTabBar> */}
       {/* </IonTabs> */}
+      
       </IonRouterOutlet>
+      </IonContent>
     </IonReactRouter>
-    </IonContent>
+    {/* </IonContent> */}
     
     
   </IonApp>

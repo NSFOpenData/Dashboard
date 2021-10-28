@@ -25,6 +25,8 @@ import authHelper from './../../auth-helper'
 
 import { Redirect } from "react-router";
 
+import { useAuth } from "../../AuthContext";
+
 /* GraphQL for API Calls */
 import { gql, NetworkStatus, useQuery, useMutation } from "@apollo/client";
 
@@ -52,6 +54,7 @@ const { Camera } = Plugins;
 const ProfilePage: React.FC = () => {
   const [registered, setRegistered] = useState(true)
   const auth = getAuth();
+  const {logIn} = useAuth();
   useEffect(() => {
     var result;
 
@@ -67,18 +70,18 @@ const ProfilePage: React.FC = () => {
       .then((result) => {
         if(result)
           authHelper.addLoginInfo(result)
-        console.log(authHelper.getLoginInfo())
+        console.log(authHelper.getLoginInfo()!.user)
         // This gives you a Google Access Token. You can use it to access Google APIs.
         const credential = GoogleAuthProvider.credentialFromResult(result!);
         const token = credential!.accessToken;
         const user = authHelper.getLoginInfo()!.user
         // The signed-in user info.
         // const user = result!.user;
-        userEmail = user.email!
-        userName = user.displayName!
-        // console.log(credential)
-        // console.log(user)
-        // console.log(user.email)
+        userName = user!.displayName!
+        
+        userNeighborhood = user!.neighborhood!.name!
+        userRole = user!.role!
+        userEmail = user!.email!
         auth.currentUser?.getIdToken(true).then(function (tok) {
           login({ variables: { idToken: tok, email: userEmail } });
         }).catch(function (error) {
@@ -96,9 +99,13 @@ const ProfilePage: React.FC = () => {
         // ...
       });
       result = authHelper.getLoginInfo();
+      logIn()
       if(result) {
+        console.log(result)
         userEmail = result.user.email!
         userName = result.user.displayName!
+        // userNeighborhood = result.user.neighborhood.name!
+        // userRole = result.user.role!
       }
       
   }, []);

@@ -14,7 +14,6 @@ import "./RegisterPage.css";
 
 /* GraphQL for API Calls */
 import { gql, useMutation } from "@apollo/client";
-import { useHistory } from "react-router";
 import { chevronBackOutline } from "ionicons/icons";
 
 // these have to be in the email in order to make sure email is valid
@@ -22,6 +21,7 @@ const atChar = "@";
 const dotCom = ".com";
 
 const RegisterPage: React.FC = () => {
+  
   const [formState, setFormState] = useState({
     // login: true,
     name: "",

@@ -12,7 +12,6 @@ import "./AuthMain.css";
 import { Plugins } from "@capacitor/core";
 import { getAuth, signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
 
-
 // icons
 import {
   personAddOutline,

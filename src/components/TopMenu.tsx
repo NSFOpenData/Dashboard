@@ -16,11 +16,17 @@ import {
   import vulogo from './../img/vulogo.png';
   import './TopMenu.css';
   import authHelper from './../auth-helper'
-  // import {RouteComponentProps, withRouter} from 'react-router-dom'
+import { useAuth } from "../AuthContext";
+
+
 
   const TopMenu: React.FC = () => {
+    const {authInfo} = useAuth()
+
+    console.log(authInfo)
 
     const [mobile, setMobile] = React.useState(window.innerWidth <= 1025);
+    // const [authenticated, setAuthenticated] = React.useState(authInfo.loggedIn);
   React.useEffect(() => {
     function handleResize() {
       if(window.innerWidth <= 1025) setMobile(true);
@@ -35,17 +41,6 @@ import {
   }
   })
 
-  const signOut = (event: any) => {
-
-    event.preventDefault()
-    
-    authHelper.logout()
-    // history.push('/authentication')
-
-    // return <Redirect to='/authentication' />
-
-  }
-//  <IonItem routerLink={"/authentication"}>Log In</IonItem>}
     return (
         <div>
         <IonMenu side="start" menuId="first" contentId="main-content">
@@ -58,7 +53,7 @@ import {
       <IonList>
         
       <IonItem routerLink={"/mainPage"}><i className="fas fa-home fa-sm"></i> <span style={{'padding': '0 10px'}}>Home</span></IonItem>
-      {authHelper.getLoginInfo() ?  <span>
+      {authInfo ?  <span>
         <IonItem routerLink={"/queryPage"}><i className="fas fa-search fa-sm"></i> <span style={{'padding': '0 10px'}}>Search</span></IonItem>
       <IonItem routerLink={"/profilePage"}><i className="fas fa-user-circle fa-sm"></i> <span style={{'padding': '0 10px'}}>Profile</span></IonItem>
       <IonItem routerLink={"/signout"}><i className="fas fa-sign-out-alt"></i> <span style={{'padding': '0 10px'}}>Sign Out</span></IonItem>
@@ -92,7 +87,7 @@ import {
 
       {!mobile && 
       <IonButtons slot="end">
-        {authHelper.getLoginInfo() ?  <span>
+        {authInfo ?  <span>
           <IonButton routerLink={"/queryPage"} className="menuButton rightSide">
             <div className = "rightMenuButton searchButton">
                 <i className="fas fa-search fa-2x"></i></div>
@@ -121,4 +116,4 @@ import {
     );
 }
 
-export default TopMenu;
+export default TopMenu

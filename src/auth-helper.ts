@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 
 import {getAuth} from 'firebase/auth'
 
+
 let instance : any
 
 const authHelper = {
@@ -20,7 +21,9 @@ const authHelper = {
   },
 
   addLoginInfo(result: any) {
+    
       sessionStorage.setItem('userInfo', JSON.stringify(result))
+
   },
   
   getLoginInfo() {
@@ -41,6 +44,9 @@ const authHelper = {
         console.log(error)
       })
 
+  },
+  isAuthenticated() {
+    return sessionStorage.getItem('userInfo') ? true:false
   }
 }
 

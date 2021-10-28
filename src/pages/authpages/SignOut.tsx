@@ -1,10 +1,14 @@
 import authHelper from './../../auth-helper'
 import React, {useState, useEffect} from "react"
 import {Redirect} from 'react-router-dom'
+import {useAuth} from './../../AuthContext'
 const SignOut: React.FC = () => {
+    const {logOut} = useAuth()
     const tryLogOut = async () => {
         try {
             authHelper.logout()
+            logOut()
+
 
         } catch(err) {
             console.log(err)
