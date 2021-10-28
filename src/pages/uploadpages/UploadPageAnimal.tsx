@@ -18,7 +18,7 @@ import "./UploadPageAnimal.css";
 import { chevronBackOutline } from "ionicons/icons";
 
 // /* GraphQL for API Calls */
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 // getting live geolocation
 import { Geolocation, Geoposition } from "@ionic-native/geolocation";
@@ -48,6 +48,11 @@ const CREATE_ANIMAL = gql`
   }
 `;
 
+const UNIQUE_ID = gql`
+query UniqeId{
+  getUniqueID
+}`
+
 // for uploading files
 interface InternalValues {
   file: any;
@@ -72,27 +77,28 @@ const UploadPageAnimal: React.FC = () => {
   const [animalColor, setAnimalColor] = useState<string>("");
   const [animalBreed, setAnimalBreed] = useState<string>("");
   const [animalType, setAnimalType] = useState<string | null>("");
+  const [imagesID, setImagesID] = useState<string>("");
+  const [fileName, setFileName] = useState<string>("");
 
-  const [fileNameArray, setFileNameArray] = useState<Array<string> | null>(
-    null
-  );
+
+
+  // const [fileNameArray, setFileNameArray] = useState<Array<string> | null>(
+  //   null
+  // );
 
   const [filesUpload, setFilesUpload] = useState<boolean>(true);
 
-  const [makeAnimal, { data, loading }] = useMutation(CREATE_ANIMAL, {
+  var [makeAnimal, { data, loading }] = useMutation(CREATE_ANIMAL, {
     variables: {
       location: animalLocation,
       neighborhood: animalNeighborhood,
       color: animalColor,
       breed: animalBreed,
       type: animalType,
-      files: fileNameArray,
+      files: [fileName],
     },
     onCompleted: ({ result }) => {
       console.log(result);
-      setFilesUpload(true);
-      setAnimalId(data?.createAnimal._id);
-      console.log(animalid);
     },
   });
 
@@ -101,22 +107,25 @@ const UploadPageAnimal: React.FC = () => {
     file: false,
   });
 
+  // get uniqueID from the uuid library in the backend
+  var { loading, data, error, refetch, networkStatus } = useQuery(UNIQUE_ID, {
+    onCompleted: (data) => {
+      setImagesID(data.getUniqueID);
+    }
+  });
+
   const onFileChange = (fileChangeEvent: any) => {
     values.current.file = fileChangeEvent.target.files;
-    var tempArr: string[] = [values.current.file];
-    setFileNameArray(tempArr);
-    console.log(fileNameArray);
+    setFileName(`animal/${imagesID}/${fileChangeEvent.target.files[0].name}`);
   };
 
   const submitFileForm = async () => {
-    if (!values.current.file) {
-      console.log("we got no file to upload");
-      return false;
-    }
+
+    await getLocation(); // getting location
 
     const formData = new FormData();
     formData.append("type", "animal");
-    formData.append("id", animalid);
+    formData.append("id", imagesID);
     formData.append(
       "images",
       values.current.file[0],
@@ -127,31 +136,18 @@ const UploadPageAnimal: React.FC = () => {
     numAnimalsUploaded = numAnimalsUploaded + 1;
     console.log("num animals added: " + numAnimalsUploaded);
 
-    try {
-      const response = await fetch(
-        "https://nsf-scc1.isis.vanderbilt.edu/upload",
-        {
-          method: "POST",
-          body: formData,
-          mode: "no-cors",
-          headers: {
-            "Content-type": "undefined",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.log("Error uploading file");
-        console.log(response.toString());
-        throw new Error(response.toString());
-      } else if (response.ok) {
-        console.log("Success uploading file");
-        console.log(response.statusText);
-      }
-
-      console.log(response);
-    } catch (err) {
-      console.log(err);
+    let resUrl = "http://localhost:3000/upload"
+    let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
+    const response = await fetch(resUrl, {
+      method: "POST",
+      body: formData,
+    });
+    
+    if (response.status === 200) {
+      console.log(fileName);
+      makeAnimal();
+    } else {
+      console.log("file upload failed");
     }
   };
 
@@ -236,25 +232,7 @@ const UploadPageAnimal: React.FC = () => {
             onIonChange={(e) => setAnimalNeighborhood(e.detail.value!)}
           ></IonInput>
         </IonItem>
-        <IonButton
-          size="small"
-          className="centerItem"
-          onClick={() => getLocation()}
-        >
-          Fetch Your Location
-        </IonButton>
-
-        {/* {filesUpload && (
-          <IonButton
-            size="small"
-            color="medium"
-            className="centerItem"
-            onClick={() => setAnimalId(data?.createAnimal._id)}
-          >
-            Press Here To Get Animal's Unique ID
-          </IonButton>
-        )} */}
-
+        
         {filesUpload && !loading && (
           <div className="centerItem">
             <IonItem lines="none">
@@ -265,25 +243,18 @@ const UploadPageAnimal: React.FC = () => {
                 multiple
               ></input>
             </IonItem>
-
-            {/* <IonButton
+          </div>
+        )}
+        { animalColor && animalBreed && animalType && animalNeighborhood && (
+              <IonButton
               color="primary"
               expand="block"
               onClick={() => submitFileForm()}
               size="small"
             >
               Upload!
-            </IonButton> */}
-          </div>
+            </IonButton>
         )}
-        <IonButton
-          size="small"
-          className="centerItem"
-          onClick={() => makeAnimal()}
-          color="secondary"
-        >
-          Upload
-        </IonButton>
 
         <div className="privacyNotice">
           <IonText className="privacyText">
