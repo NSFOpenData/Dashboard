@@ -40,12 +40,7 @@ var userEmail = "";
           </IonToolbar>
         </IonHeader> */}
 
-        <IonAvatar></IonAvatar>
-        <IonAvatar></IonAvatar>
-        <IonAvatar></IonAvatar>
-        <IonAvatar></IonAvatar>
-
-        <IonContent className="ion-padding">
+        <IonContent className="ion-padding signinregion">
           {/* <IonButton
             className="login-button"
             routerLink={"/registerpage"}
@@ -56,22 +51,27 @@ var userEmail = "";
             <IonIcon className="iconSize" icon={personAddOutline} />
             Register
           </IonButton> */}
-         
-          <IonButton
-            className="login-button"
-            expand="block"
-            fill="solid"
-            color="secondary"
-            onClick={
-              () => SignInOnClick(new GoogleAuthProvider())
-            }
-            routerLink = {"/profilePage"}
-          >
-            <IonIcon className="iconSize" icon={personOutline} />
-            Sign in with Google
-          </IonButton>
+          <h1>Log into your account</h1>
+          <div className="signin">
+            <div className="signin-block">
+              <IonButton
+              className="login-button"
+              expand="block"
+              fill="solid"
+              color="secondary"
+              onClick={
+                () => SignInOnClick(new GoogleAuthProvider())
+              }
+              routerLink = {"/profilePage"}
+            >
+              <IonIcon className="iconSize" icon={personAddOutline} />
+              &nbsp;&nbsp;Continue with Google
+            </IonButton>
+              </div>
+          
 
-          <IonAvatar></IonAvatar>
+            </div>
+          
 
           {/* {AUTH_TOKEN.length > 0 && ( */}
           {/* <div className="centerItem">

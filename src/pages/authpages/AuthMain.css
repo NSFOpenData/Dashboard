@@ -13,5 +13,46 @@
 }
 
 .iconSize {
-  font-size: 32px;
+  font-size: 10px;
+}
+.signinregion {
+  text-align: center;
+
+}
+
+.login-button {
+  text-transform: none;
+  font-size: 20px;
+}
+
+
+.signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  /* width: 400px; */
+}
+
+.signin-block {
+  background-color: white;
+  padding: 10px 60px;
+  border-radius: 10px;
+
+}
+
+@media screen and (max-width: 500px) {
+  .signin-block {
+    padding: inherit;
+    width: 100%;
+  }
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+  .signin-block {
+    background-color: #3f3f3f;
+    color: white;
+  }
 }
