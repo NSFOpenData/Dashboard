@@ -8,8 +8,10 @@ import {
   IonItem,
   IonInput,
   IonIcon,
+  IonToast
 } from "@ionic/react";
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import "./RegisterPage.css";
 
 /* GraphQL for API Calls */
@@ -21,13 +23,15 @@ const atChar = "@";
 const dotCom = ".com";
 
 const RegisterPage: React.FC = () => {
-  
+  const hist = useHistory()
   const [formState, setFormState] = useState({
     // login: true,
     name: "",
     email: "",
     neighborhood: "",
   });
+
+  const [show, setShow] = useState(false);
 
   // https://github.com/howtographql/react-apollo/blob/master/src/components/Login.js
   const REGISTER_QUERY = gql`
@@ -56,12 +60,13 @@ const RegisterPage: React.FC = () => {
       neighborhood: formState.neighborhood,
     },
     onCompleted: ({ register }) => {
+      setShow(true)
       console.log(register);
     },
   });
 
   return (
-    <IonPage>
+    <IonPage className="centerItem">
       {/* <IonHeader>
         <IonToolbar>
           <div className="centerItem">
@@ -73,9 +78,11 @@ const RegisterPage: React.FC = () => {
         </IonToolbar>
       </IonHeader> */}
 
-      <IonContent className="profilePage">
-        <IonAvatar></IonAvatar>
-        <IonItem>
+      <IonContent className="profilePage signinregion">
+        <h1>Register</h1>
+        <div className="signin">
+          <div className="register-block">
+        <IonItem style={{width: '400px'}}>
           <IonInput
             placeholder="Full Name"
             onIonChange={(e) =>
@@ -100,15 +107,15 @@ const RegisterPage: React.FC = () => {
           ></IonInput>
         </IonItem>
 
-        {formState.name.length > 0 &&
-          formState.email.length > 0 &&
-          formState.email.includes(atChar) &&
-          formState.email.includes(dotCom) &&
-          formState.neighborhood.length > 3 && (
-            <IonButton expand="full" onClick={() => register()}>
+       <IonButton expand="full" onClick={() => register()} disabled={!(formState.name.length > 0 &&
+              formState.email.length > 0 &&
+              formState.email.includes(atChar) &&
+              formState.email.includes(dotCom) &&
+              formState.neighborhood.length > 3 )} style={{margin: '10px 0 0'}}>
               Register
             </IonButton>
-          )}
+            </div>
+            </div>
 
         <div className="centerItem">
           <p>After registering, please go back and Log In</p>
@@ -133,6 +140,17 @@ const RegisterPage: React.FC = () => {
             <IonIcon icon={chevronBackOutline}></IonIcon>
             back
           </IonButton>
+          <IonToast
+        isOpen={show}
+        onDidDismiss={() => setShow(false)}
+        message="Succesfully Registered!"
+        buttons={[
+          {
+            text: "Log In",
+            handler: () => {
+              hist.push("/authentication")
+            }}]}
+        />
         </div>
       </IonContent>
     </IonPage>

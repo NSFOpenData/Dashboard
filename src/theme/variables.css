@@ -247,6 +247,10 @@ http://ionicframework.com/docs/theming/ */
     --ion-card-background: #1e1e1e;
   }
 }
+ion-toast::part(button) {
+  --button-color: var(--ion-color-tertiary-shade) !important;
+  --color: var(--ion-color-primary-shade) !important;
+}
 
 .ion-color-traffic {
   --ion-color-base: var(--ion-color-traffic);

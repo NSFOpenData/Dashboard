@@ -8,3 +8,18 @@
   position: absolute;
   bottom: 5px;
 }
+
+.register-block {
+  background-color: white;
+  padding: 10px 60px;
+  border-radius: 10px;
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+  .register-block {
+    background-color: #3f3f3f;
+    color: white;
+  }
+}
