@@ -16,14 +16,13 @@ const AuthContext = React.createContext<any>(undefined);
 export const AuthProvider: React.FC = ({ children }) => {
   // the reactive values
   const [authInfo, setAuthInfo] = React.useState<any>(authHelper.isAuthenticated());
-  console.log(authInfo)
 
   const logOut = () => {
-    return setAuthInfo(false);
+    setAuthInfo(false);
   };
 
   const logIn = () => {
-    return setAuthInfo(true);
+    setAuthInfo(true);
   };
 
   let v = {

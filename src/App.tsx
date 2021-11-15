@@ -1,10 +1,5 @@
-import { Redirect, Route, Switch } from "react-router-dom";
-import {
-  IonApp,
-  IonRouterOutlet,
-  IonContent,
-  
-} from "@ionic/react";
+import { Route } from "react-router-dom";
+import { IonApp, IonRouterOutlet, IonContent } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import {
   homeOutline,
@@ -34,11 +29,14 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+/* Private routes */
+import PrivateRoute from "./PrivateRoute";
+
 /* Auth Pages */
 import AuthMain from "./pages/authpages/AuthMain";
 //import LoginPage from "./pages/authpages/LoginPage";
 import RegisterPage from "./pages/authpages/RegisterPage";
-import SignOut from './pages/authpages/SignOut'
+import SignOut from "./pages/authpages/SignOut";
 
 /* Sub Pages */
 import React from "react";
@@ -61,107 +59,111 @@ import AnimalQueryPage from "./pages/querypages/AnimalQueryPage";
 
 import TempEmailPage from "./pages/TempEmailPage";
 
-import TopMenu from './components/TopMenu';
-
+import TopMenu from "./components/TopMenu";
 
 const App: React.FC = () => (
   <IonApp>
-  
-  
     <IonReactRouter>
       {/* <IonTabs> */}
       <TopMenu />
       <IonContent>
-      <IonRouterOutlet> 
-      
-        
-      
-          <Route path="/tempEmailPage">
-          
-            <TempEmailPage />
-           
-          </Route>
+        <IonRouterOutlet>
+          <Route path="/tempEmailPage" component={TempEmailPage} />
           {/* Auth Pages */}
-          <Route path="/authentication">
-            <AuthMain />
-          </Route>
-          <Route path="/registerpage">
-            <RegisterPage />
-          </Route>
-
-          <Route exact path="/mainPage">
-            <MainPage />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/mainPage" />
-          </Route>
-          <Route path="/profilePage">
-            <ProfilePage />
-          </Route>
+          <Route exact path="/authentication" component={AuthMain} />
+          <Route exact path="/registerpage" component={RegisterPage} />
+          <Route exact path="/mainpage" component={MainPage} />
+          <Route exact path="/" component={MainPage} />
+          <PrivateRoute path="/profilePage" component={ProfilePage} />
 
           {/* Dashboard Pages */}
-          <Route path="/trafficDashboard">
-            <TrafficDashboard />
-          </Route>
-          <Route path="/licenseDashboard">
-            <LicenseDashboard />
-          </Route>
-          <Route path="/deliveryDashboard">
-            <DeliveryDashboard />
-          </Route>
-          <Route path="/animalDashboard">
-            <AnimalDashboard />
-          </Route>
-          <Route path="/uploadPageL">
-            <UploadPageLicense />
-          </Route>
-          <Route path="/uploadPageA">
-            <UploadPageAnimal />
-          </Route>
-          <Route path="/reportLostPetPage">
-            <ReportLostPetPage />
-          </Route>
-          <Route path="/reportLostVehiclePage">
-            <ReportLostVehiclePage />
-          </Route>
-          <Route path="/signout">
-            <SignOut />
-          </Route>
+          <PrivateRoute
+            exact
+            path="/trafficDashboard"
+            component={TrafficDashboard}
+          />
+          <PrivateRoute
+            exact
+            path="/licenseDashboard"
+            component={LicenseDashboard}
+          />
+          <PrivateRoute
+            exact
+            path="/deliveryDashboard"
+            component={DeliveryDashboard}
+          />
+          <PrivateRoute
+            exact
+            path="/animalDashboard"
+            component={AnimalDashboard}
+          />
+          <PrivateRoute
+            exact
+            path="/uploadPageL"
+            component={UploadPageLicense}
+          />
+          <PrivateRoute
+            exact
+            path="/uploadPageA"
+            component={UploadPageAnimal}
+          />
+          <PrivateRoute
+            exact
+            path="/reportLostPetPage"
+            component={ReportLostPetPage}
+          />
+          <PrivateRoute
+            exact
+            path="/reportLostVehiclePage"
+            component={ReportLostVehiclePage}
+          />
+          <PrivateRoute exact path="/signout" component={SignOut} />
 
           {/* Query Pages */}
-          <Route path="/queryPage">
-            <QueryPage />
-          </Route>
-          <Route path="/queryResultPage">
-            <QueryResultPage />
-          </Route>
-          <Route path="/vehicleQueryPage">
-            <VehicleQueryPage />
-          </Route>
-          <Route path="/animalQueryPage">
-            <AnimalQueryPage />
-          </Route>
+          <PrivateRoute exact path="/queryPage" component={QueryPage} />
+          <PrivateRoute
+            exact
+            path="/queryResultPage"
+            component={QueryResultPage}
+          />
+          <PrivateRoute
+            exact
+            path="/vehicleQueryPage"
+            component={VehicleQueryPage}
+          />
+          <PrivateRoute
+            exact
+            path="/animalQueryPage"
+            component={AnimalQueryPage}
+          />
 
           {/* Advanced Time Setting Page */}
-          <Route path="/extendedDateAndTime1">
-            <ExtendedDateAndTime dashBoardNum={1} />
-          </Route>
+          <PrivateRoute
+            exact
+            path="/extendedDateAndTime1"
+            component={ExtendedDateAndTime}
+            dashBoardNum={1}
+          />
+          <PrivateRoute
+            exact
+            path="/extendedDateAndTime2"
+            component={ExtendedDateAndTime}
+            dashBoardNum={2}
+          />
+          <PrivateRoute
+            exact
+            path="/extendedDateAndTime3"
+            component={ExtendedDateAndTime}
+            dashBoardNum={3}
+          />
+          <PrivateRoute
+            exact
+            path="/extendedDateAndTime4"
+            component={ExtendedDateAndTime}
+            dashBoardNum={4}
+          />
 
-          <Route path="/extendedDateAndTime2">
-            <ExtendedDateAndTime dashBoardNum={2} />
-          </Route>
-
-          <Route path="/extendedDateAndTime3">
-            <ExtendedDateAndTime dashBoardNum={3} />
-          </Route>
-
-          <Route path="/extendedDateAndTime4">
-            <ExtendedDateAndTime dashBoardNum={4} />
-          </Route>
-          
-          
-
-        {/* <IonTabBar slot="bottom">
+          {/* <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/mainPage">
             <IonIcon icon={homeOutline} />
             <IonLabel>Home</IonLabel>
@@ -175,14 +177,11 @@ const App: React.FC = () => (
             <IonLabel>Search</IonLabel>
           </IonTabButton>
         </IonTabBar> */}
-      {/* </IonTabs> */}
-      
-      </IonRouterOutlet>
+          {/* </IonTabs> */}
+        </IonRouterOutlet>
       </IonContent>
     </IonReactRouter>
     {/* </IonContent> */}
-    
-    
   </IonApp>
 );
 
