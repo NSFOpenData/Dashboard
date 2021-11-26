@@ -37,19 +37,27 @@
 }
 
 .headerTitle {
-    padding-top: 20px;
+    /* padding-top: 20px; */
     color: black;
-    font-size: 30px;
+    font-size: 30px !important;
+    text-align: center;
+    left: auto;
+    top: auto;
+    padding: 0px 20px;
+    position: relative;
 }
 
 .dashboardTitle {
+    position: relative;
     padding: 30px 15px 15px 15px;
+    text-align: left;
 }
+
 
 /* Override Phone Defaults*/
 
-ion-title {
-    font-size: 20px;
+ion-title.ios {
+    /* font-size: 20px;
     font-weight: 500;
     letter-spacing: 0.0125em;
     text-align: auto;
@@ -59,14 +67,16 @@ ion-title {
     --padding-end: 0;
     --min-height: 80px;
     display: block;
+    /* padding-top: 20px; 
     left: 0px;
-    top: 0px;
-    padding: 0px 90px;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    top: 0px; */
+    /* position: absolute; */
+    /* padding: 0px 90px; */
+    /* width: 100%;
+    height: 100%; */
     /* text-align: center; */
-    pointer-events: none;
+    /* text-align: left; */
+
 }
 
 ion-toolbar {
@@ -78,6 +88,8 @@ ion-toolbar {
     --padding-end: 0;
     --min-height: 80px;
 }
+
+
 
 .header-ios ion-toolbar:last-of-type {
     --border-width: 0;
@@ -98,4 +110,30 @@ ion-menu-button {
     --padding-end: 8px;
     width: 58px;
     height: 80px;
+}
+
+ion-list {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+ion-item {
+    --min-height: 48px;
+    --background: var(--ion-item-background, var(--ion-background-color, #fff));
+    --background-activated: transparent;
+    --background-focused: currentColor;
+    --background-hover: currentColor;
+    --background-activated-opacity: 0;
+    --background-focused-opacity: 0.12;
+    --background-hover-opacity: 0.04;
+    --color: var(--ion-item-color, var(--ion-text-color, #000));
+    --transition: opacity 15ms linear, background-color 15ms linear;
+    --padding-start: 16px;
+    --border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+    --inner-padding-end: 16px;
+    --inner-border-width: 0 0 1px 0;
+    --highlight-height: 2px;
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: none;
 }
