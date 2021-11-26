@@ -75,34 +75,35 @@ const TopMenu: React.FC = () => {
               )}
             </IonMenuToggle>
           </IonList>
-
-          <IonList>
-            <IonTitle className="dashboardTitle">Dashboards</IonTitle>
-            <IonMenuToggle>
-              <IonItem routerLink={"/trafficDashboard"}>
-                <i className="fas fa-car-alt"></i>
-                <span style={{ padding: "0 10px" }}>Traffic</span>
-              </IonItem>
-              <IonItem routerLink={"/licenseDashboard"}>
-                <span style={{ fontSize: ".8rem" }}>
-                  <i className="fas fa-id-card-alt"></i>
-                </span>
-                <span style={{ padding: "0 10px" }}>License</span>
-              </IonItem>
-              <IonItem routerLink={"/deliveryDashboard"}>
-                <span style={{ fontSize: ".8rem" }}>
-                  <i className="fas fa-truck"></i>
-                </span>
-                <span style={{ padding: "0 10px" }}>Delivery</span>
-              </IonItem>
-              <IonItem routerLink={"/animalDashboard"}>
-                <span style={{ fontSize: ".95rem" }}>
-                  <i className="fas fa-dog"></i>
-                </span>
-                <span style={{ padding: "0 10px" }}>Animal</span>
-              </IonItem>
-            </IonMenuToggle>
-          </IonList>
+          {currentUser && 
+            <IonList>
+              <IonTitle className="dashboardTitle">Dashboards</IonTitle>
+              <IonMenuToggle>
+                <IonItem routerLink={"/trafficDashboard"}>
+                  <i className="fas fa-car-alt"></i>
+                  <span style={{ padding: "0 10px" }}>Traffic</span>
+                </IonItem>
+                <IonItem routerLink={"/licenseDashboard"}>
+                  <span style={{ fontSize: ".8rem" }}>
+                    <i className="fas fa-id-card-alt"></i>
+                  </span>
+                  <span style={{ padding: "0 10px" }}>License</span>
+                </IonItem>
+                <IonItem routerLink={"/deliveryDashboard"}>
+                  <span style={{ fontSize: ".8rem" }}>
+                    <i className="fas fa-truck"></i>
+                  </span>
+                  <span style={{ padding: "0 10px" }}>Delivery</span>
+                </IonItem>
+                <IonItem routerLink={"/animalDashboard"}>
+                  <span style={{ fontSize: ".95rem" }}>
+                    <i className="fas fa-dog"></i>
+                  </span>
+                  <span style={{ padding: "0 10px" }}>Animal</span>
+                </IonItem>
+              </IonMenuToggle>
+            </IonList>}
+          
         </IonContent>
       </IonMenu>
       <IonHeader id="main-content">
