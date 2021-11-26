@@ -81,7 +81,7 @@ ion-content::-webkit-scrollbar {
     margin-inline-start: 4px;
 }
 
-ion-menu-button {
+ion-menu-button.ios {
     --background-focused-opacity: 0.12;
     --background-hover: currentColor;
     --background-hover-opacity: 0.04;
@@ -100,6 +100,6 @@ ion-list {
 
 ion-item {
     --min-height: 48px;
-    --border-color: black;
+        --border-style: none;
     font-size: 16px;
 }
