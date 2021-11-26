@@ -1,37 +1,58 @@
-import React from "react";
-import authHelper from "./auth-helper";
+import React, { useState, createContext, useContext, useEffect } from "react";
+import auth from "./firebase";
+import {
+  onAuthStateChanged,
+  signInWithRedirect,
+  GoogleAuthProvider,
+} from "firebase/auth";
 
-// create the context
+// create the contex
 export type IAuthContext = {
-  authInfo: {
-    loggedIn: boolean;
-  };
+  currentUser: any;
   logOut: any;
-  logIn: any;
+  logInWithGoogle: any;
+  getAuthToken: any;
 };
-const AuthContext = React.createContext<any>(undefined);
+const AuthContext = createContext<any>(undefined);
+export const useAuth = () => useContext(AuthContext) as IAuthContext;
 
 // create the context provider, we are using use state to ensure that
 // we get reactive values from the context...
 export const AuthProvider: React.FC = ({ children }) => {
-  // the reactive values
-  const [authInfo, setAuthInfo] = React.useState<any>(authHelper.isAuthenticated());
+  const [currentUser, setCurrentUser] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const logOut = () => {
-    setAuthInfo(false);
+    localStorage.removeItem("token");
+    auth.signOut();
   };
 
-  const logIn = () => {
-    setAuthInfo(true);
+  const logInWithGoogle = async () => {
+    signInWithRedirect(auth, new GoogleAuthProvider());
   };
+
+  const getAuthToken = async () => {
+    return await auth.currentUser?.getIdToken();
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setIsLoading(false);
+    });
+    return unsubscribe;
+  }, []);
 
   let v = {
-    authInfo,
-    logOut: logOut,
-    logIn: logIn,
+    currentUser,
+    logOut,
+    logInWithGoogle,
+    getAuthToken,
   };
 
-  return <AuthContext.Provider value={v}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={v}>
+      {!isLoading && children}
+    </AuthContext.Provider>
+  );
 };
-
-export const useAuth = () => React.useContext(AuthContext) as IAuthContext;
