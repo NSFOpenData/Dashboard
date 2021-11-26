@@ -53,8 +53,7 @@ const TopMenu: React.FC = () => {
               </IonItem>
               {currentUser ? (
                 <span>
-                  <IonItem routerLink={"/queryPage"}
-                      onClick={() => {console.log("lol")}}>
+                  <IonItem routerLink={"/queryPage"}>
                     <i className="fas fa-search fa-sm"></i>{" "}
                     <span style={{ padding: "0 10px" }}>Search</span>
                   </IonItem>
