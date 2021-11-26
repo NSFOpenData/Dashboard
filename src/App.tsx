@@ -1,11 +1,6 @@
 import { Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, IonContent } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import {
-  homeOutline,
-  personCircleOutline,
-  searchCircleOutline,
-} from "ionicons/icons";
 import MainPage from "./pages/MainPage";
 
 /* Core CSS required for Ionic components to work properly */
@@ -74,6 +69,7 @@ const App: React.FC = () => (
           <Route exact path="/registerpage" component={RegisterPage} />
           <Route exact path="/mainpage" component={MainPage} />
           <Route exact path="/" component={MainPage} />
+          <Route exact path="/signout" component={SignOut} />
           <PrivateRoute path="/profilePage" component={ProfilePage} />
 
           {/* Dashboard Pages */}
@@ -117,8 +113,6 @@ const App: React.FC = () => (
             path="/reportLostVehiclePage"
             component={ReportLostVehiclePage}
           />
-          <PrivateRoute exact path="/signout" component={SignOut} />
-
           {/* Query Pages */}
           <PrivateRoute exact path="/queryPage" component={QueryPage} />
           <PrivateRoute
