@@ -482,6 +482,9 @@ const TrafficDashboard: React.FC = () => {
             </IonButton>
           </div>
         )}
+        <div style={{padding: "500px", height: '100%'}}>
+          lol
+        </div>
       </IonContent>
     </IonPage>
   );

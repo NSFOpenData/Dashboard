@@ -55,7 +55,7 @@
 }
 
 
-/* Override Phone Defaults*/
+/* Override Phone Defaults */
 
 ion-toolbar {
 
@@ -67,12 +67,11 @@ ion-toolbar {
     --min-height: 80px;
 }
 
-ion-content {
-    --overflow: hidden;
-    overflow: auto;
-   
+/* ion-content {
 }
-
+ion-content::-webkit-scrollbar {
+    display: none;
+  } */
 .header-ios ion-toolbar:last-of-type {
     --border-width: 0;
 }

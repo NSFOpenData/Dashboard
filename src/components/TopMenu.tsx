@@ -9,6 +9,7 @@ import {
   IonItem,
   IonMenuButton,
   IonButton,
+  IonMenuToggle
 } from "@ionic/react";
 import React from "react";
 import vulogo from "./../img/vulogo.png";
@@ -45,57 +46,62 @@ const TopMenu: React.FC = () => {
         </IonHeader>
         <IonContent>
           <IonList>
-            <IonItem routerLink={"/mainPage"}>
-              <i className="fas fa-home fa-sm"></i>{" "}
-              <span style={{ padding: "0 10px" }}>Home</span>
-            </IonItem>
-            {currentUser ? (
-              <span>
-                <IonItem routerLink={"/queryPage"}>
-                  <i className="fas fa-search fa-sm"></i>{" "}
-                  <span style={{ padding: "0 10px" }}>Search</span>
-                </IonItem>
-                <IonItem routerLink={"/profilePage"}>
-                  <i className="fas fa-user-circle fa-sm"></i>{" "}
-                  <span style={{ padding: "0 10px" }}>Profile</span>
-                </IonItem>
-                <IonItem routerLink={"/signout"}>
-                  <i className="fas fa-sign-out-alt"></i>{" "}
-                  <span style={{ padding: "0 10px" }}>Sign Out</span>
-                </IonItem>
-              </span>
-            ) : (
-              <IonItem routerLink={"/authentication"}>
-                <i className="fas fa-sign-in-alt"></i>
-                <span style={{ padding: "0 10px" }}>Log In</span>
+            <IonMenuToggle>
+              <IonItem routerLink={"/mainPage"}>
+                <i className="fas fa-home fa-sm"></i>{" "}
+                <span style={{ padding: "0 10px" }}>Home</span>
               </IonItem>
-            )}
+              {currentUser ? (
+                <span>
+                  <IonItem routerLink={"/queryPage"}
+                      onClick={() => {console.log("lol")}}>
+                    <i className="fas fa-search fa-sm"></i>{" "}
+                    <span style={{ padding: "0 10px" }}>Search</span>
+                  </IonItem>
+                  <IonItem routerLink={"/profilePage"}>
+                    <i className="fas fa-user-circle fa-sm"></i>{" "}
+                    <span style={{ padding: "0 10px" }}>Profile</span>
+                  </IonItem>
+                  <IonItem routerLink={"/signout"}>
+                    <i className="fas fa-sign-out-alt"></i>{" "}
+                    <span style={{ padding: "0 10px" }}>Sign Out</span>
+                  </IonItem>
+                </span>
+              ) : (
+                <IonItem routerLink={"/authentication"}>
+                  <i className="fas fa-sign-in-alt"></i>
+                  <span style={{ padding: "0 10px" }}>Log In</span>
+                </IonItem>
+              )}
+            </IonMenuToggle>
           </IonList>
 
           <IonList>
             <IonTitle className="dashboardTitle">Dashboards</IonTitle>
-            <IonItem routerLink={"/trafficDashboard"}>
-              <i className="fas fa-car-alt"></i>
-              <span style={{ padding: "0 10px" }}>Traffic</span>
-            </IonItem>
-            <IonItem routerLink={"/licenseDashboard"}>
-              <span style={{ fontSize: ".8rem" }}>
-                <i className="fas fa-id-card-alt"></i>
-              </span>
-              <span style={{ padding: "0 10px" }}>License</span>
-            </IonItem>
-            <IonItem routerLink={"/deliveryDashboard"}>
-              <span style={{ fontSize: ".8rem" }}>
-                <i className="fas fa-truck"></i>
-              </span>
-              <span style={{ padding: "0 10px" }}>Delivery</span>
-            </IonItem>
-            <IonItem routerLink={"/animalDashboard"}>
-              <span style={{ fontSize: ".95rem" }}>
-                <i className="fas fa-dog"></i>
-              </span>
-              <span style={{ padding: "0 10px" }}>Animal</span>
-            </IonItem>
+            <IonMenuToggle>
+              <IonItem routerLink={"/trafficDashboard"}>
+                <i className="fas fa-car-alt"></i>
+                <span style={{ padding: "0 10px" }}>Traffic</span>
+              </IonItem>
+              <IonItem routerLink={"/licenseDashboard"}>
+                <span style={{ fontSize: ".8rem" }}>
+                  <i className="fas fa-id-card-alt"></i>
+                </span>
+                <span style={{ padding: "0 10px" }}>License</span>
+              </IonItem>
+              <IonItem routerLink={"/deliveryDashboard"}>
+                <span style={{ fontSize: ".8rem" }}>
+                  <i className="fas fa-truck"></i>
+                </span>
+                <span style={{ padding: "0 10px" }}>Delivery</span>
+              </IonItem>
+              <IonItem routerLink={"/animalDashboard"}>
+                <span style={{ fontSize: ".95rem" }}>
+                  <i className="fas fa-dog"></i>
+                </span>
+                <span style={{ padding: "0 10px" }}>Animal</span>
+              </IonItem>
+            </IonMenuToggle>
           </IonList>
         </IonContent>
       </IonMenu>
