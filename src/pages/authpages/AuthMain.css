@@ -13,7 +13,8 @@
 }
 
 .iconSize {
-  font-size: 10px;
+  width: 20px;
+  height: 20px;
 }
 .signinregion {
   text-align: center;
@@ -21,6 +22,7 @@
 }
 
 .login-button {
+  margin: 14px auto;
   text-transform: none;
   font-size: 20px;
 }
@@ -35,10 +37,14 @@
 }
 
 .signin-block {
-  background-color: white;
   padding: 10px 60px;
   border-radius: 10px;
 
+}
+
+.apple {
+  border: 1px solid #000;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 500px) { 
@@ -48,11 +54,9 @@
   }
 }
 
-
-
 @media (prefers-color-scheme: dark) {
-  .signin-block {
-    background-color: #3f3f3f;
-    color: white;
+  .apple {
+    border: 1px solid #fff;
+    border-radius: 5px;
   }
 }

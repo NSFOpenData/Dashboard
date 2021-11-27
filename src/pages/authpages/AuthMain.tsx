@@ -4,6 +4,9 @@ import "./AuthMain.css";
 import { useAuth } from "../../AuthContext";
 import { useHistory } from "react-router";
 
+import { ReactComponent as GoogleLogo } from "../../img/googlelogo.svg";
+import { ReactComponent as AppleLogo } from "../../img/applelogo.svg";
+
 // icons
 import { personAddOutline } from "ionicons/icons";
 import { gql, useMutation } from "@apollo/client";
@@ -55,8 +58,19 @@ const AuthMain: React.FC = () => {
               color="secondary"
               onClick={handleLogin}
             >
-              <IonIcon className="iconSize" icon={personAddOutline} />
+              <GoogleLogo className="iconSize" />
               &nbsp;&nbsp;Continue with Google
+            </IonButton>
+            <IonButton
+              className="login-button apple"
+              expand="block"
+              fill="solid"
+              color="light"
+              onClick={handleLogin}
+              disabled={true}
+            >
+            <AppleLogo />
+              &nbsp;&nbsp;Continue with Apple
             </IonButton>
           </div>
         </div>
