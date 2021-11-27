@@ -7,24 +7,19 @@ import {
   IonLabel,
   IonButton,
   IonIcon,
-  IonRefresher,
-  IonRefresherContent,
 } from "@ionic/react";
 import "./ProfilePage.css";
 
 import React, { useState, useEffect } from "react";
 import { Plugins, CameraResultType } from "@capacitor/core";
-import { RefresherEventDetail } from "@ionic/core";
 
 import { useAuth } from "../../AuthContext";
 
 /* GraphQL for API Calls */
-import { gql, NetworkStatus, useQuery, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 
 // for number of animals contributed
 import { numAnimalsUploaded } from "../../pages/uploadpages/UploadPageAnimal";
-
-import { caretDownOutline, chevronDownCircleOutline } from "ionicons/icons";
 
 const { Camera } = Plugins;
 
@@ -79,17 +74,15 @@ const ProfilePage: React.FC = () => {
     });
   }, []);
 
-  const { loading, data, error, refetch, networkStatus } = useQuery(
-    USER_QUERY,
-    {
-      // errorPolicy: "ignore",
-      fetchPolicy: "network-only",
-      notifyOnNetworkStatusChange: true,
-      // nextFetchPolicy: "cache-first",
-    }
-  );
-
-  if (networkStatus === NetworkStatus.refetch) console.log("refetching!");
+  // const { loading, data, error, refetch, networkStatus } = useQuery(
+  //   USER_QUERY,
+  //   {
+  //     // errorPolicy: "ignore",
+  //     fetchPolicy: "network-only",
+  //     notifyOnNetworkStatusChange: true,
+  //     // nextFetchPolicy: "cache-first",
+  //   }
+  // );
 
   async function takePicture() {
     // take phot with Camera - it's editable as well
@@ -110,18 +103,6 @@ const ProfilePage: React.FC = () => {
     // send to upgrading page OR external website
   }
 
-  // a dummy boolean variable to reset the UI!
-  const [reloadPage, setReloadPage] = useState<boolean>(false);
-  function doRefresh(event: CustomEvent<RefresherEventDetail>) {
-    console.log("Begin async operation");
-    refetch();
-    setReloadPage(!reloadPage);
-    setTimeout(() => {
-      console.log("Async operation has ended");
-      event.detail.complete();
-    }, 1000);
-  }
-
   const isNotNull = (input: String) => {
     return input ? <b>{input}</b> : <i className="diluted">Empty</i>;
   };
@@ -132,18 +113,7 @@ const ProfilePage: React.FC = () => {
   return (
     <IonPage className="homeBackground">
       <IonContent className="profilePage">
-        <div style={{ margin: 3 }}>
-          <IonIcon icon={caretDownOutline}></IonIcon>
-          <text style={{ fontSize: 13, margin: 3 }}>pull to reload</text>
-        </div>
-        <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
-          <IonRefresherContent
-            pullingIcon={chevronDownCircleOutline}
-            pullingText="Pull to refresh"
-            refreshingSpinner="circles"
-            refreshingText="Refreshing..."
-          ></IonRefresherContent>
-        </IonRefresher>
+        <br/>
         <div className="centerItem">
           <div className="profileImage">
             <img
@@ -160,11 +130,11 @@ const ProfilePage: React.FC = () => {
           <br />
         </div>
         <IonLabel className="centerItem username">
-          {!loading && !isLoading && isNotNull(user.name)}
+          {!isLoading && isNotNull(user.name)}
         </IonLabel>
 
         {/* Personal Info */}
-        {!loading && !isLoading && (
+        {!isLoading && (
           <div>
             <div className="centerItem">
               <h4 className="profileTitle">Personal Info</h4>
@@ -209,7 +179,7 @@ const ProfilePage: React.FC = () => {
         <br />
 
         {/* <div className="button-content"> */}
-        {!loading && !isLoading && (
+        {!isLoading && (
           <div>
             <div className="centerItem">
               <h4 className="profileTitle">Contributions</h4>

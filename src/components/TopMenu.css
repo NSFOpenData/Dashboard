@@ -69,9 +69,12 @@ ion-toolbar {
 
 /* ion-content {
 }
+
 ion-content::-webkit-scrollbar {
     display: none;
-  } */
+  } 
+*/
+
 .header-ios ion-toolbar:last-of-type {
     --border-width: 0;
 }
