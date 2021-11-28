@@ -5,7 +5,7 @@ import {
   IonItem,
   IonInput,
   IonIcon,
-  IonToast,
+  IonAlert,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
@@ -55,36 +55,38 @@ const RegisterPage: React.FC = () => {
 
   return (
     <IonPage className="centerItem">
-      <IonContent className="profilePage signinregion">
-        <h1>Register</h1>
+      <IonContent className="profilePage signinregion ion-padding">
+        <h1>Register your account</h1>
         <div className="signin">
           <div className="register-block">
-            <IonItem style={{ width: "400px" }}>
+            <h3>Full Name</h3>
               <IonInput
-                placeholder="Full Name"
+                placeholder="Enter your full name..."
+                className="registerInput"
                 onIonChange={(e) =>
                   setFormState({ ...formState, name: e.detail.value! })
                 }
               ></IonInput>
-            </IonItem>
-            <IonItem>
+            <h3>Email</h3>
               <IonInput
-                placeholder="Email"
+                type="email"
+                placeholder="Enter your email..."
+                className="registerInput"
                 onIonChange={(e) =>
                   setFormState({ ...formState, email: e.detail.value! })
                 }
               ></IonInput>
-            </IonItem>
-            <IonItem>
+            <h3>Neighborhood</h3>
               <IonInput
-                placeholder="Neighborhood - Capitalize the first letter please"
+                placeholder="Enter your neighborhood... (case-sensitive)"
+                className="registerInput"
                 onIonChange={(e) =>
                   setFormState({ ...formState, neighborhood: e.detail.value! })
                 }
               ></IonInput>
-            </IonItem>
 
             <IonButton
+              className="registerButton"
               expand="full"
               onClick={() => register()}
               disabled={
@@ -96,7 +98,6 @@ const RegisterPage: React.FC = () => {
                   formState.neighborhood.length > 3
                 )
               }
-              style={{ margin: "10px 0 0" }}
             >
               Register
             </IonButton>
@@ -126,7 +127,22 @@ const RegisterPage: React.FC = () => {
             <IonIcon icon={chevronBackOutline}></IonIcon>
             back
           </IonButton>
-          <IonToast
+          <IonAlert 
+            isOpen={show}
+            onDidDismiss={() => setShow(false)}
+            header={'Successfully Registered!'}
+            // message={'You have successfully registered. Please log in.'}
+            buttons={[
+              {
+                text: "Log In",
+                handler: () => {
+                  history.push("/authentication");
+                },
+              },
+            ]}
+
+          />
+          {/* <IonToast
             isOpen={show}
             onDidDismiss={() => setShow(false)}
             message="Succesfully Registered!"
@@ -138,7 +154,7 @@ const RegisterPage: React.FC = () => {
                 },
               },
             ]}
-          />
+          /> */}
         </div>
       </IonContent>
     </IonPage>
