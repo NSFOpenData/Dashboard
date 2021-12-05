@@ -2,7 +2,6 @@ import {
   IonContent,
   IonPage,
   IonButton,
-  IonItem,
   IonInput,
   IonIcon,
   IonAlert,
@@ -14,16 +13,18 @@ import "./RegisterPage.css";
 /* GraphQL for API Calls */
 import { gql, useMutation } from "@apollo/client";
 import { chevronBackOutline } from "ionicons/icons";
+import { useAuth } from "../../AuthContext";
 
 // these have to be in the email in order to make sure email is valid
 const atChar = "@";
 const validDomains = [".com", ".net", ".org", ".edu", ".gov"];
 
 const RegisterPage: React.FC = () => {
+  const { currentUser, logOut } = useAuth();
   const history = useHistory();
   const [formState, setFormState] = useState({
     name: "",
-    email: "",
+    email: currentUser?.email,
     neighborhood: "",
   });
 
@@ -50,6 +51,7 @@ const RegisterPage: React.FC = () => {
     onCompleted: ({ register }) => {
       setShow(true);
       console.log(register);
+      logOut();
     },
   });
 
@@ -59,31 +61,30 @@ const RegisterPage: React.FC = () => {
         <h1>Register your account</h1>
         <div className="signin">
           <div className="register-block">
-            <h3>Full Name</h3>
-              <IonInput
-                placeholder="Enter your full name..."
-                className="registerInput"
-                onIonChange={(e) =>
-                  setFormState({ ...formState, name: e.detail.value! })
-                }
-              ></IonInput>
             <h3>Email</h3>
-              <IonInput
-                type="email"
-                placeholder="Enter your email..."
-                className="registerInput"
-                onIonChange={(e) =>
-                  setFormState({ ...formState, email: e.detail.value! })
-                }
-              ></IonInput>
+            <IonInput
+              type="email"
+              placeholder="Enter your email..."
+              className="registerInput"
+              value={formState.email}
+              disabled={true}
+            ></IonInput>
+            <h3>Full Name</h3>
+            <IonInput
+              placeholder="Enter your full name..."
+              className="registerInput"
+              onIonChange={(e) =>
+                setFormState({ ...formState, name: e.detail.value! })
+              }
+            ></IonInput>
             <h3>Neighborhood</h3>
-              <IonInput
-                placeholder="Enter your neighborhood... (case-sensitive)"
-                className="registerInput"
-                onIonChange={(e) =>
-                  setFormState({ ...formState, neighborhood: e.detail.value! })
-                }
-              ></IonInput>
+            <IonInput
+              placeholder="Enter your neighborhood... (case-sensitive)"
+              className="registerInput"
+              onIonChange={(e) =>
+                setFormState({ ...formState, neighborhood: e.detail.value! })
+              }
+            ></IonInput>
 
             <IonButton
               className="registerButton"
@@ -127,10 +128,10 @@ const RegisterPage: React.FC = () => {
             <IonIcon icon={chevronBackOutline}></IonIcon>
             back
           </IonButton>
-          <IonAlert 
+          <IonAlert
             isOpen={show}
             onDidDismiss={() => setShow(false)}
-            header={'Successfully Registered!'}
+            header={"Successfully Registered!"}
             // message={'You have successfully registered. Please log in.'}
             buttons={[
               {
@@ -140,7 +141,6 @@ const RegisterPage: React.FC = () => {
                 },
               },
             ]}
-
           />
           {/* <IonToast
             isOpen={show}

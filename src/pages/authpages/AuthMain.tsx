@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonPage, IonButton } from "@ionic/react";
+import { IonContent, IonPage, IonButton } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import "./AuthMain.css";
 import { useAuth } from "../../AuthContext";
@@ -8,28 +8,26 @@ import { ReactComponent as GoogleLogo } from "../../img/googlelogo.svg";
 import { ReactComponent as AppleLogo } from "../../img/applelogo.svg";
 
 // icons
-import { personAddOutline } from "ionicons/icons";
 import { gql, useMutation } from "@apollo/client";
 
 const AuthMain: React.FC = () => {
   const history = useHistory();
-  const { logInWithGoogle, currentUser, logOut } = useAuth();
+  const { logInWithGoogle, currentUser } = useAuth();
   const [user] = useState(currentUser);
 
-  const LOGIN2_MUTATION = gql`
+  const IS_REGISTERED_MUTATION = gql`
     mutation isRegistered($email: String!) {
       isRegistered(email: $email)
     }
   `;
 
-  const [isRegistered] = useMutation(LOGIN2_MUTATION, {
+  const [isRegistered] = useMutation(IS_REGISTERED_MUTATION, {
     onCompleted: (result) => {
       if (result.isRegistered) {
         console.log("User was registered!");
         history.push("/profilePage");
       } else {
         console.log("User wasn't registered!");
-        logOut();
         history.push("/registerpage");
       }
     },
@@ -69,7 +67,7 @@ const AuthMain: React.FC = () => {
               onClick={handleLogin}
               disabled={true}
             >
-            <AppleLogo />
+              <AppleLogo />
               &nbsp;&nbsp;Continue with Apple
             </IonButton>
           </div>
