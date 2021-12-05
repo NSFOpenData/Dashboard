@@ -16,7 +16,7 @@ import { Plugins, CameraResultType } from "@capacitor/core";
 import { useAuth } from "../../AuthContext";
 
 /* GraphQL for API Calls */
-import { gql, useMutation } from "@apollo/client";
+import { gql, NetworkStatus, useMutation, useQuery } from "@apollo/client";
 
 // for number of animals contributed
 import { numAnimalsUploaded } from "../../pages/uploadpages/UploadPageAnimal";
@@ -48,7 +48,9 @@ const ProfilePage: React.FC = () => {
   `;
 
   const [login] = useMutation(LOGIN_MUTATION, {
+    
     onCompleted: ({ login }) => {
+      console.log("login.token")
       localStorage.setItem("token", login.token);
       setUser(login.user);
       setIsLoading(false);
@@ -74,15 +76,15 @@ const ProfilePage: React.FC = () => {
     });
   }, []);
 
-  // const { loading, data, error, refetch, networkStatus } = useQuery(
-  //   USER_QUERY,
-  //   {
-  //     // errorPolicy: "ignore",
-  //     fetchPolicy: "network-only",
-  //     notifyOnNetworkStatusChange: true,
-  //     // nextFetchPolicy: "cache-first",
-  //   }
-  // );
+  const { loading, data, error, refetch, networkStatus } = useQuery(
+    USER_QUERY,
+    {
+      // errorPolicy: "ignore",
+      fetchPolicy: "network-only",
+      notifyOnNetworkStatusChange: true,
+      // nextFetchPolicy: "cache-first",
+    }
+  );
 
   async function takePicture() {
     // take phot with Camera - it's editable as well

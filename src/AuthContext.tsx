@@ -26,7 +26,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.removeItem("token");
     auth.signOut();
   };
-
+  
   const logInWithGoogle = async () => {
     signInWithRedirect(auth, new GoogleAuthProvider());
   };

@@ -4,28 +4,54 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import { AuthProvider } from "./AuthContext";
+import { setContext } from '@apollo/client/link/context';
 
 // Import the functions you need from the SDKs you need
 // import * as firebase from 'firebase/app';
 
 const bearer = "Bearer ";
 // TODO: this has to be hard-coded temporarily to a valid token obtained from the backend
-const token = localStorage.getItem("token");
-const authHeader = bearer + token;
+// const token = localStorage.getItem("token");
+// const authHeader = bearer + token;
 
-// client set up to use GraphQL
-const client = new ApolloClient({
-  link: createUploadLink({
-    //uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
-    uri: "http://localhost:3000/graphql",
+// const getToken = () => {
+//   const token = localStorage.getItem('token');
+//   return token ? `Bearer ${token}` : '';
+// };
+
+// // client set up to use GraphQL
+// const client = new ApolloClient({
+//   link: createUploadLink({
+//     uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
+//     // uri: "http://localhost:3000/graphql",
+//     headers: {
+//       authorization: getToken(),
+//     },
+//   }),
+//   cache: new InMemoryCache(),
+// });
+const httpLink = createUploadLink({
+  uri: 'https://nsf-scc1.isis.vanderbilt.edu/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
     headers: {
-      authorization: token ? authHeader : "",
-    },
-  }),
-  cache: new InMemoryCache(),
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 });
 
 ReactDOM.render(
