@@ -66,7 +66,7 @@ const App: React.FC = () => (
           <Route path="/tempEmailPage" component={TempEmailPage} />
           {/* Auth Pages */}
           <Route exact path="/authentication" component={AuthMain} />
-          <Route exact path="/registerpage" component={RegisterPage} />
+          <PrivateRoute exact path="/registerpage" component={RegisterPage} />
           <Route exact path="/mainpage" component={MainPage} />
           <Route exact path="/" component={MainPage} />
           <Route exact path="/signout" component={SignOut} />
