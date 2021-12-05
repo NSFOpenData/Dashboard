@@ -49,7 +49,7 @@ const ProfilePage: React.FC = () => {
 
   const [login] = useMutation(LOGIN_MUTATION, {
     onCompleted: ({ login }) => {
-      sessionStorage.setItem("token", login.token);
+      localStorage.setItem("token", login.token);
       setUser(login.user);
       setIsLoading(false);
     },
@@ -113,7 +113,7 @@ const ProfilePage: React.FC = () => {
   return (
     <IonPage className="homeBackground">
       <IonContent className="profilePage">
-        <br/>
+        <br />
         <div className="centerItem">
           <div className="profileImage">
             <img
