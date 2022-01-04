@@ -1,35 +1,63 @@
-.centerItem {
-  justify-content: center;
-  display: flex !important;
-  align-items: center !important;
-}
-
-.uploadMargin {
-  margin-left: 20px;
-  margin-top: 15px;
-}
-
-/* plate selection stuff */
-
-.animalSelectionMargin {
-  margin-top: 25px;
-}
-
-.buttonLeftMargin {
-  margin-left: 15px;
-  margin-top: 20px;
-}
-
-.customQueryMargin {
-  margin-left: 163px;
-  margin-top: -3px;
-}
-
-.reportLostPet {
-  width: 200px;
-}
-
-.bottomItems {
-  position: absolute;
-  bottom: 70px;
-}
+    .centerItem {
+        justify-content: center;
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    .uploadMargin {
+        margin-left: 20px;
+        margin-top: 15px;
+    }
+    
+    .searchbar-input {
+        border: 0 !important;
+        box-shadow: none!important;
+        width: 800px;
+    }
+    
+    .calendarIcon {
+        color: black;
+        font-size: 64px;
+    }
+    
+    ion-toolbar.ion-padding {
+        --background: white;
+        height: 50px;
+        box-shadow: none !important;
+        margin-bottom: 20px
+    }
+    /* plate selection stuff */
+    
+    .animalSelectionMargin {
+        margin-top: 25px;
+    }
+    
+    .buttonLeftMargin {
+        margin-left: 15px;
+        margin-top: 20px;
+    }
+    
+    .customQueryMargin {
+        width: 300px
+    }
+    
+    .reportLostPet {
+        position: relative;
+        width: 300px;
+    }
+    
+    .bottomItems {
+        position: absolute;
+        bottom: 70px;
+    }
+    
+    .header {
+        position: absolute;
+        top: 0px;
+        margin-bottom: 10px;
+        width: max-content center;
+        justify-content: flex-end;
+        display: flex !important;
+        align-items: center !important;
+        flex-flow: column;
+    }
