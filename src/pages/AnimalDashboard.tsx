@@ -35,8 +35,9 @@ import moment from "moment";
 import { gql, NetworkStatus, useQuery } from "@apollo/client";
 
 // icons
-import { cloudUploadOutline, calendar, paw, locate, map, navigate } from "ionicons/icons";
+import { cloudUploadOutline, calendar, paw, locate, map, navigateCircleOutline } from "ionicons/icons";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { getByDisplayValue } from "@testing-library/react";
 
 const AnimalDashboard: React.FC = () => {
     const [selectedStartDate,
@@ -475,53 +476,54 @@ const AnimalDashboard: React.FC = () => {
                                             )}
                                             <IonCardContent >
 
-                                                <h5> Animal: {animal.color} {" "} {animal.breed}`</h5>
+                                                <h5> <b>Animal:</b> {animal.color} {" "} {animal.breed}`</h5>
 
-                                                <h5>Location: {animal.neighborhood}
-                                                    <IonButton  size = "small" fill="clear" color="white" onClick={() => {
+                                                <h5><b>Location:</b> {animal.neighborhood}
+                                                    <IonButton className="mapButton" size = "default" fill="clear" color="white" onClick={() => {
                                                         setOpenMap(true);
                                                         animalOnMap(animal.location.lat, animal.location.lon)}}
 
-                                                    >
-                                                        <IonPopover  showBackdrop = {true} isOpen={openMap} >
-
-                                                            {animalLat !== 0 && animalLon !== 0 && (
-                                                                <MapContainer
-                                                                    style={{
-                                                                        height: "300px",
-                                                                        width: "300px"
-                                                                    }}
-                                                                    id="mapid"
-                                                                    center={[36.1627, -86.7816]}
-                                                                    zoom={12.5}
-                                                                    scrollWheelZoom={false}>
-                                                                    <TileLayer
-
-                                                                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                                                                    <Marker position={[animalLat, animalLon]}>
-                                                                        <Popup>Animal Location:</Popup>
-                                                                    </Marker>
-                                                                </MapContainer>
-                                                            )}
-
-                                                        </IonPopover><IonIcon className="mapIcon" icon={navigate} > </IonIcon></IonButton>
+                                                    ><IonIcon color=" " className="mapIcon" icon={navigateCircleOutline} size="large"> </IonIcon></IonButton>
 
                                                 </h5>
 
                                                 <h5>
-                                                    Time Reported:{" "} {moment(new Date(animal.createdAt)
+                                                    <i><b>Time Reported:</b>{" "} {moment(new Date(animal.createdAt)
                                                         .toString()
                                                         .substr(0, new Date(animal.createdAt).toString().indexOf("GMT"))).format("ddd MMM YYYY h:mm:ss a") + " (CDT)"}{" "}
+                                                        </i>
                                                 </h5>
                                             </IonCardContent>
                                         </IonCard>
                                     </IonItem>
                                 )}
+                                
                             </div>
                         ))}
                 </IonList>
+                
+                <IonPopover showBackdrop = {true} isOpen={openMap} onDidDismiss={() => setOpenMap(false)} >
+{/* <div className="popover">
+Hello
+</div> */}
+                                    {animalLat !== 0 && animalLon !== 0 && (
+                                        <MapContainer
+                                            className="mapContainer"
+                                            id="mapid"
+                                            center={[animalLat, animalLon]}
+                                            zoom={12.5}
+                                            scrollWheelZoom={true}>
+                                            <TileLayer
 
+                                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                                            <Marker position={[animalLat, animalLon]}>
+                                                <Popup>Animal Location:</Popup>
+                                            </Marker>
+                                        </MapContainer>
+                                    )}
+
+                                </IonPopover>
 
 
                 <IonInfiniteScroll

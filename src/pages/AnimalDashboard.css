@@ -75,3 +75,32 @@
         align-items: center !important;
         flex-flow: column;
     }
+
+    .mapButton {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        margin-bottom: 10px;
+        width: max-content center;
+        justify-content: flex-end;
+        display: flex !important;
+        align-items: center !important;
+        flex-flow: column;
+    }
+/* 
+    .mapButtonCircle {
+        background-color: #D8AB4C;
+        border-radius: 50%;
+    } */
+
+    /* .mapContainer {
+        position: absolute;
+        top: 0px;
+        width: 400px;
+        height: 100%;
+        z-index: -1;
+    } */
+
+    /* .contact-popover .popover-content{ width: 700px; } */
+
+   
