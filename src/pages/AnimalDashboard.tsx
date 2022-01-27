@@ -26,32 +26,34 @@ import {
     IonInfiniteScrollContent,
     useIonViewWillEnter
 } from "@ionic/react";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./AnimalDashboard.css";
 import TopMenu from './../components/TopMenu';
+import moment from "moment";
 
 /* GraphQL for API Calls */
-import {gql, NetworkStatus, useQuery} from "@apollo/client";
+import { gql, NetworkStatus, useQuery } from "@apollo/client";
 
 // icons
-import {cloudUploadOutline, calendar} from "ionicons/icons";
-import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
+import { cloudUploadOutline, calendar, paw, locate, map, navigateCircleOutline } from "ionicons/icons";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { getByDisplayValue } from "@testing-library/react";
 
-const AnimalDashboard : React.FC = () => {
+const AnimalDashboard: React.FC = () => {
     const [selectedStartDate,
-        setSelectedStartDate] = useState < string > ("2021-06-01T13:47:20.789");
+        setSelectedStartDate] = useState<string>("2021-06-01T13:47:20.789");
     const [selectedEndDate,
-        setSelectedEndDate] = useState < string > ("2021-06-01T13:47:20.789");
+        setSelectedEndDate] = useState<string>("2021-06-01T13:47:20.789");
 
     // for USER input on dropdown menus
     const [pastTime,
-        setPastTime] = useState < string > ("");
+        setPastTime] = useState<string>("");
 
     // for the date and time selection
     const [advancedDate,
-        setAdvancedDate] = useState < boolean > (false);
+        setAdvancedDate] = useState<boolean>(false);
     const [type,
-        setType] = useState < string > ("");
+        setType] = useState<string>("");
 
     const [present] = useIonPicker();
     const [value,
@@ -155,7 +157,7 @@ const AnimalDashboard : React.FC = () => {
         console.log(quickTimePicker);
     }
 
-    const ANIMAL_POST_QUERY = gql `
+    const ANIMAL_POST_QUERY = gql`
     query Animals {
       animals {
         _id
@@ -174,39 +176,39 @@ const AnimalDashboard : React.FC = () => {
     }
   `;
 
-    const {loading, data, error, refetch, networkStatus} = useQuery(ANIMAL_POST_QUERY, {
+    const { loading, data, error, refetch, networkStatus } = useQuery(ANIMAL_POST_QUERY, {
         fetchPolicy: "no-cache",
         notifyOnNetworkStatusChange: true
     });
 
-    if (networkStatus == NetworkStatus.refetch) 
+    if (networkStatus == NetworkStatus.refetch)
         console.log("refetching!");
-    if (loading) 
+    if (loading)
         console.log("loading");
-    if (error) 
+    if (error)
         console.log("error: " + error.networkError);
-    
+
     // for the map
     const [animalLat,
-        setAnimalLat] = useState < number > (0);
+        setAnimalLat] = useState<number>(0);
     const [animalLon,
-        setAnimalLon] = useState < number > (0);
+        setAnimalLon] = useState<number>(0);
 
-    const animalOnMap = (latitude : number, longitude : number) => {
+    const animalOnMap = (latitude: number, longitude: number) => {
         setAnimalLat(latitude);
         setAnimalLon(longitude);
         console.log(animalLat, ", ", animalLon);
     };
-
+    const [openMap, setOpenMap] = useState(false);
     // for number of animals being shown
     const [numCard,
-        setNumCard] = useState <number> (data
-        ?.animals
+        setNumCard] = useState<number>(data
+            ?.animals
             ?.length);
 
     // for getting live geolocation
     interface LocationError {
-        showError : boolean;
+        showError: boolean;
         message?: string;
     }
 
@@ -217,25 +219,32 @@ const AnimalDashboard : React.FC = () => {
     // type User = typeof initUser;
     // const initUser = {name: 'Jon'}
     //...
-   //  const [user, setUser] = useState<User>(initUser);  
+    //  const [user, setUser] = useState<User>(initUser);  
 
 
 
-   // TODO: implement the search functin
-   // TODO: get the date picker to function
-   // TODO: screen size fitting using css and adjust colors a bit
-   // TODO: dark mode
-   // TODO: create data structure to store the animal card information
-   // TODO: clean up the code
-   // TODO: apply changes to the other web pages
-   
+    // TODO: implement the search functin
+    // TODO: get the date picker to function
+    // TODO: screen size fitting using css and adjust colors a bit
+    // TODO: dark mode
+    // TODO: create data structure to store the animal card information
+    // TODO: clean up the code
+    // TODO: apply changes to the other web pages
 
 
-   // cardData and isInifiniteDisabled pertain to the infinite scroll
-   // a dictionary needs to be setup for storing the animal data attributes to push onto the data set
-   
+
+    // cardData and isInifiniteDisabled pertain to the infinite scroll
+    // a dictionary needs to be setup for storing the animal data attributes to push onto the data set
+    const [animalSearch, setAnimalSearch] = useState('');
+
+    const formatSearch = (input: string) => {
+        setAnimalSearch(input.toLowerCase())
+    }
+
+
+
     const [cardData,
-        setData] = useState < string[] > ([]);
+        setData] = useState<string[]>([]);
     const [isInfiniteDisabled,
         setInfiniteDisabled] = useState(false);
 
@@ -252,7 +261,7 @@ const AnimalDashboard : React.FC = () => {
             ...newData
         ]);
     }
-    const loadData = (animal : any) => {
+    const loadData = (animal: any) => {
         setTimeout(() => {
             pushData();
             console.log('Loaded data');
@@ -269,8 +278,8 @@ const AnimalDashboard : React.FC = () => {
 
 
     return (
-     
-        <IonPage>
+
+        <IonPage >
 
             {/* generalized date string formats! */}
             {/* {
@@ -303,105 +312,93 @@ const AnimalDashboard : React.FC = () => {
             {/* <IonLoading isOpen={loading} message="Loading..." /> */}
             {/* <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton> */}
 
-            {animalLat != 0 && animalLon != 0 && (
-                <MapContainer
-                    style={{
-                    height: "350px"
-                }}
-                    id="mapid"
-                    center={[36.1627, -86.7816]}
-                    zoom={12.5}
-                    scrollWheelZoom={false}>
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                    <Marker position={[animalLat, animalLon]}>
-                        <Popup>Animal Location</Popup>
-                    </Marker>
-                </MapContainer>
-            )}
-  
+
             <IonContent fullscreen={false}>
-               <div className = "centerItem">
-                <IonHeader color="white" >
+                <div className="centerItem">
+                    <IonHeader  >
 
-                    <IonToolbar color="white" class="ion-padding">
-                        <IonButtons slot="start">
-                            <IonButton slot="start" color="dark" size="small">
-                                <IonSearchbar
-                                    className="searchbar-input"
-                                    placeholder="search pet"
-                                    color="light"
-                                    autoCapitalize="true"></IonSearchbar>
-                            </IonButton>
+                        <IonToolbar color="white" class="ion-padding">
+                            <IonButtons slot="start">
+                                <IonButton slot="start" color="white" size="small">
+                                    <IonSearchbar
+                                        className="searchbar-input"
+                                        placeholder="search pet"
+                                        color="light"
+                                        autoCapitalize="true"
+                                        value={animalSearch}>
 
-                            <IonButton
-                                className="reportLostPet"
-                                color="danger"
-                                routerLink={"/uploadPageA"}
-                                size="small">
-                                <h6>Report Lost Pet</h6>
-                            </IonButton>
+                                    </IonSearchbar>
+                                </IonButton>
 
-                            <IonButton
-                                className="customQueryMargin"
-                                size="small"
-                                onClick={() => present([
-                                { 
-                                  
-                                    name: 'number',
-                                    options: [
+                                <IonButton
+                                     fill = "solid"
+                                    routerLink={"/uploadPageA"}
+                                    size="small" className = "reportLostPet" >
+                                    <IonLabel> Report Lost Pet </IonLabel>
+                                    <IonIcon icon = {paw}>
+                                       
+                                    </IonIcon>
+                                </IonButton>
+
+                                <IonButton
+                                    className="customQueryMargin"
+                                    size="small"
+                                    onClick={() => present([
                                         {
-                                            text: 'One',
-                                            value: 1
+
+                                            name: 'number',
+                                            options: [
+                                                {
+                                                    text: 'One',
+                                                    value: 1
+                                                }, {
+                                                    text: 'Two',
+                                                    value: 2,
+                                                }, {
+                                                    text: 'Three',
+                                                    value: 3
+                                                },
+                                                {
+                                                    text: 'Four',
+                                                    value: 4
+                                                }
+                                            ]
                                         }, {
-                                            text: 'Two',
-                                            value: 2,
-                                        }, {
-                                            text: 'Three',
-                                            value: 3
-                                        },
-                                        {
-                                          text: 'Four',
-                                          value: 4
+                                            name: 'time',
+                                            options: [
+                                                {
+                                                    text: 'Day(s)',
+                                                    value: 'day'
+                                                }, {
+                                                    text: 'Week(s)',
+                                                    value: 'week'
+                                                }, {
+                                                    text: 'Month(s)',
+                                                    value: 'month'
+                                                },
+                                                {
+                                                    text: 'Year(s)',
+                                                    value: 'year'
+
+                                                }
+
+                                            ]
                                         }
-                                    ]
-                                }, {
-                                    name: 'time',
-                                    options: [
+                                    ], [
                                         {
-                                            text: 'Day(s)',
-                                            value: 'day'
-                                        }, {
-                                            text: 'Week(s)',
-                                            value: 'week'
-                                        }, {
-                                            text: 'Month(s)',
-                                            value: 'month'
-                                        },
-                                        {
-                                          text: 'Year(s)',
-                                          value: 'year'
-                                      
+                                            text: 'Confirm',
+                                            handler: (selected) => {
+                                                setValue(`${selected.number.value}, ${selected.time.value}`)
+                                            }
                                         }
-                              
-                                    ]
-                                }
-                            ], [
-                                {
-                                    text: 'Confirm',
-                                    handler: (selected) => {
-                                        setValue(`${selected.number.value}, ${selected.time.value}`)
-                                    }
-                                }
-                            ])}>
+                                    ])}>
 
-                                <IonIcon class="calendarIcon" size = "large" slot="icon-only" icon={calendar}></IonIcon>
+                                    <IonIcon class="calendarIcon" size="large" slot="icon-only" icon={calendar}></IonIcon>
 
-                            </IonButton>
-                        </IonButtons>
+                                </IonButton>
+                            </IonButtons>
 
-                        {/* {advancedDate && (
+                            {/* {advancedDate && (
                             <div>
                                 <IonSegment color="secondary" value="favorite">
 
@@ -443,59 +440,91 @@ const AnimalDashboard : React.FC = () => {
                                 </div>
                             </div>
                         )} */}
-                    </IonToolbar>
+                        </IonToolbar>
 
-                </IonHeader>
+                    </IonHeader>
                 </div>
 
-        
-               
+
+
 
                 <IonList>
-                    <IonItem> One item</IonItem>
+
                     {!loading && data
-                    ?.animals
+                        ?.animals
                         ?.slice(0, numCard)
-                            .reverse()
-                            .map((animal : any) => (
-                                <div className="centerItem">
-                                
-                                    {type.length === 0 && (
-                                        <IonItem lines="full">
-                                            <IonCard
-                                                button={true}
-                                                color="light"
-                                                onClick={() => animalOnMap(animal.location.lat, animal.location.lon)}>
-                                                {animal.files !== undefined && animal.files.length !== 0 && (
-                                                    // eslint-disable-next-line jsx-a11y/alt-text
-                                                    <img
-                                                        style={{
+                        .reverse()
+                        .map((animal: any) => (
+
+                            <div className="centerItem">
+
+                                {type.length === 0 && (
+                                    <IonItem lines="none">
+                                        <IonCard
+
+                                            color="white"
+                                        >
+                                            {animal.files !== undefined && animal.files.length !== 0 && (
+                                                // eslint-disable-next-line jsx-a11y/alt-text
+                                                <img
+                                                    style={{
                                                         height: 170,
                                                         width: 320
                                                     }}
-                                                        src={"https://nsf-scc1.isis.vanderbilt.edu/file/animal/" + animal._id + "/" + animal.files[0]
-                                                } ></img>
-                                                )}
-                                                <IonCardContent>
-                                                    <IonCardSubtitle>Animal Information</IonCardSubtitle>
-                                                    <h5>Type: {animal.type}</h5>
-                                                    <h5>Breed: {animal.breed}</h5>
-                                                    <h5>Color: {animal.color}</h5>
-                                                    <h5>Location: {animal.neighborhood}</h5>
-                                                    <h5>
-                                                        Date:{" "} {new Date(animal.createdAt)
-                                                            .toString()
-                                                            .substr(0, new Date(animal.createdAt).toString().indexOf("GMT")) + "(CDT)"}{" "}
-                                                    </h5>
-                                                </IonCardContent>
-                                            </IonCard>
-                                        </IonItem>
-                                    )}
-                                </div>
-                            ))}
-                </IonList>
+                                                    src={"https://nsf-scc1.isis.vanderbilt.edu/file/animal/" + animal._id + "/" + animal.files[0]
+                                                    } ></img>
+                                            )}
+                                            <IonCardContent >
 
-                    
+                                                <h5> <b>Animal:</b> {animal.color} {" "} {animal.breed}`</h5>
+
+                                                <h5><b>Location:</b> {animal.neighborhood}
+                                                    <IonButton className="mapButton" size = "default" fill="clear" color="white" onClick={() => {
+                                                        setOpenMap(true);
+                                                        animalOnMap(animal.location.lat, animal.location.lon)}}
+
+                                                    ><IonIcon color=" " className="mapIcon" icon={navigateCircleOutline} size="large"> </IonIcon></IonButton>
+
+                                                </h5>
+
+                                                <h5>
+                                                    <i><b>Time Reported:</b>{" "} {moment(new Date(animal.createdAt)
+                                                        .toString()
+                                                        .substr(0, new Date(animal.createdAt).toString().indexOf("GMT"))).format("ddd MMM YYYY h:mm:ss a") + " (CDT)"}{" "}
+                                                        </i>
+                                                </h5>
+                                            </IonCardContent>
+                                        </IonCard>
+                                    </IonItem>
+                                )}
+                                
+                            </div>
+                        ))}
+                </IonList>
+                
+                <IonPopover showBackdrop = {true} isOpen={openMap} onDidDismiss={() => setOpenMap(false)} >
+{/* <div className="popover">
+Hello
+</div> */}
+                                    {animalLat !== 0 && animalLon !== 0 && (
+                                        <MapContainer
+                                            className="mapContainer"
+                                            id="mapid"
+                                            center={[animalLat, animalLon]}
+                                            zoom={12.5}
+                                            scrollWheelZoom={true}>
+                                            <TileLayer
+
+                                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                                            <Marker position={[animalLat, animalLon]}>
+                                                <Popup>Animal Location:</Popup>
+                                            </Marker>
+                                        </MapContainer>
+                                    )}
+
+                                </IonPopover>
+
 
                 <IonInfiniteScroll
                     onIonInfinite={loadData}
@@ -512,7 +541,7 @@ const AnimalDashboard : React.FC = () => {
 
 
     );
-  
-    
+
+
 };
 export default AnimalDashboard

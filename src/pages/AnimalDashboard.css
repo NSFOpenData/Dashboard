@@ -13,13 +13,24 @@
         border: 0 !important;
         box-shadow: none!important;
         width: 800px;
+        text-transform: none;
     }
     
     .calendarIcon {
         color: black;
         font-size: 64px;
     }
+
+    .mapIcon {
+        color: #D8AB4C;
+        font-size: 15px;
+        position: absolute;
+    }
     
+    .animalCard {
+        color: #FFE162;
+    
+    }
     ion-toolbar.ion-padding {
         --background: white;
         height: 50px;
@@ -44,6 +55,9 @@
     .reportLostPet {
         position: relative;
         width: 300px;
+        font-size: 20px;
+        text-transform: none;
+        color:crimson
     }
     
     .bottomItems {
@@ -61,3 +75,32 @@
         align-items: center !important;
         flex-flow: column;
     }
+
+    .mapButton {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        margin-bottom: 10px;
+        width: max-content center;
+        justify-content: flex-end;
+        display: flex !important;
+        align-items: center !important;
+        flex-flow: column;
+    }
+/* 
+    .mapButtonCircle {
+        background-color: #D8AB4C;
+        border-radius: 50%;
+    } */
+
+    /* .mapContainer {
+        position: absolute;
+        top: 0px;
+        width: 400px;
+        height: 100%;
+        z-index: -1;
+    } */
+
+    /* .contact-popover .popover-content{ width: 700px; } */
+
+   
