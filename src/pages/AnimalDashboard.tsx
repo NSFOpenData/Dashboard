@@ -26,7 +26,7 @@ import {
     IonInfiniteScrollContent,
     useIonViewWillEnter
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AnimalDashboard.css";
 import TopMenu from './../components/TopMenu';
 import moment from "moment";
@@ -176,10 +176,19 @@ const AnimalDashboard: React.FC = () => {
     }
   `;
 
+
     const { loading, data, error, refetch, networkStatus } = useQuery(ANIMAL_POST_QUERY, {
         fetchPolicy: "no-cache",
         notifyOnNetworkStatusChange: true
     });
+
+  const [search, setSearch] = useState(data);
+
+    useEffect(() => {
+        if(!error && !loading) {
+            setSearch(data);
+        }
+}, [data, error, loading]);
 
     if (networkStatus == NetworkStatus.refetch)
         console.log("refetching!");
@@ -212,6 +221,15 @@ const AnimalDashboard: React.FC = () => {
         message?: string;
     }
 
+    const onSearchChange= (e: any) => {
+        const value = e.target.value.toLowerCase();
+        var temp = data.animals;
+        var result = temp.filter(function(animal: { breed: string; type: string; color: string; }) {
+            return animal.breed.toLowerCase().includes(value) || animal.type.toLowerCase().includes(value) || animal.color.toLowerCase().includes(value);
+        })
+        setSearch({animals: result});
+    };
+
     //TODO: Animal Dashboard Title needs to be centered
     //TODO: prepare collection of data for infinite scroll
     // can create a dictionary for the animal data
@@ -235,11 +253,6 @@ const AnimalDashboard: React.FC = () => {
 
     // cardData and isInifiniteDisabled pertain to the infinite scroll
     // a dictionary needs to be setup for storing the animal data attributes to push onto the data set
-    const [animalSearch, setAnimalSearch] = useState('');
-
-    const formatSearch = (input: string) => {
-        setAnimalSearch(input.toLowerCase())
-    }
 
 
 
@@ -313,22 +326,20 @@ const AnimalDashboard: React.FC = () => {
             {/* <IonButton color="light" expand="full" disabled={true}>Animal Dashboard</IonButton> */}
 
 
-            <IonContent fullscreen={false}>
-                <div className="centerItem">
+            <IonContent>
                     <IonHeader  >
 
                         <IonToolbar color="white" class="ion-padding">
                             <IonButtons slot="start">
-                                <IonButton slot="start" color="white" size="small">
                                     <IonSearchbar
                                         className="searchbar-input"
-                                        placeholder="search pet"
+                                        placeholder="Search pets..."
                                         color="light"
                                         autoCapitalize="true"
-                                        value={animalSearch}>
+                                        onIonChange={onSearchChange}
+                                        >
 
                                     </IonSearchbar>
-                                </IonButton>
 
                                 <IonButton
                                      fill = "solid"
@@ -443,14 +454,13 @@ const AnimalDashboard: React.FC = () => {
                         </IonToolbar>
 
                     </IonHeader>
-                </div>
 
 
 
 
                 <IonList>
 
-                    {!loading && data
+                    {!loading && search
                         ?.animals
                         ?.slice(0, numCard)
                         .reverse()
