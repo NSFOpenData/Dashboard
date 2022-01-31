@@ -183,16 +183,6 @@ const UploadPageAnimal: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <div className="centerItem">
-            <img
-              className="logoPic"
-              src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
-            ></img>{" "}
-          </div>
-        </IonToolbar>
-      </IonHeader>
 
       <IonContent fullscreen>
         <IonLoading

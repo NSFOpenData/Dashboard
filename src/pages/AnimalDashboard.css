@@ -52,17 +52,84 @@
     }
     
     .customQueryMargin {
-        width: 300px
+        
+        position: relative;
+        width: 200px;
+        height: 42px !important;
+        border-radius: 10px;
+        font-size: 20px;
+        color:white;
+        background-color: rgb(83, 83, 83);
     }
     
     .reportLostPet {
         position: relative;
-        width: 300px;
+        width: 250px;
+        height: 42px !important;
+        border-radius: 10px;
         font-size: 20px;
-        text-transform: none;
-        color:crimson
+        color:white;
+        background-color: crimson;
+        /* right: 0px; */
+    }
+
+    .timeButton {
+        width: 100%;
+        height: 42px !important;
+        border-radius: 10px !important;
+        font-size: 20px;
+        color:white;
+        margin: 4px 0px !important;
+        background-color: rgb(184, 184, 184);
+        font-weight: 600;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+
+    .ionDatetime {
+        background-color: white;
+        border-radius: 10px !important;
+        font-size: 15px;
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+
+    .button-selected {
+        background-color: rgb(126, 126, 126) !important;
+      }
+
+    .submitButton {
+        width: 100%;
+        height: 42px !important;
+        border-radius: 10px !important;
+        font-size: 20px;
+        color:white;
+        margin: 8px 0px 0px 0px !important;
+        background-color: crimson;
+        font-weight: 600;
+        font-size: 18px;
+        text-transform: uppercase;
+
+    }
+
+    .calendarButton {
+        background-color: rgb(184, 184, 184);
+        width: 100%;
+        border-radius: 10px !important;
+        color:black;
+        text-transform: uppercase;
+        font-weight: 600;
+
     }
     
+    .timeBottomLeft {
+        margin-right: 2px !important;
+    }
+    .timeBottomRight {
+        margin-left: 2px !important;
+    }
+
+
     .bottomItems {
         position: absolute;
         bottom: 70px;
@@ -96,14 +163,33 @@
         border-radius: 50%;
     } */
 
-    /* .mapContainer {
+    .mapContainer {
         position: absolute;
-        top: 0px;
-        width: 400px;
         height: 100%;
+        bottom: 0;
         z-index: -1;
-    } */
+    }
+
+    .ionDatetime {
+        padding: 5px 0px !important;
+    }
+
+    .customQueryPopup {
+        text-align: center;
+        padding: 20px 40px;
+
+    }
 
     /* .contact-popover .popover-content{ width: 700px; } */
 
    
+@media screen and (max-width: 856px) {
+    .reportLostPet {
+        position: absolute !important;
+        bottom: 0px !important;
+    }
+    .ion-padding {
+
+  flex-flow: column !important;
+    }
+  }

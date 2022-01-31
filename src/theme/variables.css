@@ -281,7 +281,7 @@ ion-toast::part(button) {
 }
 
 .popover-content {
-  --width: 800px;
+  --width: 350px;
 }
 
 /* @media screen and (max-width: 768px) {
