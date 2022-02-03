@@ -296,9 +296,9 @@ import {
   
     return (
       <IonPage>
-        <IonHeader>
-          <IonToolbar color="white" className="ion-padding">
-            <IonButtons slot="start">
+        <IonHeader className="dashboard-header">
+            <IonButtons className="header-buttons">
+              <div>
               <IonSearchbar
                 className="searchbar-input"
                 placeholder="Search pets..."
@@ -306,32 +306,36 @@ import {
                 autoCapitalize="true"
                 onIonChange={onSearchChange}
               ></IonSearchbar>
-            </IonButtons>
-  
-            <IonButtons slot="start">
+
+              </div>
+              <br/>
+              <div className="button-div">
+                
               <IonButton
                 fill="solid"
-                className="customQueryMargin"
+                className="mobile-button customQueryMargin"
                 size="small"
+                color="medium"
                 onClick={() => setOpen(true)}
               >
                 <IonLabel> Custom Query</IonLabel>
                 <IonIcon style={{ marginLeft: "5px" }} icon={calendar} />
               </IonButton>
-            </IonButtons>
-            <IonButtons slot="end">
               <IonButton
                 fill="solid"
                 routerLink={"/uploadPageA"}
                 size="small"
-                className="reportLostPet"
+                color="danger"
+                className="mobile-button reportLostPet"
+
                 slot="end"
               >
                 <IonLabel> Report Lost Pet</IonLabel>
                 <IonIcon style={{ marginLeft: "5px" }} icon={paw} />
               </IonButton>
+              </div>
             </IonButtons>
-          </IonToolbar>
+              
         </IonHeader>
         <IonContent>
           {data && (
@@ -425,9 +429,8 @@ import {
               <b>Or</b>{" "}
             </h5>
             <IonButtons slot="fill" >
-            <span style={{pointerEvents: "none"}}>
               <div className="calendarButton selectable" slot="fill" onClick={focusMe}>
-                <h5>Start Date</h5>
+                <h6 className="calendarTitle">Start Date</h6>
                 <IonDatetime
                   className="ionDatetime"
                   value={new Date().toISOString()}
@@ -435,7 +438,7 @@ import {
                   display-format="MMM DD, YYYY hh:mm A"
                   // placeholder="Start Date"
                 />
-                <h5>End Date</h5>
+                <h6 className="calendarTitle">End Date</h6>
                 <IonDatetime
                   className="ionDatetime"
                   value={new Date().toISOString()}
@@ -444,7 +447,6 @@ import {
                   // placeholder="Start Date"
                 />
               </div>
-              </span>
             </IonButtons>
             <IonButtons slot="fill">
               <button
