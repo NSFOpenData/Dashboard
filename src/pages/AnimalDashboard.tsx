@@ -233,13 +233,15 @@ import {
   
     function focusMe(event: any) {
         console.log(event.target.classList)
-      var elem = document.getElementsByClassName("button-selected")[0];
+      var elem = document.getElementsByClassName(" button-selected")[0];
       if (event.target.classList && event.target.classList.value.indexOf("selectable") === -1){
-
+        focusMe({target: document.getElementById("customDate")});
       }
       else if (elem) {
+        if( elem.className!==event.target.className) {
+        event.target.classList += " button-selected";
+        }
         elem.className = elem.className.replace(" button-selected", "");
-        // console.log(elem.className);
       } else {
         event.target.classList += " button-selected";
 
@@ -416,11 +418,11 @@ import {
                 <IonLabel>Yesterday</IonLabel>
               </button>
             </IonButtons>
-            <IonButtons slot="fill" onClick={focusMe}>
-              <button className="timeButton timeBottomLeft selectable" slot="start">
+            <IonButtons slot="fill">
+              <button className="timeButton timeBottomLeft selectable" slot="start" onClick={focusMe}>
                 <IonLabel>Past 12 Hrs</IonLabel>
               </button>
-              <button className="timeButton timeBottomRight selectable" slot="end" onClick={focusMe}>
+              <button className="timeButton timeBottomRight selectable" onClick={focusMe}>
                 <IonLabel>Past 6 Hrs</IonLabel>
               </button>
             </IonButtons>
@@ -429,7 +431,7 @@ import {
               <b>Or</b>{" "}
             </h5>
             <IonButtons slot="fill" >
-              <div className="calendarButton selectable" slot="fill" onClick={focusMe}>
+              <div className="calendarButton selectable" id="customDate" slot="fill" onClick={focusMe}>
                 <h6 className="calendarTitle">Start Date</h6>
                 <IonDatetime
                   className="ionDatetime"
