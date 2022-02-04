@@ -232,10 +232,12 @@ import {
     };
   
     function focusMe(event: any) {
-        console.log(event.target.classList)
       var elem = document.getElementsByClassName(" button-selected")[0];
       if (event.target.classList && event.target.classList.value.indexOf("selectable") === -1){
-        focusMe({target: document.getElementById("customDate")});
+        const doc = document.getElementById("customDate");
+        if(event.target.classList.value.indexOf("ionDatetime") === -1 || doc!.classList.value.indexOf("button-selected") === -1){
+          focusMe({target: doc});
+        }
       }
       else if (elem) {
         if( elem.className!==event.target.className) {
