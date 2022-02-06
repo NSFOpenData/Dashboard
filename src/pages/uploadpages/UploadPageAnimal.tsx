@@ -100,6 +100,10 @@ const UploadPageAnimal: React.FC = () => {
     onCompleted: ({ result }) => {
       console.log(result);
     },
+    onError: (error) => {
+      console.log(error);
+    }
+    
   });
 
   ////* Uploading Files */
@@ -115,8 +119,12 @@ const UploadPageAnimal: React.FC = () => {
   });
 
   const onFileChange = (fileChangeEvent: any) => {
-    values.current.file = fileChangeEvent.target.files;
-    setFileName(`animal/${imagesID}/${fileChangeEvent.target.files[0].name}`);
+    if(!fileChangeEvent.target.files[0]) {
+      setFileName("");
+    } else {
+      values.current.file = fileChangeEvent.target.files;
+      setFileName(`animal/${imagesID}/${fileChangeEvent.target.files[0].name}`);
+    }
   };
 
   const submitFileForm = async () => {
@@ -126,7 +134,8 @@ const UploadPageAnimal: React.FC = () => {
     const formData = new FormData();
     formData.append("type", "animal");
     formData.append("id", imagesID);
-    formData.append(
+
+    values.current.file[0] && formData.append(
       "images",
       values.current.file[0],
       values.current.file[0].name
@@ -138,7 +147,7 @@ const UploadPageAnimal: React.FC = () => {
 
     let resUrl = "http://localhost:3000/upload"
     let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
-    const response = await fetch(resUrl, {
+    const response = await fetch(productionUrl, {
       method: "POST",
       body: formData,
     });
@@ -182,87 +191,76 @@ const UploadPageAnimal: React.FC = () => {
   };
 
   return (
-    <IonPage>
+    <IonPage className="centerItem">
 
-      <IonContent fullscreen>
+      <IonContent className="profilePage signinregion ion-padding">
         <IonLoading
           isOpen={geoLoading}
           onDidDismiss={() => setGeoLoading(false)}
           message={"Getting Location..."}
         />
+        
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Upload Animal Data
-        </h5>
-        <IonItem>
-          <IonLabel>Type: </IonLabel>
+        <h1>
+          Report Lost Pet
+        </h1>
+        <div className="signin">
+        <div className="register-block">
+          <h3>Type: </h3>
           <IonInput
-            placeholder="dog, cat, bird, etc."
+            placeholder="Dog, Cat, Bird, etc."
+            className="registerInput"
             onIonChange={(e) => setAnimalType(e.detail.value!)}
           ></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Breed: </IonLabel>
+          <h3>Breed: </h3>
           <IonInput
-            placeholder="poodle, persian, canary etc."
+            placeholder="Poodle, Persian, Canary etc."
+            className="registerInput"
             onIonChange={(e) => setAnimalBreed(e.detail.value!)}
           ></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Color: </IonLabel>
+          <h3>Color: </h3>
           <IonInput
-            placeholder="black, white, brown, etc."
+            placeholder="Black, White, Brown, etc."
+            className="registerInput"
             onIonChange={(e) => setAnimalColor(e.detail.value!)}
           ></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Neighborhood: </IonLabel>
+          <h3>Neighborhood: </h3>
           <IonInput
             placeholder="Nashville, Sylvan Park, Downtown, etc."
+            className="registerInput"
             onIonChange={(e) => setAnimalNeighborhood(e.detail.value!)}
           ></IonInput>
-        </IonItem>
         
         {filesUpload && !loading && (
-          <div className="centerItem">
-            <IonItem lines="none">
               <input
                 type="file"
                 onChange={(event) => onFileChange(event)}
                 // accept="image/*,.pdf,.doc"
+                style={{marginBottom: '15px'}}
                 multiple
               ></input>
-            </IonItem>
-          </div>
         )}
-        { animalColor && animalBreed && animalType && animalNeighborhood && (
               <IonButton
-              color="primary"
+              color="danger"
+              className="reportButton"
               expand="block"
               onClick={() => submitFileForm()}
-              size="small"
+              disabled={!(animalColor && animalBreed && animalType && animalNeighborhood)}
             >
-              Upload!
+              Report Lost Pet
             </IonButton>
-        )}
-
-        <div className="privacyNotice">
-          <IonText className="privacyText">
-            Privacy Notice: by uploading the data, your current location will be
-            disclosed
-          </IonText>
+        </div>
         </div>
 
-        <div className="bottom">
           <IonButton
             color="light"
             routerLink={"/animalDashboard"}
             routerDirection="back"
+            className="backButton"
           >
             <IonIcon icon={chevronBackOutline}></IonIcon>
             back
           </IonButton>
-        </div>
       </IonContent>
     </IonPage>
   );
