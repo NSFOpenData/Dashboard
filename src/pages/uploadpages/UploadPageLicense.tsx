@@ -136,7 +136,7 @@ const UploadPageLicense: React.FC = () => {
 
     let resUrl = "http://localhost:3000/upload"
     let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
-    const response = await fetch(productionUrl, {
+    const response = await fetch("/upload", {
       method: "POST",
       body: formData,
     });

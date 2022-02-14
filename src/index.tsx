@@ -33,6 +33,7 @@ const bearer = "Bearer ";
 //   }),
 //   cache: new InMemoryCache(),
 // });
+console.log(process.env, "process.env");
 const httpLink = createUploadLink({
   uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
 });

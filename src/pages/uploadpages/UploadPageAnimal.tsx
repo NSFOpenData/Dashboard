@@ -186,7 +186,7 @@ const UploadPageAnimal: React.FC = () => {
     let resUrl = "http://localhost:3000/upload"
     let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
     console.log('here');
-    const response = await fetch(productionUrl, {
+    const response = await fetch("/upload", {
       method: "POST",
       body: formData,
     })

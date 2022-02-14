@@ -79,6 +79,7 @@
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4"
   },
+  "proxy": "https://nsf-scc1.isis.vanderbilt.edu",
   "scripts": {
     "start": "(set PORT=3006 || export PORT=3006) && react-scripts start",
     "build": "react-scripts build",

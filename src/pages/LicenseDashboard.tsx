@@ -237,7 +237,7 @@ const LicenseDashboard: React.FC = () => {
 
     try {
       const response = await fetch(
-        "https://nsf-scc1.isis.vanderbilt.edu/upload",
+        "/upload",
         {
           method: "POST",
           body: formData,
