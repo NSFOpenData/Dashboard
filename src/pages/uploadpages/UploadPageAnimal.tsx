@@ -11,17 +11,19 @@ import {
   IonLoading,
   IonText,
 } from "@ionic/react";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./UploadPageAnimal.css";
 
 // icons
 import { chevronBackOutline } from "ionicons/icons";
+import { useHistory } from "react-router";
 
 // /* GraphQL for API Calls */
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
 
 // getting live geolocation
 import { Geolocation, Geoposition } from "@ionic-native/geolocation";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 const CREATE_ANIMAL = gql`
   mutation (
@@ -30,7 +32,7 @@ const CREATE_ANIMAL = gql`
     $breed: String
     $type: String
     $location: LocationInput!
-    $files: [Upload!]
+    $files: [String!]
   ) {
     createAnimal(
       animal: {
@@ -48,10 +50,20 @@ const CREATE_ANIMAL = gql`
   }
 `;
 
+// const UNIQUE_ID = gql`
+// query (
+//   $count: Int
+//   ) { UniqueId {
+//   getUniqueID: {
+//     count: Int
+//   }
+// }`
 const UNIQUE_ID = gql`
-query UniqeId{
-  getUniqueID
+query UniqeId ($count: Int!){
+  getUniqueID(count: $count) 
+  
 }`
+
 
 // for uploading files
 interface InternalValues {
@@ -62,11 +74,19 @@ interface InternalValues {
 var numAnimalsUploaded = 0;
 
 const UploadPageAnimal: React.FC = () => {
-  type LocationInput = {
-    lat: String;
-    lon: String;
-  };
+  const history = useHistory();
 
+  useEffect(() => {
+    getLocation(); 
+  }, []);
+
+  type LocationInput = {
+    lat: string;
+    lon: string;
+  };
+  type FileInput = {
+
+  }
   /* Making Animal */
   const [animalid, setAnimalId] = useState<string>("");
   const [animalCreatedAt, setAnimalCreatedAt] = useState<number>(0);
@@ -77,16 +97,8 @@ const UploadPageAnimal: React.FC = () => {
   const [animalColor, setAnimalColor] = useState<string>("");
   const [animalBreed, setAnimalBreed] = useState<string>("");
   const [animalType, setAnimalType] = useState<string | null>("");
-  const [imagesID, setImagesID] = useState<string>("");
-  const [fileName, setFileName] = useState<string>("");
-
-
-
-  // const [fileNameArray, setFileNameArray] = useState<Array<string> | null>(
-  //   null
-  // );
-
-  const [filesUpload, setFilesUpload] = useState<boolean>(true);
+  const [imagesID, setImagesID] = useState<Array<string>>([]);
+  const [fileName, setFileName] = useState<Array<string>>([]);
 
   var [makeAnimal, { data, loading }] = useMutation(CREATE_ANIMAL, {
     variables: {
@@ -95,15 +107,16 @@ const UploadPageAnimal: React.FC = () => {
       color: animalColor,
       breed: animalBreed,
       type: animalType,
-      files: [fileName],
+      files: fileName,
     },
     onCompleted: ({ result }) => {
       console.log(result);
+      history.push("/animalDashboard");
     },
     onError: (error) => {
       console.log(error);
     }
-    
+
   });
 
   ////* Uploading Files */
@@ -112,49 +125,76 @@ const UploadPageAnimal: React.FC = () => {
   });
 
   // get uniqueID from the uuid library in the backend
-  var { loading, data, error, refetch, networkStatus } = useQuery(UNIQUE_ID, {
+  var [getIDs, { loading, data, error, refetch, networkStatus }] = useLazyQuery(UNIQUE_ID, {
+    fetchPolicy: "no-cache",
     onCompleted: (data) => {
+      console.log(data.getUniqueID);
       setImagesID(data.getUniqueID);
+      return data.getUniqueID;
     }
   });
 
-  const onFileChange = (fileChangeEvent: any) => {
-    if(!fileChangeEvent.target.files[0]) {
-      setFileName("");
-    } else {
-      values.current.file = fileChangeEvent.target.files;
-      setFileName(`animal/${imagesID}/${fileChangeEvent.target.files[0].name}`);
+  const makeIDQuery = async (fileLength: any) => {
+    getIDs({variables: {count: fileLength}})
+  }
+
+  useEffect(()=> {
+    getIDs({variables: {count: 0}})
+  }, [])
+
+  const onFileChange = async (fileChangeEvent: any) => {
+    var newFileName = [];
+    var getIDVals: string[] = [];
+    if(refetch) {
+     const checkVal = await refetch({count: fileChangeEvent.target.files.length});
+     getIDVals = checkVal.data.getUniqueID;
     }
+
+    for (var i = 0; i < fileChangeEvent.target.files.length; i++) {
+
+      newFileName.push(`animal/${getIDVals[i]}/${fileChangeEvent.target.files[i].name}`);
+    }
+    values.current.file = fileChangeEvent.target.files;
+    setFileName(newFileName);
+
+    // if(!fileChangeEvent.target.files[0]) {
+    //   values.current.file = false;
+    //   setFileName("");
+    // } else {
+    //   values.current.file = fileChangeEvent.target.files;
+    //   setFileName(`animal/${imagesID}/${fileChangeEvent.target.files[0].name}`);
+    // }
   };
 
   const submitFileForm = async () => {
-
-    await getLocation(); // getting location
-
+    
     const formData = new FormData();
     formData.append("type", "animal");
-    formData.append("id", imagesID);
+    formData.append("id", JSON.stringify(imagesID));
+    // const allFiles = [];
+    for (var i = 0; i < values.current.file.length; i++) {
+      formData.append(
+        "images",
+        values.current.file[i],
+        values.current.file[i].name
+      );
 
-    values.current.file[0] && formData.append(
-      "images",
-      values.current.file[0],
-      values.current.file[0].name
-    );
-
-    console.log(values.current.file[0]);
+    }
     numAnimalsUploaded = numAnimalsUploaded + 1;
     console.log("num animals added: " + numAnimalsUploaded);
 
     let resUrl = "http://localhost:3000/upload"
     let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
-    const response = await fetch(productionUrl, {
+    console.log('here');
+    const response = await fetch(resUrl, {
       method: "POST",
       body: formData,
-    });
-    
+    })
+    console.log(response);
     if (response.status === 200) {
-      console.log(fileName);
-      makeAnimal();
+      makeAnimal().catch((error) => {
+        console.log(error);
+      });
     } else {
       console.log("file upload failed");
     }
@@ -167,6 +207,7 @@ const UploadPageAnimal: React.FC = () => {
   }
 
   const [geoLoading, setGeoLoading] = useState<boolean>(false);
+  const [openMap, setOpenMap] = useState<boolean>(false);
   const [geoError, setGeoError] = useState<LocationError>({ showError: false });
   const [position, setPosition] = useState<Geoposition>();
 
@@ -182,7 +223,7 @@ const UploadPageAnimal: React.FC = () => {
         lat: position.coords.latitude.toString(),
         lon: position.coords.longitude.toString(),
       };
-      console.log(animalLocation);
+      console.log(currentLocation);
       setAnimalLocation(currentLocation);
     } catch (e) {
       // setGeoError({ showError: true, message: e.message });
@@ -231,14 +272,43 @@ const UploadPageAnimal: React.FC = () => {
             onIonChange={(e) => setAnimalNeighborhood(e.detail.value!)}
           ></IonInput>
         
-        {filesUpload && !loading && (
-              <input
-                type="file"
-                onChange={(event) => onFileChange(event)}
-                // accept="image/*,.pdf,.doc"
-                style={{marginBottom: '15px'}}
-                multiple
-              ></input>
+          <input
+            type="file"
+            onChange={(event) => onFileChange(event)}
+            // accept="image/*,.pdf,.doc"
+            style={{marginBottom: '15px'}}
+            multiple
+          ></input>
+        <div>
+        <input type="radio" id="selectLocation1" name="selectLocation" value="1"
+               checked={!openMap} onChange={() => setOpenMap(false)}/>
+        <label className="locationLabel">Use Current Location</label>
+        <input type="radio" className="radioRightButton" id="selectLocation2" name="selectLocation" value="2" checked={openMap} onChange={() => setOpenMap(true)}/>
+        <label className="locationLabel">Select a Location</label>
+      </div>
+        {animalLocation && openMap && (
+          <MapContainer
+            id="mapid"
+            center={[ parseFloat(animalLocation.lat), parseFloat(animalLocation.lon)]}
+            zoom={17}
+            scrollWheelZoom={false}
+            whenCreated={(map: any) => {
+              map.on("click", function (e: any) {
+                let lat = e.latlng.lat.toString();
+                let lon = e.latlng.lng.toString();
+                setAnimalLocation({ lat, lon });
+              })
+            }}
+            
+          >
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[parseFloat(animalLocation.lat),parseFloat(animalLocation.lon)]}>
+              <Popup>{animalLocation.lat}</Popup>
+            </Marker>
+          </MapContainer>
         )}
               <IonButton
               color="danger"

@@ -206,7 +206,7 @@ const AnimalQueryPage: React.FC = () => {
           </IonContent>
         )}
 
-        {animalLat != 0 && animalLon != 0 && (
+        {animalLat && animalLon && (
           <MapContainer
             id="mapid"
             center={[36.1627, -86.7816]}

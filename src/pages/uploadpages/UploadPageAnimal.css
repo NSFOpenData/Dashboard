@@ -37,6 +37,16 @@
   /* padding: 10px 0px; */
 }
 
+.locationLabel {
+  font-family: inherit;
+  margin-left: 5px;
+}
+
+.radioRightButton {
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
 ion-input .native-input {
   --padding-bottom: 10px;
   --padding-start: 8px;
