@@ -34,7 +34,7 @@ const bearer = "Bearer ";
 //   cache: new InMemoryCache(),
 // });
 const httpLink = createUploadLink({
-  uri: "http://localhost:3000/graphql",
+  uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
