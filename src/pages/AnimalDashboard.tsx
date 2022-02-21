@@ -382,7 +382,7 @@ import {
   
                         <h5>
                           {" "}
-                          <b>Animal:</b> {animal.color} {animal.breed}`
+                          <b>Animal:</b> {animal.color} {animal.breed}
                         </h5>
   
                         <h5>

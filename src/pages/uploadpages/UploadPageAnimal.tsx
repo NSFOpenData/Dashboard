@@ -143,35 +143,13 @@ const UploadPageAnimal: React.FC = () => {
   }, [])
 
   const onFileChange = async (fileChangeEvent: any) => {
-    var newFileName = [];
-    var getIDVals: string[] = [];
-    if(refetch) {
-     const checkVal = await refetch({count: fileChangeEvent.target.files.length});
-     getIDVals = checkVal.data.getUniqueID;
-    }
-
-    for (var i = 0; i < fileChangeEvent.target.files.length; i++) {
-
-      newFileName.push(`animal/${getIDVals[i]}/${fileChangeEvent.target.files[i].name}`);
-    }
     values.current.file = fileChangeEvent.target.files;
-    setFileName(newFileName);
-
-    // if(!fileChangeEvent.target.files[0]) {
-    //   values.current.file = false;
-    //   setFileName("");
-    // } else {
-    //   values.current.file = fileChangeEvent.target.files;
-    //   setFileName(`animal/${imagesID}/${fileChangeEvent.target.files[0].name}`);
-    // }
   };
 
   const submitFileForm = async () => {
     
     const formData = new FormData();
     formData.append("type", "animal");
-    formData.append("id", JSON.stringify(imagesID));
-    // const allFiles = [];
     for (var i = 0; i < values.current.file.length; i++) {
       formData.append(
         "images",
@@ -180,17 +158,10 @@ const UploadPageAnimal: React.FC = () => {
       );
 
     }
-    numAnimalsUploaded = numAnimalsUploaded + 1;
-    console.log("num animals added: " + numAnimalsUploaded);
-
-    let resUrl = "http://localhost:3000/upload"
-    let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
-    console.log('here');
     const response = await fetch("/upload", {
       method: "POST",
       body: formData,
     })
-    console.log(response);
     if (response.status === 200) {
       makeAnimal().catch((error) => {
         console.log(error);
