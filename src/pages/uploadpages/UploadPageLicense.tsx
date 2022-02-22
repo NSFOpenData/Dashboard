@@ -53,11 +53,6 @@ const CREATE_VEHICLE = gql`
   }
 `;
 
-const UNIQUE_ID = gql`
-query UniqeId{
-  getUniqueID
-}`
-
 // for uploading files
 interface InternalValues {
   file: any;
@@ -111,28 +106,22 @@ const UploadPageLicense: React.FC = () => {
 
   const onFileChange = (fileChangeEvent: any) => {
     values.current.file = fileChangeEvent.target.files;
-    setFileName(`vehicle/${imagesID}/${fileChangeEvent.target.files[0].name}`);
   };
 
-  // get uniqueID from the uuid library in the backend
-  var { loading, data, error, refetch, networkStatus } = useQuery(UNIQUE_ID, {
-    onCompleted: (data) => {
-      setImagesID(data.getUniqueID);
-    }
-  });
 
   const submitFileForm = async () => {
    
     await getLocation(); // todo: do not need to ask user anymore
-  
+    
+    console.log(values.current.file.length)
+
     const formData = new FormData();
     formData.append("type", "vehicle");
-    formData.append("id", imagesID);
-    formData.append(
-      "images",
-      values.current.file[0],
-      values.current.file[0].name
-    );
+    
+    for (let i = 0; i < values.current.file.length; i++) {
+      formData.append("images", values.current.file[i],
+       values.current.file[i].name);
+    }
 
     let resUrl = "http://localhost:3000/upload"
     let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
@@ -143,8 +132,8 @@ const UploadPageLicense: React.FC = () => {
 
     console.log(response);
     if (response.status === 200) {
-      console.log(fileName); // todo: remove after testing
-      makeVehicle();
+      console.log(await response.json()); // todo: remove after testing
+      // makeVehicle();
     } else {
       console.log("file upload failed");
     }

@@ -30,7 +30,7 @@ const CREATE_ANIMAL = gql`
     $breed: String
     $type: String
     $location: LocationInput!
-    $files: [Upload!]
+    $files: [String!]
   ) {
     createAnimal(
       animal: {
