@@ -66,21 +66,18 @@ const UploadPageLicense: React.FC = () => {
 
 
   /* Making Vehicle */
-  const [vehicleid, setVehicleId] = useState<string>("");
   const [imagesID, setImagesID] = useState<string>("");
   const [vehicleCreatedAt, setVehicleCreatedAt] = useState<number>(0);
   const [vehicleLocation, setVehicleLocation] = useState<LocationInput | null>(
     null
   );
   
-  const [fileName, setFileName] = useState<string>("");
+  const [fileStrings, setFileStrings ] = useState<string[]>([]);
   const [vehicleNeighborhood, setVehicleNeighborhood] = useState<string>("");
   const [vehicleColor, setVehicleColor] = useState<string>("");
   const [vehicleMake, setVehicleMake] = useState<string>("");
   const [vehicleModel, setVehicleModel] = useState<string | null>("");
   const [vehicleLicense, setVehicleLicense] = useState<string>("");
-
-  const [filesUpload, setFilesUpload] = useState<boolean>(false);
 
   ////* Uploading Files */
   const values = useRef<InternalValues>({
@@ -97,7 +94,7 @@ const UploadPageLicense: React.FC = () => {
       model: vehicleModel,
       license: vehicleLicense,
       imagesID: imagesID,
-      files: [fileName],
+      files: fileStrings,
     },
     onCompleted: ({ result }) => {
       console.log(result);
@@ -111,7 +108,7 @@ const UploadPageLicense: React.FC = () => {
 
   const submitFileForm = async () => {
    
-    await getLocation(); // todo: do not need to ask user anymore
+    await getLocation(); 
     
     console.log(values.current.file.length)
 
@@ -132,8 +129,9 @@ const UploadPageLicense: React.FC = () => {
 
     console.log(response);
     if (response.status === 200) {
-      console.log(await response.json()); // todo: remove after testing
-      // makeVehicle();
+      const data = await response.json();
+      setFileStrings(data); 
+      makeVehicle();
     } else {
       console.log("file upload failed");
     }
