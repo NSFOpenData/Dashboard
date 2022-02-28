@@ -50,21 +50,6 @@ const CREATE_ANIMAL = gql`
   }
 `;
 
-// const UNIQUE_ID = gql`
-// query (
-//   $count: Int
-//   ) { UniqueId {
-//   getUniqueID: {
-//     count: Int
-//   }
-// }`
-const UNIQUE_ID = gql`
-query UniqeId ($count: Int!){
-  getUniqueID(count: $count) 
-  
-}`
-
-
 // for uploading files
 interface InternalValues {
   file: any;
@@ -88,17 +73,19 @@ const UploadPageAnimal: React.FC = () => {
 
   }
   /* Making Animal */
-  const [animalid, setAnimalId] = useState<string>("");
   const [animalCreatedAt, setAnimalCreatedAt] = useState<number>(0);
   const [animalLocation, setAnimalLocation] = useState<LocationInput | null>(
     null
   );
+
+  const [fileStrings, setFileStrings] = useState<string[]>([]);
   const [animalNeighborhood, setAnimalNeighborhood] = useState<string>("");
   const [animalColor, setAnimalColor] = useState<string>("");
   const [animalBreed, setAnimalBreed] = useState<string>("");
   const [animalType, setAnimalType] = useState<string | null>("");
-  const [imagesID, setImagesID] = useState<Array<string>>([]);
-  const [fileName, setFileName] = useState<Array<string>>([]);
+
+
+  const [filesUpload, setFilesUpload] = useState<boolean>(true);
 
   var [makeAnimal, { data, loading }] = useMutation(CREATE_ANIMAL, {
     variables: {
@@ -107,7 +94,7 @@ const UploadPageAnimal: React.FC = () => {
       color: animalColor,
       breed: animalBreed,
       type: animalType,
-      files: fileName,
+      files: fileStrings,
     },
     onCompleted: ({ result }) => {
       console.log(result);
@@ -124,52 +111,40 @@ const UploadPageAnimal: React.FC = () => {
     file: false,
   });
 
-  // get uniqueID from the uuid library in the backend
-  var [getIDs, { loading, data, error, refetch, networkStatus }] = useLazyQuery(UNIQUE_ID, {
-    fetchPolicy: "no-cache",
-    onCompleted: (data) => {
-      console.log(data.getUniqueID);
-      setImagesID(data.getUniqueID);
-      return data.getUniqueID;
-    }
-  });
-
-  const makeIDQuery = async (fileLength: any) => {
-    getIDs({variables: {count: fileLength}})
-  }
-
-  useEffect(()=> {
-    getIDs({variables: {count: 0}})
-  }, [])
-
-  const onFileChange = async (fileChangeEvent: any) => {
+  const onFileChange = (fileChangeEvent: any) => {
     values.current.file = fileChangeEvent.target.files;
   };
 
   const submitFileForm = async () => {
+   
+    await getLocation(); 
     
+    console.log(values.current.file.length)
+
     const formData = new FormData();
     formData.append("type", "animal");
-    for (var i = 0; i < values.current.file.length; i++) {
-      formData.append(
-        "images",
-        values.current.file[i],
-        values.current.file[i].name
-      );
-
+    
+    for (let i = 0; i < values.current.file.length; i++) {
+      formData.append("images", values.current.file[i],
+       values.current.file[i].name);
     }
-    const response = await fetch("/upload", {
+
+    let resUrl = "http://localhost:3000/upload"
+    let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
+    const response = await fetch(resUrl, {
       method: "POST",
       body: formData,
-    })
+    });
+
     if (response.status === 200) {
-      makeAnimal().catch((error) => {
-        console.log(error);
-      });
+      const data = await response.json();
+      console.log("uploaded images: ", data);
+      setFileStrings(data); 
+      makeAnimal();
     } else {
       console.log("file upload failed");
     }
-  };
+  }
 
   // live geo location
   interface LocationError {

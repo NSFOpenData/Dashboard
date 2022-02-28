@@ -53,11 +53,6 @@ const CREATE_VEHICLE = gql`
   }
 `;
 
-const UNIQUE_ID = gql`
-query UniqeId{
-  getUniqueID
-}`
-
 // for uploading files
 interface InternalValues {
   file: any;
@@ -71,21 +66,18 @@ const UploadPageLicense: React.FC = () => {
 
 
   /* Making Vehicle */
-  const [vehicleid, setVehicleId] = useState<string>("");
   const [imagesID, setImagesID] = useState<string>("");
   const [vehicleCreatedAt, setVehicleCreatedAt] = useState<number>(0);
   const [vehicleLocation, setVehicleLocation] = useState<LocationInput | null>(
     null
   );
   
-  const [fileName, setFileName] = useState<string>("");
+  const [fileStrings, setFileStrings ] = useState<string[]>([]);
   const [vehicleNeighborhood, setVehicleNeighborhood] = useState<string>("");
   const [vehicleColor, setVehicleColor] = useState<string>("");
   const [vehicleMake, setVehicleMake] = useState<string>("");
   const [vehicleModel, setVehicleModel] = useState<string | null>("");
   const [vehicleLicense, setVehicleLicense] = useState<string>("");
-
-  const [filesUpload, setFilesUpload] = useState<boolean>(false);
 
   ////* Uploading Files */
   const values = useRef<InternalValues>({
@@ -102,7 +94,7 @@ const UploadPageLicense: React.FC = () => {
       model: vehicleModel,
       license: vehicleLicense,
       imagesID: imagesID,
-      files: [fileName],
+      files: fileStrings,
     },
     onCompleted: ({ result }) => {
       console.log(result);
@@ -111,28 +103,22 @@ const UploadPageLicense: React.FC = () => {
 
   const onFileChange = (fileChangeEvent: any) => {
     values.current.file = fileChangeEvent.target.files;
-    setFileName(`vehicle/${imagesID}/${fileChangeEvent.target.files[0].name}`);
   };
 
-  // get uniqueID from the uuid library in the backend
-  var { loading, data, error, refetch, networkStatus } = useQuery(UNIQUE_ID, {
-    onCompleted: (data) => {
-      setImagesID(data.getUniqueID);
-    }
-  });
 
   const submitFileForm = async () => {
    
-    await getLocation(); // todo: do not need to ask user anymore
-  
+    await getLocation(); 
+    
+    console.log(values.current.file.length)
+
     const formData = new FormData();
     formData.append("type", "vehicle");
-    formData.append("id", imagesID);
-    formData.append(
-      "images",
-      values.current.file[0],
-      values.current.file[0].name
-    );
+    
+    for (let i = 0; i < values.current.file.length; i++) {
+      formData.append("images", values.current.file[i],
+       values.current.file[i].name);
+    }
 
     let resUrl = "http://localhost:3000/upload"
     let productionUrl = "https://nsf-scc1.isis.vanderbilt.edu/upload"
@@ -143,7 +129,8 @@ const UploadPageLicense: React.FC = () => {
 
     console.log(response);
     if (response.status === 200) {
-      console.log(fileName); // todo: remove after testing
+      const data = await response.json();
+      setFileStrings(data); 
       makeVehicle();
     } else {
       console.log("file upload failed");

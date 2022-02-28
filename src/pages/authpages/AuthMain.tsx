@@ -8,7 +8,7 @@ import { ReactComponent as GoogleLogo } from "../../img/googlelogo.svg";
 import { ReactComponent as AppleLogo } from "../../img/applelogo.svg";
 
 // icons
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 const AuthMain: React.FC = () => {
   const history = useHistory();
