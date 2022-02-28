@@ -72,8 +72,10 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     getAuthToken().then((token: any) => {
+      console.log(token);
       login({ variables: { idToken: token, email: currentUser.email } });
     });
+    console.log(getAuthToken())
   }, []);
 
   const { loading, data, error, refetch, networkStatus } = useQuery(

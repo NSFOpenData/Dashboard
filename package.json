@@ -27,7 +27,6 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
-    "@types/googlemaps": "^3.43.3",
     "@types/jest": "^26.0.20",
     "@types/markerclustererplus": "^2.1.33",
     "@types/node": "^12.19.15",
@@ -58,6 +57,7 @@
     "react-dom": "^17.0.2",
     "react-leaflet": ">=3.1.0 <3.2.0 || ^3.2.1",
     "react-leaflet-drift-marker": "^3.0.0",
+    "react-moment": "^1.1.1",
     "react-native": "^0.64.1",
     "react-native-openalpr": "^2.2.0",
     "react-router": "^5.2.0",
@@ -79,6 +79,7 @@
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4"
   },
+  "proxy": "https://nsf-scc1.isis.vanderbilt.edu",
   "scripts": {
     "start": "(set PORT=3006 || export PORT=3006) && react-scripts start",
     "build": "react-scripts build",

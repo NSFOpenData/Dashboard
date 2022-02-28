@@ -11,17 +11,19 @@ import {
   IonLoading,
   IonText,
 } from "@ionic/react";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./UploadPageAnimal.css";
 
 // icons
 import { chevronBackOutline } from "ionicons/icons";
+import { useHistory } from "react-router";
 
 // /* GraphQL for API Calls */
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
 
 // getting live geolocation
 import { Geolocation, Geoposition } from "@ionic-native/geolocation";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 const CREATE_ANIMAL = gql`
   mutation (
@@ -57,11 +59,19 @@ interface InternalValues {
 var numAnimalsUploaded = 0;
 
 const UploadPageAnimal: React.FC = () => {
-  type LocationInput = {
-    lat: String;
-    lon: String;
-  };
+  const history = useHistory();
 
+  useEffect(() => {
+    getLocation(); 
+  }, []);
+
+  type LocationInput = {
+    lat: string;
+    lon: string;
+  };
+  type FileInput = {
+
+  }
   /* Making Animal */
   const [animalCreatedAt, setAnimalCreatedAt] = useState<number>(0);
   const [animalLocation, setAnimalLocation] = useState<LocationInput | null>(
@@ -88,7 +98,12 @@ const UploadPageAnimal: React.FC = () => {
     },
     onCompleted: ({ result }) => {
       console.log(result);
+      history.push("/animalDashboard");
     },
+    onError: (error) => {
+      console.log(error);
+    }
+
   });
 
   ////* Uploading Files */
@@ -138,6 +153,7 @@ const UploadPageAnimal: React.FC = () => {
   }
 
   const [geoLoading, setGeoLoading] = useState<boolean>(false);
+  const [openMap, setOpenMap] = useState<boolean>(false);
   const [geoError, setGeoError] = useState<LocationError>({ showError: false });
   const [position, setPosition] = useState<Geoposition>();
 
@@ -153,7 +169,7 @@ const UploadPageAnimal: React.FC = () => {
         lat: position.coords.latitude.toString(),
         lon: position.coords.longitude.toString(),
       };
-      console.log(animalLocation);
+      console.log(currentLocation);
       setAnimalLocation(currentLocation);
     } catch (e) {
       // setGeoError({ showError: true, message: e.message });
@@ -162,97 +178,105 @@ const UploadPageAnimal: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <div className="centerItem">
-            <img
-              className="logoPic"
-              src="https://www.vanderbilt.edu/communications/brand/images/VUPrint.jpg"
-            ></img>{" "}
-          </div>
-        </IonToolbar>
-      </IonHeader>
+    <IonPage className="centerItem">
 
-      <IonContent fullscreen>
+      <IonContent className="profilePage signinregion ion-padding">
         <IonLoading
           isOpen={geoLoading}
           onDidDismiss={() => setGeoLoading(false)}
           message={"Getting Location..."}
         />
+        
 
-        <h5 className="centerItem" style={{ fontWeight: "bold" }}>
-          Upload Animal Data
-        </h5>
-        <IonItem>
-          <IonLabel>Type: </IonLabel>
+        <h1>
+          Report Lost Pet
+        </h1>
+        <div className="signin">
+        <div className="register-block">
+          <h3>Type: </h3>
           <IonInput
-            placeholder="dog, cat, bird, etc."
+            placeholder="Dog, Cat, Bird, etc."
+            className="registerInput"
             onIonChange={(e) => setAnimalType(e.detail.value!)}
           ></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Breed: </IonLabel>
+          <h3>Breed: </h3>
           <IonInput
-            placeholder="poodle, persian, canary etc."
+            placeholder="Poodle, Persian, Canary etc."
+            className="registerInput"
             onIonChange={(e) => setAnimalBreed(e.detail.value!)}
           ></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Color: </IonLabel>
+          <h3>Color: </h3>
           <IonInput
-            placeholder="black, white, brown, etc."
+            placeholder="Black, White, Brown, etc."
+            className="registerInput"
             onIonChange={(e) => setAnimalColor(e.detail.value!)}
           ></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Neighborhood: </IonLabel>
+          <h3>Neighborhood: </h3>
           <IonInput
             placeholder="Nashville, Sylvan Park, Downtown, etc."
+            className="registerInput"
             onIonChange={(e) => setAnimalNeighborhood(e.detail.value!)}
           ></IonInput>
-        </IonItem>
         
-        {filesUpload && !loading && (
-          <div className="centerItem">
-            <IonItem lines="none">
-              <input
-                type="file"
-                onChange={(event) => onFileChange(event)}
-                // accept="image/*,.pdf,.doc"
-                multiple
-              ></input>
-            </IonItem>
-          </div>
+          <input
+            type="file"
+            onChange={(event) => onFileChange(event)}
+            // accept="image/*,.pdf,.doc"
+            style={{marginBottom: '15px'}}
+            multiple
+          ></input>
+        <div>
+        <input type="radio" id="selectLocation1" name="selectLocation" value="1"
+               checked={!openMap} onChange={() => setOpenMap(false)}/>
+        <label className="locationLabel">Use Current Location</label>
+        <input type="radio" className="radioRightButton" id="selectLocation2" name="selectLocation" value="2" checked={openMap} onChange={() => setOpenMap(true)}/>
+        <label className="locationLabel">Select a Location</label>
+      </div>
+        {animalLocation && openMap && (
+          <MapContainer
+            id="mapid"
+            center={[ parseFloat(animalLocation.lat), parseFloat(animalLocation.lon)]}
+            zoom={17}
+            scrollWheelZoom={false}
+            whenCreated={(map: any) => {
+              map.on("click", function (e: any) {
+                let lat = e.latlng.lat.toString();
+                let lon = e.latlng.lng.toString();
+                setAnimalLocation({ lat, lon });
+              })
+            }}
+            
+          >
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[parseFloat(animalLocation.lat),parseFloat(animalLocation.lon)]}>
+              <Popup>{animalLocation.lat}</Popup>
+            </Marker>
+          </MapContainer>
         )}
-        { animalColor && animalBreed && animalType && animalNeighborhood && (
               <IonButton
-              color="primary"
+              color="danger"
+              className="reportButton"
               expand="block"
               onClick={() => submitFileForm()}
-              size="small"
+              disabled={!(animalColor && animalBreed && animalType && animalNeighborhood)}
             >
-              Upload!
+              Report Lost Pet
             </IonButton>
-        )}
-
-        <div className="privacyNotice">
-          <IonText className="privacyText">
-            Privacy Notice: by uploading the data, your current location will be
-            disclosed
-          </IonText>
+        </div>
         </div>
 
-        <div className="bottom">
           <IonButton
             color="light"
             routerLink={"/animalDashboard"}
             routerDirection="back"
+            className="backButton"
           >
             <IonIcon icon={chevronBackOutline}></IonIcon>
             back
           </IonButton>
-        </div>
       </IonContent>
     </IonPage>
   );
