@@ -1,7 +1,9 @@
     .centerItem {
-        justify-content: center;
+        /* justify-content: center;
         display: flex !important;
-        align-items: center !important;
+        align-items: center !important; */
+        width: 100%;
+        display: block !important;
     }
     
     .uploadMargin {
@@ -188,6 +190,7 @@
     align-items: center;
 }
 
+
 .flex-container {
     position: auto !important;
     display: flex !important;
@@ -200,12 +203,13 @@
 }
 
 .flex-child {
-    flex: 3 ;
+    flex: 3;
     height: 100%;
 }  
 
 .flex-child:first-child {
-    flex: 1 !important;
+    flex: 1;
+    max-width: 400px;
 }  
 
     /* .contact-popover .popover-content{ width: 700px; } */

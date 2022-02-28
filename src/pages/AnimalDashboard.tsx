@@ -303,7 +303,7 @@ import {
     const UpdateLoc: FunctionComponent<Props> = ({arr}) => {
       const map = useMap();
       console.log(arr);
-      map.setView([arr[0], arr[1]],18);
+      map.setView([arr[0], arr[1]],map.getZoom());
       return null;
     };
     UpdateLoc.defaultProps = {
@@ -369,7 +369,7 @@ import {
 
 
             type.length === 0 && (
-                <><IonItem lines="none" className="centerItem" button onClick={() => {
+                <><IonItem className="centerItem" button onClick={() => {
                   setAnimalLat(animal.location.lat);
                   setAnimalLon(animal.location.lon);
                 }}>
@@ -384,50 +384,19 @@ import {
                                 } ></img>
                         )}
 
-                            <h5> Animal: {animal.color} {" "} {animal.breed}</h5>
-
-                            <h5>Location: {animal.neighborhood}
-                                <IonButton  size = "small" fill="clear" color="white" onClick={() => {
-                                    setOpenMap(true);
-                                    animalOnMap(animal.location.lat, animal.location.lon)}}
-
-                                >
-                                    <IonPopover  showBackdrop = {true} isOpen={openMap} >
-
-                                        {animalLat !== 0 && animalLon !== 0 && (
-                                            <MapContainer
-                                                style={{
-                                                    height: "300px",
-                                                    width: "300px"
-                                                }}
-                                                id="mapid"
-                                                center={[animalLat, animalLon]}
-                                                zoom={12.5}
-                                                scrollWheelZoom={false}>
-                                                <TileLayer
-
-                                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                                                <Marker position={[animalLat, animalLon]}>
-                                                    <Popup>Animal Location:</Popup>
-                                                </Marker>
-                                            </MapContainer>
-                                        )}
-
-                                    </IonPopover><IonIcon className="mapIcon" icon={navigate} > </IonIcon></IonButton>
-
-                            </h5>
+                            <div><h5> Animal: {animal.color} {" "} {animal.breed}</h5>
+                             
+                            <h5>Location: {animal.neighborhood}</h5>
 
                             <h5>
                                 Time Reported:{" "} {moment(new Date(animal.createdAt)
                                     .toString()
                                     .substr(0, new Date(animal.createdAt).toString().indexOf("GMT"))).format("ddd MMM YYYY h:mm:ss a") + " (CDT)"}{" "}
-                            </h5>
+                            </h5></div>
                        
                 </IonItem>
                 <hr style={{backgroundColor: 'grey'}}/>
-                </>
-                                )
+                </>)
     ))}
     {data && (
       <IonInfiniteScroll
