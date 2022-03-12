@@ -475,7 +475,7 @@ const AnimalDashboard : React.FC = () => {
                                                                 width: 320,
                                                             }}
                                                             alt="animal"
-                                                            src={"http://localhost:3000" + "/file/" + file
+                                                            src={"https://nsf-scc1.isis.vanderbilt.edu/" + "/file/" + file
                                                     } ></img>
                                                     ))
                                                 )}
