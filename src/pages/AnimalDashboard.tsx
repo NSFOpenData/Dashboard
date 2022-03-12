@@ -468,13 +468,16 @@ const AnimalDashboard : React.FC = () => {
                                                 onClick={() => animalOnMap(animal.location.lat, animal.location.lon)}>
                                                 {animal.files !== undefined && animal.files.length !== 0 && (
                                                     // eslint-disable-next-line jsx-a11y/alt-text
-                                                    <img
-                                                        style={{
-                                                        height: 170,
-                                                        width: 320
-                                                    }}
-                                                        src={"https://nsf-scc1.isis.vanderbilt.edu/file/animal/" + animal._id + "/" + animal.files[0]
-                                                } ></img>
+                                                    animal.files.map((file : any) => (
+                                                        <img
+                                                            style={{
+                                                                height: 170,
+                                                                width: 320,
+                                                            }}
+                                                            alt="animal"
+                                                            src={"http://localhost:3000" + "/file/" + file
+                                                    } ></img>
+                                                    ))
                                                 )}
                                                 <IonCardContent>
                                                     <IonCardSubtitle>Animal Information</IonCardSubtitle>
