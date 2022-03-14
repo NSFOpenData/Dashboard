@@ -11,6 +11,8 @@ import {
     IonSearchbar,
     IonList,
     IonPopover,
+    IonSlides,
+    IonSlide,
     useIonPicker,
     useIonViewWillEnter,
     IonInfiniteScroll,
@@ -375,13 +377,18 @@ import {
                 }}>
                         <div>{animal.files !== undefined && animal.files.length !== 0 && (
                             // eslint-disable-next-line jsx-a11y/alt-text
-                            <img
+                            <IonSlides pager={true} style={{width: '380px'}}>
+                              {animal.files.map((item: any) => <IonSlide style={{width: '380px !important'}}><img
                             style={{
-                                height: 170,
-                                width: 320
+                                minHeight: 170,
+                                maxHeight: 170,
+                                minWidth: 320,
+                                maxWidth: 320,
                             }}
-                            src={"https://nsf-scc1.isis.vanderbilt.edu/file/" + animal.files[0]
-                            } ></img>
+                            src={"https://nsf-scc1.isis.vanderbilt.edu/file/" + item
+                            } ></img></IonSlide>)}
+                            </IonSlides>
+                            
                         )}
 
                             <h5> Animal: {animal.color} {" "} {animal.breed}</h5>
@@ -435,46 +442,7 @@ import {
                   .reverse()
                   .map((animal: any) => (
                     <Marker position={[animal.location.lat, animal.location.lon]}>
-                      <Popup>
-                        {animal.files !== undefined && animal.files.length !== 0 && (
-                          // eslint-disable-next-line jsx-a11y/alt-text
-                          <img
-                            style={{
-                              height: 170,
-                              width: 320,
-                            }}
-                            src={
-                              "https://nsf-scc1.isis.vanderbilt.edu/file/"+
-                              animal.files[0]
-                            }
-                          ></img>
-                        )}
-  
-                        <h5>
-                          {" "}
-                          <b>Animal:</b> {animal.color} {animal.breed}
-                        </h5>
-  
-                        <h5>
-                          <b>Location:</b> {animal.neighborhood}
-                        </h5>
-  
-                        <h5>
-                          <i>
-                            <b>Time Reported:</b>{" "}
-                            {moment(
-                              new Date(animal.createdAt)
-                                .toString()
-                                .substr(
-                                  0,
-                                  new Date(animal.createdAt)
-                                    .toString()
-                                    .indexOf("GMT")
-                                )
-                            ).format("ddd MMM YYYY h:mm:ss a") + " (CDT)"}{" "}
-                          </i>
-                        </h5>
-                      </Popup>
+                      
                     </Marker>
                   ))}
             </MapContainer>
