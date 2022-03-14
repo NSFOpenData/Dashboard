@@ -1,9 +1,7 @@
 import {
     IonContent,
     IonHeader,
-    IonTitle,
     IonPage,
-    IonToolbar,
     IonButton,
     IonButtons,
     IonDatetime,
@@ -15,25 +13,24 @@ import {
     IonPopover,
     useIonPicker,
     useIonViewWillEnter,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
   } from "@ionic/react";
-  import React, { useState, useEffect } from "react";
+  import React, { useState, useEffect, FunctionComponent } from "react";
   import "./AnimalDashboard.css";
-  import TopMenu from "./../components/TopMenu";
   import moment from "moment";
+  import PropTypes, {InferProps} from "prop-types";
   
   /* GraphQL for API Calls */
   import { gql, NetworkStatus, useQuery } from "@apollo/client";
   
   // icons
   import {
-    cloudUploadOutline,
     calendar,
     paw,
-    locate,
-    map,
-    navigateCircleOutline,
+    navigate,
   } from "ionicons/icons";
-  import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+  import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
   import { getByDisplayValue } from "@testing-library/react";
   
   const AnimalDashboard: React.FC = () => {
@@ -186,6 +183,10 @@ import {
       if (!error && !loading) {
         setSearch(data);
       }
+      if(data) {
+        setAnimalLat(data.animals[0].location.lat);
+        setAnimalLon(data.animals[0].location.lon);
+      }
     }, [data, error, loading]);
   
     if (networkStatus == NetworkStatus.refetch) console.log("refetching!");
@@ -194,8 +195,8 @@ import {
     if (data) console.log(data);
   
     // for the map
-    const [animalLat, setAnimalLat] = useState<number>(0);
-    const [animalLon, setAnimalLon] = useState<number>(0);
+    const [animalLat, setAnimalLat] = useState<number>(36.1627);
+    const [animalLon, setAnimalLon] = useState<number>(-86.7816);
   
     const animalOnMap = (latitude: number, longitude: number) => {
       setAnimalLat(latitude);
@@ -272,6 +273,7 @@ import {
   
     const [cardData, setData] = useState<string[]>([]);
     const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
+    const [map, setMap] = useState(null);
   
     const pushData = () => {
       const max = numCard + 20;
@@ -294,6 +296,19 @@ import {
       }, 500);
     };
   
+    const propTypes = {
+      arr: PropTypes.array.isRequired,
+    };
+    type Props = InferProps<typeof propTypes>;
+    const UpdateLoc: FunctionComponent<Props> = ({arr}) => {
+      const map = useMap();
+      console.log(arr);
+      map.setView([arr[0], arr[1]],map.getZoom());
+      return null;
+    };
+    UpdateLoc.defaultProps = {
+      arr: []
+    };
     useIonViewWillEnter(() => {
       pushData();
     });
@@ -342,17 +357,74 @@ import {
               
         </IonHeader>
         <IonContent>
+          <div className="flex-container">
+          <div className="flex-child">
+  <IonList className="map-container">
+
+{!loading && data
+    ?.animals
+    ?.slice(0, numCard)
+    .reverse()
+    .map((animal: any) => (
+
+
+            type.length === 0 && (
+                <><IonItem className="centerItem" button onClick={() => {
+                  setAnimalLat(animal.location.lat);
+                  setAnimalLon(animal.location.lon);
+                }}>
+                        {animal.files !== undefined && animal.files.length !== 0 && (
+                            // eslint-disable-next-line jsx-a11y/alt-text
+                            <img
+                                style={{
+                                    height: 170,
+                                    width: 320
+                                }}
+                                src={"https://nsf-scc1.isis.vanderbilt.edu/file/animal/" + animal._id + "/" + animal.files[0]
+                                } ></img>
+                        )}
+
+                            <div><h5> Animal: {animal.color} {" "} {animal.breed}</h5>
+                             
+                            <h5>Location: {animal.neighborhood}</h5>
+
+                            <h5>
+                                Time Reported:{" "} {moment(new Date(animal.createdAt)
+                                    .toString()
+                                    .substr(0, new Date(animal.createdAt).toString().indexOf("GMT"))).format("ddd MMM YYYY h:mm:ss a") + " (CDT)"}{" "}
+                            </h5></div>
+                       
+                </IonItem>
+                <hr style={{backgroundColor: 'grey'}}/>
+                </>)
+    ))}
+    {data && (
+      <IonInfiniteScroll
+        threshold="100px"
+        disabled={isInfiniteDisabled}
+        onIonInfinite={loadData}
+      >
+        <IonInfiniteScrollContent
+          loadingSpinner="bubbles"
+          loadingText="Loading more data..."
+        />
+      </IonInfiniteScroll>
+    )
+    }
+</IonList>
+</div>
           {data && (
-            <MapContainer
-              className="mapContainer"
+            <div className="flex-child">
+              <MapContainer
+              className="map-container"
               id="mapid"
               center={[
-                data.animals[0].location.lat,
-                data.animals[0].location.lon,
+                animalLat, animalLon
               ]}
               zoom={17}
               scrollWheelZoom={true}
             >
+              <UpdateLoc arr={[animalLat, animalLon]}/>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -408,7 +480,10 @@ import {
                     </Marker>
                   ))}
             </MapContainer>
+            </div>
+            
           )}
+          </div>
         </IonContent>
         <IonPopover isOpen={open} onDidDismiss={() => setOpen(false)}>
           <div className="customQueryPopup">
