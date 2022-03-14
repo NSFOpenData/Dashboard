@@ -359,7 +359,7 @@ import {
         <IonContent>
           <div className="flex-container">
           <div className="flex-child">
-  <IonList className="map-container">
+  <IonList className="card-list">
 
 {!loading && data
     ?.animals
@@ -373,18 +373,18 @@ import {
                   setAnimalLat(animal.location.lat);
                   setAnimalLon(animal.location.lon);
                 }}>
-                        {animal.files !== undefined && animal.files.length !== 0 && (
+                        <div>{animal.files !== undefined && animal.files.length !== 0 && (
                             // eslint-disable-next-line jsx-a11y/alt-text
                             <img
-                                style={{
-                                    height: 170,
-                                    width: 320
-                                }}
-                                src={"https://nsf-scc1.isis.vanderbilt.edu/file/animal/" + animal._id + "/" + animal.files[0]
-                                } ></img>
+                            style={{
+                                height: 170,
+                                width: 320
+                            }}
+                            src={"https://nsf-scc1.isis.vanderbilt.edu/file/animal/" + animal._id + "/" + animal.files[0]
+                            } ></img>
                         )}
 
-                            <div><h5> Animal: {animal.color} {" "} {animal.breed}</h5>
+                            <h5> Animal: {animal.color} {" "} {animal.breed}</h5>
                              
                             <h5>Location: {animal.neighborhood}</h5>
 

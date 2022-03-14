@@ -202,6 +202,13 @@
     height: 100%;
 }
 
+.card-list {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
 .flex-child {
     flex: 3;
     height: 100%;
