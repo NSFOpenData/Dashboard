@@ -380,7 +380,7 @@ import {
                                 height: 170,
                                 width: 320
                             }}
-                            src={"https://nsf-scc1.isis.vanderbilt.edu/file/animal/" + animal._id + "/" + animal.files[0]
+                            src={"https://nsf-scc1.isis.vanderbilt.edu/file/" + animal.files[0]
                             } ></img>
                         )}
 
@@ -444,9 +444,7 @@ import {
                               width: 320,
                             }}
                             src={
-                              "https://nsf-scc1.isis.vanderbilt.edu/file/animal/" +
-                              animal._id +
-                              "/" +
+                              "https://nsf-scc1.isis.vanderbilt.edu/file/"+
                               animal.files[0]
                             }
                           ></img>
