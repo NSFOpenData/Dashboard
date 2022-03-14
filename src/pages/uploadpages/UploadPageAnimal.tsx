@@ -117,8 +117,6 @@ const UploadPageAnimal: React.FC = () => {
 
   const submitFileForm = async () => {
    
-    await getLocation(); 
-    
     console.log(values.current.file.length)
 
     const formData = new FormData();
