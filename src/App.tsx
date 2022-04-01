@@ -88,7 +88,7 @@ const App: React.FC = () => (
             path="/deliveryDashboard"
             component={DeliveryDashboard}
           />
-          <PrivateRoute
+          <Route
             exact
             path="/animalDashboard"
             component={AnimalDashboard}
@@ -98,7 +98,7 @@ const App: React.FC = () => (
             path="/uploadPageL"
             component={UploadPageLicense}
           />
-          <PrivateRoute
+          <Route
             exact
             path="/uploadPageA"
             component={UploadPageAnimal}

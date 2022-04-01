@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "534112304877",
+    "project_id": "nsfopendata",
+    "storage_bucket": "nsfopendata.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534112304877:android:0f8217ee3c44945a1cd6e4",
+        "android_client_info": {
+          "package_name": "com.isis.authentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534112304877-u2ol3coivb3bsdk6ev05k3vfrc9ukt72.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.isis.authentication",
+            "certificate_hash": "3c803da763cea6b08f260225072201430aecd57b"
+          }
+        },
+        {
+          "client_id": "534112304877-oe1co2qm5pufrov9sf0d5i4d62ms3721.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4Nu-gALa8l8l3TtHHkkDq3_BmyqKxjCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "534112304877-oe1co2qm5pufrov9sf0d5i4d62ms3721.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "534112304877-n0ogca8trktop5nt75aajoglopodehti.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Realize.Measurement"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

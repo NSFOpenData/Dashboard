@@ -272,6 +272,10 @@ ion-toast::part(button) {
   --ion-color-base: var(--ion-color-vanderbilt);
 }
 
+.item .item-content {
+  background-color: transparent !important;
+}
+
 :host {
   --padding-top: 0;
   --padding-bottom: 0;

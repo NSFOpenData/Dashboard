@@ -18,7 +18,7 @@ import {
     IonInfiniteScroll,
     IonInfiniteScrollContent,
   } from "@ionic/react";
-  import React, { useState, useEffect, FunctionComponent } from "react";
+  import React, { useState, useEffect, FunctionComponent, useRef } from "react";
   import "./AnimalDashboard.css";
   import moment from "moment";
   import PropTypes, {InferProps} from "prop-types";
@@ -210,6 +210,10 @@ import {
     // for number of animals being shown
     const [numCard, setNumCard] = useState<number>(data?.animals?.length);
   
+    const [swiper, setSwiper] = useState<any>({});
+    const init = async function(this: any) {
+      setSwiper(await this.getSwiper());
+  };
     // for getting live geolocation
     interface LocationError {
       showError: boolean;
@@ -287,6 +291,7 @@ import {
   
       setData([...cardData, ...newData]);
     };
+    const slides = useRef<any>(null);
     const loadData = (animal: any) => {
       setTimeout(() => {
         pushData();
@@ -296,6 +301,19 @@ import {
           setInfiniteDisabled(true);
         }
       }, 500);
+    };
+
+    const onBtnClicked = async (direction: string) => {
+      if (slides.current) {
+        const swiper = await slides.current.getSwiper();
+        if (direction === "next") {
+          console.log(swiper)
+          swiper.slideNext();
+        } else if (direction === "prev") {
+          swiper.slidePrev();
+        }
+
+      }
     };
   
     const propTypes = {
@@ -377,8 +395,8 @@ import {
                 }}>
                         <div>{animal.files !== undefined && animal.files.length !== 0 && (
                             // eslint-disable-next-line jsx-a11y/alt-text
-                            <IonSlides pager={true} style={{width: '380px'}}>
-                              {animal.files.map((item: any) => <IonSlide style={{width: '380px !important'}}><img
+                            <IonSlides style={{width: '400px', backgroundColor: 'black'}} ref={slides}>
+                              {animal.files.map((item: any, index: number) => <IonSlide key={index} tabIndex={index}><button onClick={() => onBtnClicked("next")}><IonIcon name="arrow-back"></IonIcon></button><img
                             style={{
                                 minHeight: 170,
                                 maxHeight: 170,
@@ -386,11 +404,13 @@ import {
                                 maxWidth: 320,
                             }}
                             src={"https://nsf-scc1.isis.vanderbilt.edu/file/" + item
-                            } ></img></IonSlide>)}
+                            }
+                            alt="animal"
+                            ></img></IonSlide>)}
                             </IonSlides>
                             
                         )}
-
+                        <div style={{padding: '6px 16px'}}>
                             <h5> Animal: {animal.color} {" "} {animal.breed}</h5>
                              
                             <h5>Location: {animal.neighborhood}</h5>
@@ -399,10 +419,11 @@ import {
                                 Time Reported:{" "} {moment(new Date(animal.createdAt)
                                     .toString()
                                     .substr(0, new Date(animal.createdAt).toString().indexOf("GMT"))).format("ddd MMM YYYY h:mm:ss a") + " (CDT)"}{" "}
-                            </h5></div>
+                            </h5>
+                        </div></div>
                        
                 </IonItem>
-                <hr style={{backgroundColor: 'grey'}}/>
+                <hr style={{backgroundColor: 'grey', opacity: .5, margin: 0}}/>
                 </>)
     ))}
     {data && (
@@ -441,7 +462,12 @@ import {
                   ?.slice(0, numCard)
                   .reverse()
                   .map((animal: any) => (
-                    <Marker position={[animal.location.lat, animal.location.lon]}>
+                    <Marker position={[animal.location.lat, animal.location.lon]} eventHandlers={{
+                      click: () => {
+                          setAnimalLat(animal.location.lat);
+                          setAnimalLon(animal.location.lon);
+                        }
+                    }}>
                       
                     </Marker>
                   ))}

@@ -11,7 +11,7 @@ import {
 import "./ProfilePage.css";
 
 import React, { useState, useEffect } from "react";
-import { Plugins, CameraResultType } from "@capacitor/core";
+import { Camera, CameraResultType } from "@capacitor/camera";
 
 import { useAuth } from "../../AuthContext";
 
@@ -21,7 +21,6 @@ import { gql, NetworkStatus, useMutation, useQuery } from "@apollo/client";
 // for number of animals contributed
 import { numAnimalsUploaded } from "../../pages/uploadpages/UploadPageAnimal";
 
-const { Camera } = Plugins;
 
 const ProfilePage: React.FC = () => {
   const { logOut, currentUser, getAuthToken } = useAuth();

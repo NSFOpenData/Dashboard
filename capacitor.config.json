@@ -1,6 +1,6 @@
 {
   "appId": "com.isis.authentication",
-  "appName": "Authentication",
+  "appName": "NSFDashboard",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
@@ -9,9 +9,12 @@
       "launchShowDuration": 0
     },
     "GoogleAuth": {
-        "scopes": ["profile","email"],
-        "serverClientId": "160012889513-qkxxxxxxxxxxxxxxxxxxxxxxxxkgubrp5ve.apps.googleusercontent.com"
-      }
+      "scopes": [
+        "profile",
+        "email"
+      ],
+      "serverClientId": "160012889513-qkxxxxxxxxxxxxxxxxxxxxxxxxkgubrp5ve.apps.googleusercontent.com"
+    }
   },
   "cordova": {}
 }

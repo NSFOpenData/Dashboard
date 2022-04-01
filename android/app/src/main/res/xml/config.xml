@@ -6,9 +6,12 @@
     <param name="android-package" value="org.apache.cordova.camera.CameraLauncher"/>
   </feature>
 
+  <feature name="Geolocation">
+    <param name="android-package" value="org.apache.cordova.geolocation.Geolocation"/>
+  </feature>
+
   <feature name="OpenALPR">
     <param name="android-package" value="org.apache.cordova.openalpr.OpenALPR"/>
   </feature>
-
   
 </widget>
