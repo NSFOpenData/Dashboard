@@ -381,19 +381,18 @@ import {
           <div className="flex-child">
   <IonList className="card-list">
 
-{!loading && data
+{!loading && search
     ?.animals
     ?.slice(0, numCard)
     .reverse()
-    .map((animal: any) => (
-
+    .map((animal:any, index: any) => (
 
             type.length === 0 && (
                 <><IonItem className="centerItem" button onClick={() => {
                   setAnimalLat(animal.location.lat);
                   setAnimalLon(animal.location.lon);
                 }}>
-                        <div>{animal.files !== undefined && animal.files.length !== 0 && (
+                        < div key = {index}>{animal.files !== undefined && animal.files.length !== 0 && (
                             // eslint-disable-next-line jsx-a11y/alt-text
                             <IonSlides style={{width: '400px', backgroundColor: 'black'}} ref={slides}>
                               {animal.files.map((item: any, index: number) => <IonSlide key={index} tabIndex={index}><button onClick={() => onBtnClicked("next")}><IonIcon name="arrow-back"></IonIcon></button><img
@@ -461,8 +460,8 @@ import {
                 search?.animals
                   ?.slice(0, numCard)
                   .reverse()
-                  .map((animal: any) => (
-                    <Marker position={[animal.location.lat, animal.location.lon]} eventHandlers={{
+                  .map((animal: any, index: any) => (
+                    <Marker key = {index} position={[animal.location.lat, animal.location.lon]} eventHandlers={{
                       click: () => {
                           setAnimalLat(animal.location.lat);
                           setAnimalLon(animal.location.lon);
