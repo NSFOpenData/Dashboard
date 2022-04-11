@@ -223,19 +223,15 @@ import {
     const onSearchChange = (e: any) => {
       const value = e.target.value.toLowerCase();
       console.log(data);
-      var temp = data.animals;
-      var result = temp.filter(function (animal: {
-        breed: string;
-        type: string;
-        color: string;
-      }) {
-        return (
-          animal.breed.toLowerCase().includes(value) ||
-          animal.type.toLowerCase().includes(value) ||
-          animal.color.toLowerCase().includes(value)
-        );
-      });
-      setSearch({ animals: result });
+      setSearch(({
+        animals: data.animals.filter(function (animal: any) {
+          return (
+            animal.breed.toLowerCase().includes(value) ||
+            animal.type.toLowerCase().includes(value) ||
+            animal.color.toLowerCase().includes(value)
+          );
+        }),
+        }));
     };
   
     function focusMe(event: any) {
@@ -381,14 +377,14 @@ import {
           <div className="flex-child">
   <IonList className="card-list">
 
-{!loading && search
+{!loading && search && search
     ?.animals
     ?.slice(0, numCard)
     .reverse()
     .map((animal:any, index: any) => (
 
             type.length === 0 && (
-                <><IonItem className="centerItem" button onClick={() => {
+                <div key={JSON.stringify(animal)}><IonItem className="centerItem" button onClick={() => {
                   setAnimalLat(animal.location.lat);
                   setAnimalLon(animal.location.lon);
                 }}>
@@ -423,7 +419,7 @@ import {
                        
                 </IonItem>
                 <hr style={{backgroundColor: 'grey', opacity: .5, margin: 0}}/>
-                </>)
+                </div>)
     ))}
     {data && (
       <IonInfiniteScroll
