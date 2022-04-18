@@ -35,6 +35,7 @@ const AuthMain: React.FC = () => {
 
   const handleLogin = async () => {
     await logInWithGoogle();
+    history.push("/profilePage");
   };
 
   useEffect(() => {

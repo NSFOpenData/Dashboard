@@ -8,12 +8,20 @@
 		"SplashScreen": {
 			"launchShowDuration": 0
 		},
+		"CapacitorFirebaseAuth": {
+			"providers": [
+				"google.com"
+			],
+			"languageCode": "en",
+			"nativeAuth": false
+		},
 		"GoogleAuth": {
 			"scopes": [
 				"profile",
 				"email"
 			],
-			"serverClientId": "160012889513-qkxxxxxxxxxxxxxxxxxxxxxxxxkgubrp5ve.apps.googleusercontent.com"
+			"serverClientId": "160012889513-qkxxxxxxxxxxxxxxxxxxxxxxxxkgubrp5ve.apps.googleusercontent.com",
+			"forceCodeForRefreshToken": true
 		}
 	},
 	"cordova": {}

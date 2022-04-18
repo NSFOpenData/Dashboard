@@ -222,7 +222,6 @@ import {
   
     const onSearchChange = (e: any) => {
       const value = e.target.value.toLowerCase();
-      console.log(data);
       var temp = data.animals;
       var result = temp.filter(function (animal: {
         breed: string;
@@ -235,7 +234,10 @@ import {
           animal.color.toLowerCase().includes(value)
         );
       });
-      setSearch({ animals: result });
+      setSearch((prev: any) => ({
+        ...prev,
+        animals: result,
+        }));
     };
   
     function focusMe(event: any) {
@@ -381,7 +383,7 @@ import {
           <div className="flex-child">
   <IonList className="card-list">
 
-{!loading && search
+{!loading && search && search
     ?.animals
     ?.slice(0, numCard)
     .reverse()

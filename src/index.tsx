@@ -33,14 +33,13 @@ const bearer = "Bearer ";
 //   }),
 //   cache: new InMemoryCache(),
 // });
-console.log(process.env, "process.env");
 const httpLink = createUploadLink({
   uri: "https://nsf-scc1.isis.vanderbilt.edu/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   // return the headers to the context so httpLink can read them
   return {
     headers: {

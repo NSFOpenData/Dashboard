@@ -117,11 +117,11 @@ ion-content.ion-padding{
 
 @media (prefers-color-scheme: dark) {
   ion-content.ion-padding{
-    --background:black;
+    --background:#121212;
   }
 
   .button-content {
-    background-color: #3f3f3f;
+    background-color: #75a1bd32;
   }
 
   .dash-title {

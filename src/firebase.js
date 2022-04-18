@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdtgJTpg8-pYIb7sMny70qeJICM-fiSqY",
@@ -13,6 +14,17 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const auth = getAuth(firebaseApp);
+// const auth = getAuth(firebaseApp);
 
+GoogleAuth.initialize({
+  clientId:
+    // "695008288367-8q1ds47hs82g6tdbnokrc5dg4g18el7b.apps.googleusercontent.com",
+    "534112304877-oe1co2qm5pufrov9sf0d5i4d62ms3721.apps.googleusercontent.com",
+  androidClientId:
+    "534112304877-u2ol3coivb3bsdk6ev05k3vfrc9ukt72.apps.googleusercontent.com",
+  scopes: ["profile", "email"],
+  grantOfflineAccess: true,
+});
+const auth = getAuth(firebaseApp);
+export { firebaseApp };
 export default auth;

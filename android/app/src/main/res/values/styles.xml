@@ -19,4 +19,5 @@
     <style name="AppTheme.NoActionBarLaunch" parent="AppTheme.NoActionBar">
         <item name="android:background">@drawable/splash</item>
     </style>
+    <string name="server_client_id">534112304877-oe1co2qm5pufrov9sf0d5i4d62ms3721.apps.googleusercontent.com</string>
 </resources>

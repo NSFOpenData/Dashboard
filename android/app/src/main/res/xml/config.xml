@@ -13,5 +13,6 @@
   <feature name="OpenALPR">
     <param name="android-package" value="org.apache.cordova.openalpr.OpenALPR"/>
   </feature>
+
   
 </widget>

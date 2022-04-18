@@ -49,7 +49,7 @@ const ProfilePage: React.FC = () => {
   const [login] = useMutation(LOGIN_MUTATION, {
     
     onCompleted: ({ login }) => {
-      console.log("login.token")
+      console.log(login.token, 'hereerererer')
       localStorage.setItem("token", login.token);
       setUser(login.user);
       setIsLoading(false);
@@ -71,7 +71,7 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     getAuthToken().then((token: any) => {
-      console.log(token);
+      console.log(token, 'here');
       login({ variables: { idToken: token, email: currentUser.email } });
     });
     console.log(getAuthToken())
