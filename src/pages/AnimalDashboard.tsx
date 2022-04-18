@@ -222,21 +222,15 @@ import {
   
     const onSearchChange = (e: any) => {
       const value = e.target.value.toLowerCase();
-      var temp = data.animals;
-      var result = temp.filter(function (animal: {
-        breed: string;
-        type: string;
-        color: string;
-      }) {
-        return (
-          animal.breed.toLowerCase().includes(value) ||
-          animal.type.toLowerCase().includes(value) ||
-          animal.color.toLowerCase().includes(value)
-        );
-      });
-      setSearch((prev: any) => ({
-        ...prev,
-        animals: result,
+      console.log(data);
+      setSearch(({
+        animals: data.animals.filter(function (animal: any) {
+          return (
+            animal.breed.toLowerCase().includes(value) ||
+            animal.type.toLowerCase().includes(value) ||
+            animal.color.toLowerCase().includes(value)
+          );
+        }),
         }));
     };
   
@@ -390,7 +384,7 @@ import {
     .map((animal:any, index: any) => (
 
             type.length === 0 && (
-                <><IonItem className="centerItem" button onClick={() => {
+                <div key={JSON.stringify(animal)}><IonItem className="centerItem" button onClick={() => {
                   setAnimalLat(animal.location.lat);
                   setAnimalLon(animal.location.lon);
                 }}>
@@ -425,7 +419,7 @@ import {
                        
                 </IonItem>
                 <hr style={{backgroundColor: 'grey', opacity: .5, margin: 0}}/>
-                </>)
+                </div>)
     ))}
     {data && (
       <IonInfiniteScroll
